@@ -1,0 +1,158 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System;
+using OSCsharp.Data;
+
+namespace UniOSC{
+
+	/// <summary>
+	/// Muse EEG Headset: MuseMonitor OSC Manager
+	/// </summary>
+	[AddComponentMenu("UniOSC/MuseMonitor")]
+	public class UniOSCMuseMonitor :  UniOSCEventTarget {
+
+		#region public
+		public string Delta_Address;
+		public string Theta_Address;
+		public string Alpha_Address;
+		public string Beta_Address;
+		public string Gamma_Address;
+
+		public string Gyro_Address;
+		public string Acc_Address;
+		public string EEG_Address;
+
+		public string Blink_Address;
+		public string JawClench_Address;
+		public string TouchingForehead_Address;
+		public string Horseshoe_Address;
+		public string Batt_Address;
+		public static UniOSCMuseMonitor main;
+		#endregion
+
+		#region public
+		public float d0,d1,d2,d3,t0,t1,t2,t3,a0,a1,a2,a3,b0,b1,b2,b3,g0,g1,g2,g3;
+		public float gyroX, gyroY, gyroZ, accX, accY, accZ, eeg0, eeg1, eeg2, eeg3, eeg4;
+		public float blink, jc, touchingforehead, batt, hs0, hs1, hs2, hs3;
+		#endregion
+		void Awake(){
+			main = this;
+		}
+
+		public override void OnEnable(){
+			_Init();
+			base.OnEnable();
+		}
+
+		private void _Init(){
+
+			//receiveAllAddresses = false;
+			_oscAddresses.Clear();
+			if(!_receiveAllAddresses){
+				_oscAddresses.Add(Delta_Address);
+				_oscAddresses.Add(Theta_Address);
+				_oscAddresses.Add(Alpha_Address);
+				_oscAddresses.Add(Beta_Address);
+				_oscAddresses.Add(Gamma_Address);
+
+				_oscAddresses.Add(Gyro_Address);
+				_oscAddresses.Add(Acc_Address);
+				_oscAddresses.Add(EEG_Address);
+
+				_oscAddresses.Add(Blink_Address);
+				_oscAddresses.Add(JawClench_Address);
+				_oscAddresses.Add (TouchingForehead_Address);
+				_oscAddresses.Add(Horseshoe_Address);
+				_oscAddresses.Add (Batt_Address);
+			}
+		}
+
+
+		public override void OnOSCMessageReceived(UniOSCEventArgs args){
+			//args.Address
+			//(OscMessage)args.Packet) => The OscMessage object
+			//(OscMessage)args.Packet).Data  (get the data of the OscMessage as an object[] array)
+			OscMessage msg = (OscMessage)args.Packet;
+
+			//if (msg.Data.Count < 1)
+			//	return;
+			//if (!(msg.Data [0] is System.Single))
+			//	return;
+
+			if (String.Equals (args.Address, Delta_Address)) {
+				d0 = (float)msg.Data [0];
+				d1 = (float)msg.Data [1];
+				d2 = (float)msg.Data [2];
+				d3 = (float)msg.Data [3];
+			}
+			if (String.Equals (args.Address, Theta_Address)) {
+				t0 = (float)msg.Data [0];
+				t1 = (float)msg.Data [1];
+				t2 = (float)msg.Data [2];
+				t3 = (float)msg.Data [3];
+			}
+			if (String.Equals (args.Address, Alpha_Address)) {
+				a0 = (float)msg.Data [0];
+				a1 = (float)msg.Data [1];
+				a2 = (float)msg.Data [2];
+				a3 = (float)msg.Data [3];
+			}
+			if (String.Equals (args.Address, Beta_Address)) {
+				b0 = (float)msg.Data [0];
+				b1 = (float)msg.Data [1];
+				b2 = (float)msg.Data [2];
+				b3 = (float)msg.Data [3];
+			}
+			if (String.Equals (args.Address, Gamma_Address)) {
+				g0 = (float)msg.Data [0];
+				g1 = (float)msg.Data [1];
+				g2 = (float)msg.Data [2];
+				g3 = (float)msg.Data [3];
+			}
+			if (String.Equals (args.Address, Gyro_Address)) {
+				gyroX = (float)msg.Data [0];
+				gyroY = (float)msg.Data [1];
+				gyroZ = (float)msg.Data [2];
+			}
+			if (String.Equals (args.Address, Acc_Address)) {
+				accX = (float)msg.Data [0];
+				accY = (float)msg.Data [1];
+				accZ = (float)msg.Data [2];
+			}
+			if (String.Equals (args.Address, EEG_Address)) {
+				eeg0 = (float)msg.Data [0];
+				eeg1 = (float)msg.Data [1];
+				eeg2 = (float)msg.Data [2];
+				eeg3 = (float)msg.Data [3];
+				eeg4 = (float)msg.Data [4];
+			}
+			if(String.Equals(args.Address,Horseshoe_Address)){
+				hs0 = (float)msg.Data [0];
+				hs1 = (float)msg.Data [1];
+				hs2 = (float)msg.Data [2];
+				hs3 = (float)msg.Data [3];
+			}
+			if (String.Equals (args.Address, Blink_Address)) {
+				blink = (int)msg.Data [0];
+				Invoke ("blinkOff", 0.3f);
+			}
+			if (String.Equals (args.Address, JawClench_Address)) {
+				jc = (int)msg.Data [0];
+				Invoke ("jawOff", 0.3f);
+			}
+			if (String.Equals (args.Address, TouchingForehead_Address)) {
+				touchingforehead = (int)msg.Data [0];
+			}
+			if (String.Equals (args.Address, Batt_Address)) {
+				batt = (int)msg.Data [0]/100;
+			}
+		}
+		void blinkOff(){
+			blink = 0;
+		}
+		void jawOff(){
+			jc = 0;
+		}
+	}
+}
