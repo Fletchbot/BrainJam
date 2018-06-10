@@ -24,7 +24,8 @@ namespace UniOSC {
         private float _gX, _gY, _gZ, _accX, _accY, _accZ, _eeg0, _eeg1, _eeg2, _eeg3, _eeg4;
         private float d0_abs, d1_abs, d2_abs, d3_abs, t0_abs, t1_abs, t2_abs, t3_abs, a0_abs, a1_abs, a2_abs, a3_abs, b0_abs, b1_abs, b2_abs, b3_abs, g0_abs, g1_abs, g2_abs, g3_abs;
         private float _blink, _jc, _istouching, _batt, _hs0, _hs1, _hs2, _hs3;
-
+        private float d_r0, d_r1, d_r2, d_r3, t_r0, t_r1, t_r2, t_r3, a_r0, a_r1, a_r2, a_r3, b_r0, b_r1, b_r2, b_r3, g_r0, g_r1, g_r2, g_r3;
+        private float delta_abs, delta_relative, theta_abs, theta_relative, alpha_abs, alpha_relative, beta_abs, beta_relative, gamma_abs, gamma_relative;
         public override void Awake()
         {
             base.Awake();
@@ -43,26 +44,56 @@ namespace UniOSC {
             AppendData(0f);//d1_abs
             AppendData(0f);//d2_abs
             AppendData(0f);//d3_abs
+            AppendData(0f);//d0_r
+            AppendData(0f);//d1_r
+            AppendData(0f);//d2_r
+            AppendData(0f);//d3_r
+            AppendData(0f);//delta_abs
+            AppendData(0f);//delta_relative
 
             AppendData(0f);//t0_abs
             AppendData(0f);//t1_abs
             AppendData(0f);//t2_abs
             AppendData(0f);//t3_abs
+            AppendData(0f);//t0_r
+            AppendData(0f);//t1_r
+            AppendData(0f);//t2_r
+            AppendData(0f);//t3_r
+            AppendData(0f);//theta_abs
+            AppendData(0f);//theta_relative
 
             AppendData(0f);//a0_abs
             AppendData(0f);//a1_abs
             AppendData(0f);//a2_abs
             AppendData(0f);//a3_abs
+            AppendData(0f);//a0_r
+            AppendData(0f);//a1_r
+            AppendData(0f);//a2_r
+            AppendData(0f);//a3_r
+            AppendData(0f);//alpha_abs
+            AppendData(0f);//alpha_relative
 
             AppendData(0f);//b0_abs
             AppendData(0f);//b1_abs
             AppendData(0f);//b2_abs
             AppendData(0f);//b3_abs
+            AppendData(0f);//b0_r
+            AppendData(0f);//b1_r
+            AppendData(0f);//b2_r
+            AppendData(0f);//b3_r
+            AppendData(0f);//beta_abs
+            AppendData(0f);//beta_relative
 
             AppendData(0f);//g0_abs
             AppendData(0f);//g1_abs
             AppendData(0f);//g2_abs
             AppendData(0f);//g3_abs
+            AppendData(0f);//g0_r
+            AppendData(0f);//g1_r
+            AppendData(0f);//g2_r
+            AppendData(0f);//g3_r
+            AppendData(0f);//g_abs
+            AppendData(0f);//gamma_relative
 
             AppendData(0f);//Gyro0
             AppendData(0f);//Gyro1
@@ -181,26 +212,56 @@ namespace UniOSC {
             d1_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().d1;
             d2_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().d2;
             d3_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().d3;
+            d_r0 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().d_r0;
+            d_r1 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().d_r1;
+            d_r2 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().d_r2;
+            d_r3= MuseMonitor.GetComponent<UniOSCMuseMonitor>().d_r3;
+            delta_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().delta_abs;
+            delta_relative = MuseMonitor.GetComponent<UniOSCMuseMonitor>().delta_relative;
 
             t0_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().t0;
             t1_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().t1;
             t2_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().t2;
             t3_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().t3;
+            t_r0 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().t_r0;
+            t_r1 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().t_r1;
+            t_r2 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().t_r2;
+            t_r3 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().t_r3;
+            theta_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().theta_abs;
+            theta_relative = MuseMonitor.GetComponent<UniOSCMuseMonitor>().theta_relative;
 
             a0_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a0;
             a1_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a1;
             a2_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a2;
             a3_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a3;
+            a_r0 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a_r0;
+            a_r1 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a_r1;
+            a_r2 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a_r2;
+            a_r3 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a_r3;
+            alpha_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().alpha_abs;
+            alpha_relative = MuseMonitor.GetComponent<UniOSCMuseMonitor>().alpha_relative;
 
             b0_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().b0;
             b1_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().b1;
             b2_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().b2;
             b3_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().b3;
+            b_r0 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().b_r0;
+            b_r1 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().b_r1;
+            b_r2 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().b_r2;
+            b_r3 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().b_r3;
+            beta_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().beta_abs;
+            beta_relative = MuseMonitor.GetComponent<UniOSCMuseMonitor>().beta_relative;
 
             g0_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().g0;
             g1_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().g1;
             g2_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().g2;
             g3_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().g3;
+            g_r0 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().g_r0;
+            g_r1 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().g_r1;
+            g_r2 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().g_r2;
+            g_r3 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().g_r3;
+            gamma_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().gamma_abs;
+            gamma_relative = MuseMonitor.GetComponent<UniOSCMuseMonitor>().gamma_relative;
 
             _gX = MuseMonitor.GetComponent<UniOSCMuseMonitor>().gyroX;
             _gY = MuseMonitor.GetComponent<UniOSCMuseMonitor>().gyroY;
@@ -352,7 +413,8 @@ namespace UniOSC {
                   msg.UpdateDataAt(36, _hs1);
                   msg.UpdateDataAt(37, _hs2);
                   msg.UpdateDataAt(38, _hs3);
-              }
+
+            }
 
               _SendOSCMessage(_OSCeArg);
            

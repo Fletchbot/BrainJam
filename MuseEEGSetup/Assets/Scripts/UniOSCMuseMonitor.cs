@@ -35,6 +35,9 @@ namespace UniOSC{
 		public float d0,d1,d2,d3,t0,t1,t2,t3,a0,a1,a2,a3,b0,b1,b2,b3,g0,g1,g2,g3;
 		public float gyroX, gyroY, gyroZ, accX, accY, accZ, eeg0, eeg1, eeg2, eeg3, eeg4;
 		public float blink, jc, touchingforehead, batt, hs0, hs1, hs2, hs3;
+
+        public float a_r0, a_r1, a_r2, a_r3, b_r0,b_r1,b_r2,b_r3, g_r0, g_r1, g_r2, g_r3, t_r0, t_r1, t_r2, t_r3,d_r0,d_r1,d_r2,d_r3;
+        public float delta_relative, alpha_relative, theta_relative, beta_relative, gamma_relative, delta_abs, alpha_abs, theta_abs, beta_abs, gamma_abs;
 		#endregion
 		void Awake(){
 			main = this;
@@ -67,9 +70,51 @@ namespace UniOSC{
 				_oscAddresses.Add (Batt_Address);
 			}
 		}
+        private void FixedUpdate()
+        {
+            d_r0 = (d0 / (d0 + a0 + b0 + g0 + t0));
+            d_r1 = (d1 / (d1 + a1 + b1 + g1 + t1));
+            d_r2 = (d2 / (d2 + a2 + b2 + g2 + t2));
+            d_r3 = (d3 / (d3 + a3 + b3 + g3 + t3));
+
+            delta_abs = (4 / (d0 + d1 + d2 + d3));
+            delta_relative = (4 / (d_r0 + d_r1 + d_r2 + d_r3));
+
+            t_r0 = (t0 / (t0 + a0 + d0 + g0 + b0));
+            t_r1 = (t1 / (t1 + a1 + d1 + g1 + b1));
+            t_r2 = (t2 / (t2 + a2 + d2 + g2 + b2));
+            t_r3 = (t3 / (t3 + a3 + d3 + g3 + b3));
+
+            theta_abs = (4 / (t0 + t1 + t2 + t3));
+            theta_relative = (4 / (t_r0 + t_r1 + t_r2 + t_r3));
+
+            a_r0 = (a0 / (a0 + b0 + d0 + g0 + t0));
+            a_r1 = (a1 / (a1 + b1 + d1 + g1 + t1));
+            a_r2 = (a2 / (a2 + b2 + d2 + g2 + t2));
+            a_r3 = (a3 / (a3 + b3 + d3 + g3 + t3));
+
+            alpha_abs = (4 / (a0 + a1 + a2 + a3));
+            alpha_relative = (4 / (a_r0 + a_r1 + a_r2 + a_r3));
+
+            b_r0 = (b0 / (b0 + a0 + d0 + g0 + t0));
+            b_r1 = (b1 / (b1 + a1 + d1 + g1 + t1));
+            b_r2 = (b2 / (b2 + a2 + d2 + g2 + t2));
+            b_r3 = (b3 / (b3 + a3 + d3 + g3 + t3));
+
+            beta_abs = (4 / (b0 + b1 + b2 + b3));
+            beta_relative = (4 / (b_r0 + b_r1 + b_r2 + b_r3));
+
+            g_r0 = (g0 / (g0 + a0 + d0 + b0 + t0));
+            g_r1 = (g1 / (g1 + a1 + d1 + b1 + t1));
+            g_r2 = (g2 / (g2 + a2 + d2 + b2 + t2));
+            g_r3 = (g3 / (g3 + a3 + d3 + b3 + t3));
+
+            gamma_abs = (4 / (g0 + g1 + g2 + g3));
+            gamma_relative = (4 / (g_r0 + g_r1 + g_r2 + g_r3));
+        }
 
 
-		public override void OnOSCMessageReceived(UniOSCEventArgs args){
+        public override void OnOSCMessageReceived(UniOSCEventArgs args){
 			//args.Address
 			//(OscMessage)args.Packet) => The OscMessage object
 			//(OscMessage)args.Packet).Data  (get the data of the OscMessage as an object[] array)
