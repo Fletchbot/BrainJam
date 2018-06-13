@@ -345,6 +345,9 @@
     <Reference Include="Boo.Lang">
       <HintPath>Library\UnityAssemblies\Boo.Lang.dll</HintPath>
     </Reference>
+    <Reference Include="Sanford.Multimedia.Midi">
+      <HintPath>Assets\AudioHelm\Plugins\Sanford.Multimedia.Midi.dll</HintPath>
+    </Reference>
     <Reference Include="OSCsharp">
       <HintPath>Assets\UniOSC\Lib\OSCsharp.dll</HintPath>
     </Reference>

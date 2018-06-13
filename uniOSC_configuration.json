@@ -33,13 +33,13 @@
                 "Colour": "White",
                 "Label": "TP9"
               },
-              "Signal Source": "/eeg",
+        /*      "Signal Source": "/eeg",
               "Index": 26,
               "Port": 5001,
               "TCP": false
             } 
           },
-          {
+          { 
             "Signal Type": "OSC",
             "Signal": {
               "Base": {
@@ -80,7 +80,7 @@
           }
         ]
       }
-    },
+    },  
     {
       "Signal Type": "GROUP",
       "Signal": {
