@@ -53,10 +53,10 @@
 @attribute gamma2_relative numeric
 @attribute gamma3_relative numeric
 @attribute gammaAvg_relative numeric
-@attribute theta_beta_abs numeric
-@attribute theta_beta_r numeric
-@attribute alpha_theta_abs numeric
-@attribute alpha_theta_r numeric
+@attribute theta_beta_absolute numeric
+@attribute theta_beta_relative numeric
+@attribute alpha_theta_absolute numeric
+@attribute alpha_theta_relative numeric
 @attribute gyro_X numeric
 @attribute gyro_Y numeric
 @attribute gyro_Z numeric
@@ -65,17 +65,17 @@
 @attribute acc_Z numeric
 @attribute blink numeric
 @attribute jawclench numeric
-@attribute neuralnetouts-1 numeric
-@attribute neuralnetouts-2 numeric
-@attribute neuralnetouts-3 numeric
-@attribute neuralnetouts-4 numeric
-@attribute neuralnetouts-5 numeric
-@attribute neuralnetouts-6 numeric
-@attribute neuralnetouts-7 numeric
-@attribute neuralnetouts-8 numeric
-@attribute neuralnetouts-9 numeric
-@attribute neuralnetouts-10 numeric
-@attribute neuralnetouts-11 numeric
-@attribute neuralnetouts-12 numeric
+@attribute theta_beta_a numeric
+@attribute alpha_theta_a numeric
+@attribute delta_avg_a numeric
+@attribute gamma_avg_a numeric
+@attribute brainwaves_a numeric
+@attribute theta_beta_r numeric
+@attribute alpha_theta_r numeric
+@attribute delta_avg_r numeric
+@attribute gamma_avg_r numeric
+@attribute brainwaves_r numeric
+@attribute brainwaves_avg_a numeric
+@attribute brainwaves_avg_r numeric
 
 @data

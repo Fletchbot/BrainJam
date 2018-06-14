@@ -54,10 +54,10 @@
     <string>gamma2_relative</string>
     <string>gamma3_relative</string>
     <string>gammaAvg_relative</string>
-    <string>theta_beta_abs</string>
-    <string>theta_beta_r</string>
-    <string>alpha_theta_abs</string>
-    <string>alpha_theta_r</string>
+    <string>theta_beta_absolute</string>
+    <string>theta_beta_relative</string>
+    <string>alpha_theta_absolute</string>
+    <string>alpha_theta_relative</string>
     <string>gyro_X</string>
     <string>gyro_Y</string>
     <string>gyro_Z</string>

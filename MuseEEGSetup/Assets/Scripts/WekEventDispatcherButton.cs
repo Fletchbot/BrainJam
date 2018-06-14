@@ -12,30 +12,29 @@ using System;
 using OSCsharp.Data;
 
 
-namespace UniOSC{
+namespace UniOSC
+{
 
-	/// <summary>
-	/// Dispatcher button that forces a OSCConnection to send a OSC Message.
-	/// Two separate states: Down and Up 
-	/// </summary>
-	[AddComponentMenu("UniOSC/WekEventDispatcherButton")]
-	[ExecuteInEditMode]
-	public class WekEventDispatcherButton: UniOSCEventDispatcher {
-        
-        public string ButtonName;
-        public bool bundleMode, showGUI;
+    /// <summary>
+    /// Dispatcher button that forces a OSCConnection to send a OSC Message.
+    /// Two separate states: Down and Up 
+    /// </summary>
+    [AddComponentMenu("UniOSC/WekEventDispatcherButton")]
+    [ExecuteInEditMode]
+    public class WekEventDispatcherButton : UniOSCEventDispatcher
+    {
+        public bool bundleMode, DTW_mode;
         public string oscOutAddress2;
         private List<UniOSCEventDispatcherCB> senderList = new List<UniOSCEventDispatcherCB>();
-        public int gesture=1;
-		public bool _btnDown, _btnUp;
-        public float xPos, yPos;
-        private GUIStyle _gs;
+        public static WekEventDispatcherButton main;
+        private int gesture;
+
 
         public override void Awake()
-		{
-			base.Awake ();
-			
-		}
+        {
+            base.Awake();
+            main = this;
+        }
 
         public override void OnEnable()
         {
@@ -46,123 +45,112 @@ namespace UniOSC{
                 SetBundleMode(true);
                 ClearData();
                 AppendData(new OscMessage(oscOutAddress, 0));
-                AppendData(new OscMessage(oscOutAddress2, 0));
+              if(oscOutAddress2 != null) AppendData(new OscMessage(oscOutAddress2, 0));
+            }
+            else
+            {
+                ClearData();
+                UniOSCEventDispatcherCB oscSender = new UniOSCEventDispatcherCBSimple(oscOutAddress, explicitConnection);//OSCOutAddress,OSCConnection
+                oscSender.AppendData(0);
+                oscSender.Enable();
+                senderList.Add(oscSender);
+                if (oscOutAddress2 != null)
+                {
+                    UniOSCEventDispatcherCB oscSender2 = new UniOSCEventDispatcherCBSimple(oscOutAddress2, explicitConnection);//OSCOutAddress,OSCConnection
+                    oscSender2.AppendData(0);
+                    oscSender2.Enable();
+                    senderList.Add(oscSender2);
+                }              
             }
         }
 
-		public override void OnDisable ()
-		{
-			base.OnDisable ();
-        }
-		void OnGUI(){
-			if(!showGUI)return;
-			RenderGUI();
-		}
+        public override void OnDisable()
+        {
+            base.OnDisable();
 
-		void RenderGUI(){
-            
-			_gs = new GUIStyle(GUI.skin.button);
-			_gs.fontSize=11;
-           
-            //gs.padding = new RectOffset(2,2,2,2);
-
-            GUIScaler.Begin();
-
-			Event e = Event.current;
-			GUI.BeginGroup(new Rect((Screen.width/GUIScaler.GuiScale.x)*xPos,(Screen.height/GUIScaler.GuiScale.y)*yPos,(Screen.width/GUIScaler.GuiScale.x/2),(Screen.height/GUIScaler.GuiScale.y/2)));
-
-			GUILayout.BeginVertical();
-			GUILayout.FlexibleSpace();
-			
-			StringBuilder sb = new StringBuilder();
-			sb.AppendLine("");
-			sb.AppendLine(ButtonName);
-			GUIContent buttonText = new GUIContent(sb.ToString());
-			Rect buttonRect = GUILayoutUtility.GetRect(buttonText,_gs); 
-			buttonRect.width *=1.0f;
-			buttonRect.height*=1.0f;
-      			
-			if (e.isMouse && buttonRect.Contains(e.mousePosition)) { 
-				if(e.type == EventType.MouseDown){
-					SendOSCMessageDown();
-                }
-				if(e.type == EventType.MouseUp){
-					SendOSCMessageUp();
-				}
-			} 
-			
-			GUI.Button(buttonRect, buttonText,_gs);
-			
-			GUILayout.EndVertical();
-			GUI.EndGroup();
-
-			GUIScaler.End();
-		}
-
-		/// <summary>
-		/// Sends the OSC message with the downOSCDataValue.
-		/// </summary>
-		public void SendOSCMessageDown(){
-			if(_OSCeArg.Packet is OscMessage)
-			{
-				((OscMessage)_OSCeArg.Packet).UpdateDataAt(0, gesture);
+            for (var i = 0; i < senderList.Count; i++)
+            {
+                senderList[i].Dispose();
+                senderList[i] = null;
             }
-			else if(_OSCeArg.Packet is OscBundle)
-			{
+            senderList.Clear();
+        }
+
+        /// <summary>
+        /// Sends the OSC message with the downOSCDataValue.
+        /// </summary>
+        public void SendOSCMessageDown()
+        {
+  
+            if (_OSCeArg.Packet is OscMessage)
+            {
+              //  ((OscMessage)_OSCeArg.Packet).UpdateDataAt(0, 0);
+              //  ((OscMessage)_OSCeArg.Packet).Address = oscOutAddress;
+            }
+            else if (_OSCeArg.Packet is OscBundle)
+            {
                 foreach (OscMessage m in ((OscBundle)_OSCeArg.Packet).Messages)
                 {
                     m.Address = oscOutAddress;
-                    m.UpdateDataAt(0, gesture);
-                }				
-			}
-			_SendOSCMessage(_OSCeArg);
-        }
-
-		/// <summary>
-		/// Sends the OSC message with the upOSCDataValue.
-		/// </summary>
-		public void SendOSCMessageUp(){
-            Debug.Log("addresscount" + senderList.Count);
-            if (_OSCeArg.Packet is OscMessage)
-			{
-                ((OscMessage)_OSCeArg.Packet).UpdateDataAt(0, 0);
-            }
-			else if(_OSCeArg.Packet is OscBundle)
-			{
-                foreach (OscMessage m in ((OscBundle)_OSCeArg.Packet).Messages)
-                {
-                   m.Address = oscOutAddress2;
-                   m.UpdateDataAt(0, 0);
-                }              
-			}
-
-			_SendOSCMessage(_OSCeArg);
-            
-        }
-
-        public void buttonClicked()
-        {
-            _btnDown = true;
-            if (_btnDown == true)
-            {
-                SendOSCMessageDown();
-                Invoke("_buttonDown", 0.3f);
-                
-            }
-            else { 
-                _btnUp = true;
-                if (_btnUp == true)
-                {
-                    SendOSCMessageUp();
-                    _btnUp = false;
+                    if (DTW_mode)
+                    {
+                        m.UpdateDataAt(0, gesture);
+                    }
+                    else
+                    {
+                        m.UpdateDataAt(0, 0);
+                    }
                 }
             }
+            _SendOSCMessage(_OSCeArg);
+
+            foreach (var s in senderList)
+            {
+                s.SendOSCMessage();
+            }
         }
-        public void _buttonDown()
+
+        /// <summary>
+        /// Sends the OSC message with the upOSCDataValue.
+        /// </summary>
+        public void SendOSCMessageUp()
         {
-            _btnDown = false;
+            if (_OSCeArg.Packet is OscMessage)
+            {
+                //((OscMessage)_OSCeArg.Packet).UpdateDataAt(1, 0);
+               // ((OscMessage)_OSCeArg.Packet).Address = oscOutAddress2;
+            }
+            else if (_OSCeArg.Packet is OscBundle)
+            {
+                foreach (OscMessage m2 in ((OscBundle)_OSCeArg.Packet).Messages)
+                {
+                    m2.Address = oscOutAddress2;    
+                    m2.UpdateDataAt(0, 0);
+                }
+            }
+
+            _SendOSCMessage(_OSCeArg);
+
+            foreach (var s in senderList)
+            {
+                s.SendOSCMessage();
+            }
         }
 
+        public void ButtonClick(bool isOn)
+        {
 
-	}
+            if (isOn == true)
+            {
+                SendOSCMessageDown();
+            } else if (isOn == false)
+            {
+                SendOSCMessageUp();
+            }
+        }
+        public void Gesture(int val)
+        {
+            gesture = val;
+        }
+    }
 }
