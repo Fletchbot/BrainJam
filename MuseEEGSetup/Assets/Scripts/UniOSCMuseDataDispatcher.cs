@@ -17,12 +17,15 @@ namespace UniOSC {
     {
 
         public GameObject MuseMonitor;
+        //public bool limitData;
 
-        private float _gX, _gY, _gZ, _accX, _accY, _accZ; //, _eeg0, _eeg1, _eeg2, _eeg3, _eeg4;
+        private float _gX, _gY, _gZ, _accX, _accY, _accZ;
         private float d0_abs, d1_abs, d2_abs, d3_abs, t0_abs, t1_abs, t2_abs, t3_abs, a0_abs, a1_abs, a2_abs, a3_abs, b0_abs, b1_abs, b2_abs, b3_abs, g0_abs, g1_abs, g2_abs, g3_abs;
-        private float _blink, _jc, _istouching, _batt, _hs0, _hs1, _hs2, _hs3;
+        private float _blink, _jc;
         private float d_r0, d_r1, d_r2, d_r3, t_r0, t_r1, t_r2, t_r3, a_r0, a_r1, a_r2, a_r3, b_r0, b_r1, b_r2, b_r3, g_r0, g_r1, g_r2, g_r3;
         private float delta_abs, delta_relative, theta_abs, theta_relative, alpha_abs, alpha_relative, beta_abs, beta_relative, gamma_abs, gamma_relative;
+        private float theta_beta_abs, theta_beta_r, alpha_theta_abs, alpha_theta_r;
+
         public override void Awake()
         {
             base.Awake();
@@ -36,7 +39,9 @@ namespace UniOSC {
             base.OnEnable();
             ClearData();
             //now we could add data;
+           // if (limitData == true) {
 
+          //  }
             AppendData(0f);//d0_abs
             AppendData(0f);//d1_abs
             AppendData(0f);//d2_abs
@@ -92,6 +97,11 @@ namespace UniOSC {
             AppendData(0f);//g_abs
             AppendData(0f);//gamma_relative
 
+            AppendData(0f);//theta_beta_abs
+            AppendData(0f);//theta_beta_r
+            AppendData(0f);//alpha_theta_abs
+            AppendData(0f);//alpha_theta_r
+
             AppendData(0f);//Gyro0
             AppendData(0f);//Gyro1
             AppendData(0f);//Gyro2
@@ -100,21 +110,9 @@ namespace UniOSC {
             AppendData(0f);//acc1
             AppendData(0f);//acc2
 
-          /*  AppendData(0f);//eeg0
-            AppendData(0f);//eeg1
-            AppendData(0f);//eeg2
-            AppendData(0f);//eeg3
-            AppendData(0f);//eeg4*/
-
             AppendData(0f);//blink
             AppendData(0f);//jaw
 
-            AppendData(0f);//istouching
-            AppendData(0f);//batt
-            AppendData(0f);//hs0
-            AppendData(0f);//hs1
-            AppendData(0f);//hs2
-            AppendData(0f);//hs3
         }
 
         public override void OnDisable()
@@ -162,6 +160,7 @@ namespace UniOSC {
             a2_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a2;
             a3_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a3;
             alpha_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().alpha_abs;
+
             a_r0 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a_r0;
             a_r1 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a_r1;
             a_r2 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().a_r2;
@@ -192,6 +191,11 @@ namespace UniOSC {
             g_r3 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().g_r3;
             gamma_relative = MuseMonitor.GetComponent<UniOSCMuseMonitor>().gamma_relative;
 
+            theta_beta_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().theta_beta_abs;
+            theta_beta_r = MuseMonitor.GetComponent<UniOSCMuseMonitor>().theta_beta_r;
+            alpha_theta_abs = MuseMonitor.GetComponent<UniOSCMuseMonitor>().alpha_theta_abs;
+            alpha_theta_r = MuseMonitor.GetComponent<UniOSCMuseMonitor>().alpha_theta_r;
+
             _gX = MuseMonitor.GetComponent<UniOSCMuseMonitor>().gyroX;
             _gY = MuseMonitor.GetComponent<UniOSCMuseMonitor>().gyroY;
             _gZ = MuseMonitor.GetComponent<UniOSCMuseMonitor>().gyroZ;
@@ -200,21 +204,9 @@ namespace UniOSC {
             _accY = MuseMonitor.GetComponent<UniOSCMuseMonitor>().accY;
             _accZ = MuseMonitor.GetComponent<UniOSCMuseMonitor>().accZ;
 
-         /*   _eeg0 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().eeg0;
-            _eeg1 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().eeg1;
-            _eeg2 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().eeg2;
-            _eeg3 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().eeg3;
-            _eeg4 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().eeg4;*/
 
             _blink = MuseMonitor.GetComponent<UniOSCMuseMonitor>().blink;
             _jc = MuseMonitor.GetComponent<UniOSCMuseMonitor>().jc;
-
-            _istouching = MuseMonitor.GetComponent<UniOSCMuseMonitor>().touchingforehead;
-            _batt = MuseMonitor.GetComponent<UniOSCMuseMonitor>().batt*100;
-            _hs0 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().hs0;
-            _hs1 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().hs1;
-            _hs2 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().hs2;
-            _hs3 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().hs3;
 
              OscMessage msg = null;
               if (_OSCeArg.Packet is OscMessage)
@@ -284,29 +276,23 @@ namespace UniOSC {
                   msg.UpdateDataAt(48, g_r3);
                   msg.UpdateDataAt(49, gamma_relative);
 
-                msg.UpdateDataAt(50, _gX);
-                  msg.UpdateDataAt(51, _gY);
-                  msg.UpdateDataAt(52, _gZ);
+                  msg.UpdateDataAt(50, theta_beta_abs);
+                  msg.UpdateDataAt(51, theta_beta_r);
+                  msg.UpdateDataAt(52, alpha_theta_abs);
+                  msg.UpdateDataAt(53, alpha_theta_r);
+     
+                  msg.UpdateDataAt(54, _gX);
+                  msg.UpdateDataAt(55, _gY);
+                  msg.UpdateDataAt(56, _gZ);
 
-                  msg.UpdateDataAt(53, _accX);
-                  msg.UpdateDataAt(54, _accY);
-                  msg.UpdateDataAt(55, _accZ);
+                  msg.UpdateDataAt(57, _accX);
+                  msg.UpdateDataAt(58, _accY);
+                  msg.UpdateDataAt(59, _accZ);
 
-                /*  msg.UpdateDataAt(56, _eeg0);
-                  msg.UpdateDataAt(57, _eeg1);
-                  msg.UpdateDataAt(58, _eeg2);
-                  msg.UpdateDataAt(59, _eeg3);
-                  msg.UpdateDataAt(60, _eeg4);*/
+                
 
-                  msg.UpdateDataAt(56, _blink);
-                  msg.UpdateDataAt(57, _jc);
-
-                  msg.UpdateDataAt(58, _istouching);
-                  msg.UpdateDataAt(59, _batt);
-                  msg.UpdateDataAt(60, _hs0);
-                  msg.UpdateDataAt(61, _hs1);
-                  msg.UpdateDataAt(62, _hs2);
-                  msg.UpdateDataAt(63, _hs3);
+                  msg.UpdateDataAt(60, _blink);
+                  msg.UpdateDataAt(61, _jc);
 
             }
 

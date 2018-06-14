@@ -12,7 +12,6 @@ namespace UniOSC{
 	[AddComponentMenu("UniOSC/MuseMonitor")]
 	public class UniOSCMuseMonitor :  UniOSCEventTarget {
 
-		#region public
 		public string Delta_Address;
 		public string Theta_Address;
 		public string Alpha_Address;
@@ -21,24 +20,23 @@ namespace UniOSC{
 
 		public string Gyro_Address;
 		public string Acc_Address;
-		public string EEG_Address;
 
 		public string Blink_Address;
 		public string JawClench_Address;
 		public string TouchingForehead_Address;
 		public string Horseshoe_Address;
 		public string Batt_Address;
-		public static UniOSCMuseMonitor main;
-		#endregion
 
-		#region public
+		public static UniOSCMuseMonitor main;
+
 		public float d0,d1,d2,d3,t0,t1,t2,t3,a0,a1,a2,a3,b0,b1,b2,b3,g0,g1,g2,g3;
-        public float gyroX, gyroY, gyroZ, accX, accY, accZ;//, eeg0, eeg1, eeg2, eeg3, eeg4;
+        public float gyroX, gyroY, gyroZ, accX, accY, accZ;
 		public float blink, jc, touchingforehead, batt, hs0, hs1, hs2, hs3;
 
         public float a_r0, a_r1, a_r2, a_r3, b_r0,b_r1,b_r2,b_r3, g_r0, g_r1, g_r2, g_r3, t_r0, t_r1, t_r2, t_r3,d_r0,d_r1,d_r2,d_r3;
         public float delta_relative, alpha_relative, theta_relative, beta_relative, gamma_relative, delta_abs, alpha_abs, theta_abs, beta_abs, gamma_abs;
-		#endregion
+        public float theta_beta_abs, theta_beta_r, alpha_theta_abs, alpha_theta_r;
+
 		void Awake(){
 			main = this;
 		}
@@ -61,7 +59,6 @@ namespace UniOSC{
 
 				_oscAddresses.Add(Gyro_Address);
 				_oscAddresses.Add(Acc_Address);
-				//_oscAddresses.Add(EEG_Address);
 
 				_oscAddresses.Add(Blink_Address);
 				_oscAddresses.Add(JawClench_Address);
@@ -111,6 +108,12 @@ namespace UniOSC{
 
             gamma_abs = (4 / (g0 + g1 + g2 + g3));
             gamma_relative = (4 / (g_r0 + g_r1 + g_r2 + g_r3));
+
+            theta_beta_abs = (theta_abs / beta_abs);
+            theta_beta_r = (theta_relative / beta_relative);
+            alpha_theta_abs = (alpha_abs / theta_abs);
+            alpha_theta_r = (alpha_relative / theta_relative);
+
         }
 
 
@@ -165,13 +168,6 @@ namespace UniOSC{
 				accY = (float)msg.Data [1];
 				accZ = (float)msg.Data [2];
 			}
-		/*	if (String.Equals (args.Address, EEG_Address)) {
-				eeg0 = (float)msg.Data [0];
-				eeg1 = (float)msg.Data [1];
-				eeg2 = (float)msg.Data [2];
-				eeg3 = (float)msg.Data [3];
-				eeg4 = (float)msg.Data [4];
-			}*/
 			if(String.Equals(args.Address,Horseshoe_Address)){
 				hs0 = (float)msg.Data [0];
 				hs1 = (float)msg.Data [1];

@@ -142,23 +142,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _oscAddress: /
   _oscAddresses:
-  - 
-  - 
-  - 
+  - /dtwouts
+  - /DTW_1
+  - /DTW_2
+  - /DTW_3
+  - /DTW_4
+  - /DTW_5
   _receiveAllAddresses: 0
-  _useExplicitConnection: 0
-  _explicitConnection: {fileID: 0}
-  _oscPort: 0
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1505776656}
+  _oscPort: 12000
   _receiveAllPorts: 0
   _redrawFlag: 0
   _foldoutList: []
-  wekOutputs_Address: 
-  isFocused_Address: 
-  notFocused_Address: 
-  isFocused: 0
-  notFocused: 0
-  f: 0
-  nf: 0
+  addressArray:
+  - /dtwouts
+  - /DTW_1
+  - /DTW_2
+  - /DTW_3
+  - /DTW_4
+  - /DTW_5
 --- !u!4 &53293583
 Transform:
   m_ObjectHideFlags: 0
@@ -319,8 +322,8 @@ MonoBehaviour:
   - /muse/elements/horseshoe
   - /muse/batt
   _receiveAllAddresses: 0
-  _useExplicitConnection: 0
-  _explicitConnection: {fileID: 0}
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1670593759}
   _oscPort: 5000
   _receiveAllPorts: 0
   _redrawFlag: 0
@@ -332,7 +335,6 @@ MonoBehaviour:
   Gamma_Address: /muse/elements/gamma_absolute
   Gyro_Address: /muse/gyro
   Acc_Address: /muse/acc
-  EEG_Address: /muse/eeg
   Blink_Address: /muse/elements/blink
   JawClench_Address: /muse/elements/jaw_clench
   TouchingForehead_Address: /muse/elements/touching_forehead
@@ -402,6 +404,10 @@ MonoBehaviour:
   theta_abs: 0
   beta_abs: 0
   gamma_abs: 0
+  theta_beta_abs: 0
+  theta_beta_r: 0
+  alpha_theta_abs: 0
+  alpha_theta_r: 0
 --- !u!114 &1333806383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,7 +447,8 @@ MonoBehaviour:
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 1505776656}
   _drawDefaultInspector: 1
-  _myOSCConnections: []
+  _myOSCConnections:
+  - {fileID: 1505776656}
   MuseMonitor: {fileID: 1333806380}
 --- !u!1 &1383235045
 GameObject:
