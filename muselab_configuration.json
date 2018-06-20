@@ -19,74 +19,11 @@
   },
   "Signal ID Groups": [
     {
-     "Signal Type": "GROUP",
-      "Signal": {
-        "Base": {
-          "Colour": "Orange",
-          "Label": "/eeg"
-        },
-        "IDs": [
-          {
-            "Signal Type": "OSC",
-            "Signal": {
-              "Base": {
-                "Colour": "White",
-                "Label": "TP9"
-              },
-        /*      "Signal Source": "/eeg",
-              "Index": 26,
-              "Port": 5001,
-              "TCP": false
-            } 
-          },
-          { 
-            "Signal Type": "OSC",
-            "Signal": {
-              "Base": {
-                "Colour": "White",
-                "Label": "AF7"
-              },
-              "Signal Source": "/eeg",
-              "Index": 27,
-              "Port": 5001,
-              "TCP": false
-            }
-          },
-          {
-            "Signal Type": "OSC",
-            "Signal": {
-              "Base": {
-                "Colour": "White",
-                "Label": "AF8"
-              },
-              "Signal Source": "/eeg",
-              "Index": 28,
-              "Port": 5001,
-              "TCP": false
-            }
-          },
-          {
-            "Signal Type": "OSC",
-            "Signal": {
-              "Base": {
-                "Colour": "White",
-                "Label": "TP10"
-              },
-              "Signal Source": "/eeg",
-              "Index": 29,
-              "Port": 5001,
-              "TCP": false
-            }
-          }
-        ]
-      }
-    },  
-    {
       "Signal Type": "GROUP",
       "Signal": {
         "Base": {
-          "Colour": "Purple",
-          "Label": "Waves"
+          "Colour": "Green",
+          "Label": "/egg"
         },
         "IDs": [
           {
@@ -94,10 +31,49 @@
             "Signal": {
               "Base": {
                 "Colour": "Blue",
-                "Label": "Alpha"
+                "Label": "/egg (0)"
               },
-              "Signal Source": "/eeg",
-              "Index": 8,
+              "Signal Source": "/egg",
+              "Index": 0,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Cyan",
+                "Label": "/egg (1)"
+              },
+              "Signal Source": "/egg",
+              "Index": 1,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Dark Khaki",
+                "Label": "/egg (2)"
+              },
+              "Signal Source": "/egg",
+              "Index": 2,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Fuchsia",
+                "Label": "/egg (3)"
+              },
+              "Signal Source": "/egg",
+              "Index": 3,
               "Port": 5001,
               "TCP": false
             }
@@ -107,9 +83,113 @@
             "Signal": {
               "Base": {
                 "Colour": "Green",
-                "Label": "Beta"
+                "Label": "/egg (4)"
               },
-              "Signal Source": "/eeg",
+              "Signal Source": "/egg",
+              "Index": 4,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Green Yellow",
+                "Label": "/egg (5)"
+              },
+              "Signal Source": "/egg",
+              "Index": 5,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Khaki",
+                "Label": "/egg (6)"
+              },
+              "Signal Source": "/egg",
+              "Index": 6,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Light Blue",
+                "Label": "/egg (7)"
+              },
+              "Signal Source": "/egg",
+              "Index": 7,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Light Cyan",
+                "Label": "/egg (8)"
+              },
+              "Signal Source": "/egg",
+              "Index": 8,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Light Green",
+                "Label": "/egg (9)"
+              },
+              "Signal Source": "/egg",
+              "Index": 9,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Light Salmon",
+                "Label": "/egg (10)"
+              },
+              "Signal Source": "/egg",
+              "Index": 10,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Orange",
+                "Label": "/egg (11)"
+              },
+              "Signal Source": "/egg",
+              "Index": 11,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Purple",
+                "Label": "/egg (12)"
+              },
+              "Signal Source": "/egg",
               "Index": 12,
               "Port": 5001,
               "TCP": false
@@ -120,10 +200,10 @@
             "Signal": {
               "Base": {
                 "Colour": "Red",
-                "Label": "Delta"
+                "Label": "/egg (13)"
               },
-              "Signal Source": "/eeg",
-              "Index": 0,
+              "Signal Source": "/egg",
+              "Index": 13,
               "Port": 5001,
               "TCP": false
             }
@@ -132,10 +212,36 @@
             "Signal Type": "OSC",
             "Signal": {
               "Base": {
-                "Colour": "Orange",
-                "Label": "Gamma"
+                "Colour": "Salmon",
+                "Label": "/egg (14)"
               },
-              "Signal Source": "/eeg",
+              "Signal Source": "/egg",
+              "Index": 14,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Silver",
+                "Label": "/egg (15)"
+              },
+              "Signal Source": "/egg",
+              "Index": 15,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "White",
+                "Label": "/egg (16)"
+              },
+              "Signal Source": "/egg",
               "Index": 16,
               "Port": 5001,
               "TCP": false
@@ -145,10 +251,138 @@
             "Signal Type": "OSC",
             "Signal": {
               "Base": {
-                "Colour": "Purple",
-                "Label": "Theta"
+                "Colour": "Yellow",
+                "Label": "/egg (17)"
               },
-              "Signal Source": "/eeg",
+              "Signal Source": "/egg",
+              "Index": 17,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Blue",
+                "Label": "/egg (18)"
+              },
+              "Signal Source": "/egg",
+              "Index": 18,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Cyan",
+                "Label": "/egg (19)"
+              },
+              "Signal Source": "/egg",
+              "Index": 19,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Dark Khaki",
+                "Label": "/egg (20)"
+              },
+              "Signal Source": "/egg",
+              "Index": 20,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Fuchsia",
+                "Label": "/egg (21)"
+              },
+              "Signal Source": "/egg",
+              "Index": 21,
+              "Port": 5001,
+              "TCP": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Signal Type": "GROUP",
+      "Signal": {
+        "Base": {
+          "Colour": "Green Yellow",
+          "Label": "Waves_abs"
+        },
+        "IDs": [
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Blue",
+                "Label": "/egg (0)"
+              },
+              "Signal Source": "/egg",
+              "Index": 0,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Cyan",
+                "Label": "/egg (1)"
+              },
+              "Signal Source": "/egg",
+              "Index": 1,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Dark Khaki",
+                "Label": "/egg (2)"
+              },
+              "Signal Source": "/egg",
+              "Index": 2,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Fuchsia",
+                "Label": "/egg (3)"
+              },
+              "Signal Source": "/egg",
+              "Index": 3,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Green",
+                "Label": "/egg (4)"
+              },
+              "Signal Source": "/egg",
               "Index": 4,
               "Port": 5001,
               "TCP": false
@@ -161,82 +395,19 @@
       "Signal Type": "GROUP",
       "Signal": {
         "Base": {
-          "Colour": "White",
-          "Label": "/eeg"
-        },
-        "IDs": [
-          {
-            "Signal Type": "OSC",
-            "Signal": {
-              "Base": {
-                "Colour": "Orange",
-                "Label": "Horseshoe_TP9"
-              },
-              "Signal Source": "/eeg",
-              "Index": 35,
-              "Port": 5001,
-              "TCP": false
-            }
-          },
-          {
-            "Signal Type": "OSC",
-            "Signal": {
-              "Base": {
-                "Colour": "Green",
-                "Label": "Horseshoe_AF7"
-              },
-              "Signal Source": "/eeg",
-              "Index": 36,
-              "Port": 5001,
-              "TCP": false
-            }
-          },
-          {
-            "Signal Type": "OSC",
-            "Signal": {
-              "Base": {
-                "Colour": "Purple",
-                "Label": "Horseshoe_AF8"
-              },
-              "Signal Source": "/eeg",
-              "Index": 37,
-              "Port": 5001,
-              "TCP": false
-            }
-          },
-          {
-            "Signal Type": "OSC",
-            "Signal": {
-              "Base": {
-                "Colour": "Fuchsia",
-                "Label": "Horseshoe_TP10"
-              },
-              "Signal Source": "/eeg",
-              "Index": 38,
-              "Port": 5001,
-              "TCP": false
-            }
-          }
-        ]
-      }
-    },
-    {
-      "Signal Type": "GROUP",
-      "Signal": {
-        "Base": {
           "Colour": "Khaki",
-          "Label": "/eeg"
+          "Label": "Waves_Relative"
         },
         "IDs": [
           {
             "Signal Type": "OSC",
             "Signal": {
               "Base": {
-                "Colour": "White",
-                "Label": "batt_charge"
+                "Colour": "Green Yellow",
+                "Label": "/egg (5)"
               },
-              "Signal Source": "/eeg",
-              "Index": 34,
+              "Signal Source": "/egg",
+              "Index": 5,
               "Port": 5001,
               "TCP": false
             }
@@ -245,12 +416,12 @@
             "Signal Type": "OSC",
             "Signal": {
               "Base": {
-                "Colour": "Yellow",
-                "Label": "batt_millivolts"
+                "Colour": "Khaki",
+                "Label": "/egg (6)"
               },
-              "Signal Source": "/muse/batt",
-              "Index": 1,
-              "Port": 5000,
+              "Signal Source": "/egg",
+              "Index": 6,
+              "Port": 5001,
               "TCP": false
             }
           },
@@ -258,12 +429,12 @@
             "Signal Type": "OSC",
             "Signal": {
               "Base": {
-                "Colour": "Blue",
-                "Label": "batt_ADC"
+                "Colour": "Light Blue",
+                "Label": "/egg (7)"
               },
-              "Signal Source": "/muse/batt",
-              "Index": 2,
-              "Port": 5000,
+              "Signal Source": "/egg",
+              "Index": 7,
+              "Port": 5001,
               "TCP": false
             }
           },
@@ -271,12 +442,25 @@
             "Signal Type": "OSC",
             "Signal": {
               "Base": {
-                "Colour": "Cyan",
-                "Label": "batt_temp"
+                "Colour": "Light Cyan",
+                "Label": "/egg (8)"
               },
-              "Signal Source": "/muse/batt",
-              "Index": 3,
-              "Port": 5000,
+              "Signal Source": "/egg",
+              "Index": 8,
+              "Port": 5001,
+              "TCP": false
+            }
+          },
+          {
+            "Signal Type": "OSC",
+            "Signal": {
+              "Base": {
+                "Colour": "Light Green",
+                "Label": "/egg (9)"
+              },
+              "Signal Source": "/egg",
+              "Index": 9,
+              "Port": 5001,
               "TCP": false
             }
           }
@@ -288,18 +472,18 @@
       "Signal": {
         "Base": {
           "Colour": "Light Blue",
-          "Label": "/muse/gyro"
+          "Label": "Ratios"
         },
         "IDs": [
           {
             "Signal Type": "OSC",
             "Signal": {
               "Base": {
-                "Colour": "White",
-                "Label": "X_Roll"
+                "Colour": "Light Salmon",
+                "Label": "/egg (10)"
               },
-              "Signal Source": "/eeg",
-              "Index": 20,
+              "Signal Source": "/egg",
+              "Index": 10,
               "Port": 5001,
               "TCP": false
             }
@@ -308,24 +492,11 @@
             "Signal Type": "OSC",
             "Signal": {
               "Base": {
-                "Colour": "White",
-                "Label": "Y_Pitch"
+                "Colour": "Orange",
+                "Label": "/egg (11)"
               },
-              "Signal Source": "/eeg",
-              "Index": 21,
-              "Port": 5001,
-              "TCP": false
-            }
-          },
-          {
-            "Signal Type": "OSC",
-            "Signal": {
-              "Base": {
-                "Colour": "White",
-                "Label": "Z_Yaw"
-              },
-              "Signal Source": "/eeg",
-              "Index": 22,
+              "Signal Source": "/egg",
+              "Index": 11,
               "Port": 5001,
               "TCP": false
             }
@@ -338,18 +509,18 @@
       "Signal": {
         "Base": {
           "Colour": "Orange",
-          "Label": "/muse/acc"
+          "Label": "Ratios_r"
         },
         "IDs": [
           {
             "Signal Type": "OSC",
             "Signal": {
               "Base": {
-                "Colour": "White",
-                "Label": "X_Forward_Back"
+                "Colour": "Purple",
+                "Label": "/egg (12)"
               },
-              "Signal Source": "/eeg",
-              "Index": 23,
+              "Signal Source": "/egg",
+              "Index": 12,
               "Port": 5001,
               "TCP": false
             }
@@ -358,24 +529,11 @@
             "Signal Type": "OSC",
             "Signal": {
               "Base": {
-                "Colour": "White",
-                "Label": "Y_Right_Left"
+                "Colour": "Red",
+                "Label": "/egg (13)"
               },
-              "Signal Source": "/eeg",
-              "Index": 24,
-              "Port": 5001,
-              "TCP": false
-            }
-          },
-          {
-            "Signal Type": "OSC",
-            "Signal": {
-              "Base": {
-                "Colour": "White",
-                "Label": "Z_Down_Up"
-              },
-              "Signal Source": "/eeg",
-              "Index": 25,
+              "Signal Source": "/egg",
+              "Index": 13,
               "Port": 5001,
               "TCP": false
             }
@@ -388,9 +546,9 @@
     {
       "Visualizer Type": "Scrolling Line Graph",
       "Visualizer Settings": {
-        "Label": "Raw",
-        "Max Amplitude": 1000.0,
-        "Min Amplitude": -1000.0,
+        "Label": "Waves_abs",
+        "Max Amplitude": 6.0,
+        "Min Amplitude": -6.0,
         "Override Master Time": false,
         "Time Range": 10000000000,
         "Spread Signals Apart": true,
@@ -401,115 +559,16 @@
               "Signal Type": "OSC",
               "Signal": {
                 "Base": {
-                  "Colour": "White",
-                  "Label": "TP9"
+                  "Colour": "Green",
+                  "Label": "/egg (4)"
                 },
-                "Signal Source": "/eeg",
-                "Index": 26,
-                "Port": 5001,
-                "TCP": false
-              }
-            },
-            "Zeroed": true,
-            "Assuming Uniform Rate": true
-          },
-          {
-            "Signal": {
-              "Signal Type": "OSC",
-              "Signal": {
-                "Base": {
-                  "Colour": "White",
-                  "Label": "AUX_R"
-                },
-                "Signal Source": "/eeg",
-                "Index": 30,
-                "Port": 5001,
-                "TCP": false
-              }
-            },
-            "Zeroed": true,
-            "Assuming Uniform Rate": true
-          },
-          {
-            "Signal": {
-              "Signal Type": "OSC",
-              "Signal": {
-                "Base": {
-                  "Colour": "White",
-                  "Label": "TP10"
-                },
-                "Signal Source": "/eeg",
-                "Index": 29,
-                "Port": 5001,
-                "TCP": false
-              }
-            },
-            "Zeroed": true,
-            "Assuming Uniform Rate": true
-          },
-          {
-            "Signal": {
-              "Signal Type": "OSC",
-              "Signal": {
-                "Base": {
-                  "Colour": "White",
-                  "Label": "AF7"
-                },
-                "Signal Source": "/eeg",
-                "Index": 27,
-                "Port": 5001,
-                "TCP": false
-              }
-            },
-            "Zeroed": true,
-            "Assuming Uniform Rate": true
-          },
-          {
-            "Signal": {
-              "Signal Type": "OSC",
-              "Signal": {
-                "Base": {
-                  "Colour": "White",
-                  "Label": "AF8"
-                },
-                "Signal Source": "/eeg",
-                "Index": 28,
-                "Port": 5001,
-                "TCP": false
-              }
-            },
-            "Zeroed": true,
-            "Assuming Uniform Rate": true
-          }
-        ]
-      }
-    },
-    {
-      "Visualizer Type": "Scrolling Line Graph",
-      "Visualizer Settings": {
-        "Label": "Absolute",
-        "Max Amplitude": 1.4,
-        "Min Amplitude": -0.6,
-        "Override Master Time": false,
-        "Time Range": 10000000000,
-        "Spread Signals Apart": false,
-        "Spread Factor": 1.0,
-        "Data Lines": [
-          {
-            "Signal": {
-              "Signal Type": "OSC",
-              "Signal": {
-                "Base": {
-                  "Colour": "Purple",
-                  "Label": "Theta"
-                },
-                "Signal Source": "/eeg",
+                "Signal Source": "/egg",
                 "Index": 4,
                 "Port": 5001,
                 "TCP": false
               }
             },
-            "Zeroed": false,
+            "Zeroed": true,
             "Assuming Uniform Rate": true
           },
           {
@@ -517,33 +576,16 @@
               "Signal Type": "OSC",
               "Signal": {
                 "Base": {
-                  "Colour": "Red",
-                  "Label": "Delta"
+                  "Colour": "Fuchsia",
+                  "Label": "/egg (3)"
                 },
-                "Signal Source": "/eeg",
-                "Index": 0,
+                "Signal Source": "/egg",
+                "Index": 3,
                 "Port": 5001,
                 "TCP": false
               }
             },
-            "Zeroed": false,
-            "Assuming Uniform Rate": true
-          },
-          {
-            "Signal": {
-              "Signal Type": "OSC",
-              "Signal": {
-                "Base": {
-                  "Colour": "Orange",
-                  "Label": "Gamma"
-                },
-                "Signal Source": "/eeg",
-                "Index": 16,
-                "Port": 5001,
-                "TCP": false
-              }
-            },
-            "Zeroed": false,
+            "Zeroed": true,
             "Assuming Uniform Rate": true
           },
           {
@@ -552,15 +594,97 @@
               "Signal": {
                 "Base": {
                   "Colour": "Blue",
-                  "Label": "Alpha"
+                  "Label": "/egg (0)"
                 },
-                "Signal Source": "/eeg",
+                "Signal Source": "/egg",
+                "Index": 0,
+                "Port": 5001,
+                "TCP": false
+              }
+            },
+            "Zeroed": true,
+            "Assuming Uniform Rate": true
+          },
+          {
+            "Signal": {
+              "Signal Type": "OSC",
+              "Signal": {
+                "Base": {
+                  "Colour": "Cyan",
+                  "Label": "/egg (1)"
+                },
+                "Signal Source": "/egg",
+                "Index": 1,
+                "Port": 5001,
+                "TCP": false
+              }
+            },
+            "Zeroed": true,
+            "Assuming Uniform Rate": true
+          },
+          {
+            "Signal": {
+              "Signal Type": "OSC",
+              "Signal": {
+                "Base": {
+                  "Colour": "Dark Khaki",
+                  "Label": "/egg (2)"
+                },
+                "Signal Source": "/egg",
+                "Index": 2,
+                "Port": 5001,
+                "TCP": false
+              }
+            },
+            "Zeroed": true,
+            "Assuming Uniform Rate": true
+          }
+        ]
+      }
+    },
+    {
+      "Visualizer Type": "Scrolling Line Graph",
+      "Visualizer Settings": {
+        "Label": "Waves_Relative",
+        "Max Amplitude": 37.5,
+        "Min Amplitude": -37.5,
+        "Override Master Time": false,
+        "Time Range": 10000000000,
+        "Spread Signals Apart": true,
+        "Spread Factor": 1.0,
+        "Data Lines": [
+          {
+            "Signal": {
+              "Signal Type": "OSC",
+              "Signal": {
+                "Base": {
+                  "Colour": "Green Yellow",
+                  "Label": "/egg (5)"
+                },
+                "Signal Source": "/egg",
+                "Index": 5,
+                "Port": 5001,
+                "TCP": false
+              }
+            },
+            "Zeroed": true,
+            "Assuming Uniform Rate": true
+          },
+          {
+            "Signal": {
+              "Signal Type": "OSC",
+              "Signal": {
+                "Base": {
+                  "Colour": "Light Cyan",
+                  "Label": "/egg (8)"
+                },
+                "Signal Source": "/egg",
                 "Index": 8,
                 "Port": 5001,
                 "TCP": false
               }
             },
-            "Zeroed": false,
+            "Zeroed": true,
             "Assuming Uniform Rate": true
           },
           {
@@ -568,46 +692,128 @@
               "Signal Type": "OSC",
               "Signal": {
                 "Base": {
-                  "Colour": "Green",
-                  "Label": "Beta"
+                  "Colour": "Light Green",
+                  "Label": "/egg (9)"
                 },
-                "Signal Source": "/eeg",
+                "Signal Source": "/egg",
+                "Index": 9,
+                "Port": 5001,
+                "TCP": false
+              }
+            },
+            "Zeroed": true,
+            "Assuming Uniform Rate": true
+          },
+          {
+            "Signal": {
+              "Signal Type": "OSC",
+              "Signal": {
+                "Base": {
+                  "Colour": "Light Blue",
+                  "Label": "/egg (7)"
+                },
+                "Signal Source": "/egg",
+                "Index": 7,
+                "Port": 5001,
+                "TCP": false
+              }
+            },
+            "Zeroed": true,
+            "Assuming Uniform Rate": true
+          },
+          {
+            "Signal": {
+              "Signal Type": "OSC",
+              "Signal": {
+                "Base": {
+                  "Colour": "Khaki",
+                  "Label": "/egg (6)"
+                },
+                "Signal Source": "/egg",
+                "Index": 6,
+                "Port": 5001,
+                "TCP": false
+              }
+            },
+            "Zeroed": true,
+            "Assuming Uniform Rate": true
+          }
+        ]
+      }
+    },
+    {
+      "Visualizer Type": "Scrolling Line Graph",
+      "Visualizer Settings": {
+        "Label": "Ratios_abs",
+        "Max Amplitude": 200.0,
+        "Min Amplitude": -200.0,
+        "Override Master Time": false,
+        "Time Range": 10000000000,
+        "Spread Signals Apart": true,
+        "Spread Factor": 1.0,
+        "Data Lines": [
+          {
+            "Signal": {
+              "Signal Type": "OSC",
+              "Signal": {
+                "Base": {
+                  "Colour": "Light Salmon",
+                  "Label": "/egg (10)"
+                },
+                "Signal Source": "/egg",
+                "Index": 10,
+                "Port": 5001,
+                "TCP": false
+              }
+            },
+            "Zeroed": true,
+            "Assuming Uniform Rate": true
+          },
+          {
+            "Signal": {
+              "Signal Type": "OSC",
+              "Signal": {
+                "Base": {
+                  "Colour": "Orange",
+                  "Label": "/egg (11)"
+                },
+                "Signal Source": "/egg",
+                "Index": 11,
+                "Port": 5001,
+                "TCP": false
+              }
+            },
+            "Zeroed": true,
+            "Assuming Uniform Rate": true
+          }
+        ]
+      }
+    },
+    {
+      "Visualizer Type": "Scrolling Line Graph",
+      "Visualizer Settings": {
+        "Label": "Ratios_Relative",
+        "Max Amplitude": 78.125,
+        "Min Amplitude": -78.125,
+        "Override Master Time": false,
+        "Time Range": 10000000000,
+        "Spread Signals Apart": true,
+        "Spread Factor": 1.0,
+        "Data Lines": [
+          {
+            "Signal": {
+              "Signal Type": "OSC",
+              "Signal": {
+                "Base": {
+                  "Colour": "Purple",
+                  "Label": "/egg (12)"
+                },
+                "Signal Source": "/egg",
                 "Index": 12,
                 "Port": 5001,
                 "TCP": false
               }
             },
-            "Zeroed": false,
-            "Assuming Uniform Rate": true
-          }
-        ]
-      }
-    },
-    {
-      "Visualizer Type": "Scrolling Line Graph",
-      "Visualizer Settings": {
-        "Label": "Gyro",
-        "Max Amplitude": 256.0,
-        "Min Amplitude": -256.0,
-        "Override Master Time": false,
-        "Time Range": 10000000000,
-        "Spread Signals Apart": true,
-        "Spread Factor": 1.0,
-        "Data Lines": [
-          {
-            "Signal": {
-              "Signal Type": "OSC",
-              "Signal": {
-                "Base": {
-                  "Colour": "White",
-                  "Label": "Z_Yaw"
-                },
-                "Signal Source": "/eeg",
-                "Index": 22,
-                "Port": 5001,
-                "TCP": false
-              }
-            },
             "Zeroed": true,
             "Assuming Uniform Rate": true
           },
@@ -616,93 +822,11 @@
               "Signal Type": "OSC",
               "Signal": {
                 "Base": {
-                  "Colour": "White",
-                  "Label": "Y_Pitch"
+                  "Colour": "Red",
+                  "Label": "/egg (13)"
                 },
-                "Signal Source": "/eeg",
-                "Index": 21,
-                "Port": 5001,
-                "TCP": false
-              }
-            },
-            "Zeroed": true,
-            "Assuming Uniform Rate": true
-          },
-          {
-            "Signal": {
-              "Signal Type": "OSC",
-              "Signal": {
-                "Base": {
-                  "Colour": "White",
-                  "Label": "X_Roll"
-                },
-                "Signal Source": "/eeg",
-                "Index": 20,
-                "Port": 5001,
-                "TCP": false
-              }
-            },
-            "Zeroed": true,
-            "Assuming Uniform Rate": true
-          }
-        ]
-      }
-    },
-    {
-      "Visualizer Type": "Scrolling Line Graph",
-      "Visualizer Settings": {
-        "Label": "Accelerometer",
-        "Max Amplitude": 5.0,
-        "Min Amplitude": -5.0,
-        "Override Master Time": false,
-        "Time Range": 10000000000,
-        "Spread Signals Apart": true,
-        "Spread Factor": 1.0,
-        "Data Lines": [
-          {
-            "Signal": {
-              "Signal Type": "OSC",
-              "Signal": {
-                "Base": {
-                  "Colour": "White",
-                  "Label": "Z_Down_Up"
-                },
-                "Signal Source": "/eeg",
-                "Index": 25,
-                "Port": 5001,
-                "TCP": false
-              }
-            },
-            "Zeroed": true,
-            "Assuming Uniform Rate": true
-          },
-          {
-            "Signal": {
-              "Signal Type": "OSC",
-              "Signal": {
-                "Base": {
-                  "Colour": "White",
-                  "Label": "X_Forward_Back"
-                },
-                "Signal Source": "/eeg",
-                "Index": 23,
-                "Port": 5001,
-                "TCP": false
-              }
-            },
-            "Zeroed": true,
-            "Assuming Uniform Rate": true
-          },
-          {
-            "Signal": {
-              "Signal Type": "OSC",
-              "Signal": {
-                "Base": {
-                  "Colour": "White",
-                  "Label": "Y_Right_Left"
-                },
-                "Signal Source": "/eeg",
-                "Index": 24,
+                "Signal Source": "/egg",
+                "Index": 13,
                 "Port": 5001,
                 "TCP": false
               }

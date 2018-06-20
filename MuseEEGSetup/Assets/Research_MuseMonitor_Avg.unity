@@ -186,8 +186,6 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  - 0
-  - 0
 --- !u!4 &53293583
 Transform:
   m_ObjectHideFlags: 0
@@ -199,7 +197,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 933954568}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &105146530
 GameObject:
@@ -228,7 +226,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 933954568}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &105146532
 MonoBehaviour:
@@ -413,7 +411,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 933954568}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &200700712
 MonoBehaviour:
@@ -757,7 +755,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 933954568}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &514671507
 MonoBehaviour:
@@ -1269,6 +1267,7 @@ Transform:
   m_Children:
   - {fileID: 1670593760}
   - {fileID: 1505776657}
+  - {fileID: 1093909405}
   - {fileID: 1333806381}
   - {fileID: 53293583}
   - {fileID: 105146531}
@@ -1281,6 +1280,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1093909404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1093909405}
+  - component: {fileID: 1093909406}
+  m_Layer: 0
+  m_Name: MuseLabOSC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1093909405
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1093909404}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -3, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 933954568}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1093909406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1093909404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaad75f03bc9d2942a2a4dd8e734324f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transmissionTypeIn: 0
+  _transmissionTypeOut: 0
+  autoConnectOSCIn: 0
+  _oscPort: 0
+  _isValidOscIPAddress: 1
+  _isValidOscMulticastIPAddress: 1
+  _oscMulticastIPAddress: 224.0.1.0
+  oscOut: 1
+  autoConnectOSCOut: 1
+  foldoutOSCOut: 1
+  foldoutOSCIn: 1
+  _isValidOscOutIPAddress: 1
+  _oscOutIPAddress: 192.168.0.7
+  _isValidOscOutMulticastIPAddress: 1
+  _oscOutMulticastIPAddress: 224.0.1.0
+  _oscOutPort: 5001
+  redrawFlag: 0
+  dispatchOSC: 0
+  dispatchOSCOut: 0
+  oscMappingFileObjList: []
+  oscSessionFileObjList: []
+  SendSessionDataOnStart: 0
 --- !u!1 &1101348287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1871,6 +1932,7 @@ GameObject:
   - component: {fileID: 1333806382}
   - component: {fileID: 1333806383}
   - component: {fileID: 1333806384}
+  - component: {fileID: 1333806385}
   m_Layer: 0
   m_Name: MuseMonitorOSCManager
   m_TagString: Untagged
@@ -1889,7 +1951,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 933954568}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1333806382
 MonoBehaviour:
@@ -1923,6 +1985,8 @@ MonoBehaviour:
   _receiveAllPorts: 0
   _redrawFlag: 0
   _foldoutList: []
+  AllValues: 0
+  ReceiveEEG: 0
   Delta_Address: /muse/elements/delta_absolute
   Theta_Address: /muse/elements/theta_absolute
   Alpha_Address: /muse/elements/alpha_absolute
@@ -1935,6 +1999,7 @@ MonoBehaviour:
   TouchingForehead_Address: /muse/elements/touching_forehead
   Horseshoe_Address: /muse/elements/horseshoe
   Batt_Address: /muse/batt
+  eeg_Address: /muse/eeg
   d0: 0
   d1: 0
   d2: 0
@@ -1955,6 +2020,11 @@ MonoBehaviour:
   g1: 0
   g2: 0
   g3: 0
+  eeg0: 0
+  eeg1: 0
+  eeg2: 0
+  eeg3: 0
+  eeg4: 0
   gyroX: 0
   gyroY: 0
   gyroZ: 0
@@ -2045,6 +2115,27 @@ MonoBehaviour:
   _myOSCConnections:
   - {fileID: 1505776656}
   MuseMonitor: {fileID: 1333806380}
+--- !u!114 &1333806385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1333806380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendInterval: 100
+  _oscOutAddress: /egg
+  _oscOutIPAddress: 192.168.0.7
+  _oscOutPort: 5001
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1093909406}
+  _drawDefaultInspector: 1
+  _myOSCConnections:
+  - {fileID: 1093909406}
+  MuseMonitor: {fileID: 1333806380}
 --- !u!1 &1430659828
 GameObject:
   m_ObjectHideFlags: 0
@@ -2072,7 +2163,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 933954568}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1430659830
 MonoBehaviour:
@@ -2502,7 +2593,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 933954568}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1601488937
 MonoBehaviour:
@@ -2739,6 +2830,57 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1727803787}
+--- !u!1 &1738003808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1738003810}
+  - component: {fileID: 1738003811}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1738003810
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1738003808}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1738003811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1738003808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dbc08ec460c6044b9d65d30a27d89a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DTW_Rec: {fileID: 105146530}
+  Net_Rec: {fileID: 1739997136}
+  Net_Train: {fileID: 514671505}
+  DTW_Run: {fileID: 200700710}
+  Net_Run: {fileID: 1601488935}
+  waitState: 30
+  waitEpoch: 10
+  state: 0
+  gesture: 0
+  epochStart: 0
+  recOn: 0
 --- !u!1 &1739997136
 GameObject:
   m_ObjectHideFlags: 0
@@ -2766,7 +2908,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 933954568}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1739997138
 MonoBehaviour:
@@ -3291,7 +3433,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 933954568}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2105319873
 MonoBehaviour:

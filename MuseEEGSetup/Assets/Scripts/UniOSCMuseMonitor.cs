@@ -11,6 +11,7 @@ namespace UniOSC{
 	/// </summary>
 	[AddComponentMenu("UniOSC/MuseMonitor")]
 	public class UniOSCMuseMonitor :  UniOSCEventTarget {
+        public bool AllValues, ReceiveEEG;
 
 		public string Delta_Address;
 		public string Theta_Address;
@@ -26,18 +27,22 @@ namespace UniOSC{
 		public string TouchingForehead_Address;
 		public string Horseshoe_Address;
 		public string Batt_Address;
+        public string eeg_Address;
 
 		public static UniOSCMuseMonitor main;
 
 		public float d0,d1,d2,d3,t0,t1,t2,t3,a0,a1,a2,a3,b0,b1,b2,b3,g0,g1,g2,g3;
+        public float eeg0, eeg1, eeg2, eeg3, eeg4;
         public float gyroX, gyroY, gyroZ, accX, accY, accZ;
 		public float blink, jc, touchingforehead, batt, hs0, hs1, hs2, hs3;
 
         public float a_r0, a_r1, a_r2, a_r3, b_r0,b_r1,b_r2,b_r3, g_r0, g_r1, g_r2, g_r3, t_r0, t_r1, t_r2, t_r3,d_r0,d_r1,d_r2,d_r3;
         public float delta_relative, alpha_relative, theta_relative, beta_relative, gamma_relative, delta_abs, alpha_abs, theta_abs, beta_abs, gamma_abs;
         public float theta_beta_abs, theta_beta_r, alpha_theta_abs, alpha_theta_r;
+        public float tb_abs0,tb_abs1,tb_abs2,tb_abs3, tb_r0,tb_r1,tb_r2,tb_r3, at_abs0,at_abs1,at_abs2,at_abs3,at_r0,at_r1,at_r2,at_r3;
 
-		void Awake(){
+
+        void Awake(){
 			main = this;
 		}
 
@@ -65,54 +70,70 @@ namespace UniOSC{
 				_oscAddresses.Add (TouchingForehead_Address);
 				_oscAddresses.Add(Horseshoe_Address);
 				_oscAddresses.Add (Batt_Address);
-			}
+
+                if(ReceiveEEG)_oscAddresses.Add(eeg_Address);
+
+            }
 		}
         private void FixedUpdate()
         {
-            d_r0 = (d0 / (d0 + a0 + b0 + g0 + t0));
-            d_r1 = (d1 / (d1 + a1 + b1 + g1 + t1));
-            d_r2 = (d2 / (d2 + a2 + b2 + g2 + t2));
-            d_r3 = (d3 / (d3 + a3 + b3 + g3 + t3));
+            if (AllValues)
+            {
+                d_r0 = (d0 / (d0 + a0 + b0 + g0 + t0));
+                d_r1 = (d1 / (d1 + a1 + b1 + g1 + t1));
+                d_r2 = (d2 / (d2 + a2 + b2 + g2 + t2));
+                d_r3 = (d3 / (d3 + a3 + b3 + g3 + t3));
 
-            delta_abs = (4 / (d0 + d1 + d2 + d3));
-            delta_relative = (4 / (d_r0 + d_r1 + d_r2 + d_r3));
+                t_r0 = (t0 / (t0 + a0 + d0 + g0 + b0));
+                t_r1 = (t1 / (t1 + a1 + d1 + g1 + b1));
+                t_r2 = (t2 / (t2 + a2 + d2 + g2 + b2));
+                t_r3 = (t3 / (t3 + a3 + d3 + g3 + b3));
 
-            t_r0 = (t0 / (t0 + a0 + d0 + g0 + b0));
-            t_r1 = (t1 / (t1 + a1 + d1 + g1 + b1));
-            t_r2 = (t2 / (t2 + a2 + d2 + g2 + b2));
-            t_r3 = (t3 / (t3 + a3 + d3 + g3 + b3));
+                a_r0 = (a0 / (a0 + b0 + d0 + g0 + t0));
+                a_r1 = (a1 / (a1 + b1 + d1 + g1 + t1));
+                a_r2 = (a2 / (a2 + b2 + d2 + g2 + t2));
+                a_r3 = (a3 / (a3 + b3 + d3 + g3 + t3));
 
-            theta_abs = (4 / (t0 + t1 + t2 + t3));
-            theta_relative = (4 / (t_r0 + t_r1 + t_r2 + t_r3));
+                b_r0 = (b0 / (b0 + a0 + d0 + g0 + t0));
+                b_r1 = (b1 / (b1 + a1 + d1 + g1 + t1));
+                b_r2 = (b2 / (b2 + a2 + d2 + g2 + t2));
+                b_r3 = (b3 / (b3 + a3 + d3 + g3 + t3));
 
-            a_r0 = (a0 / (a0 + b0 + d0 + g0 + t0));
-            a_r1 = (a1 / (a1 + b1 + d1 + g1 + t1));
-            a_r2 = (a2 / (a2 + b2 + d2 + g2 + t2));
-            a_r3 = (a3 / (a3 + b3 + d3 + g3 + t3));
+                g_r0 = (g0 / (g0 + a0 + d0 + b0 + t0));
+                g_r1 = (g1 / (g1 + a1 + d1 + b1 + t1));
+                g_r2 = (g2 / (g2 + a2 + d2 + b2 + t2));
+                g_r3 = (g3 / (g3 + a3 + d3 + b3 + t3));
 
-            alpha_abs = (4 / (a0 + a1 + a2 + a3));
-            alpha_relative = (4 / (a_r0 + a_r1 + a_r2 + a_r3));
+                tb_abs0 = ( t0/ b0);
+                tb_abs1 = (t1 / b1);
+                tb_abs2 = (t2 / b2);
+                tb_abs3 = (t3 / b3);
+                tb_r0 = (t_r0 / b_r0);
+                tb_r1 = (t_r1 / b_r1);
+                tb_r2 = (t_r2 / b_r2);
+                tb_r3 = (t_r3 / b_r3);
+                at_abs0 = (a0 / t0);
+                at_abs0 = (a1 / t1);
+                at_abs2 = (a2 / t2);
+                at_abs3 = (a3 / t3);
+                at_r0 = (a_r0 / t_r0);
+                at_r1 = (a_r1 / t_r1);
+                at_r2 = (a_r2 / t_r2);
+                at_r3 = (a_r3 / t_r3);
+            } else if (AllValues == false)
+            {
+                delta_relative = (delta_abs / (delta_abs + theta_abs + alpha_abs + beta_abs + gamma_abs ));
+                theta_relative = (theta_abs / (delta_abs + theta_abs + alpha_abs + beta_abs + gamma_abs));
+                alpha_relative = (alpha_abs / (delta_abs + theta_abs + alpha_abs + beta_abs + gamma_abs));
+                beta_relative = (beta_abs / (delta_abs + theta_abs + alpha_abs + beta_abs + gamma_abs));
+                gamma_relative = (gamma_abs / (delta_abs + theta_abs + alpha_abs + beta_abs + gamma_abs));
+                theta_beta_abs = (theta_abs / beta_abs);
+                theta_beta_r = (theta_relative / beta_relative);
+                alpha_theta_abs = (alpha_abs / theta_abs);
+                alpha_theta_r = (alpha_relative / theta_relative);
+            }
 
-            b_r0 = (b0 / (b0 + a0 + d0 + g0 + t0));
-            b_r1 = (b1 / (b1 + a1 + d1 + g1 + t1));
-            b_r2 = (b2 / (b2 + a2 + d2 + g2 + t2));
-            b_r3 = (b3 / (b3 + a3 + d3 + g3 + t3));
-
-            beta_abs = (4 / (b0 + b1 + b2 + b3));
-            beta_relative = (4 / (b_r0 + b_r1 + b_r2 + b_r3));
-
-            g_r0 = (g0 / (g0 + a0 + d0 + b0 + t0));
-            g_r1 = (g1 / (g1 + a1 + d1 + b1 + t1));
-            g_r2 = (g2 / (g2 + a2 + d2 + b2 + t2));
-            g_r3 = (g3 / (g3 + a3 + d3 + b3 + t3));
-
-            gamma_abs = (4 / (g0 + g1 + g2 + g3));
-            gamma_relative = (4 / (g_r0 + g_r1 + g_r2 + g_r3));
-
-            theta_beta_abs = (theta_abs / beta_abs);
-            theta_beta_r = (theta_relative / beta_relative);
-            alpha_theta_abs = (alpha_abs / theta_abs);
-            alpha_theta_r = (alpha_relative / theta_relative);
+            
 
         }
 
@@ -129,34 +150,53 @@ namespace UniOSC{
 			//	return;
 
 			if (String.Equals (args.Address, Delta_Address)) {
-				d0 = (float)msg.Data [0];
-				d1 = (float)msg.Data [1];
-				d2 = (float)msg.Data [2];
-				d3 = (float)msg.Data [3];
-			}
+                if (AllValues)
+                {
+                    d0 = (float)msg.Data[0];
+                    d1 = (float)msg.Data[1];
+                    d2 = (float)msg.Data[2];
+                    d3 = (float)msg.Data[3];
+                }
+                else delta_abs = (float)msg.Data[0];
+            }
 			if (String.Equals (args.Address, Theta_Address)) {
-				t0 = (float)msg.Data [0];
-				t1 = (float)msg.Data [1];
-				t2 = (float)msg.Data [2];
-				t3 = (float)msg.Data [3];
-			}
+                if (AllValues)
+                {
+                    t0 = (float)msg.Data[0];
+                    t1 = (float)msg.Data[1];
+                    t2 = (float)msg.Data[2];
+                    t3 = (float)msg.Data[3];
+                }else theta_abs = (float)msg.Data[0];
+            }
 			if (String.Equals (args.Address, Alpha_Address)) {
-				a0 = (float)msg.Data [0];
-				a1 = (float)msg.Data [1];
-				a2 = (float)msg.Data [2];
-				a3 = (float)msg.Data [3];
-			}
+                if (AllValues)
+                {
+                    a0 = (float)msg.Data[0];
+                    a1 = (float)msg.Data[1];
+                    a2 = (float)msg.Data[2];
+                    a3 = (float)msg.Data[3];
+                }
+                else alpha_abs = (float)msg.Data[0];
+            }
 			if (String.Equals (args.Address, Beta_Address)) {
-				b0 = (float)msg.Data [0];
-				b1 = (float)msg.Data [1];
-				b2 = (float)msg.Data [2];
-				b3 = (float)msg.Data [3];
+                if (AllValues)
+                {
+                    b0 = (float)msg.Data[0];
+                    b1 = (float)msg.Data[1];
+                    b2 = (float)msg.Data[2];
+                    b3 = (float)msg.Data[3];
+                }
+                else beta_abs = (float)msg.Data[0];
 			}
 			if (String.Equals (args.Address, Gamma_Address)) {
-				g0 = (float)msg.Data [0];
-				g1 = (float)msg.Data [1];
-				g2 = (float)msg.Data [2];
-				g3 = (float)msg.Data [3];
+                if (AllValues)
+                {
+                    g0 = (float)msg.Data[0];
+                    g1 = (float)msg.Data[1];
+                    g2 = (float)msg.Data[2];
+                    g3 = (float)msg.Data[3];
+                }
+                else gamma_abs = (float)msg.Data[0];
 			}
 			if (String.Equals (args.Address, Gyro_Address)) {
 				gyroX = (float)msg.Data [0];
@@ -188,7 +228,18 @@ namespace UniOSC{
 			if (String.Equals (args.Address, Batt_Address)) {
 				batt = (int)msg.Data [0]/100;
 			}
-		}
+            if (ReceiveEEG)
+            {
+                if (String.Equals(args.Address, eeg_Address))
+                {
+                    eeg0 = (float)msg.Data[0];
+                    eeg1 = (float)msg.Data[1];
+                    eeg2 = (float)msg.Data[2];
+                    eeg3 = (float)msg.Data[3];
+                    eeg4 = (float)msg.Data[4];
+                }
+            }
+        }
 		void blinkOff(){
 			blink = 0;
 		}

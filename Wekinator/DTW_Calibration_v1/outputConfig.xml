@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<OSCOutputGroup>
+  <oscMessage>/dtwouts</oscMessage>
+  <hostName>localhost</hostName>
+  <outputPort>12000</outputPort>
+  <outputs class="linked-list">
+    <wekimini.osc.OSCDtwOutput>
+      <name>DTW</name>
+      <numGestures>8</numGestures>
+      <gestureNames>
+        <string>DTW_1</string>
+        <string>DTW_2</string>
+        <string>DTW_3</string>
+        <string>DTW_4</string>
+        <string>DTW_5</string>
+        <string>DTW_6</string>
+        <string>DTW_7</string>
+        <string>DTW_8</string>
+      </gestureNames>
+      <gestureOscMessages>
+        <string>/DTW_1</string>
+        <string>/DTW_2</string>
+        <string>/DTW_3</string>
+        <string>/DTW_4</string>
+        <string>/DTW_5</string>
+        <string>/DTW_6</string>
+        <string>/DTW_7</string>
+        <string>/DTW_8</string>
+      </gestureOscMessages>
+      <outputOscMessage>DTW</outputOscMessage>
+    </wekimini.osc.OSCDtwOutput>
+  </outputs>
+</OSCOutputGroup>

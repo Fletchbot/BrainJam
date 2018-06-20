@@ -93,7 +93,7 @@ public class HelmManagerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		Invoke("DroneEnable", time);
+	//	Invoke("DroneEnable", time);
 		//Invoke("AirDroneEnable", time*4);
 		//Invoke("BassEnable", time);
 		//Invoke("DrumsEnable", time*12);
@@ -127,10 +127,10 @@ public class HelmManagerScript : MonoBehaviour {
 
         
       //  DroneX = UniOSC.UniOSCWekinator.main.isFocused;
-        SetSynthLvl(DroneX);
+      //  SetSynthLvl(DroneX);
     }
     public void SetSynthLvl(float synthLvl)
     {
-        synthMixer.SetFloat("synthVol", synthLvl);
+     //   synthMixer.SetFloat("synthVol", synthLvl);
     }
 }

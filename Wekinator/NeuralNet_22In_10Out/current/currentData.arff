@@ -1,0 +1,39 @@
+@relation dataset
+
+@attribute ID numeric
+@attribute Time date 'yyyy/MM/dd HH:mm:ss:SSS'
+@attribute 'Training round' numeric
+@attribute delta_abs numeric
+@attribute theta_abs numeric
+@attribute alpha_abs numeric
+@attribute beta_abs numeric
+@attribute gamma_abs numeric
+@attribute delta_relative numeric
+@attribute theta_relative numeric
+@attribute alpha_relative numeric
+@attribute beta_relative numeric
+@attribute gamma_relative numeric
+@attribute theta_beta_abs numeric
+@attribute alpha_theta_abs numeric
+@attribute theta_beta_relative numeric
+@attribute alpha_theta_relative numeric
+@attribute gyroX numeric
+@attribute gyroY numeric
+@attribute gyroZ numeric
+@attribute accX numeric
+@attribute accY numeric
+@attribute accZ numeric
+@attribute blink numeric
+@attribute jaw_clench numeric
+@attribute theta_beta_a numeric
+@attribute alpha_theta_a numeric
+@attribute theta_beta_r numeric
+@attribute alpha_theta_r numeric
+@attribute all_brainwaves_a numeric
+@attribute all_brainwaves_r numeric
+@attribute delta_gamma+ratios_a numeric
+@attribute delta_gamma+ratios_r numeric
+@attribute all_brainwaves numeric
+@attribute all_brainwaves+ratios numeric
+
+@data

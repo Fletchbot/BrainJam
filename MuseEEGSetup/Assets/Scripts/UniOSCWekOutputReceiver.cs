@@ -15,8 +15,8 @@ namespace UniOSC
     {
         public string[] addressArray;
         public float[] gestureFloats = new float[5];
-        public bool isGesture1, isGesture2, isGesture3, isGesture4, isGesture5;
-        public float[] nnet = new float[12];
+        public bool isGesture1, isGesture2, isGesture3, isGesture4, isGesture5, isGesture6, isGesture7, isGesture8;
+        public float[] nnet = new float[10];
 
         public static UniOSCWekOutputReceiver main;
 
@@ -64,11 +64,10 @@ namespace UniOSC
             {
                 if (String.Equals(args.Address, addressArray[0]))
                 {
-                    gestureFloats[0] = (float)msg.Data[0];
-                    gestureFloats[1] = (float)msg.Data[1];
-                    gestureFloats[2] = (float)msg.Data[2];
-                    gestureFloats[3] = (float)msg.Data[3];
-                    gestureFloats[4] = (float)msg.Data[4];
+                    for(int g = 0; g < msg.Data.Count; g++)
+                    {
+                        gestureFloats[g] = (float)msg.Data[g];
+                    }                   
                 }
                 if (String.Equals(args.Address, addressArray[1]))
                 {
@@ -102,19 +101,29 @@ namespace UniOSC
                 }
                 if (String.Equals(args.Address, addressArray[6]))
                 {
-                    nnet[0] = (float)msg.Data[0];
-                    nnet[1] = (float)msg.Data[1];
-                    nnet[2] = (float)msg.Data[2];
-                    nnet[3] = (float)msg.Data[3];
-                    nnet[4] = (float)msg.Data[4];
-                    nnet[5] = (float)msg.Data[5];
-                    nnet[6] = (float)msg.Data[6];
-                    nnet[7] = (float)msg.Data[7];
-                    nnet[8] = (float)msg.Data[8];
-                    nnet[9] = (float)msg.Data[9];
-                    nnet[10] = (float)msg.Data[10];
-                    nnet[11] = (float)msg.Data[11];
+                    isGesture6 = true;
+                    // if (isGesture1 == true || isGesture2 == true || isGesture3 == true || isGesture4 == true) Invoke("Switch", 0.3f);
+                    Invoke("Switch", 0.3f);
                 }
+                if (String.Equals(args.Address, addressArray[7]))
+                {
+                    isGesture7 = true;
+                    // if (isGesture1 == true || isGesture2 == true || isGesture3 == true || isGesture4 == true) Invoke("Switch", 0.3f);
+                    Invoke("Switch", 0.3f);
+                }
+                if (String.Equals(args.Address, addressArray[8]))
+                {
+                    isGesture8 = true;
+                    // if (isGesture1 == true || isGesture2 == true || isGesture3 == true || isGesture4 == true) Invoke("Switch", 0.3f);
+                    Invoke("Switch", 0.3f);
+                }
+               // if (String.Equals(args.Address, addressArray[6]))
+               // {
+                 //   for(int n = 0; n < nnet.Length; n++)
+                   // {
+                     //   nnet[n] = (float)msg.Data[n];
+                   // }
+                //}
             }
         }
         void Switch()
@@ -124,6 +133,9 @@ namespace UniOSC
             if (isGesture3 == true) isGesture3 = false;
             if (isGesture4 == true) isGesture4 = false;
             if (isGesture5 == true) isGesture5 = false;
+            if (isGesture6 == true) isGesture6 = false;
+            if (isGesture7 == true) isGesture7 = false;
+            if (isGesture8 == true) isGesture8 = false;
         }
     }
 }
