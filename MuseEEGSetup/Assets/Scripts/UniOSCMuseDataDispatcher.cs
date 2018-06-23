@@ -17,7 +17,7 @@ namespace UniOSC {
     {
 
         public GameObject MuseMonitor;
-        private bool AllValues, eegData, XYZ;
+        private bool AllValues, eegData, XYZ; 
 
         private float _gX, _gY, _gZ, _accX, _accY, _accZ,eeg0,eeg1,eeg2,eeg3,eeg4;
         private float d0_abs, d1_abs, d2_abs, d3_abs, t0_abs, t1_abs, t2_abs, t3_abs, a0_abs, a1_abs, a2_abs, a3_abs, b0_abs, b1_abs, b2_abs, b3_abs, g0_abs, g1_abs, g2_abs, g3_abs;
@@ -37,6 +37,7 @@ namespace UniOSC {
             
             if (MuseMonitor == null) MuseMonitor = gameObject;
             AllValues = MuseMonitor.GetComponent<UniOSCMuseMonitor>().AllValues;
+            XYZ = MuseMonitor.GetComponent<UniOSCMuseMonitor>().XYZ;
             eegData = MuseMonitor.GetComponent<UniOSCMuseMonitor>().ReceiveEEG;
             //Here we setup our OSC message
             base.OnEnable();
@@ -374,7 +375,7 @@ namespace UniOSC {
                         msg.UpdateDataAt(66, eeg4);
                     }
                 }
-                else
+                else if (AllValues == false)
                 {
                     msg.UpdateDataAt(0, delta_abs);
                     msg.UpdateDataAt(1, theta_abs);

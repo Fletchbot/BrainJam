@@ -221,7 +221,9 @@ MonoBehaviour:
   - /DTW_3
   - /DTW_4
   - /DTW_5
-  - /neuralnetouts
+  - /DTW_6
+  - /DTW_7
+  - /DTW_8
   _receiveAllAddresses: 0
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 1505776656}
@@ -324,7 +326,8 @@ MonoBehaviour:
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 1670593759}
   _drawDefaultInspector: 1
-  _myOSCConnections: []
+  _myOSCConnections:
+  - {fileID: 1670593759}
   bundleMode: 1
   DTW_mode: 1
   oscOutAddress2: /wekinator/control/stopDtwRecording
@@ -449,7 +452,8 @@ MonoBehaviour:
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 1670593759}
   _drawDefaultInspector: 1
-  _myOSCConnections: []
+  _myOSCConnections:
+  - {fileID: 1670593759}
   bundleMode: 1
   DTW_mode: 0
   oscOutAddress2: /wekinator/control/stopRunning
@@ -650,6 +654,33 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 331027560}
+--- !u!83 &342965753
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!83 &367523780
 AudioClip:
   m_ObjectHideFlags: 0
@@ -692,7 +723,7 @@ GameObject:
   - component: {fileID: 401848683}
   - component: {fileID: 401848682}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: CalibrationAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -708,7 +739,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 4737e585e1cc5cd4cb8af6cbf21295cf,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 13fdf87dc1ba74c14a30b22ff6c506d6, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -800,7 +831,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 401848681}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -933,6 +964,33 @@ MonoBehaviour:
   bundleMode: 1
   DTW_mode: 0
   oscOutAddress2: /wekinator/control/cancelTrain
+--- !u!83 &517519500
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1001 &589521201
 Prefab:
   m_ObjectHideFlags: 0
@@ -1582,6 +1640,33 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!83 &1191419312
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &1200025260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,6 +1698,33 @@ Transform:
   m_Father: {fileID: 1701583953}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!83 &1329062330
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &1333806380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,8 +1789,9 @@ MonoBehaviour:
   _receiveAllPorts: 0
   _redrawFlag: 0
   _foldoutList: []
-  AllValues: 0
+  AllValues: 1
   ReceiveEEG: 0
+  XYZ: 1
   Delta_Address: /muse/elements/delta_absolute
   Theta_Address: /muse/elements/theta_absolute
   Alpha_Address: /muse/elements/alpha_absolute
@@ -1765,6 +1878,22 @@ MonoBehaviour:
   theta_beta_r: 0
   alpha_theta_abs: 0
   alpha_theta_r: 0
+  tb_abs0: 0
+  tb_abs1: 0
+  tb_abs2: 0
+  tb_abs3: 0
+  tb_r0: 0
+  tb_r1: 0
+  tb_r2: 0
+  tb_r3: 0
+  at_abs0: 0
+  at_abs1: 0
+  at_abs2: 0
+  at_abs3: 0
+  at_r0: 0
+  at_r1: 0
+  at_r2: 0
+  at_r3: 0
 --- !u!114 &1333806383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2028,6 +2157,33 @@ MonoBehaviour:
   bundleMode: 1
   DTW_mode: 0
   oscOutAddress2: /wekinator/control/stopRunning
+--- !u!83 &1642584147
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &1670593758
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,7 +2295,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1738003810
 Transform:
   m_ObjectHideFlags: 0
@@ -2159,7 +2315,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1738003808}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 285b6d10a1c8f3b41a62454e2c480dd2, type: 3}
   m_Name: 
@@ -2167,12 +2323,27 @@ MonoBehaviour:
   DTW_Rec: {fileID: 105146530}
   DTW_Run: {fileID: 200700710}
   DTW_Delete: {fileID: 1430659828}
-  audioclip: {fileID: 401848681}
+  calibrationAudio: {fileID: 401848682}
+  calibrationClips:
+  - {fileID: 8300000, guid: e606ade51bd72a14999f36d61060ec04, type: 3}
+  - {fileID: 8300000, guid: 7b4cf0dabacca9c41bb5428629830564, type: 3}
+  - {fileID: 8300000, guid: daa6948c1c0fb204cb285d883bc9ebf8, type: 3}
+  - {fileID: 8300000, guid: 91facbed3684334479aefa0e4ce2302a, type: 3}
+  - {fileID: 8300000, guid: fdb5c479394f8884daf876de7cfb7a9f, type: 3}
+  - {fileID: 8300000, guid: ea9769fd99771084da149778ba775e18, type: 3}
+  - {fileID: 8300000, guid: 8bec55abddc0085488803b13105df51e, type: 3}
+  - {fileID: 8300000, guid: 18461e3899f6d8b4c9a15d45e3901fcb, type: 3}
+  - {fileID: 8300000, guid: 7029d9ff358afa94390b882422dc0eec, type: 3}
+  - {fileID: 8300000, guid: fd2ed78c212ebde48819741b05862856, type: 3}
+  - {fileID: 8300000, guid: ceb2dcbb7ab39b44f8f1d9ab4e1b163a, type: 3}
+  - {fileID: 8300000, guid: a02b198bb6455544e94373d4af2c06dc, type: 3}
+  - {fileID: 8300000, guid: 78c3376250126964caeaf2effabf412d, type: 3}
+  - {fileID: 8300000, guid: e14b64d55ce194f489decff7963620b7, type: 3}
   waitState: 30
   waitEpoch: 1.5
   state: 0
   gesture: 0
-  epochStart: 3
+  epochStart: 0
   recOn: 0
   deleteExamples: 0
 --- !u!1 &1739997136
@@ -2227,6 +2398,33 @@ MonoBehaviour:
   DTW_mode: 0
   oscOutAddress2: /wekinator/control/stopRecording
 --- !u!83 &1750684206
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
+--- !u!83 &1846722245
 AudioClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2380,6 +2578,60 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!83 &1979666602
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
+--- !u!83 &2086972627
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &2105319871
 GameObject:
   m_ObjectHideFlags: 0

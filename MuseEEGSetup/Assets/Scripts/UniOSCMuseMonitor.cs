@@ -11,7 +11,7 @@ namespace UniOSC{
 	/// </summary>
 	[AddComponentMenu("UniOSC/MuseMonitor")]
 	public class UniOSCMuseMonitor :  UniOSCEventTarget {
-        public bool AllValues, ReceiveEEG;
+        public bool AllValues, ReceiveEEG, XYZ;
 
 		public string Delta_Address;
 		public string Theta_Address;
@@ -61,9 +61,11 @@ namespace UniOSC{
 				_oscAddresses.Add(Alpha_Address);
 				_oscAddresses.Add(Beta_Address);
 				_oscAddresses.Add(Gamma_Address);
-
-				_oscAddresses.Add(Gyro_Address);
-				_oscAddresses.Add(Acc_Address);
+                if (XYZ)
+                {
+                    _oscAddresses.Add(Gyro_Address);
+                    _oscAddresses.Add(Acc_Address);
+                }
 
 				_oscAddresses.Add(Blink_Address);
 				_oscAddresses.Add(JawClench_Address);
@@ -198,16 +200,21 @@ namespace UniOSC{
                 }
                 else gamma_abs = (float)msg.Data[0];
 			}
-			if (String.Equals (args.Address, Gyro_Address)) {
-				gyroX = (float)msg.Data [0];
-				gyroY = (float)msg.Data [1];
-				gyroZ = (float)msg.Data [2];
-			}
-			if (String.Equals (args.Address, Acc_Address)) {
-				accX = (float)msg.Data [0];
-				accY = (float)msg.Data [1];
-				accZ = (float)msg.Data [2];
-			}
+            if (XYZ)
+            {
+                if (String.Equals(args.Address, Gyro_Address))
+                {
+                    gyroX = (float)msg.Data[0];
+                    gyroY = (float)msg.Data[1];
+                    gyroZ = (float)msg.Data[2];
+                }
+                if (String.Equals(args.Address, Acc_Address))
+                {
+                    accX = (float)msg.Data[0];
+                    accY = (float)msg.Data[1];
+                    accZ = (float)msg.Data[2];
+                }
+            }
 			if(String.Equals(args.Address,Horseshoe_Address)){
 				hs0 = (float)msg.Data [0];
 				hs1 = (float)msg.Data [1];
