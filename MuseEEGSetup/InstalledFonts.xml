@@ -1,0 +1,334 @@
+﻿<font_properties>
+	<font fontname="Arial ">
+		<file>C:\WINDOWS\Fonts\arial.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Arial Black ">
+		<file>C:\WINDOWS\Fonts\ariblk.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Bahnschrift ">
+		<file>C:\WINDOWS\Fonts\bahnschrift.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Calibri ">
+		<file>C:\WINDOWS\Fonts\calibri.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Calibri Light ">
+		<file>C:\WINDOWS\Fonts\calibril.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Candara ">
+		<file>C:\WINDOWS\Fonts\candara.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Comic Sans MS ">
+		<file>C:\WINDOWS\Fonts\comic.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Consolas ">
+		<file>C:\WINDOWS\Fonts\consola.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Constantia ">
+		<file>C:\WINDOWS\Fonts\constan.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Corbel ">
+		<file>C:\WINDOWS\Fonts\corbel.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Courier New ">
+		<file>C:\WINDOWS\Fonts\cour.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Ebrima ">
+		<file>C:\WINDOWS\Fonts\ebrima.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Franklin Gothic Medium ">
+		<file>C:\WINDOWS\Fonts\framd.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Gabriola ">
+		<file>C:\WINDOWS\Fonts\Gabriola.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Gadugi ">
+		<file>C:\WINDOWS\Fonts\gadugi.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Georgia ">
+		<file>C:\WINDOWS\Fonts\georgia.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Impact ">
+		<file>C:\WINDOWS\Fonts\impact.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Ink Free ">
+		<file>C:\WINDOWS\Fonts\Inkfree.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Javanese Text ">
+		<file>C:\WINDOWS\Fonts\javatext.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Leelawadee UI ">
+		<file>C:\WINDOWS\Fonts\leelawui.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Lucida Console ">
+		<file>C:\WINDOWS\Fonts\lucon.TTF</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Lucida Sans Unicode ">
+		<file>C:\WINDOWS\Fonts\l_10646.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Malgun Gothic ">
+		<file>C:\WINDOWS\Fonts\malgun.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Microsoft Himalaya ">
+		<file>C:\WINDOWS\Fonts\himalaya.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Microsoft New Tai Lue ">
+		<file>C:\WINDOWS\Fonts\ntailu.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Microsoft PhagsPa ">
+		<file>C:\WINDOWS\Fonts\phagspa.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Microsoft Sans Serif ">
+		<file>C:\WINDOWS\Fonts\micross.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Microsoft Tai Le ">
+		<file>C:\WINDOWS\Fonts\taile.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Microsoft Yi Baiti ">
+		<file>C:\WINDOWS\Fonts\msyi.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Mongolian Baiti ">
+		<file>C:\WINDOWS\Fonts\monbaiti.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="MV Boli ">
+		<file>C:\WINDOWS\Fonts\mvboli.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Myanmar Text ">
+		<file>C:\WINDOWS\Fonts\mmrtext.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Nirmala UI ">
+		<file>C:\WINDOWS\Fonts\Nirmala.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Palatino Linotype ">
+		<file>C:\WINDOWS\Fonts\pala.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Segoe MDL2 Assets ">
+		<file>C:\WINDOWS\Fonts\segmdl2.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Segoe Print ">
+		<file>C:\WINDOWS\Fonts\segoepr.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Segoe Script ">
+		<file>C:\WINDOWS\Fonts\segoesc.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Segoe UI ">
+		<file>C:\WINDOWS\Fonts\segoeui.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Segoe UI Black ">
+		<file>C:\WINDOWS\Fonts\seguibl.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Segoe UI Emoji ">
+		<file>C:\WINDOWS\Fonts\seguiemj.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Segoe UI Historic ">
+		<file>C:\WINDOWS\Fonts\seguihis.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Segoe UI Light ">
+		<file>C:\WINDOWS\Fonts\segoeuil.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Segoe UI Symbol ">
+		<file>C:\WINDOWS\Fonts\seguisym.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="SimSun-ExtB ">
+		<file>C:\WINDOWS\Fonts\simsunb.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Sylfaen ">
+		<file>C:\WINDOWS\Fonts\sylfaen.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Symbol ">
+		<file>C:\WINDOWS\Fonts\symbol.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Tahoma ">
+		<file>C:\WINDOWS\Fonts\tahoma.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Times New Roman ">
+		<file>C:\WINDOWS\Fonts\times.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Trebuchet MS ">
+		<file>C:\WINDOWS\Fonts\trebuc.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Verdana ">
+		<file>C:\WINDOWS\Fonts\verdana.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Webdings ">
+		<file>C:\WINDOWS\Fonts\webdings.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Wingdings ">
+		<file>C:\WINDOWS\Fonts\wingding.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Holo MDL2 Assets ">
+		<file>C:\WINDOWS\Fonts\holomdl2.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="MT Extra ">
+		<file>C:\WINDOWS\Fonts\C:\ProgramData\Kingsoft\office6\mtfont\mtextra.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Roboto Black ">
+		<file>C:\WINDOWS\Fonts\Roboto-Black.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Roboto Light ">
+		<file>C:\WINDOWS\Fonts\Roboto-Light.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Roboto Medium ">
+		<file>C:\WINDOWS\Fonts\Roboto-Medium.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Roboto ">
+		<file>C:\WINDOWS\Fonts\Roboto-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Roboto Thin ">
+		<file>C:\WINDOWS\Fonts\Roboto-Thin.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Roboto Condensed Light ">
+		<file>C:\WINDOWS\Fonts\RobotoCondensed-Light.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Roboto Condensed ">
+		<file>C:\WINDOWS\Fonts\RobotoCondensed-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Noto Sans ">
+		<file>C:\WINDOWS\Fonts\NotoSans-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Bowlby One SC ">
+		<file>C:\WINDOWS\Fonts\BowlbyOneSC-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Cabin Sketch ">
+		<file>C:\WINDOWS\Fonts\CabinSketch-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Cookie ">
+		<file>C:\WINDOWS\Fonts\Cookie-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Doppio One ">
+		<file>C:\WINDOWS\Fonts\DoppioOne-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Courgette ">
+		<file>C:\WINDOWS\Fonts\Courgette-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Dead Kansas ">
+		<file>C:\WINDOWS\Fonts\dead.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="euphorig ">
+		<file>C:\WINDOWS\Fonts\euphorig.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Great Vibes ">
+		<file>C:\WINDOWS\Fonts\GreatVibes-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Kalam Light ">
+		<file>C:\WINDOWS\Fonts\Kalam-Light.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Kalam ">
+		<file>C:\WINDOWS\Fonts\Kalam-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Lemon ">
+		<file>C:\WINDOWS\Fonts\Lemon-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Limelight ">
+		<file>C:\WINDOWS\Fonts\Limelight-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Megrim ">
+		<file>C:\WINDOWS\Fonts\Megrim.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Montserrat Subrayada ">
+		<file>C:\WINDOWS\Fonts\MontserratSubrayada-Bold.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Permanent Marker ">
+		<file>C:\WINDOWS\Fonts\PermanentMarker.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Russo One ">
+		<file>C:\WINDOWS\Fonts\RussoOne-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Sigmar One ">
+		<file>C:\WINDOWS\Fonts\SigmarOne-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Yellowtail ">
+		<file>C:\WINDOWS\Fonts\Yellowtail-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="HelvLight Regular ">
+		<file>C:\WINDOWS\Fonts\HELN.TTF</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Agency FB ">
+		<file>C:\WINDOWS\Fonts\AGENCYR.TTF</file>
+		<type>TrueType</type>
+	</font>
+	<font fontname="Lato ">
+		<file>C:\WINDOWS\Fonts\Lato-Regular.ttf</file>
+		<type>TrueType</type>
+	</font>
+</font_properties>

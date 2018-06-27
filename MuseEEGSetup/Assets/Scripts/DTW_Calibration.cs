@@ -5,29 +5,49 @@ using UnityEngine.Audio;
 
 public class DTW_Calibration : MonoBehaviour
 {
-    public GameObject DTW_Rec, DTW_Run, DTW_Delete, CountDown;
+    public GameObject DTW_Rec, DTW_Run, DTW_Delete, StateManager;
     public GameObject[] Icons;
     public AudioSource[] CalAudio;
     public float waitEpoch = 1.5f;
     public int state, gesture, epochStart, scene;
     public bool recOn, stopRec, deleteExamples;
-    public bool isPaused, resume, statechange;
+    public bool RunCalibration, isPaused, resume, statechange;
+    private Color MeditateColor, EmotionColor, AudioColor;
+ //   private bool Meditate, Emotion, Audio, MeditateAudio, MeditateEmo, EmotionAudio, AllSelected;
+
+    public void Start()
+    {
+        TransparentColor();
+    }
 
     public void Update()
     {
-        PlaybackUpdate();
+        RunCalibration = StateManager.GetComponent<CalibrationStateManager>().runCalibration;
+        if (RunCalibration)
+        {
+            PlaybackUpdate();
+        }
     }
 
     public void PlaybackUpdate()
     {
-        state = CountDown.GetComponent<Timer>().state;
-        statechange = CountDown.GetComponent<Timer>().statechange;
+        state = StateManager.GetComponent<CalibrationStateManager>().state;
+        statechange = StateManager.GetComponent<CalibrationStateManager>().statechange;
 
-        if (state == 0) //Narrator Intro
+        if(state == -1)
+        {
+            Icons[10].GetComponent<ActivateObjects>().SetActive(true);
+            activateMindStateIcons();
+        }
+        else if (state == 0) //Narrator Intro
         {
             if (statechange)
             {
+                Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
                 CalAudio[2].GetComponent<AudioSource>().Play();
+                resumeIcon();
+                voiceIcon();
+                DeactivateMindStateIcons();
             }
 
             if (isPaused == true && resume == false)
@@ -44,7 +64,11 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
+                Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
                 CalAudio[3].GetComponent<AudioSource>().Play();
+                resumeIcon();
+                voiceIcon();
+                DeactivateMindStateIcons();
             }
 
             if (isPaused == true && resume == false)
@@ -113,10 +137,12 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
+                Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
                 CalAudio[1].GetComponent<AudioSource>().Play();
                 CalAudio[5].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
+                DeactivateMindStateIcons();
             }
 
             if (isPaused == true && resume == false)
@@ -257,10 +283,12 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
+                Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
                 CalAudio[1].GetComponent<AudioSource>().Play();
                 CalAudio[9].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
+                DeactivateMindStateIcons();
             }
 
             if (isPaused == true && resume == false)
@@ -591,6 +619,35 @@ public class DTW_Calibration : MonoBehaviour
         deleteExamples = true;
         DTW_Delete.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(deleteExamples);
         deleteExamples = false;
+    }
+    private void TransparentColor()
+    {
+        MeditateColor = new Color(0, 255, 155, 0);
+        EmotionColor = new Color(0, 255, 155, 0);
+        AudioColor = new Color(0, 255, 155, 0);
+    }
+    private void OpaqueColor()
+    {
+        MeditateColor = new Color(0, 255, 155, 255);
+        EmotionColor = new Color(0, 255, 155, 255);
+        AudioColor = new Color(0, 255, 155, 255);
+    }
+
+    public void DeactivateMindStateIcons()
+    {
+        Icons[7].GetComponent<ActivateObjects>().SetDeactive(true);
+        Icons[8].GetComponent<ActivateObjects>().SetDeactive(true);
+        Icons[9].GetComponent<ActivateObjects>().SetDeactive(true);
+        Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
+        Icons[11].GetComponent<ActivateObjects>().SetActive(true);
+    }
+    public void activateMindStateIcons()
+    {
+        Icons[7].GetComponent<ActivateObjects>().SetActive(true);
+        Icons[8].GetComponent<ActivateObjects>().SetActive(true);
+        Icons[9].GetComponent<ActivateObjects>().SetActive(true);
+        Icons[12].GetComponent<ActivateObjects>().SetActive(true);
+        Icons[11].GetComponent<ActivateObjects>().SetDeactive(true);
     }
 
 }

@@ -334,6 +334,9 @@
  <Reference Include="Sanford.Multimedia.Midi">
  <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Assets/AudioHelm/Plugins/Sanford.Multimedia.Midi.dll</HintPath>
  </Reference>
+ <Reference Include="ink">
+ <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Assets/ink/Script/ink.dll</HintPath>
+ </Reference>
  <Reference Include="OSCsharp">
  <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Assets/UniOSC/Lib/OSCsharp.dll</HintPath>
  </Reference>

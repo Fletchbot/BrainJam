@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 9602688db8fcdcf498db13f680d352dd
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Lemon
+  fontNames:
+  - Lemon
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0ec59c4e39eed7240b06588eb614345e, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
