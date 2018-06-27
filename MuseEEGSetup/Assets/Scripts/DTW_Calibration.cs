@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Audio;
 
 public class DTW_Calibration : MonoBehaviour
@@ -12,21 +13,25 @@ public class DTW_Calibration : MonoBehaviour
     public int state, gesture, epochStart, scene;
     public bool recOn, stopRec, deleteExamples;
     public bool RunCalibration, isPaused, resume, statechange;
-    private Color MeditateColor, EmotionColor, AudioColor;
- //   private bool Meditate, Emotion, Audio, MeditateAudio, MeditateEmo, EmotionAudio, AllSelected;
-
-    public void Start()
-    {
-        TransparentColor();
-    }
+    private Color MedCol, EmoCol, AuCol;
 
     public void Update()
     {
         RunCalibration = StateManager.GetComponent<CalibrationStateManager>().runCalibration;
+        changeIconColor();
         if (RunCalibration)
         {
             PlaybackUpdate();
         }
+    }
+    public void changeIconColor()
+    {
+        MedCol = StateManager.GetComponent<CalibrationStateManager>().MCol;
+        EmoCol = StateManager.GetComponent<CalibrationStateManager>().ECol;
+        AuCol = StateManager.GetComponent<CalibrationStateManager>().ACol;
+        Icons[7].GetComponent<Image>().color = MedCol;
+        Icons[8].GetComponent<Image>().color = EmoCol;
+        Icons[9].GetComponent<Image>().color = AuCol;
     }
 
     public void PlaybackUpdate()
@@ -475,7 +480,18 @@ public class DTW_Calibration : MonoBehaviour
             Invoke("Switch", 0.1f);
         }
     }
-
+    public void Cancel(bool cancel)
+    {
+        if (cancel)
+        {
+            Icons[10].GetComponent<ActivateObjects>().SetActive(true);
+            activateMindStateIcons();
+            resume = false;
+            state = -1;
+            CancelCalibration();
+            stopAllAudio();
+        }
+    }
     private void Switch()
     {
         if(stopRec) stopRec = false;
@@ -567,6 +583,7 @@ public class DTW_Calibration : MonoBehaviour
         DTW_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
         StopCoroutine(RepeatTimer());       
     }
+
     private void voiceIcon()
     {
         StopCoroutine(RepeatTimer());
@@ -620,18 +637,6 @@ public class DTW_Calibration : MonoBehaviour
         DTW_Delete.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(deleteExamples);
         deleteExamples = false;
     }
-    private void TransparentColor()
-    {
-        MeditateColor = new Color(0, 255, 155, 0);
-        EmotionColor = new Color(0, 255, 155, 0);
-        AudioColor = new Color(0, 255, 155, 0);
-    }
-    private void OpaqueColor()
-    {
-        MeditateColor = new Color(0, 255, 155, 255);
-        EmotionColor = new Color(0, 255, 155, 255);
-        AudioColor = new Color(0, 255, 155, 255);
-    }
 
     public void DeactivateMindStateIcons()
     {
@@ -648,6 +653,13 @@ public class DTW_Calibration : MonoBehaviour
         Icons[9].GetComponent<ActivateObjects>().SetActive(true);
         Icons[12].GetComponent<ActivateObjects>().SetActive(true);
         Icons[11].GetComponent<ActivateObjects>().SetDeactive(true);
+    }
+    public void stopAllAudio()
+    {
+        for (int i = 0; i < CalAudio.Length; i++)
+        {
+            CalAudio[i].GetComponent<AudioSource>().Stop();
+        }
     }
 
 }

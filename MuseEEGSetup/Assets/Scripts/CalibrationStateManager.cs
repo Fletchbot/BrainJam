@@ -4,14 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CalibrationStateManager : MonoBehaviour {
-    public GameObject timerText;
+    public GameObject timerText, PickOneText;
     Text text;
     public float counter;
     public float speed = 1;
     public int state;
     public bool runCalibration, paused, statechange;
     public bool Meditate, Emotion, Audio, MeditateAudio, MeditateEmo, EmotionAudio, AllSelected;
+    public Color32 MCol, ECol, ACol;
+    private Color32 OffColor, OnColor;
     private int _mClick, _eClick, _aClick;
+    private bool PickText;
 
     // Use this for initialization
     public void OnEnable()
@@ -26,8 +29,19 @@ public class CalibrationStateManager : MonoBehaviour {
         _counter();
         _calibrationSelector();
     }
+
     public void Reset()
     {
+        OffColor = new Color32(0, 201, 255, 255);
+        OnColor = new Color32(0, 255, 155, 255);
+        MCol = OffColor;
+        ECol = OffColor;
+        ACol = OffColor;
+
+        _mClick = 0;
+        _eClick = 0;
+        _aClick = 0;
+
         counter = 30.0f;
         statechange = true;
     }
@@ -39,6 +53,7 @@ public class CalibrationStateManager : MonoBehaviour {
         MeditateEmo = false;
         MeditateAudio = false;
         EmotionAudio = false;
+        AllSelected = false;
     }
 
     public void _counter()
@@ -64,7 +79,6 @@ public class CalibrationStateManager : MonoBehaviour {
         }
         else
         {
-            //  calibrateReset();
             text.text = "";
         }
     }
@@ -309,18 +323,21 @@ public class CalibrationStateManager : MonoBehaviour {
             MeditateEmo = true;
             Meditate = false;
             Emotion = false;
+            AllSelected = false;
         }
         else if (Meditate && Audio)
         {
             MeditateAudio = true;
             Meditate = false;
             Audio = false;
+            AllSelected = false;
         }
         else if (Emotion && Audio)
         {
             EmotionAudio = true;
             Audio = false;
             Emotion = false;
+            AllSelected = false;
         }
         else if (Meditate && EmotionAudio || MeditateEmo && Audio || MeditateAudio && Emotion)
         {
@@ -378,15 +395,30 @@ public class CalibrationStateManager : MonoBehaviour {
             paused = false;
         }
     }
+    public void ClickCancel(bool _c)
+    {
+        if (_c)
+        {
+            calibrateReset();
+            state = -1;
+            counter = 0;
+            Reset();
+            runCalibration = false;
+        }
+
+    }
     public void ClickMeditate(bool _m)
     {
         _mClick++;
         if (_mClick == 1)
         {
+            MCol = OnColor;
             Meditate = _m;
+            PickTextDisable();
         }
         else if (_mClick == 2)
         {
+            MCol = OffColor;
             Meditate = false;
             _mClick = 0;
         }
@@ -396,10 +428,13 @@ public class CalibrationStateManager : MonoBehaviour {
         _eClick++;
         if (_eClick == 1)
         {
+            ECol = OnColor;
             Emotion = _e;
+            PickTextDisable();
         }
         else if (_eClick == 2)
         {
+            ECol = OffColor;
             Emotion = false;
             _eClick = 0;
         }
@@ -410,10 +445,13 @@ public class CalibrationStateManager : MonoBehaviour {
 
         if (_aClick == 1)
         {
+            ACol = OnColor;
             Audio = _a;
+            PickTextDisable();
         }
         else if (_aClick == 2)
         {
+            ACol = OffColor;
             Audio = false;
             _aClick = 0;
         }
@@ -429,8 +467,18 @@ public class CalibrationStateManager : MonoBehaviour {
             }
             else
             {
-                text.text = "Pick At Least One To Begin";
+                runCalibration = false;
+                PickText = true;
+                PickOneText.GetComponent<ActivateObjects>().SetActive(PickText);
             }
+        }
+    }
+    private void PickTextDisable()
+    {
+        if (PickText)
+        {
+            PickOneText.GetComponent<ActivateObjects>().SetDeactive(PickText);
+            PickText = false;
         }
     }
 }

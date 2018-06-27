@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameModeLoader.unity
     guid: 7b32fe82ac2c37249addfd35cbd4d823
+  - enabled: 1
+    path: Assets/Scenes/Playtest.unity
+    guid: cedf53234a929244fb991db8a2fabffa
   m_configObjects: {}
