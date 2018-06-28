@@ -13,22 +13,100 @@ public class DTW_Calibration : MonoBehaviour
     public int state, gesture, epochStart, scene;
     public bool recOn, stopRec, deleteExamples;
     public bool RunCalibration, isPaused, resume, statechange;
-    private Color MedCol, EmoCol, AuCol;
+    private Color MedCol, EmoCol, AuCol, recCol, finCol, waitCol;
+    private bool _M, _E, _A, _ME, _MA, _EA, _All;
+    private bool mRec, eRec, aRec, mFin, eFin, aFin;
+    private Vector3 Middle, Left, Right;
 
     public void Update()
     {
         RunCalibration = StateManager.GetComponent<CalibrationStateManager>().runCalibration;
-        changeIconColor();
+        
+        DeactivateMindStateIcons();
         if (RunCalibration)
         {
             PlaybackUpdate();
         }
+        changeIconColor();
     }
     public void changeIconColor()
     {
-        MedCol = StateManager.GetComponent<CalibrationStateManager>().MCol;
-        EmoCol = StateManager.GetComponent<CalibrationStateManager>().ECol;
-        AuCol = StateManager.GetComponent<CalibrationStateManager>().ACol;
+        mFin = StateManager.GetComponent<CalibrationStateManager>().mFin;
+        eFin = StateManager.GetComponent<CalibrationStateManager>().eFin;
+        aFin = StateManager.GetComponent<CalibrationStateManager>().aFin;
+
+        recCol = StateManager.GetComponent<CalibrationStateManager>().recColor;
+        finCol = StateManager.GetComponent<CalibrationStateManager>().finishColor;
+        waitCol = new Color32(255, 255, 255, 255);
+
+        if (!recOn || state == -1)
+        {
+            if (!mFin)
+            {
+                MedCol = StateManager.GetComponent<CalibrationStateManager>().MCol;
+            } else if (mFin && statechange)
+            {
+                if(mFin && eFin)
+                {
+                    MedCol = finCol;
+                    EmoCol = finCol;
+                } else
+                {
+                    MedCol = finCol;
+                }               
+            }
+            if (!eFin)
+            {
+                EmoCol = StateManager.GetComponent<CalibrationStateManager>().ECol;
+            } else if (eFin && statechange)
+            {
+                EmoCol = finCol;
+            }
+            if (!aFin)
+            {
+                AuCol = StateManager.GetComponent<CalibrationStateManager>().ACol;
+            } else if (aFin && statechange)
+            {
+                AuCol = finCol;
+            }
+        } else if (recOn)
+        {
+            if (mRec)
+            {
+                MedCol = recCol;
+            } else if (eRec)
+            {
+                EmoCol = recCol;
+            } else if (aRec)
+            {
+                AuCol = recCol;
+            }
+        }
+        if (RunCalibration)
+        {
+            if (_ME && !mFin)
+            {
+                EmoCol = waitCol;
+            }
+            if (_MA && !mFin)
+            {
+                AuCol = waitCol;
+            }
+            if (_EA && !eFin)
+            {
+                AuCol = waitCol;
+            }
+
+            if (_All && !mFin)
+            {
+                EmoCol = waitCol;
+                AuCol = waitCol;
+            } else if (_All && mFin &&!eFin)
+            {
+                AuCol = waitCol;
+            }
+        }
+
         Icons[7].GetComponent<Image>().color = MedCol;
         Icons[8].GetComponent<Image>().color = EmoCol;
         Icons[9].GetComponent<Image>().color = AuCol;
@@ -39,8 +117,12 @@ public class DTW_Calibration : MonoBehaviour
         state = StateManager.GetComponent<CalibrationStateManager>().state;
         statechange = StateManager.GetComponent<CalibrationStateManager>().statechange;
 
-        if(state == -1)
+        if (state == -1)
         {
+            if (statechange)
+            {
+                CalAudio[1].GetComponent<AudioSource>().Play();
+            }
             Icons[10].GetComponent<ActivateObjects>().SetActive(true);
             activateMindStateIcons();
         }
@@ -52,7 +134,6 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[2].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
-                DeactivateMindStateIcons();
             }
 
             if (isPaused == true && resume == false)
@@ -60,12 +141,14 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[2].GetComponent<AudioSource>().Pause();
                 pauseIcon();
 
-            } else if (resume == true && isPaused == true)
+            }
+            else if (resume == true && isPaused == true)
             {
                 CalAudio[2].GetComponent<AudioSource>().Play();
                 resumeIcon();
             }
-        } else if (state == 1) //Narrator Meditation1
+        }
+        else if (state == 1) //Narrator Meditation1
         {
             if (statechange)
             {
@@ -73,7 +156,6 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[3].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
-                DeactivateMindStateIcons();
             }
 
             if (isPaused == true && resume == false)
@@ -94,12 +176,14 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 1;
                 Rec();
+                mRec = true;
             }
 
             if (stopRec == true)
             {
                 CancelCalibration();
                 backIcon();
+                mRec = false;
             }
         }
         else if (state == 3) //Narrator Meditation2
@@ -130,12 +214,14 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 2;
                 Rec();
+                mRec = true;
             }
 
             if (stopRec == true)
             {
                 CancelCalibration();
                 backIcon();
+                mRec = false;
             }
         }
         else if (state == 5) //Narrator Emotion1
@@ -147,7 +233,6 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[5].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
-                DeactivateMindStateIcons();
             }
 
             if (isPaused == true && resume == false)
@@ -163,19 +248,21 @@ public class DTW_Calibration : MonoBehaviour
         }
         else if (state == 6) //Happy eyes closed g3
         {
-            if (statechange) 
+            if (statechange)
             {
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 3;
                 Rec();
+                eRec = true;
             }
 
-        if (stopRec == true)
-        {
-            CancelCalibration();
-            backIcon();
+            if (stopRec == true)
+            {
+                CancelCalibration();
+                backIcon();
+                eRec = false;
+            }
         }
-    }
         else if (state == 7) //Narrator Emotion2
         {
             if (statechange)
@@ -204,12 +291,14 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 4;
                 Rec();
+                eRec = true;
             }
 
             if (stopRec == true)
             {
                 CancelCalibration();
                 backIcon();
+                eRec = false;
             }
         }
         else if (state == 9) //Narrator Emotion3
@@ -240,12 +329,14 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 5;
                 Rec();
+                eRec = true;
             }
 
             if (stopRec == true)
             {
                 CancelCalibration();
                 backIcon();
+                eRec = false;
             }
         }
         else if (state == 11) //Narrator Emotion4
@@ -276,12 +367,14 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 6;
                 Rec();
+                eRec = true;
             }
 
             if (stopRec == true)
             {
                 CancelCalibration();
                 backIcon();
+                eRec = false;
             }
         }
         else if (state == 13) //Narrator Instrument1 closed
@@ -293,7 +386,6 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[9].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
-                DeactivateMindStateIcons();
             }
 
             if (isPaused == true && resume == false)
@@ -314,12 +406,14 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 7;
                 Rec();
+                aRec = true;
             }
 
             if (stopRec == true)
             {
                 CancelCalibration();
                 backIcon();
+                aRec = false;
             }
         }
         else if (state == 15) //Narrator Instrument1 open
@@ -350,12 +444,14 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 8;
                 Rec();
+                aRec = true;
             }
 
             if (stopRec == true)
             {
                 CancelCalibration();
                 backIcon();
+                aRec = false;
             }
         }
         else if (state == 17) //Narrator Instrument2 closed
@@ -386,12 +482,14 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 9;
                 Rec();
+                aRec = true;
             }
 
             if (stopRec == true)
             {
                 CancelCalibration();
                 backIcon();
+                aRec = false;
             }
         }
         else if (state == 19) //Narrator Instrument2 open
@@ -422,12 +520,14 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 10;
                 Rec();
+                aRec = true;
             }
 
             if (stopRec == true)
             {
                 CancelCalibration();
                 backIcon();
+                aRec = false;
             }
         }
         else if (state == 21) //Narrator End
@@ -450,7 +550,8 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[13].GetComponent<AudioSource>().Play();
                 resumeIcon();
             }
-        } else if (state == 22)
+        }
+        else if (state == 22)
         {
             if (statechange)
             {
@@ -458,6 +559,7 @@ public class DTW_Calibration : MonoBehaviour
             }
         }
     }
+
     public void Play(bool play)
     {
         if (play)
@@ -494,8 +596,9 @@ public class DTW_Calibration : MonoBehaviour
     }
     private void Switch()
     {
-        if(stopRec) stopRec = false;
+        if (stopRec) stopRec = false;
     }
+
     IEnumerator RepeatTimer()
     {
         yield return new WaitForSeconds(waitEpoch);
@@ -581,7 +684,7 @@ public class DTW_Calibration : MonoBehaviour
         epochStart = 0;
         recOn = false;
         DTW_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
-        StopCoroutine(RepeatTimer());       
+        StopCoroutine(RepeatTimer());
     }
 
     private void voiceIcon()
@@ -640,14 +743,83 @@ public class DTW_Calibration : MonoBehaviour
 
     public void DeactivateMindStateIcons()
     {
-        Icons[7].GetComponent<ActivateObjects>().SetDeactive(true);
-        Icons[8].GetComponent<ActivateObjects>().SetDeactive(true);
-        Icons[9].GetComponent<ActivateObjects>().SetDeactive(true);
-        Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
-        Icons[11].GetComponent<ActivateObjects>().SetActive(true);
+        _M = StateManager.GetComponent<CalibrationStateManager>().Meditate;
+        _E = StateManager.GetComponent<CalibrationStateManager>().Emotion;
+        _A = StateManager.GetComponent<CalibrationStateManager>().Audio;
+        _ME = StateManager.GetComponent<CalibrationStateManager>().MeditateEmo;
+        _MA = StateManager.GetComponent<CalibrationStateManager>().MeditateAudio;
+        _EA = StateManager.GetComponent<CalibrationStateManager>().EmotionAudio;
+        _All = StateManager.GetComponent<CalibrationStateManager>().AllSelected;
+
+        if (RunCalibration)
+        {
+            Middle = new Vector3(0, -280, 0);
+            Left = new Vector3(-80, -280, 0);
+            Right = new Vector3(80, -280, 0); 
+            if (_M)
+            {
+                Icons[7].GetComponent<RectTransform>().localPosition = Middle;
+                Icons[8].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[9].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[11].GetComponent<ActivateObjects>().SetActive(true);
+            }
+            else if (_ME)
+            {
+                Icons[7].GetComponent<RectTransform>().localPosition = Left;
+                Icons[8].GetComponent<RectTransform>().localPosition = Right;
+                Icons[9].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[11].GetComponent<ActivateObjects>().SetActive(true);
+            }
+            else if (_MA)
+            {
+                Icons[7].GetComponent<RectTransform>().localPosition = Left;
+                Icons[9].GetComponent<RectTransform>().localPosition = Right;
+                Icons[8].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[11].GetComponent<ActivateObjects>().SetActive(true);
+            }
+            else if (_E)
+            {
+                Icons[7].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[9].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[11].GetComponent<ActivateObjects>().SetActive(true);
+            }
+            else if (_EA)
+            {
+                Icons[8].GetComponent<RectTransform>().localPosition = Left;
+                Icons[9].GetComponent<RectTransform>().localPosition = Right;
+                Icons[7].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[11].GetComponent<ActivateObjects>().SetActive(true);
+            }
+            else if (_A)
+            {
+                Icons[9].GetComponent<RectTransform>().localPosition = Middle;
+                Icons[7].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[8].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[11].GetComponent<ActivateObjects>().SetActive(true);
+            }
+            else if (_All)
+            {
+                Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[11].GetComponent<ActivateObjects>().SetActive(true);
+            }
+        }
     }
     public void activateMindStateIcons()
     {
+        Middle = new Vector3(0, -280, 0);
+        Left = new Vector3(-200, -240, 0);
+        Right = new Vector3(200, -240, 0);
+
+        Icons[7].GetComponent<RectTransform>().localPosition = Left;
+        Icons[8].GetComponent<RectTransform>().localPosition = Middle;
+        Icons[9].GetComponent<RectTransform>().localPosition = Right;
+
         Icons[7].GetComponent<ActivateObjects>().SetActive(true);
         Icons[8].GetComponent<ActivateObjects>().SetActive(true);
         Icons[9].GetComponent<ActivateObjects>().SetActive(true);

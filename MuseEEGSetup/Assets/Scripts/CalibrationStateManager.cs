@@ -11,16 +11,19 @@ public class CalibrationStateManager : MonoBehaviour {
     public int state;
     public bool runCalibration, paused, statechange;
     public bool Meditate, Emotion, Audio, MeditateAudio, MeditateEmo, EmotionAudio, AllSelected;
-    public Color32 MCol, ECol, ACol;
+    public Color32 MCol, ECol, ACol, recColor, finishColor;
+    public bool mFin, eFin, aFin, cancel;
     private Color32 OffColor, OnColor;
     private int _mClick, _eClick, _aClick;
     private bool PickText;
+
 
     // Use this for initialization
     public void OnEnable()
     {
         text = timerText.GetComponent<Text>();
         state = -1;
+        colorReset();
         Reset();
     }
     public void Update()
@@ -28,16 +31,11 @@ public class CalibrationStateManager : MonoBehaviour {
         _stateChanger();
         _counter();
         _calibrationSelector();
+        _calibrateReset();
     }
 
     public void Reset()
     {
-        OffColor = new Color32(0, 201, 255, 255);
-        OnColor = new Color32(0, 255, 155, 255);
-        MCol = OffColor;
-        ECol = OffColor;
-        ACol = OffColor;
-
         _mClick = 0;
         _eClick = 0;
         _aClick = 0;
@@ -45,15 +43,48 @@ public class CalibrationStateManager : MonoBehaviour {
         counter = 30.0f;
         statechange = true;
     }
-    public void calibrateReset()
+    public void _calibrateReset()
     {
-        Meditate = false;
-        Emotion = false;
-        Audio = false;
-        MeditateEmo = false;
-        MeditateAudio = false;
-        EmotionAudio = false;
-        AllSelected = false;
+        if (mFin)
+        {
+            Meditate = false;
+        }
+        if (eFin)
+        {
+            Emotion = false;
+        }
+        if (aFin)
+        {
+            Audio = false;
+        }
+        if (mFin && eFin)
+        {
+            MeditateEmo = false;
+        }
+        if (mFin && aFin)
+        {
+            MeditateAudio = false;
+        }
+        if (eFin && aFin)
+        {
+            EmotionAudio = false;
+        }
+        if (mFin && aFin && eFin)
+        {
+            AllSelected = false;
+        }
+    }
+    public void colorReset()
+    {
+        OffColor = new Color32(0, 201, 255, 255);
+        OnColor = new Color32(0, 255, 155, 255);
+        recColor = new Color32(219, 39, 32, 255);
+        finishColor = new Color32(250, 189, 95, 255);
+
+        MCol = OffColor;
+        ECol = OffColor;
+        ACol = OffColor;
+
     }
 
     public void _counter()
@@ -133,17 +164,27 @@ public class CalibrationStateManager : MonoBehaviour {
                 if (Meditate)
                 {
                     state = -1;
+                    mFin = true;
+                    statechange = true;
+                    Invoke("Stop_RunCalibration", 1.0f);
                 }
                 else if (MeditateAudio)
                 {
                     counter = 0;
                     state = 12;
+                    mFin = true;
                 }
-                else
+                else if (Emotion || EmotionAudio)
                 {
                     state++;
                     counter = 42.0f;
                     statechange = true;
+                } else if (AllSelected || MeditateEmo)
+                {
+                    state++;
+                    counter = 42.0f;
+                    statechange = true;
+                    mFin = true;
                 }
             }
         }
@@ -216,9 +257,18 @@ public class CalibrationStateManager : MonoBehaviour {
             {
                 if (MeditateEmo || Emotion)
                 {
+                    statechange = true;
                     state = -1;
+                    eFin = true;
+                    Invoke("Stop_RunCalibration", 1.0f);
                 }
-                else
+                else if (AllSelected || EmotionAudio)
+                {
+                    state++;
+                    counter = 32.0f;
+                    statechange = true;
+                    eFin = true;
+                } else if (Audio)
                 {
                     state++;
                     counter = 32.0f;
@@ -295,13 +345,17 @@ public class CalibrationStateManager : MonoBehaviour {
             {
                 if (Audio || MeditateAudio || EmotionAudio)
                 {
+                    statechange = true;
                     state = -1;
+                    aFin = true;
+                    Invoke("Stop_RunCalibration", 1.0f);
                 }
-                else
+                else if (AllSelected)
                 {
                     state++;
                     counter = 30.0f;
                     statechange = true;
+                    aFin = true;
                 }
             }
         }
@@ -312,70 +366,126 @@ public class CalibrationStateManager : MonoBehaviour {
                 state++;
                 counter = 0f;
                 statechange = true;
+                Invoke("Stop_RunCalibration", 1.0f);
             }
 
         }
     }
     public void _calibrationSelector()
     {
-        if (Meditate && Emotion)
+        if (Meditate && Emotion && Audio)
+        {
+            MeditateEmo = false;
+            MeditateAudio = false;
+            EmotionAudio = false;
+            AllSelected = true;
+        }
+       else if (Meditate == true && Emotion == false && Audio == false)
+        {
+            MeditateEmo = false;
+            MeditateAudio = false;
+            EmotionAudio = false;
+            AllSelected = false;
+        } else if (Meditate == false && Emotion == true && Audio == false)
+        {
+            MeditateEmo = false;
+            MeditateAudio = false;
+            EmotionAudio = false;
+            AllSelected = false;
+        } else if (Meditate == false && Emotion == false && Audio == true)
+        {
+            MeditateEmo = false;
+            MeditateAudio = false;
+            EmotionAudio = false;
+            AllSelected = false;
+        } else if (Meditate == true && Emotion == true && Audio == false)
         {
             MeditateEmo = true;
-            Meditate = false;
-            Emotion = false;
+            MeditateAudio = false;
+            EmotionAudio = false;
             AllSelected = false;
-        }
-        else if (Meditate && Audio)
+        } else if (Meditate == true && Emotion == false && Audio == true)
         {
+            MeditateEmo = false;
             MeditateAudio = true;
-            Meditate = false;
-            Audio = false;
+            EmotionAudio = false;
             AllSelected = false;
-        }
-        else if (Emotion && Audio)
+        } else if (Meditate == false && Emotion == true && Audio == true)
         {
+            MeditateEmo = false;
+            MeditateAudio = false;
             EmotionAudio = true;
-            Audio = false;
-            Emotion = false;
             AllSelected = false;
-        }
-        else if (Meditate && EmotionAudio || MeditateEmo && Audio || MeditateAudio && Emotion)
+        } else if (Meditate == true && Emotion == true && Audio == true)
         {
+            MeditateEmo = false;
+            MeditateAudio = false;
+            EmotionAudio = false;
             AllSelected = true;
+        }
+        
+        if (cancel)
+        {
+            AllSelected = false;
             Meditate = false;
             Emotion = false;
             Audio = false;
             MeditateEmo = false;
             MeditateAudio = false;
             EmotionAudio = false;
+            cancel = false;
         }
     }
     public void _calibrationDispatcher()
     {
-        if (Meditate || MeditateEmo || MeditateAudio)
-        {
-            counter = 0;
+            if (Meditate && MeditateEmo == false && MeditateAudio == false && AllSelected == false)
+            {
+                counter = 0;
+                state = 0;
+            } else if (MeditateEmo)
+            {
+                Meditate = false;
+                Emotion = false;
+                counter = 0;
+                state = 0;
+            } else if (MeditateAudio)
+            {
+                Meditate = false;
+                Audio = false;
+                counter = 0;
+                state = 0;
+            }
+            else if (Emotion && EmotionAudio == false && MeditateEmo == false)
+            {
+                counter = 0;
+                state = 4;
+            } else if (EmotionAudio)
+            {
+                Emotion = false;
+                Audio = false;
+                counter = 0;
+                state = 4;
+            }
+            else if (Audio && EmotionAudio == false && MeditateAudio == false && AllSelected == false)
+            {
+                counter = 0;
+                state = 12;
+            }
+
+        if (AllSelected)
+            {
+            counter = 30;
             state = 0;
-            calibrateReset();
-        }
-        else if (Emotion || EmotionAudio)
-        {
-            counter = 0;
-            state = 4;
-            calibrateReset();
-        }
-        else if (Audio)
-        {
-            counter = 0;
-            state = 12;
-            calibrateReset();
-        }
-        else if (AllSelected)
-        {
-            state = 0;
-            calibrateReset();
-        }
+            Meditate = false;
+            Audio = false;
+            Emotion = false;
+            MeditateEmo = false;
+            MeditateAudio = false;
+            EmotionAudio = false;
+            
+            }
         runCalibration = false;
+
     }
 
     public void ClickPlay(bool play)
@@ -399,7 +509,7 @@ public class CalibrationStateManager : MonoBehaviour {
     {
         if (_c)
         {
-            calibrateReset();
+            cancel = true;
             state = -1;
             counter = 0;
             Reset();
@@ -409,51 +519,60 @@ public class CalibrationStateManager : MonoBehaviour {
     }
     public void ClickMeditate(bool _m)
     {
-        _mClick++;
-        if (_mClick == 1)
+        if (!runCalibration)
         {
-            MCol = OnColor;
-            Meditate = _m;
-            PickTextDisable();
-        }
-        else if (_mClick == 2)
-        {
-            MCol = OffColor;
-            Meditate = false;
-            _mClick = 0;
+            _mClick++;
+            if (_mClick == 1)
+            {
+                MCol = OnColor;
+                Meditate = _m;
+                PickTextDisable();
+            }
+            else if (_mClick == 2)
+            {
+                MCol = OffColor;
+                Meditate = false;
+                _mClick = 0;
+            }
         }
     }
     public void ClickEmo(bool _e)
     {
-        _eClick++;
-        if (_eClick == 1)
+        if (!runCalibration)
         {
-            ECol = OnColor;
-            Emotion = _e;
-            PickTextDisable();
-        }
-        else if (_eClick == 2)
-        {
-            ECol = OffColor;
-            Emotion = false;
-            _eClick = 0;
+            _eClick++;
+            if (_eClick == 1)
+            {
+                ECol = OnColor;
+                Emotion = _e;
+                PickTextDisable();
+            }
+            else if (_eClick == 2)
+            {
+                ECol = OffColor;
+                Emotion = false;
+                _eClick = 0;
+            }
         }
     }
     public void ClickAudio(bool _a)
     {
-        _aClick++;
+        if (!runCalibration)
+        {
+            _aClick++;
 
-        if (_aClick == 1)
-        {
-            ACol = OnColor;
-            Audio = _a;
-            PickTextDisable();
-        }
-        else if (_aClick == 2)
-        {
-            ACol = OffColor;
-            Audio = false;
-            _aClick = 0;
+            if (_aClick == 1)
+            {
+                ACol = OnColor;
+                Audio = _a;
+                PickTextDisable();
+            }
+            else if (_aClick == 2)
+            {
+                ACol = OffColor;
+                Audio = false;
+                _aClick = 0;
+            }
         }
     }
     public void ClickRun(bool run)
@@ -480,6 +599,10 @@ public class CalibrationStateManager : MonoBehaviour {
             PickOneText.GetComponent<ActivateObjects>().SetDeactive(PickText);
             PickText = false;
         }
+    }
+    private void Stop_RunCalibration()
+    {
+        runCalibration = false;
     }
 }
 
