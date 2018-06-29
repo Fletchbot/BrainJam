@@ -6,17 +6,24 @@ using UnityEngine.Audio;
 
 public class DTW_Calibration : MonoBehaviour
 {
-    public GameObject DTW_Rec, DTW_Run, DTW_Delete, StateManager;
+    [Header("DTW Wekinator GameObjects")]
+    public GameObject DTW_Rec, DTW_Run, DTW_Delete;
+    [Header("Calibration GameObjects")]
+    public GameObject StateManager;
     public GameObject[] Icons;
     public AudioSource[] CalAudio;
-    public float waitEpoch = 1.5f;
-    public int state, gesture, epochStart, scene;
-    public bool recOn, stopRec, deleteExamples;
+    [Header("Calibration Section")]
+    public int state, sceneLoader;
     public bool RunCalibration, isPaused, resume, statechange;
-    private Color MedCol, EmoCol, AuCol, recCol, finCol, waitCol;
+    [Header("Calibration Seq Section")]
+    private Color MedCol, EmoCol, AuCol, recCol, finCol, waitCol,lerpedCol;
     private bool _M, _E, _A, _ME, _MA, _EA, _All;
     private bool mRec, eRec, aRec, mFin, eFin, aFin;
     private Vector3 Middle, Left, Right;
+    [Header("DTW Record Section")]
+    public float waitEpoch = 1.5f;
+    public int gesture, epochStart;
+    public bool recOn, stopRec, deleteExamples;
 
     public void Update()
     {
@@ -28,6 +35,7 @@ public class DTW_Calibration : MonoBehaviour
             PlaybackUpdate();
         }
         changeIconColor();
+        isCompleted();
     }
     public void changeIconColor()
     {
@@ -121,10 +129,12 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
-                CalAudio[1].GetComponent<AudioSource>().Play();
+                stopAllAudio();
+                CalAudio[1].GetComponent<AudioSource>().Play();               
             }
             Icons[10].GetComponent<ActivateObjects>().SetActive(true);
             activateMindStateIcons();
+            deactivateSkip();
         }
         else if (state == 0) //Narrator Intro
         {
@@ -134,6 +144,7 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[2].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
+                activateSkip();
             }
 
             if (isPaused == true && resume == false)
@@ -147,32 +158,61 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[2].GetComponent<AudioSource>().Play();
                 resumeIcon();
             }
+
         }
         else if (state == 1) //Narrator Meditation1
         {
             if (statechange)
             {
-                Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
-                CalAudio[3].GetComponent<AudioSource>().Play();
-                resumeIcon();
-                voiceIcon();
+                if(_M || _ME || _MA)
+                {
+                    Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
+                    CalAudio[14].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                    voiceIcon();
+                    activateSkip();
+                } else if (_All)
+                {
+                    Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
+                    CalAudio[3].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                    voiceIcon();
+                    activateSkip();
+                }
             }
 
             if (isPaused == true && resume == false)
             {
-                CalAudio[3].GetComponent<AudioSource>().Pause();
-                pauseIcon();
+                if (_M || _ME || _MA)
+                {
+                    CalAudio[14].GetComponent<AudioSource>().Pause();
+                    pauseIcon();
+                } else if (_All) 
+                {
+                    CalAudio[3].GetComponent<AudioSource>().Pause();
+                    pauseIcon();
+                }
             }
             else if (resume == true && isPaused == true)
             {
-                CalAudio[3].GetComponent<AudioSource>().Play();
-                resumeIcon();
+                if (_M || _ME || _MA)
+                {
+                    CalAudio[14].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                }
+                else if (_All)
+                {
+                    CalAudio[3].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                }
             }
         }
         else if (state == 2)//breath meditation eyes closed g1
         {
             if (statechange)
             {
+                deactivateSkip();
+
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 1;
                 Rec();
@@ -194,6 +234,7 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[4].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
+                activateSkip();
             }
 
             if (isPaused == true && resume == false)
@@ -211,6 +252,8 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
+                deactivateSkip();
+
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 2;
                 Rec();
@@ -228,28 +271,58 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
-                Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
-                CalAudio[1].GetComponent<AudioSource>().Play();
-                CalAudio[5].GetComponent<AudioSource>().Play();
-                resumeIcon();
-                voiceIcon();
+                if (_E || _EA)
+                {
+                    Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
+                    CalAudio[1].GetComponent<AudioSource>().Play();
+                    CalAudio[15].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                    voiceIcon();
+                    activateSkip();
+                } else if (_All || _ME)
+                {
+                    Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
+                    CalAudio[1].GetComponent<AudioSource>().Play();
+                    CalAudio[5].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                    voiceIcon();
+                    activateSkip();
+                }
             }
 
             if (isPaused == true && resume == false)
             {
-                CalAudio[5].GetComponent<AudioSource>().Pause();
-                pauseIcon();
+                if (_E || _EA)
+                {
+                    CalAudio[15].GetComponent<AudioSource>().Pause();
+                    pauseIcon();
+                }
+                else if (_All || _ME)
+                {
+                    CalAudio[5].GetComponent<AudioSource>().Pause();
+                    pauseIcon();
+                }                  
             }
             else if (resume == true && isPaused == true)
             {
-                CalAudio[5].GetComponent<AudioSource>().Play();
-                resumeIcon();
+                if (_E || _EA)
+                {
+                    CalAudio[15].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                }
+                else if (_All || _ME)
+                {
+                    CalAudio[5].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                }
             }
         }
         else if (state == 6) //Happy eyes closed g3
         {
             if (statechange)
             {
+                deactivateSkip();
+
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 3;
                 Rec();
@@ -271,6 +344,7 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[6].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
+                activateSkip();
             }
 
             if (isPaused == true && resume == false)
@@ -288,6 +362,8 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
+                deactivateSkip();
+
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 4;
                 Rec();
@@ -309,6 +385,7 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[7].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
+                activateSkip();
             }
 
             if (isPaused == true && resume == false)
@@ -326,6 +403,8 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
+                deactivateSkip();
+
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 5;
                 Rec();
@@ -347,6 +426,7 @@ public class DTW_Calibration : MonoBehaviour
                 CalAudio[8].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
+                activateSkip();
             }
 
             if (isPaused == true && resume == false)
@@ -364,6 +444,8 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
+                deactivateSkip();
+
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 6;
                 Rec();
@@ -381,32 +463,83 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
-                Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
-                CalAudio[1].GetComponent<AudioSource>().Play();
-                CalAudio[9].GetComponent<AudioSource>().Play();
-                resumeIcon();
-                voiceIcon();
+                if (_MA || _EA)
+                {
+                    Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
+                    CalAudio[1].GetComponent<AudioSource>().Play();
+                    CalAudio[16].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                    voiceIcon();
+                    activateSkip();
+                } else if (_A)
+                {
+                    Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
+                    CalAudio[1].GetComponent<AudioSource>().Play();
+                    CalAudio[17].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                    voiceIcon();
+                    activateSkip();
+                } else if (_All)
+                {
+                    Icons[10].GetComponent<ActivateObjects>().SetDeactive(true);
+                    CalAudio[1].GetComponent<AudioSource>().Play();
+                    CalAudio[9].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                    voiceIcon();
+                    activateSkip();
+                }
             }
 
             if (isPaused == true && resume == false)
             {
-                CalAudio[9].GetComponent<AudioSource>().Pause();
-                pauseIcon();
+                if (_MA || _EA)
+                {
+                    CalAudio[16].GetComponent<AudioSource>().Pause();
+                    pauseIcon();
+                }
+                else if (_A)
+                {
+                    CalAudio[17].GetComponent<AudioSource>().Pause();
+                    pauseIcon();
+                }
+                else if (_All)
+                {
+                    CalAudio[9].GetComponent<AudioSource>().Pause();
+                    pauseIcon();
+                }
+
             }
             else if (resume == true && isPaused == true)
             {
-                CalAudio[9].GetComponent<AudioSource>().Play();
-                resumeIcon();
+                if (_MA || _EA)
+                {
+                    CalAudio[16].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                }
+                else if (_A)
+                {
+                    CalAudio[17].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                }
+                else if (_All)
+                {
+                    CalAudio[9].GetComponent<AudioSource>().Play();
+                    resumeIcon();
+                }
             }
         }
         else if (state == 14) //Instrument1 closed g7
         {
             if (statechange)
             {
+                deactivateSkip();
+
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 7;
                 Rec();
                 aRec = true;
+
+                AudioHelmCalibrationManager.main.DroneEnable();
             }
 
             if (stopRec == true)
@@ -414,16 +547,21 @@ public class DTW_Calibration : MonoBehaviour
                 CancelCalibration();
                 backIcon();
                 aRec = false;
+
+                AudioHelmCalibrationManager.main.DroneDisable();
             }
         }
         else if (state == 15) //Narrator Instrument1 open
         {
             if (statechange)
             {
+                AudioHelmCalibrationManager.main.DroneDisable();
+
                 CalAudio[1].GetComponent<AudioSource>().Play();
                 CalAudio[10].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
+                activateSkip();
             }
 
             if (isPaused == true && resume == false)
@@ -441,10 +579,14 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
+                deactivateSkip();
+
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 8;
                 Rec();
                 aRec = true;
+
+                AudioHelmCalibrationManager.main.DroneEnable();
             }
 
             if (stopRec == true)
@@ -452,16 +594,21 @@ public class DTW_Calibration : MonoBehaviour
                 CancelCalibration();
                 backIcon();
                 aRec = false;
+
+                AudioHelmCalibrationManager.main.DroneDisable();
             }
         }
         else if (state == 17) //Narrator Instrument2 closed
         {
             if (statechange)
             {
+                AudioHelmCalibrationManager.main.DroneDisable();
+
                 CalAudio[1].GetComponent<AudioSource>().Play();
                 CalAudio[11].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
+                activateSkip();
             }
 
             if (isPaused == true && resume == false)
@@ -479,10 +626,14 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
+                deactivateSkip();
+
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 9;
                 Rec();
                 aRec = true;
+
+                AudioHelmCalibrationManager.main.ArpEnable();
             }
 
             if (stopRec == true)
@@ -490,16 +641,21 @@ public class DTW_Calibration : MonoBehaviour
                 CancelCalibration();
                 backIcon();
                 aRec = false;
+
+                AudioHelmCalibrationManager.main.ArpDisable();
             }
         }
         else if (state == 19) //Narrator Instrument2 open
         {
             if (statechange)
             {
+                AudioHelmCalibrationManager.main.ArpDisable();
+
                 CalAudio[1].GetComponent<AudioSource>().Play();
                 CalAudio[12].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
+                activateSkip();
             }
 
             if (isPaused == true && resume == false)
@@ -517,10 +673,14 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
+                deactivateSkip();
+
                 CalAudio[0].GetComponent<AudioSource>().Play();
                 gesture = 10;
                 Rec();
                 aRec = true;
+
+                AudioHelmCalibrationManager.main.ArpEnable();
             }
 
             if (stopRec == true)
@@ -528,16 +688,21 @@ public class DTW_Calibration : MonoBehaviour
                 CancelCalibration();
                 backIcon();
                 aRec = false;
+
+                AudioHelmCalibrationManager.main.ArpDisable();
             }
         }
         else if (state == 21) //Narrator End
         {
             if (statechange)
             {
+                AudioHelmCalibrationManager.main.ArpDisable();
+
                 CalAudio[1].GetComponent<AudioSource>().Play();
                 CalAudio[13].GetComponent<AudioSource>().Play();
                 resumeIcon();
                 voiceIcon();
+                activateSkip();
             }
 
             if (isPaused == true && resume == false)
@@ -555,8 +720,13 @@ public class DTW_Calibration : MonoBehaviour
         {
             if (statechange)
             {
-                Icons[6].GetComponent<LoadSceneOnClick>().LoadByIndex(scene);
+                Icons[6].GetComponent<LoadSceneOnClick>().LoadByIndex(sceneLoader);
             }
+        }
+        else if (state == 23)
+        {
+            deactivateSkip();
+            stopAllAudio();
         }
     }
 
@@ -826,11 +996,32 @@ public class DTW_Calibration : MonoBehaviour
         Icons[12].GetComponent<ActivateObjects>().SetActive(true);
         Icons[11].GetComponent<ActivateObjects>().SetDeactive(true);
     }
+    public void activateSkip()
+    {
+        Icons[13].GetComponent<ActivateObjects>().SetActive(true);
+    }
+    public void deactivateSkip()
+    {
+        Icons[13].GetComponent<ActivateObjects>().SetDeactive(true);
+    }
     public void stopAllAudio()
     {
         for (int i = 0; i < CalAudio.Length; i++)
         {
             CalAudio[i].GetComponent<AudioSource>().Stop();
+        }
+        AudioHelmCalibrationManager.main.DroneDisable();
+        AudioHelmCalibrationManager.main.ArpDisable();
+    }
+
+    public void isCompleted()
+    {
+
+        if(mFin && eFin && aFin)
+        {
+            CalAudio[13].GetComponent<AudioSource>().Play();
+            lerpedCol = Color.Lerp(Color.white, recCol, Mathf.PingPong(Time.time, 1));
+            Icons[12].GetComponentInChildren<Image>().color = lerpedCol;       
         }
     }
 

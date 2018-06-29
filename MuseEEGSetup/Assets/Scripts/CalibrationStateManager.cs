@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CalibrationStateManager : MonoBehaviour {
+public class CalibrationStateManager : MonoBehaviour
+{
+    [Header("Text Section")]
     public GameObject timerText, PickOneText;
     Text text;
+    [Header("Timer Section")]
     public float counter;
     public float speed = 1;
+    [Header("Calibration Section")]
     public int state;
     public bool runCalibration, paused, statechange;
+    [Header("Calibration Seq Section")]
     public bool Meditate, Emotion, Audio, MeditateAudio, MeditateEmo, EmotionAudio, AllSelected;
     public Color32 MCol, ECol, ACol, recColor, finishColor;
     public bool mFin, eFin, aFin, cancel;
     private Color32 OffColor, OnColor;
-    private int _mClick, _eClick, _aClick;
+    private int _mClick, _eClick, _aClick, narrator;
     private bool PickText;
 
 
@@ -119,15 +124,25 @@ public class CalibrationStateManager : MonoBehaviour {
 
         if (state == 0)     //state 0 = Narrator Intro
         {
+            narrator = 1;
             if (counter == 30)
             {
                 Reset();
             }
             else if (counter <= 0) //state 1 = Narrator Meditation1
             {
+                narrator = 2;
                 state++;
-                counter = 47.0f;
                 statechange = true;
+
+                if (Meditate || MeditateEmo || MeditateAudio)
+                {
+                    counter = 67.0f;
+                }
+                else if (AllSelected)
+                {
+                    counter = 47.0f;
+                }
             }
         }
         else if (state == 1)
@@ -139,10 +154,11 @@ public class CalibrationStateManager : MonoBehaviour {
                 statechange = true;
             }
         }
-        else if (state == 2)  //state 3 = Narrator Meditation2
+        else if (state == 2)
         {
-            if (counter <= 0)
+            if (counter <= 0) //state 3 = Narrator Meditation2
             {
+                narrator = 3;
                 state++;
                 counter = 40.0f;
                 statechange = true;
@@ -176,11 +192,14 @@ public class CalibrationStateManager : MonoBehaviour {
                 }
                 else if (Emotion || EmotionAudio)
                 {
+                    narrator = 4;
                     state++;
-                    counter = 42.0f;
+                    counter = 62.0f;
                     statechange = true;
-                } else if (AllSelected || MeditateEmo)
+                }
+                else if (AllSelected || MeditateEmo)
                 {
+                    narrator = 4;
                     state++;
                     counter = 42.0f;
                     statechange = true;
@@ -201,6 +220,7 @@ public class CalibrationStateManager : MonoBehaviour {
         {
             if (counter <= 0) //state 7 = Narrator Emotion2
             {
+                narrator = 5;
                 state++;
                 counter = 42.0f;
                 statechange = true;
@@ -219,6 +239,7 @@ public class CalibrationStateManager : MonoBehaviour {
         {
             if (counter <= 0) //state 9 = Narrator Emotion3
             {
+                narrator = 6;
                 state++;
                 counter = 42.0f;
                 statechange = true;
@@ -237,6 +258,7 @@ public class CalibrationStateManager : MonoBehaviour {
         {
             if (counter <= 0) //state 11 = Narrator Emotion4
             {
+                narrator = 7;
                 state++;
                 counter = 42.0f;
                 statechange = true;
@@ -262,16 +284,19 @@ public class CalibrationStateManager : MonoBehaviour {
                     eFin = true;
                     Invoke("Stop_RunCalibration", 1.0f);
                 }
-                else if (AllSelected || EmotionAudio)
+                else if (AllSelected || EmotionAudio || MeditateAudio)
                 {
+                    narrator = 8;
                     state++;
                     counter = 32.0f;
                     statechange = true;
                     eFin = true;
-                } else if (Audio)
+                }
+                else if (Audio)
                 {
+                    narrator = 8;
                     state++;
-                    counter = 32.0f;
+                    counter = 52.0f;
                     statechange = true;
                 }
             }
@@ -289,6 +314,7 @@ public class CalibrationStateManager : MonoBehaviour {
         {
             if (counter <= 0) //state 15 = Narrator Instrument1 open
             {
+                narrator = 9;
                 state++;
                 counter = 30.0f;
                 statechange = true;
@@ -307,6 +333,7 @@ public class CalibrationStateManager : MonoBehaviour {
         {
             if (counter <= 0) //state 17 = Narrator Instrument2 closed
             {
+                narrator = 10;
                 state++;
                 counter = 30.0f;
                 statechange = true;
@@ -325,6 +352,7 @@ public class CalibrationStateManager : MonoBehaviour {
         {
             if (counter <= 0) //state 19 = Narrator Instrument2 open
             {
+                narrator = 11;
                 state++;
                 counter = 28.0f;
                 statechange = true;
@@ -352,6 +380,7 @@ public class CalibrationStateManager : MonoBehaviour {
                 }
                 else if (AllSelected)
                 {
+                    narrator = 12;
                     state++;
                     counter = 30.0f;
                     statechange = true;
@@ -368,7 +397,73 @@ public class CalibrationStateManager : MonoBehaviour {
                 statechange = true;
                 Invoke("Stop_RunCalibration", 1.0f);
             }
+        }
+        else if (state == 23)
+        {
+            if (counter <= 0)
+            {
+                if (narrator == 1)
+                {
+                    counter = 0;
+                    state = 1;
+                }
+                else if (narrator == 2)
+                {
+                    counter = 0;
+                    state = 1;
+                }
+                else if (narrator == 3)
+                {
+                    counter = 0;
+                    state = 3;
 
+                }
+                else if (narrator == 4)
+                {
+                    counter = 0;
+                    state = 5;
+                }
+                else if (narrator == 5)
+                {
+                    counter = 0;
+                    state = 7;
+                }
+                else if (narrator == 6)
+                {
+                    counter = 0;
+                    state = 9;
+                }
+                else if (narrator == 7)
+                {
+                    counter = 0;
+                    state = 11;
+                }
+                else if (narrator == 8)
+                {
+                    counter = 0;
+                    state = 13;
+                }
+                else if (narrator == 9)
+                {
+                    counter = 0;
+                    state = 15;
+                }
+                else if (narrator == 10)
+                {
+                    counter = 0;
+                    state = 17;
+                }
+                else if (narrator == 11)
+                {
+                    counter = 0;
+                    state = 19;
+                }
+                else if (narrator == 12)
+                {
+                    counter = 0;
+                    state = 21;
+                }
+            }
         }
     }
     public void _calibrationSelector()
@@ -380,50 +475,56 @@ public class CalibrationStateManager : MonoBehaviour {
             EmotionAudio = false;
             AllSelected = true;
         }
-       else if (Meditate == true && Emotion == false && Audio == false)
+        else if (Meditate == true && Emotion == false && Audio == false)
         {
             MeditateEmo = false;
             MeditateAudio = false;
             EmotionAudio = false;
             AllSelected = false;
-        } else if (Meditate == false && Emotion == true && Audio == false)
+        }
+        else if (Meditate == false && Emotion == true && Audio == false)
         {
             MeditateEmo = false;
             MeditateAudio = false;
             EmotionAudio = false;
             AllSelected = false;
-        } else if (Meditate == false && Emotion == false && Audio == true)
+        }
+        else if (Meditate == false && Emotion == false && Audio == true)
         {
             MeditateEmo = false;
             MeditateAudio = false;
             EmotionAudio = false;
             AllSelected = false;
-        } else if (Meditate == true && Emotion == true && Audio == false)
+        }
+        else if (Meditate == true && Emotion == true && Audio == false)
         {
             MeditateEmo = true;
             MeditateAudio = false;
             EmotionAudio = false;
             AllSelected = false;
-        } else if (Meditate == true && Emotion == false && Audio == true)
+        }
+        else if (Meditate == true && Emotion == false && Audio == true)
         {
             MeditateEmo = false;
             MeditateAudio = true;
             EmotionAudio = false;
             AllSelected = false;
-        } else if (Meditate == false && Emotion == true && Audio == true)
+        }
+        else if (Meditate == false && Emotion == true && Audio == true)
         {
             MeditateEmo = false;
             MeditateAudio = false;
             EmotionAudio = true;
             AllSelected = false;
-        } else if (Meditate == true && Emotion == true && Audio == true)
+        }
+        else if (Meditate == true && Emotion == true && Audio == true)
         {
             MeditateEmo = false;
             MeditateAudio = false;
             EmotionAudio = false;
             AllSelected = true;
         }
-        
+
         if (cancel)
         {
             AllSelected = false;
@@ -438,42 +539,45 @@ public class CalibrationStateManager : MonoBehaviour {
     }
     public void _calibrationDispatcher()
     {
-            if (Meditate && MeditateEmo == false && MeditateAudio == false && AllSelected == false)
-            {
-                counter = 0;
-                state = 0;
-            } else if (MeditateEmo)
-            {
-                Meditate = false;
-                Emotion = false;
-                counter = 0;
-                state = 0;
-            } else if (MeditateAudio)
-            {
-                Meditate = false;
-                Audio = false;
-                counter = 0;
-                state = 0;
-            }
-            else if (Emotion && EmotionAudio == false && MeditateEmo == false)
-            {
-                counter = 0;
-                state = 4;
-            } else if (EmotionAudio)
-            {
-                Emotion = false;
-                Audio = false;
-                counter = 0;
-                state = 4;
-            }
-            else if (Audio && EmotionAudio == false && MeditateAudio == false && AllSelected == false)
-            {
-                counter = 0;
-                state = 12;
-            }
+        if (Meditate && MeditateEmo == false && MeditateAudio == false && AllSelected == false)
+        {
+            counter = 0;
+            state = 0;
+        }
+        else if (MeditateEmo)
+        {
+            Meditate = false;
+            Emotion = false;
+            counter = 0;
+            state = 0;
+        }
+        else if (MeditateAudio)
+        {
+            Meditate = false;
+            Audio = false;
+            counter = 0;
+            state = 0;
+        }
+        else if (Emotion && EmotionAudio == false && MeditateEmo == false)
+        {
+            counter = 0;
+            state = 4;
+        }
+        else if (EmotionAudio)
+        {
+            Emotion = false;
+            Audio = false;
+            counter = 0;
+            state = 4;
+        }
+        else if (Audio && EmotionAudio == false && MeditateAudio == false && AllSelected == false)
+        {
+            counter = 0;
+            state = 12;
+        }
 
         if (AllSelected)
-            {
+        {
             counter = 30;
             state = 0;
             Meditate = false;
@@ -482,8 +586,8 @@ public class CalibrationStateManager : MonoBehaviour {
             MeditateEmo = false;
             MeditateAudio = false;
             EmotionAudio = false;
-            
-            }
+
+        }
         runCalibration = false;
 
     }
@@ -495,6 +599,14 @@ public class CalibrationStateManager : MonoBehaviour {
     public void ClickPause(bool pause)
     {
         if (pause) paused = true;
+    }
+    public void ClickSkip(bool skip)
+    {
+        if (skip)
+        {
+            counter = 10.5f;
+            state = 23;
+        }
     }
     public void ClickBack(bool back)
     {
@@ -600,6 +712,7 @@ public class CalibrationStateManager : MonoBehaviour {
             PickText = false;
         }
     }
+
     private void Stop_RunCalibration()
     {
         runCalibration = false;

@@ -94,9 +94,9 @@
      <Compile Include="Assets\gongTrigger.cs" />
      <Compile Include="Assets\ink\Script\FontBrowser.cs" />
      <Compile Include="Assets\Scripts\ActivateObjects.cs" />
+     <Compile Include="Assets\Scripts\AudioHelmCalibrationManager.cs" />
      <Compile Include="Assets\Scripts\CalibrationStateManager.cs" />
      <Compile Include="Assets\Scripts\DTW_Calibration.cs" />
-     <Compile Include="Assets\Scripts\HelmManagerScript.cs" />
      <Compile Include="Assets\Scripts\LoadSceneOnClick.cs" />
      <Compile Include="Assets\Scripts\UniOSCMuseDataDispatcher.cs" />
      <Compile Include="Assets\Scripts\UniOSCMuseMonitor.cs" />
