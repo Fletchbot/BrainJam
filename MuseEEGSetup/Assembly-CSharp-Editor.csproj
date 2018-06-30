@@ -67,6 +67,8 @@
      <Compile Include="Assets\AudioHelm\Editor\SequencerPositionUI.cs" />
      <Compile Include="Assets\AudioHelm\Editor\SequencerUI.cs" />
      <Compile Include="Assets\AudioHelm\Editor\SequencerVelocityUI.cs" />
+     <Compile Include="Assets\FX Mega Pack\Scripts\Editor\MaterialOverride.cs" />
+     <Compile Include="Assets\FX Mega Pack\Scripts\Simple Particle Scaler\Scripts\Editor\ParticleScaler.cs" />
      <Compile Include="Assets\UniOSC\Scripts\ClassBased\Demo\Editor\UniOSCScriptTestEditor.cs" />
      <Compile Include="Assets\UniOSC\Scripts\Editor\UniOSCAutoRun.cs" />
      <Compile Include="Assets\UniOSC\Scripts\Editor\UniOSCConnectionEditor.cs" />
