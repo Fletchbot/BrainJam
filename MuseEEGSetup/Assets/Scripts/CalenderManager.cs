@@ -13,6 +13,7 @@ namespace Artngame.SKYMASTER
         public int CurrMonth;
         public int CurrDay;
         public float CurrHour;
+        public float speed;
 
         public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
 
@@ -38,7 +39,8 @@ namespace Artngame.SKYMASTER
 
             skyManager.Current_Month = CurrMonth;
             skyManager.Current_Day = CurrDay;
-            skyManager.Current_Time = CurrHour;
+            CurrHour = skyManager.Current_Time;
+            skyManager.SPEED = speed;
 
             StateSwitch();
 
@@ -50,38 +52,85 @@ namespace Artngame.SKYMASTER
             {
                 CurrMonth = 1;
                 CurrDay = 1;
-                CurrHour = 8.8f;
+                if(CurrHour > 8.7f && CurrHour < 8.9f)
+                {
+                    speed = 0;
+                } else
+                {
+                    speed = 16*3.5f;
+                }
             }
             else if (Mediate)
             {
                 CurrMonth = 5;
                 CurrDay = 5;
-                CurrHour = 20;
+                if (CurrHour > 19.9f && CurrHour < 20.1f)
+                {
+                    speed = 0;
+                }
+                else
+                {
+                    speed = 16*3.5f;
+                }
             }
             else if (Happy)
             {
                 CurrMonth = 6;
                 CurrDay = 20;
-                CurrHour = 13.0f;
+
+                if (CurrHour > 13.4f && CurrHour < 13.6f)
+                {
+                    speed = 0;
+                }
+                else
+                {
+                    speed = 16*3.5f;
+                }
             }
             else if (Sad)
             {
                 CurrMonth = 10;
                 CurrDay = 10;
-                CurrHour = 21.5f;
+
+                if (CurrHour > 21.4f && CurrHour < 21.6f)
+                {
+                    speed = 0;
+                }
+                else
+                {
+                    speed = 16*3.5f;
+                }
             }
             else if (Instr1)
             {
                 CurrMonth = 8;
                 CurrDay = 8;
-                CurrHour = 9.0f;
+                if (CurrHour > 9.3f && CurrHour < 9.5f)
+                {
+                    speed = 0;
+                }
+                else
+                {
+                    speed = 16*3.5f;
+                }
             }
             else if (Instr2)
             {
                 CurrMonth = 2;
                 CurrDay = 8;
-                CurrHour = 9.5f;
+                if (CurrHour > 9.7f && CurrHour < 9.8f)
+                {
+                    speed = 0;
+                }
+                else
+                {
+                    speed = 16*3.5f;
+                }
 
+            }
+            else
+            {
+                speed = 1;
             }
         }
     }
