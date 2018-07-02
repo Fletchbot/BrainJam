@@ -129,8 +129,8 @@ Material:
     - _EmissionColor: {r: 0.134, g: 0.134, b: 0.134, a: 1}
     - _EmissionColorUI: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColorWithMapUI: {r: 1, g: 1, b: 1, a: 1}
-    - _InteractPos: {r: 68.32994, g: 0.73, b: 2.3025994, a: 0}
-    - _InteractSpeed: {r: 0.000052081206, g: 0, b: -0.0000029503458, a: 0}
+    - _InteractPos: {r: 39.930054, g: 303.48926, b: -121.947876, a: 0}
+    - _InteractSpeed: {r: 1.1e-44, g: 0, b: -1.1e-44, a: 0}
     - _OceanCenter: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _SpecularColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
