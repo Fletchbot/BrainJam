@@ -60,7 +60,7 @@ Material:
     - _BulgeShape: 8.61
     - _Cull: 2
     - _Cutoff: 0.389
-    - _FadeThreshold: 396.17346
+    - _FadeThreshold: 502
     - _GlowIntensity: 0.76
     - _Occlusion: 7.5
     - _RandYScale: 1
