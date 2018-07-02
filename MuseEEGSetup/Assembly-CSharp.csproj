@@ -180,6 +180,7 @@
      <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
      <Compile Include="Assets\Scripts\ActivateObjects.cs" />
      <Compile Include="Assets\Scripts\AudioHelmCalibrationManager.cs" />
+     <Compile Include="Assets\Scripts\CalenderManager.cs" />
      <Compile Include="Assets\Scripts\CalibrationStateManager.cs" />
      <Compile Include="Assets\Scripts\DTW_Calibration.cs" />
      <Compile Include="Assets\Scripts\LoadSceneOnClick.cs" />

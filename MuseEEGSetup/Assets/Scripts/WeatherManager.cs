@@ -207,24 +207,38 @@ namespace Artngame.SKYMASTER
             if (NoGesture)
             {
                 weatherChoice = 6;
+                NoGesture = !NoGesture;
             }
             else if (Mediate)
             {
-                weatherChoice = 1;
+                weatherChoice = 0;
+                Mediate = !Mediate;
             }
             else if (Happy)
             {
                 weatherChoice = 0;
+                Happy = !Happy;
+
             }
             else if (Sad)
             {
                 weatherChoice = 4;
+                Sad = !Sad;
+
             }
-            else if (Instr1 || Instr2)
+            else if (Instr1)
             {
-                weatherChoice = 2;
+                weatherChoice = 1;
+                Instr1 = !Instr1;
+            }
+            else if (Instr2)
+            {
+                weatherChoice = 1;
+                Instr2 = !Instr2;
             }
         }
+
+
 
         void OnGUI()
         {
