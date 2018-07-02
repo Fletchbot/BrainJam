@@ -324,7 +324,7 @@ Transform:
   m_PrefabParentObject: {fileID: 4782128604273638, guid: 6c77dd07d63677645ada9591a7153514,
     type: 2}
   m_PrefabInternal: {fileID: 911368690}
---- !u!83 &186706569
+--- !u!83 &173085077
 AudioClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -519,33 +519,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 803493fdfa218404eb9cff6bf0d4bc37, type: 2}
   m_IsPrefabParent: 0
---- !u!83 &321378115
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1 &456012935
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,6 +891,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bpm_: 80
   pause_: 0
+--- !u!83 &656799899
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1001 &828264010
 Prefab:
   m_ObjectHideFlags: 0
@@ -1749,6 +1749,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1.2
       objectReference: {fileID: 0}
+    - target: {fileID: 2384314, guid: 1051d652fb30d984c95d79dd6da6b0d6, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 30a9b0f818294c4489f3ed6cffae50fe, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1051d652fb30d984c95d79dd6da6b0d6, type: 2}
   m_IsPrefabParent: 0

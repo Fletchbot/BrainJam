@@ -3,7 +3,25 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Conductor
+  - Tornado
+  - Butter
+  - Grass
+  - Freezable
+  - PPaint
+  - water
+  - SkyMasterTree
+  - Flammable
+  - Flamer
+  - NoForcePDM
+  - Road
+  - Hero
+  - INfiniDyForestInter
+  - INfiniDyTreeRoot
+  - INfiniDyForest
+  - Axe
+  - INfiniDyTree
   layers:
   - Default
   - TransparentFX
