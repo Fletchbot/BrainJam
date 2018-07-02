@@ -186,6 +186,7 @@
      <Compile Include="Assets\Scripts\UniOSCMuseDataDispatcher.cs" />
      <Compile Include="Assets\Scripts\UniOSCMuseMonitor.cs" />
      <Compile Include="Assets\Scripts\UniOSCWekOutputReceiver.cs" />
+     <Compile Include="Assets\Scripts\WeatherManager.cs" />
      <Compile Include="Assets\Scripts\WekEventDispatcherButton.cs" />
      <Compile Include="Assets\SkyMaster\Assets\Version 1.5\Unity 5 Scene\Scripts\Water\GerstnerDisplaceSM.cs" />
      <Compile Include="Assets\SkyMaster\Assets\Version 1.5\Unity 5 Scene\Scripts\Water\MeshContainerSM.cs" />
