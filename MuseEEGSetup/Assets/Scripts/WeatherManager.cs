@@ -9,18 +9,20 @@ namespace Artngame.SKYMASTER
 
         SkyMasterManager skyManager;
         WaterHandlerSM waterManager;
+       public Material SnowLavaMat;
 
         public bool enableGUI = false;
         public bool affectWater = false;
         public bool affectFog = false;
         public bool affectFogParams = false;
 
-        public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
-
+        public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, isLava;
+        public float shaderOffset;
         // Use this for initialization
         void Start()
         {
             skyManager = this.GetComponent<SkyMasterManager>();
+            
 
             if (skyManager.water != null)
             {
@@ -49,6 +51,7 @@ namespace Artngame.SKYMASTER
         void Update()
         {
             StateSwitch();
+            snow_lava_SW();
             //NOTE removed +0.1 modifier in shader volume clouds script (v3.4.8) for slower changes in cloud coloration transitions
 
             float Speed1 = 0.1f;
@@ -207,38 +210,67 @@ namespace Artngame.SKYMASTER
             if (NoGesture)
             {
                 weatherChoice = 6;
-             //   NoGesture = !NoGesture;
             }
             else if (Mediate)
             {
                 weatherChoice = 0;
-            //    Mediate = !Mediate;
             }
             else if (Happy)
             {
                 weatherChoice = 0;
-             //   Happy = !Happy;
 
             }
             else if (Sad)
             {
                 weatherChoice = 4;
-            //    Sad = !Sad;
-
             }
             else if (Instr1)
             {
                 weatherChoice = 1;
-              //  Instr1 = !Instr1;
             }
             else if (Instr2)
             {
                 weatherChoice = 1;
-              //  Instr2 = !Instr2;
             }
         }
 
+        void snow_lava_SW()
+        {
+            if (NoGesture == true && isLava == true)
+            {
+                if(shaderOffset >=-1.0f && shaderOffset <= 1.8f)
+                {
+                    shaderOffset = shaderOffset + 0.001f;
+                }
+                else
+                {
+                    isLava = false;
+                }
+                SnowLavaMat.SetFloat("_isLava", 0);
+                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
 
+            }
+            else if (Sad == true && isLava == false)
+            {
+                if (shaderOffset >= -1.0f && shaderOffset <= 1.8f)
+                {
+                    shaderOffset = shaderOffset + 0.001f;
+                } else
+                {
+                    isLava = true;
+                }
+                SnowLavaMat.SetFloat("_isLava", 1);
+                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
+
+            } else if (Happy || Mediate || Instr1 || Instr2)
+            {
+                if (shaderOffset >= 0)
+                {
+                    shaderOffset = shaderOffset - 0.001f;
+                }
+                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
+            }
+        }
 
         void OnGUI()
         {
