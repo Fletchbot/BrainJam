@@ -22,7 +22,7 @@ namespace Artngame.SKYMASTER
         {
             skyManager = this.GetComponent<SkyMasterManager>();
 
-            Mediate = true;
+            Sad = true;
         }
 
         public string currentWeather;//for debug purposes

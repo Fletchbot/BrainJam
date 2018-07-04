@@ -28,8 +28,6 @@ namespace Artngame.SKYMASTER
         // Update is called once per frame
         void Update()
         {
-            
-
             NoGesture = weatherManager.NoGesture;
             Mediate = weatherManager.Mediate;
             Happy = weatherManager.Happy;
@@ -48,7 +46,7 @@ namespace Artngame.SKYMASTER
 
         void StateSwitch()
         {
-            float rate = 16 * 3.7f;
+            float rate = 16 * 4.0f;
 
             if (NoGesture)
             {
