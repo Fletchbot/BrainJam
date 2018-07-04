@@ -52,7 +52,7 @@ namespace Artngame.SKYMASTER
             {
                 CurrMonth = 1;
                 CurrDay = 1;
-                if(CurrHour > 8.7f && CurrHour < 8.9f)
+                if(CurrHour > 8.95f && CurrHour < 9.0f)
                 {
                     speed = 0;
                 } else
@@ -64,7 +64,7 @@ namespace Artngame.SKYMASTER
             {
                 CurrMonth = 5;
                 CurrDay = 5;
-                if (CurrHour > 20.5f && CurrHour < 20.7f)
+                if (CurrHour > 20.0f && CurrHour < 20.2f)
                 {
                     speed = 0;
                 }

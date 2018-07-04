@@ -209,6 +209,7 @@ namespace Artngame.SKYMASTER
         {
             if (NoGesture)
             {
+                isLava = false;
                 weatherChoice = 6;
             }
             else if (Mediate)
@@ -222,6 +223,7 @@ namespace Artngame.SKYMASTER
             }
             else if (Sad)
             {
+                isLava = true;
                 weatherChoice = 4;
             }
             else if (Instr1)
@@ -236,29 +238,24 @@ namespace Artngame.SKYMASTER
 
         void snow_lava_SW()
         {
-            if (NoGesture == true && isLava == true)
+            if (NoGesture == true && isLava == false)
             {
                 if(shaderOffset >=-1.0f && shaderOffset <= 1.8f)
                 {
                     shaderOffset = shaderOffset + 0.001f;
                 }
-                else
-                {
-                    isLava = false;
-                }
+
                 SnowLavaMat.SetFloat("_isLava", 0);
                 SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
 
             }
-            else if (Sad == true && isLava == false)
+            else if (Sad == true && isLava == true)
             {
                 if (shaderOffset >= -1.0f && shaderOffset <= 1.8f)
                 {
                     shaderOffset = shaderOffset + 0.001f;
-                } else
-                {
-                    isLava = true;
                 }
+
                 SnowLavaMat.SetFloat("_isLava", 1);
                 SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
 

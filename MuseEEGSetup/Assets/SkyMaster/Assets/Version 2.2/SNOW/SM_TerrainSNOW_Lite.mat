@@ -84,7 +84,7 @@ Material:
     - _SnowBumpDepth: 1.81
     - _SnowCoverage: 0
     m_Colors:
-    - _Color: {r: 0.16999567, g: 0.24699542, b: 0, a: 1}
+    - _Color: {r: 0.16999388, g: 0.24699354, b: 0, a: 1}
     - _Color1: {r: 0.5, g: 0.11764705, b: 0.11764705, a: 0.791}
     - _Direction: {r: 0, g: 0.98, b: 0, a: 0}
     - _LayerDirection: {r: 0, g: 1, b: 0, a: 0}

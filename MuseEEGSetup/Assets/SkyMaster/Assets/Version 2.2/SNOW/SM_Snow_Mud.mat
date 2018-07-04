@@ -48,7 +48,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _LMainTex2:
         m_Texture: {fileID: 2800000, guid: e98b64eeae31d3f49834d544bfd8a9cb, type: 3}
-        m_Scale: {x: 2, y: 2}
+        m_Scale: {x: 6, y: 6}
         m_Offset: {x: 0, y: 0}
     - _LNormalMap2:
         m_Texture: {fileID: 2800000, guid: 4349b5c5e15d25645a8cacc3bbaca7b5, type: 3}
@@ -115,12 +115,12 @@ Material:
         m_Scale: {x: 4, y: 4}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: b1e285e688c2cd94a839af50c3bd5a1d, type: 3}
+        m_Scale: {x: 4, y: 4}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap2:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: b1e285e688c2cd94a839af50c3bd5a1d, type: 3}
+        m_Scale: {x: 4, y: 4}
         m_Offset: {x: 0, y: 0}
     - _Water:
         m_Texture: {fileID: 2800000, guid: 05e024a245b8dd74ea565eac59643313, type: 3}
@@ -128,7 +128,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Snow_Cover_offset: -0.0009999141
-    - _BumpPower: 0.8
+    - _BumpPower: 0.93
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _Depth: 0.02
@@ -150,7 +150,7 @@ Material:
     - _SnowStrength: 0.57
     - _SrcBlend: 1
     - _UVSec: 0
-    - _Wetness: 6.42
+    - _Wetness: 1
     - _ZWrite: 1
     - _isLava: 1
     - water_level: -3.04
@@ -159,6 +159,7 @@ Material:
     m_Colors:
     - _Color: {r: 0.5943396, g: 0.46818262, b: 0.46818262, a: 1}
     - _Direction: {r: 0, g: 1, b: 0, a: 1}
+    - _Emission: {r: 1, g: 0.16016228, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
     - _LayerDirection: {r: 0, g: 1, b: 0, a: 1}

@@ -16,6 +16,8 @@
         _Direction ("Direction of snow", Vector) = (0, 1, 0)         
         _Shininess ("Shininess", Range (0.01, 1)) = 0.078125
         _Wetness ("Wetness", Range (-0, 20)) = 1
+	    [NoScaleOffset] _EmissionMap ("Emission", 2D) = "black" {}
+		_Emission ("Emission", Color) = (0,0,0)
         
         _Mask ("Mask", 2D) = "black" {}
         _MainTex2 ("Albedo 1", 2D) = "white" {}
@@ -46,6 +48,7 @@
 			#pragma target 3.0
 			#pragma surface surf StandardSpecular fullforwardshadows vertex:vert
 			#pragma exclude_renderers gles
+			#pragma shader_feature _EMISSION_MAP
 
 		float _isLava;
         float _SnowCoverage; 
@@ -64,6 +67,9 @@
         float3 _Direction;
         half _Shininess;
         half _Wetness; 
+
+		sampler2D _EmissionMap;
+		float3 _Emission;
  		
  		sampler2D _MainTex2;
 		sampler2D _LMainTex2;
@@ -100,7 +106,19 @@
 			
 			INTERNAL_DATA
         };
-       
+
+		float3 GetEmission(Input i) {
+			#if defined(FORWARD_BASE_PASS)
+				#if defined(_EMISSION_MAP)
+					return tex2D(_EmissionMap, i.uv.xy) * _Emission;
+				#else
+					return _Emission;
+				#endif
+			#else
+				return 0;
+			#endif
+		}
+     
         void vert (inout appdata_full v) {
 			if (_isLava == 0 || _isLava == 1) {
 				float3 Snow = normalize(_Direction.xyz);
@@ -183,6 +201,7 @@
 				//Lava
 				float4 LavaTexColor = tex2D(_LavaTexture, IN.uv_LavaTexture);
 			//	float4 MainTexColor = tex2D(_MainTex, IN.uv_MainTex);
+				LavaTexColor.rgb += GetEmission(IN);
 				o.Normal = UnpackNormal(tex2D(_LavaBump, IN.uv_LavaBump));
 
 				//o.Alpha = MainTexColor.a;
