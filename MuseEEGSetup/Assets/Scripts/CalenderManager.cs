@@ -15,7 +15,7 @@ namespace Artngame.SKYMASTER
         public float CurrHour;
         public float speed;
 
-        public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
+        private bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
 
         // Use this for initialization
         void Start()
@@ -48,6 +48,8 @@ namespace Artngame.SKYMASTER
 
         void StateSwitch()
         {
+            float rate = 16 * 3.7f;
+
             if (NoGesture)
             {
                 CurrMonth = 1;
@@ -57,7 +59,7 @@ namespace Artngame.SKYMASTER
                     speed = 0;
                 } else
                 {
-                    speed = 16*3.5f;
+                    speed = rate;
                 }
             }
             else if (Mediate)
@@ -70,7 +72,7 @@ namespace Artngame.SKYMASTER
                 }
                 else
                 {
-                    speed = 16*3.5f;
+                    speed = rate;
                 }
             }
             else if (Happy)
@@ -84,7 +86,7 @@ namespace Artngame.SKYMASTER
                 }
                 else
                 {
-                    speed = 16*3.5f;
+                    speed = rate;
                 }
             }
             else if (Sad)
@@ -98,7 +100,7 @@ namespace Artngame.SKYMASTER
                 }
                 else
                 {
-                    speed = 16*3.5f;
+                    speed = rate;
                 }
             }
             else if (Instr1)
@@ -111,7 +113,7 @@ namespace Artngame.SKYMASTER
                 }
                 else
                 {
-                    speed = 16*3.5f;
+                    speed = rate;
                 }
             }
             else if (Instr2)
@@ -124,7 +126,7 @@ namespace Artngame.SKYMASTER
                 }
                 else
                 {
-                    speed = 16*3.5f;
+                    speed = rate;
                 }
 
             }

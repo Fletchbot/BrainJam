@@ -11,30 +11,18 @@ namespace Artngame.SKYMASTER
         WaterHandlerSM waterManager;
        public Material SnowLavaMat;
 
-        public bool enableGUI = false;
-        public bool affectWater = false;
         public bool affectFog = false;
         public bool affectFogParams = false;
 
-        public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, isLava;
+        public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2; 
+        public bool isLava;
         public float shaderOffset;
         // Use this for initialization
         void Start()
         {
             skyManager = this.GetComponent<SkyMasterManager>();
-            
 
-            if (skyManager.water != null)
-            {
-                waterManager = skyManager.water.GetComponent<WaterHandlerSM>();
-                prevFresnelBias = waterManager.FresnelBias;
-                prevShoreBlendOffset = waterManager.ShoreBlendOffset;
-            }
-            //			float hour = System.DateTime.Now.Hour * 3600;
-            //			float minutes = System.DateTime.Now.Minute * 60;
-            //			float secs = System.DateTime.Now.Second;
-            //			float seconds = hour + minutes + secs;
-
+            Mediate = true;
         }
 
         public string currentWeather;//for debug purposes
@@ -43,9 +31,6 @@ namespace Artngame.SKYMASTER
 
         int weatherChoice = -1;
         
-
-        float prevFresnelBias;
-        float prevShoreBlendOffset;
 
         // Update is called once per frame
         void Update()
@@ -56,36 +41,6 @@ namespace Artngame.SKYMASTER
 
             float Speed1 = 0.1f;
 
-            if (affectWater && waterManager != null)
-            {
-                if (skyManager.currentWeatherName == SkyMasterManager.Volume_Weather_types.HeavyStorm)
-                {
-                    waterManager.waterScaleOffset.y = Mathf.Lerp(waterManager.waterScaleOffset.y, 3.5f, Speed1 * Time.deltaTime);
-                }
-                else
-                {
-                    waterManager.waterScaleOffset.y = Mathf.Lerp(waterManager.waterScaleOffset.y, 0, Speed1 * Time.deltaTime);
-                }
-
-
-                if (skyManager.currentWeatherName == SkyMasterManager.Volume_Weather_types.SnowStorm)
-                {
-                    waterManager.FresnelBias = Mathf.Lerp(waterManager.FresnelBias, -67, Speed1 * Time.deltaTime);
-
-                    if (waterManager.FresnelBias < -64)
-                    {
-                        waterManager.ReflectColor = Color.Lerp(waterManager.ReflectColor, new Color(155f / 255f, 220f / 255f, 220f / 255f), Speed1 * Time.deltaTime);
-                        waterManager.UseSkyGradient = false;
-                    }
-                    waterManager.ShoreBlendOffset = Mathf.Lerp(waterManager.ShoreBlendOffset, 0.1f, Speed1 * Time.deltaTime);
-                }
-                else
-                {
-                    waterManager.FresnelBias = Mathf.Lerp(waterManager.FresnelBias, prevFresnelBias, Speed1 * Time.deltaTime);
-                    waterManager.UseSkyGradient = true;
-                    waterManager.ShoreBlendOffset = Mathf.Lerp(waterManager.ShoreBlendOffset, prevShoreBlendOffset, Speed1 * Time.deltaTime);
-                }
-            }
 
             if (affectFog)
             {
@@ -238,11 +193,12 @@ namespace Artngame.SKYMASTER
 
         void snow_lava_SW()
         {
+            float rate = 0.006f;
             if (NoGesture == true && isLava == false)
             {
                 if(shaderOffset >=-1.0f && shaderOffset <= 1.8f)
                 {
-                    shaderOffset = shaderOffset + 0.001f;
+                    shaderOffset = shaderOffset + rate;
                 }
 
                 SnowLavaMat.SetFloat("_isLava", 0);
@@ -253,7 +209,7 @@ namespace Artngame.SKYMASTER
             {
                 if (shaderOffset >= -1.0f && shaderOffset <= 1.8f)
                 {
-                    shaderOffset = shaderOffset + 0.001f;
+                    shaderOffset = shaderOffset + rate;
                 }
 
                 SnowLavaMat.SetFloat("_isLava", 1);
@@ -261,20 +217,15 @@ namespace Artngame.SKYMASTER
 
             } else if (Happy || Mediate || Instr1 || Instr2)
             {
-                if (shaderOffset >= 0)
+                if (shaderOffset >= 0.0f)
                 {
-                    shaderOffset = shaderOffset - 0.001f;
+                    shaderOffset = shaderOffset - rate;
+                } else if (shaderOffset <= 0.0f)
+                {
+                    SnowLavaMat.SetFloat("_isLava", 0);
                 }
-                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
-            }
-        }
 
-        void OnGUI()
-        {
-            if (enableGUI && currentWeather != "")
-            {
-                GUI.TextField(new Rect(500 + 20, 400 - 205, 400 - 40, 22), "Current Weather = " + currentWeather.ToString());
-                //GUI.TextField (new Rect (500, 400+22, 400, 22), "Game Time ="+currentGameTime.ToLongTimeString());
+                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
             }
         }
     }
