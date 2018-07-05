@@ -183,8 +183,10 @@
      <Compile Include="Assets\Scripts\CalenderManager.cs" />
      <Compile Include="Assets\Scripts\CalibrationStateManager.cs" />
      <Compile Include="Assets\Scripts\DTW_Calibration.cs" />
+     <Compile Include="Assets\Scripts\GestureController.cs" />
      <Compile Include="Assets\Scripts\GrassGrower.cs" />
      <Compile Include="Assets\Scripts\LoadSceneOnClick.cs" />
+     <Compile Include="Assets\Scripts\ParticleToggle.cs" />
      <Compile Include="Assets\Scripts\UniOSCMuseDataDispatcher.cs" />
      <Compile Include="Assets\Scripts\UniOSCMuseMonitor.cs" />
      <Compile Include="Assets\Scripts\UniOSCWekOutputReceiver.cs" />

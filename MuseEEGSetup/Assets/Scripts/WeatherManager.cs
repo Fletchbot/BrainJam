@@ -6,23 +6,24 @@ namespace Artngame.SKYMASTER
 {
     public class WeatherManager : MonoBehaviour
     {
-
         SkyMasterManager skyManager;
         WaterHandlerSM waterManager;
-       public Material SnowLavaMat;
+        public Material SnowLavaMat;
+
+        public GameObject gestureController;
 
         public bool affectFog = false;
         public bool affectFogParams = false;
 
-        public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2; 
         public bool isLava;
         public float shaderOffset;
+
+        public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2; 
         // Use this for initialization
         void Start()
         {
             skyManager = this.GetComponent<SkyMasterManager>();
 
-            Sad = true;
         }
 
         public string currentWeather;//for debug purposes
@@ -35,6 +36,13 @@ namespace Artngame.SKYMASTER
         // Update is called once per frame
         void Update()
         {
+            NoGesture = gestureController.GetComponent<GestureController>().NoGesture;
+            Mediate = gestureController.GetComponent<GestureController>().Mediate;
+            Happy = gestureController.GetComponent<GestureController>().Happy;
+            Sad = gestureController.GetComponent<GestureController>().Sad;
+            Instr1 = gestureController.GetComponent<GestureController>().Instr1;
+            Instr2 = gestureController.GetComponent<GestureController>().Instr2;
+
             StateSwitch();
             snow_lava_SW();
             //NOTE removed +0.1 modifier in shader volume clouds script (v3.4.8) for slower changes in cloud coloration transitions

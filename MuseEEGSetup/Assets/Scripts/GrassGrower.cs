@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Artngame.SKYMASTER
 {
-    public class GrassGrower : MonoBehaviour {
-         public GameObject grassGrower;
-         WeatherManager weatherManager;
+    public class GrassGrower : MonoBehaviour
+    {
+        public GameObject gc;
 
         public float growSpeed, ungrowSpeed;
         private float grow, ungrow;
@@ -14,45 +14,45 @@ namespace Artngame.SKYMASTER
         private bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
 
         // Use this for initialization
-        void Start() {
-            weatherManager = this.GetComponent<WeatherManager>();
-
+        void Start()
+        {
             grow = -200;
             ungrow = -400;
             grown = new Vector3(28, 300, grow);
             ungrown = new Vector3(28, 300, ungrow);
             ungrowSpeed = 60.0f;
             growSpeed = 10.0f;
-
         }
 
         // Update is called once per frame
-        void Update() {
-            NoGesture = weatherManager.NoGesture;
-            Mediate = weatherManager.Mediate;
-            Happy = weatherManager.Happy;
-            Sad = weatherManager.Sad;
-            Instr1 = weatherManager.Instr1;
-            Instr2 = weatherManager.Instr2;
+        void Update()
+        {
+            NoGesture = gc.GetComponent<GestureController>().NoGesture;
+            Mediate = gc.GetComponent<GestureController>().Mediate;
+            Happy = gc.GetComponent<GestureController>().Happy;
+            Sad = gc.GetComponent<GestureController>().Sad;
+            Instr1 = gc.GetComponent<GestureController>().Instr1;
+            Instr2 = gc.GetComponent<GestureController>().Instr2;
 
             if (NoGesture || Sad)
             {
-                if(grassGrower.transform.position.z <= grow && grassGrower.transform.position.z >= ungrow)
-                {      
+                if (transform.position.z <= grow && transform.position.z >= ungrow)
+                {
                     float step = ungrowSpeed * Time.deltaTime;
-                    grassGrower.transform.position = Vector3.MoveTowards(grassGrower.transform.position, ungrown, step);
+                    transform.position = Vector3.MoveTowards(transform.position, ungrown, step);
                 }
-               
-            } else if (Mediate || Happy || Instr1 || Instr2)
+
+            }
+            else if (Mediate || Happy || Instr1 || Instr2)
             {
-                if (grassGrower.transform.position.z <= grow && grassGrower.transform.position.z >= ungrow)
+                if (transform.position.z <= grow && transform.position.z >= ungrow)
                 {
                     float step = growSpeed * Time.deltaTime;
-                    grassGrower.transform.position = Vector3.MoveTowards(grassGrower.transform.position, grown, step);
+                    transform.position = Vector3.MoveTowards(transform.position, grown, step);
                 }
             }
 
-    
-    }
+
+        }
     }
 }
