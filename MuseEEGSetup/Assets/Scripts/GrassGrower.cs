@@ -22,6 +22,7 @@ namespace Artngame.SKYMASTER
             ungrown = new Vector3(28, 300, ungrow);
             ungrowSpeed = 60.0f;
             growSpeed = 10.0f;
+            transform.position = ungrown;
         }
 
         // Update is called once per frame

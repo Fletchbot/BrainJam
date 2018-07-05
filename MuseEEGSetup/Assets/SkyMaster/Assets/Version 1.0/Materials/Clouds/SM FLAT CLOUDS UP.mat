@@ -84,7 +84,7 @@ Material:
     - _LightWrapping: {r: 0.9058824, g: 0.4941176, b: 0.4901961, a: 1}
     - _Scale: {r: 1, g: 1, b: 1, a: 1}
     - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
-    - _TintColor: {r: 0.21539383, g: 0.21539383, b: 0.21539383, a: 0.18615773}
+    - _TintColor: {r: 0.9945018, g: 0.9945018, b: 0.9945018, a: 0.49780175}
     - _TranslucencyColor: {r: 0.73, g: 0.85, b: 0.41, a: 1}
 --- !u!1002 &2100001
 EditorExtensionImpl:

@@ -208,7 +208,7 @@ namespace Artngame.SKYMASTER
                 {
                     shaderOffset = shaderOffset + rate;
                 }
-
+                SnowLavaMat.SetFloat("_LightIntensity", 1.0f);
                 SnowLavaMat.SetFloat("_isLava", 0);
                 SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
 
@@ -219,7 +219,7 @@ namespace Artngame.SKYMASTER
                 {
                     shaderOffset = shaderOffset + rate;
                 }
-
+                SnowLavaMat.SetFloat("_LightIntensity", 4.0f);
                 SnowLavaMat.SetFloat("_isLava", 1);
                 SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
 
@@ -232,7 +232,7 @@ namespace Artngame.SKYMASTER
                 {
                     SnowLavaMat.SetFloat("_isLava", 0);
                 }
-
+                SnowLavaMat.SetFloat("_LightIntensity", 1.0f);
                 SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
             }
         }
