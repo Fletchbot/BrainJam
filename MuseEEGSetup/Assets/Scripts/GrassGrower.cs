@@ -44,7 +44,7 @@ namespace Artngame.SKYMASTER
                 }
 
             }
-            else if (Mediate || Happy || Instr1 || Instr2)
+            else if (Happy || Instr1 || Instr2)
             {
                 if (transform.position.z <= grow && transform.position.z >= ungrow)
                 {

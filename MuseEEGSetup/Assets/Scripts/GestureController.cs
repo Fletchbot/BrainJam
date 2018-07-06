@@ -27,7 +27,7 @@ public class GestureController : MonoBehaviour {
         state = -1;
         countdown = 30.0f;
         counter = countdown;
-        S_Enable();
+        NoG_Enable(); //VolcanoErupt
     }
     void GestureConvertor()
     {
@@ -117,7 +117,7 @@ public class GestureController : MonoBehaviour {
         {
             if (counter <= 0)
             {
-                I1_Enable();
+                S_Enable();
                 state++;
                 counter = countdown;
             }
@@ -126,7 +126,7 @@ public class GestureController : MonoBehaviour {
         {
             if (counter <= 0)
             {
-                I2_Enable();
+                I1_Enable();
                 state++;
                 counter = countdown;
             }
@@ -135,7 +135,7 @@ public class GestureController : MonoBehaviour {
         {
             if (counter <= 0)
             {
-                NoG_Enable();
+                I2_Enable();
                 state++;
                 counter = countdown;
             }

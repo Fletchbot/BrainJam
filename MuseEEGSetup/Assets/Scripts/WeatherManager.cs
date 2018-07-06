@@ -170,30 +170,30 @@ namespace Artngame.SKYMASTER
 
         void StateSwitch()
         {
-            if (NoGesture)
-            {
-                isLava = false;
-                weatherChoice = 6;
-            }
-            else if (Mediate)
-            {
-                weatherChoice = 0;
-            }
-            else if (Happy)
-            {
-                weatherChoice = 0;
-
-            }
-            else if (Sad)
+            if (NoGesture) //Voclano Erupt
             {
                 isLava = true;
                 weatherChoice = 4;
             }
-            else if (Instr1)
+            else if (Mediate) //Sunset
+            {
+                weatherChoice = 0;
+            }
+            else if (Happy) // Midday Sun
+            {
+                weatherChoice = 0;
+
+            }
+            else if (Sad) //Winter Night
+            {
+                isLava = false;
+                weatherChoice = 6;
+            }
+            else if (Instr1) // Rainy Morning
             {
                 weatherChoice = 1;
             }
-            else if (Instr2)
+            else if (Instr2) // Rainy Afternoon
             {
                 weatherChoice = 1;
             }
@@ -202,18 +202,7 @@ namespace Artngame.SKYMASTER
         void snow_lava_SW()
         {
             float rate = 0.006f;
-            if (NoGesture == true && isLava == false)
-            {
-                if(shaderOffset >=-1.0f && shaderOffset <= 1.8f)
-                {
-                    shaderOffset = shaderOffset + rate;
-                }
-                SnowLavaMat.SetFloat("_LightIntensity", 1.0f);
-                SnowLavaMat.SetFloat("_isLava", 0);
-                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
-
-            }
-            else if (Sad == true && isLava == true)
+            if (NoGesture == true && isLava == true)
             {
                 if (shaderOffset >= -1.0f && shaderOffset <= 1.8f)
                 {
@@ -221,6 +210,16 @@ namespace Artngame.SKYMASTER
                 }
                 SnowLavaMat.SetFloat("_LightIntensity", 4.0f);
                 SnowLavaMat.SetFloat("_isLava", 1);
+                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
+            }
+            else if (Sad == true && isLava == false)
+            {
+                if (shaderOffset >= -1.0f && shaderOffset <= 1.8f)
+                {
+                    shaderOffset = shaderOffset + rate;
+                }
+                SnowLavaMat.SetFloat("_LightIntensity", 1.0f);
+                SnowLavaMat.SetFloat("_isLava", 0);
                 SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
 
             } else if (Happy || Mediate || Instr1 || Instr2)

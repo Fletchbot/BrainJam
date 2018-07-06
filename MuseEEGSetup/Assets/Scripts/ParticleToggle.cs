@@ -9,10 +9,10 @@ public class ParticleToggle : MonoBehaviour
     public ParticleSystem Eruption, Lava, BubblingLava, Smoke, PeekABooLava;
     public bool gameStart, NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
     public bool G_sw, M_sw, H_sw, S_sw, I1_sw, I2_sw;
-
     // Use this for initialization
     void Start()
     {
+
    //     gameStart = true;
         ParticleEmissionController();
     }
@@ -39,6 +39,7 @@ public class ParticleToggle : MonoBehaviour
         var S_em = Smoke.GetComponent<ParticleSystem>().emission.enabled;
         var P_em = PeekABooLava.GetComponent<ParticleSystem>().emission.enabled;
 
+
         if (gameStart)
         {
             E_em = false;
@@ -57,7 +58,7 @@ public class ParticleToggle : MonoBehaviour
 
             gameStart = false;
         }
-        else if (Happy && H_sw == false)
+        else if (Happy && H_sw == false) //Midday Sun
         {
             E_em = false;
             L_em = false;
@@ -80,19 +81,19 @@ public class ParticleToggle : MonoBehaviour
             I1_sw = false;
             I2_sw = false;
         }
-        else if (Sad && S_sw == false)
+        else if (Sad && S_sw == false) //Winter Night
         {
-            E_em = true;
-            L_em = true;
-            B_em = true;
+            E_em = false;
+            L_em = false;
+            B_em = false;
 
             S_em = false;
             P_em = false;
 
-            Eruption.GetComponent<ParticleSystem>().Play();
-            Lava.GetComponent<ParticleSystem>().Play();
-            BubblingLava.GetComponent<ParticleSystem>().Play();
-        
+            Eruption.GetComponent<ParticleSystem>().Stop();
+            Lava.GetComponent<ParticleSystem>().Stop();
+            BubblingLava.GetComponent<ParticleSystem>().Stop();
+
             Smoke.GetComponent<ParticleSystem>().Stop();
             PeekABooLava.GetComponent<ParticleSystem>().Stop();
 
@@ -101,9 +102,9 @@ public class ParticleToggle : MonoBehaviour
             H_sw = false;
             M_sw = false;
             I1_sw = false;
-            I2_sw = false; 
+            I2_sw = false;
         } 
-        else if (Instr1 && I1_sw == false)
+        else if (Instr1 && I1_sw == false) //rainy morning
         {
             E_em = false;
             L_em = false;
@@ -111,6 +112,9 @@ public class ParticleToggle : MonoBehaviour
 
             S_em = true;
             P_em = true;
+
+            ParticleSystem.MainModule PeekABooColor = PeekABooLava.GetComponent<ParticleSystem>().main;
+            PeekABooColor.startColor = new ParticleSystem.MinMaxGradient(Color.green, Color.blue);
 
             Eruption.GetComponent<ParticleSystem>().Stop();
             Lava.GetComponent<ParticleSystem>().Stop();
@@ -125,7 +129,7 @@ public class ParticleToggle : MonoBehaviour
             M_sw = false;
             I1_sw = true;
             I2_sw = false;
-        } else if (Instr2 && I2_sw == false)
+        } else if (Instr2 && I2_sw == false) // rainy afternoon
         {
             E_em = false;
             L_em = false;
@@ -133,6 +137,9 @@ public class ParticleToggle : MonoBehaviour
 
             S_em = true;
             P_em = true;
+
+            ParticleSystem.MainModule PeekABooColor = PeekABooLava.GetComponent<ParticleSystem>().main;
+            PeekABooColor.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.magenta);
 
             Eruption.GetComponent<ParticleSystem>().Stop();
             Lava.GetComponent<ParticleSystem>().Stop();
@@ -148,18 +155,18 @@ public class ParticleToggle : MonoBehaviour
             I1_sw = false;
             I2_sw = true;
         }
-        else if (NoGesture && G_sw == false)
+        else if (NoGesture && G_sw == false) //Volcano Erupt
         {
-            E_em = false;
-            L_em = false;
-            B_em = false;
+            E_em = true;
+            L_em = true;
+            B_em = true;
 
             S_em = false;
             P_em = false;
 
-            Eruption.GetComponent<ParticleSystem>().Stop();
-            Lava.GetComponent<ParticleSystem>().Stop();
-            BubblingLava.GetComponent<ParticleSystem>().Stop();
+            Eruption.GetComponent<ParticleSystem>().Play();
+            Lava.GetComponent<ParticleSystem>().Play();
+            BubblingLava.GetComponent<ParticleSystem>().Play();
 
             Smoke.GetComponent<ParticleSystem>().Stop();
             PeekABooLava.GetComponent<ParticleSystem>().Stop();
@@ -171,7 +178,7 @@ public class ParticleToggle : MonoBehaviour
             I1_sw = false;
             I2_sw = false;
         }
-        else if (Mediate && M_sw == false)
+        else if (Mediate && M_sw == false) //sunset
         { 
             E_em = false;
             L_em = false;

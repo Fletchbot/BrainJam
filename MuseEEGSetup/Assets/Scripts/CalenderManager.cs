@@ -48,46 +48,7 @@ namespace Artngame.SKYMASTER
         {
             float rate = 16 * 4.0f;
 
-            if (NoGesture)
-            {
-                CurrMonth = 1;
-                CurrDay = 1;
-                if(CurrHour > 8.95f && CurrHour < 9.0f)
-                {
-                    speed = 0;
-                } else
-                {
-                    speed = rate;
-                }
-            }
-            else if (Mediate)
-            {
-                CurrMonth = 5;
-                CurrDay = 5;
-                if (CurrHour > 20.0f && CurrHour < 20.2f)
-                {
-                    speed = 0;
-                }
-                else
-                {
-                    speed = rate;
-                }
-            }
-            else if (Happy)
-            {
-                CurrMonth = 6;
-                CurrDay = 20;
-
-                if (CurrHour > 13.4f && CurrHour < 13.6f)
-                {
-                    speed = 0;
-                }
-                else
-                {
-                    speed = rate;
-                }
-            }
-            else if (Sad)
+            if (NoGesture) //Volcano Erupt
             {
                 CurrMonth = 10;
                 CurrDay = 10;
@@ -101,7 +62,47 @@ namespace Artngame.SKYMASTER
                     speed = rate;
                 }
             }
-            else if (Instr1)
+            else if (Mediate) //Sunset
+            {
+                CurrMonth = 5;
+                CurrDay = 5;
+                if (CurrHour > 20.0f && CurrHour < 20.2f)
+                {
+                    speed = 0;
+                }
+                else
+                {
+                    speed = rate;
+                }
+            }
+            else if (Happy) //Midday Sun
+            {
+                CurrMonth = 6;
+                CurrDay = 20;
+
+                if (CurrHour > 13.4f && CurrHour < 13.6f)
+                {
+                    speed = 0;
+                }
+                else
+                {
+                    speed = rate;
+                }
+            }
+            else if (Sad) //Winter Night
+            {
+                CurrMonth = 1;
+                CurrDay = 1;
+                if (CurrHour > 8.95f && CurrHour < 9.0f)
+                {
+                    speed = 0;
+                }
+                else
+                {
+                    speed = rate;
+                }
+            }
+            else if (Instr1) //Rain morning
             {
                 CurrMonth = 8;
                 CurrDay = 8;
@@ -114,11 +115,11 @@ namespace Artngame.SKYMASTER
                     speed = rate;
                 }
             }
-            else if (Instr2)
+            else if (Instr2) //Raining Afternoon
             {
                 CurrMonth = 2;
                 CurrDay = 8;
-                if (CurrHour > 9.7f && CurrHour < 9.8f)
+                if (CurrHour > 17.7f && CurrHour < 17.8f)
                 {
                     speed = 0;
                 }

@@ -71,6 +71,7 @@
      <Compile Include="Assets\FX Mega Pack\Scripts\Simple Particle Scaler\Scripts\Editor\ParticleScaler.cs" />
      <Compile Include="Assets\InfiniGRASS\Scripts\Editor\InfiniGRASSManagerEditor.cs" />
      <Compile Include="Assets\InfiniGRASS\Scripts\Editor\ObjExporter.cs" />
+     <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\Wander\Editor\AnimalManagerEditor.cs" />
      <Compile Include="Assets\PostProcessing\Editor\Attributes\PostProcessingModelEditorAttribute.cs" />
      <Compile Include="Assets\PostProcessing\Editor\Models\AmbientOcclusionModelEditor.cs" />
      <Compile Include="Assets\PostProcessing\Editor\Models\AntialiasingModelEditor.cs" />
