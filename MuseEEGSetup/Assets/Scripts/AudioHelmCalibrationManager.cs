@@ -13,8 +13,10 @@ public class AudioHelmCalibrationManager : MonoBehaviour
     [Header("AudioMixer Section")]
     public AudioMixer synthMixer;
     [Header("Chord Picker")]
-    public bool[] chords = new bool[2];
+    public bool[] chords = new bool[3];
     [Header("Startup invoke timer")]
+    public bool invokeonstart;
+    public float counter;
     //Timer to invoke sequencers/synths on startup
     public float time = 1.5f;
 
@@ -95,8 +97,23 @@ public class AudioHelmCalibrationManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-     //   Invoke("DroneEnable", time);
-     //   Invoke("ArpEnable", time * 2);
+        DroneDisable();
+        ArpDisable();
+        counter = 0;
+
+        if (invokeonstart)
+        {
+            DemoSequence();
+        }
+
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (invokeonstart)
+        {
+            DemoSequence();
+        }
     }
 
     public void DroneEnable()
@@ -119,6 +136,12 @@ public class AudioHelmCalibrationManager : MonoBehaviour
                         DroneSynth.NoteOn(C2, 1.0f);
                         DroneSynth.NoteOn(Eb3, 1.0f);
                         DroneSynth.NoteOn(G2, 1.0f);
+                        break;
+
+                    case 2:
+                        DroneSynth.NoteOn(C2, 1.0f);
+                        DroneSynth.NoteOn(E3, 1.0f);
+                        DroneSynth.NoteOn(Bb2, 1.0f);
                         break;
                 }
             }
@@ -147,6 +170,13 @@ public class AudioHelmCalibrationManager : MonoBehaviour
                         ArpSeq.AddNote(Bb4, 0, 17);
                         ArpSeq.AddNote(D5, 0, 17);
                         break;
+
+                    case 2:
+                        ArpSeq.AddNote(E4, 0, 17);
+                        ArpSeq.AddNote(G4, 0, 17);
+                        ArpSeq.AddNote(Bb4, 0, 17);
+                        ArpSeq.AddNote(D5, 0, 17);
+                        break;
                 }
             }
         }
@@ -161,11 +191,6 @@ public class AudioHelmCalibrationManager : MonoBehaviour
         ArpSeq.Clear();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void SetDroneSynthLvl(float synthLvl)
     {
         //   synthMixer.SetFloat("synthVol", synthLvl);
@@ -173,5 +198,45 @@ public class AudioHelmCalibrationManager : MonoBehaviour
     public void SetArpSynthLvl(float synthLvl)
     {
         //   synthMixer.SetFloat("synthVol", synthLvl);
+    }
+
+    public void DemoSequence()
+    {
+        counter += Time.deltaTime;
+        if (counter >= 30.0f && counter <= 30.1f)
+        {
+            chords[0] = true;
+            chords[1] = false;
+            chords[2] = false;
+            DroneDisable();
+            Invoke("DroneEnable", 0.1f);
+        }
+        else if (counter >= 60.0f && counter <= 60.1f)
+        {
+            ArpDisable();
+            Invoke("ArpEnable", 0.1f);
+
+        }
+        else if (counter >= 90.0f && counter <= 90.1f)
+        {
+            chords[0] = false;
+            chords[1] = true;
+            chords[2] = false;
+            DroneDisable();
+            ArpDisable();
+            Invoke("DroneEnable", 0.1f);
+            Invoke("ArpEnable", 0.1f);
+        }
+        else if (counter >= 120.0f && counter <= 120.1f)
+        {
+            chords[0] = false;
+            chords[1] = false;
+            chords[2] = true;
+            DroneDisable();
+            ArpDisable();
+            Invoke("DroneEnable", 0.1f);
+            Invoke("ArpEnable", 0.1f);
+        }
+
     }
 }

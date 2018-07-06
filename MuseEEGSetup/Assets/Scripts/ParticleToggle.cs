@@ -7,13 +7,13 @@ public class ParticleToggle : MonoBehaviour
 {
     public GameObject gc;
     public ParticleSystem Eruption, Lava, BubblingLava, Smoke, PeekABooLava;
-    public bool gameStart, NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
+    public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
     public bool G_sw, M_sw, H_sw, S_sw, I1_sw, I2_sw;
+    private Color32 orange;
     // Use this for initialization
     void Start()
     {
-
-   //     gameStart = true;
+        orange = new Color32(255,123,0,255);
         ParticleEmissionController();
     }
 
@@ -40,25 +40,7 @@ public class ParticleToggle : MonoBehaviour
         var P_em = PeekABooLava.GetComponent<ParticleSystem>().emission.enabled;
 
 
-        if (gameStart)
-        {
-            E_em = false;
-            L_em = false;
-            B_em = false;
-
-            S_em = false;
-            P_em = false;
-
-            Eruption.GetComponent<ParticleSystem>().Stop();
-            Lava.GetComponent<ParticleSystem>().Stop();
-            BubblingLava.GetComponent<ParticleSystem>().Stop();
-
-            Smoke.GetComponent<ParticleSystem>().Stop();
-            PeekABooLava.GetComponent<ParticleSystem>().Stop();
-
-            gameStart = false;
-        }
-        else if (Happy && H_sw == false) //Midday Sun
+        if (Happy && H_sw == false) //Midday Sun
         {
             E_em = false;
             L_em = false;
@@ -186,6 +168,9 @@ public class ParticleToggle : MonoBehaviour
 
             S_em = false;
             P_em = true;
+
+            ParticleSystem.MainModule PeekABooColor = PeekABooLava.GetComponent<ParticleSystem>().main;
+            PeekABooColor.startColor = new ParticleSystem.MinMaxGradient(Color.yellow, orange);
 
             Eruption.GetComponent<ParticleSystem>().Stop();
             Lava.GetComponent<ParticleSystem>().Stop();
