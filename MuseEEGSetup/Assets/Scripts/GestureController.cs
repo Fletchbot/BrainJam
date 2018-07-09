@@ -5,7 +5,7 @@ using UniOSC;
 
 public class GestureController : MonoBehaviour {
     [Header("Mode")]
-    public bool Muse, Standalone;
+    public bool Muse, Standalone , soundtest;
     [Header("Wekinator Receiver")]
     public GameObject WekOSC_Receiver;
     public bool M_closed, M_open, H_closed, H_open, S_closed, S_open, I1_closed, I1_open, I2_closed, I2_open;
@@ -17,6 +17,7 @@ public class GestureController : MonoBehaviour {
     public float counter;
     public float speed = 1;
     public int state;
+
     private System.Random randomizer;
 
     // Use this for initialization
@@ -27,7 +28,15 @@ public class GestureController : MonoBehaviour {
         state = -1;
         countdown = 30.0f;
         counter = countdown;
-        NoG_Enable(); //VolcanoErupt
+        if (soundtest)
+        {
+            M_Enable();
+        }
+        else if (!soundtest)
+        {
+            NoG_Enable(); //VolcanoErupt
+        }
+        
     }
     void GestureConvertor()
     {

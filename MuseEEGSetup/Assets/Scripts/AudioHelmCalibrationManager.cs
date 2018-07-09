@@ -126,22 +126,25 @@ public class AudioHelmCalibrationManager : MonoBehaviour
             {
                 switch (i)
                 {
-                    case 0:
-                        DroneSynth.NoteOn(C2, 1.0f);
-                        DroneSynth.NoteOn(E3, 1.0f);
-                        DroneSynth.NoteOn(G2, 1.0f);
+                    case 0: //Eb Maj69
+                        DroneSynth.NoteOn(Eb2, 1.0f);
+                        DroneSynth.NoteOn(G3, 1.0f);
+                        DroneSynth.NoteOn(C3, 1.0f);
+                        DroneSynth.NoteOn(F3, 1.0f);
                         break;
 
-                    case 1:
-                        DroneSynth.NoteOn(C2, 1.0f);
+                    case 1: // D min9
+                        DroneSynth.NoteOn(D2, 1.0f);
+                        DroneSynth.NoteOn(F3, 1.0f);
+                        DroneSynth.NoteOn(C3, 1.0f);
+                        DroneSynth.NoteOn(E3, 1.0f);
+                        break;
+
+                    case 2: // F9
+                        DroneSynth.NoteOn(F2, 1.0f);
+                        DroneSynth.NoteOn(A3, 1.0f);
                         DroneSynth.NoteOn(Eb3, 1.0f);
-                        DroneSynth.NoteOn(G2, 1.0f);
-                        break;
-
-                    case 2:
-                        DroneSynth.NoteOn(C2, 1.0f);
-                        DroneSynth.NoteOn(E3, 1.0f);
-                        DroneSynth.NoteOn(Bb2, 1.0f);
+                        DroneSynth.NoteOn(G3, 1.0f);
                         break;
                 }
             }
@@ -157,25 +160,25 @@ public class AudioHelmCalibrationManager : MonoBehaviour
                 ArpSeq.Clear();
                 switch (i)
                 {
-                    case 0:
-                        ArpSeq.AddNote(E4, 0, 17);
-                        ArpSeq.AddNote(A4, 0, 17);
-                        ArpSeq.AddNote(B4, 0, 17);
-                        ArpSeq.AddNote(D5, 0, 17);
-                        break;
-
-                    case 1:
-                        ArpSeq.AddNote(Eb4, 0, 17);
-                        ArpSeq.AddNote(A4, 0, 17);
-                        ArpSeq.AddNote(Bb4, 0, 17);
-                        ArpSeq.AddNote(D5, 0, 17);
-                        break;
-
-                    case 2:
-                        ArpSeq.AddNote(E4, 0, 17);
+                    case 0: //Eb Maj 69
+                        ArpSeq.AddNote(C4, 0, 17);
                         ArpSeq.AddNote(G4, 0, 17);
-                        ArpSeq.AddNote(Bb4, 0, 17);
-                        ArpSeq.AddNote(D5, 0, 17);
+                        ArpSeq.AddNote(D4, 0, 17);
+                        ArpSeq.AddNote(F5, 0, 17);
+                        break;
+
+                    case 1: // D min9
+                        ArpSeq.AddNote(F4, 0, 17);
+                        ArpSeq.AddNote(C5, 0, 17);
+                        ArpSeq.AddNote(E4, 0, 17);
+                        ArpSeq.AddNote(A5, 0, 17);
+                        break;
+
+                    case 2: // F9
+                        ArpSeq.AddNote(Eb4, 0, 17);
+                        ArpSeq.AddNote(G4, 0, 17);
+                        ArpSeq.AddNote(Eb4, 0, 17);
+                        ArpSeq.AddNote(A5, 0, 17);
                         break;
                 }
             }
@@ -205,16 +208,24 @@ public class AudioHelmCalibrationManager : MonoBehaviour
         counter += Time.deltaTime;
         if (counter >= 30.0f && counter <= 30.1f)
         {
+            chords[0] = false;
+            chords[1] = false;
+            chords[2] = true;
+            DroneDisable();
+            DroneEnable();
+         //   Invoke("DroneEnable", 0.1f);
+        }
+        else if (counter >= 60.0f && counter <= 60.1f)
+        {
             chords[0] = true;
             chords[1] = false;
             chords[2] = false;
             DroneDisable();
-            Invoke("DroneEnable", 0.1f);
-        }
-        else if (counter >= 60.0f && counter <= 60.1f)
-        {
             ArpDisable();
-            Invoke("ArpEnable", 0.1f);
+            DroneEnable();
+            ArpEnable();
+     //       Invoke("DroneEnable", 0.1f);
+    //        Invoke("ArpEnable", 0.1f);
 
         }
         else if (counter >= 90.0f && counter <= 90.1f)
@@ -224,8 +235,10 @@ public class AudioHelmCalibrationManager : MonoBehaviour
             chords[2] = false;
             DroneDisable();
             ArpDisable();
-            Invoke("DroneEnable", 0.1f);
-            Invoke("ArpEnable", 0.1f);
+            DroneEnable();
+            ArpEnable();
+            //     Invoke("DroneEnable", 0.1f);
+            //  Invoke("ArpEnable", 0.1f);
         }
         else if (counter >= 120.0f && counter <= 120.1f)
         {
@@ -234,8 +247,10 @@ public class AudioHelmCalibrationManager : MonoBehaviour
             chords[2] = true;
             DroneDisable();
             ArpDisable();
-            Invoke("DroneEnable", 0.1f);
-            Invoke("ArpEnable", 0.1f);
+            DroneEnable();
+            ArpEnable();
+        //    Invoke("DroneEnable", 0.1f);
+          //  Invoke("ArpEnable", 0.1f);
         }
 
     }

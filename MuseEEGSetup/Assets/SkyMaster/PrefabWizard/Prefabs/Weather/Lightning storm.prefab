@@ -1992,11 +1992,7 @@ MonoBehaviour:
   offset_bias: {x: -0.12, y: 0, z: 10.15}
   Downward_speed: 28
   Stop_dist: 1
-  Branch_color:
-    r: 1
-    g: 1
-    b: 1
-    a: 1
+  Branch_color: {r: 1, g: 1, b: 1, a: 1}
   Zigs_branching_divider: 2
   offset_noise: 1
   reset_noise: 1
@@ -2011,11 +2007,7 @@ MonoBehaviour:
   Line_width: {x: 10, y: 10}
   min_y_disp: 10
   line_glow_on: 0
-  Glow_color:
-    r: 0
-    g: 0
-    b: 1
-    a: 1
+  Glow_color: {r: 0, g: 0, b: 1, a: 1}
   Line_Lightning_mat: {fileID: 0}
   LineBranches: []
   LineBranchesGlow: []
@@ -2078,11 +2070,7 @@ MonoBehaviour:
   offset_bias: {x: -1.02, y: 0, z: 0}
   Downward_speed: 29
   Stop_dist: 1
-  Branch_color:
-    r: 1
-    g: 1
-    b: 1
-    a: 1
+  Branch_color: {r: 1, g: 1, b: 1, a: 1}
   Zigs_branching_divider: 2
   offset_noise: 1
   reset_noise: 1
@@ -2097,11 +2085,7 @@ MonoBehaviour:
   Line_width: {x: 10, y: 10}
   min_y_disp: 10
   line_glow_on: 0
-  Glow_color:
-    r: 0
-    g: 0
-    b: 1
-    a: 1
+  Glow_color: {r: 0, g: 0, b: 1, a: 1}
   Line_Lightning_mat: {fileID: 0}
   LineBranches: []
   LineBranchesGlow: []
@@ -2148,11 +2132,7 @@ MonoBehaviour:
   offset_bias: {x: 0.25, y: 0, z: 0}
   Downward_speed: 31
   Stop_dist: 1
-  Branch_color:
-    r: 1
-    g: 1
-    b: 1
-    a: 1
+  Branch_color: {r: 1, g: 1, b: 1, a: 1}
   Zigs_branching_divider: 2
   offset_noise: 1
   reset_noise: 1
@@ -2167,11 +2147,7 @@ MonoBehaviour:
   Line_width: {x: 10, y: 10}
   min_y_disp: 10
   line_glow_on: 0
-  Glow_color:
-    r: 0
-    g: 0
-    b: 1
-    a: 1
+  Glow_color: {r: 0, g: 0, b: 1, a: 1}
   Line_Lightning_mat: {fileID: 0}
   LineBranches: []
   LineBranchesGlow: []
@@ -2218,11 +2194,7 @@ MonoBehaviour:
   offset_bias: {x: -0.12, y: 0, z: 0}
   Downward_speed: 30
   Stop_dist: 1
-  Branch_color:
-    r: 1
-    g: 1
-    b: 1
-    a: 1
+  Branch_color: {r: 1, g: 1, b: 1, a: 1}
   Zigs_branching_divider: 2
   offset_noise: 1
   reset_noise: 1
@@ -2237,11 +2209,7 @@ MonoBehaviour:
   Line_width: {x: 10, y: 10}
   min_y_disp: 10
   line_glow_on: 0
-  Glow_color:
-    r: 0
-    g: 0
-    b: 1
-    a: 1
+  Glow_color: {r: 0, g: 0, b: 1, a: 1}
   Line_Lightning_mat: {fileID: 0}
   LineBranches: []
   LineBranchesGlow: []
