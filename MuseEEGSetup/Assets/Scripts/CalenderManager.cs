@@ -16,6 +16,7 @@ namespace Artngame.SKYMASTER
         public float speed;
 
         private bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
+        private bool G_sw, M_sw, H_sw, S_sw, I1_sw, I2_sw;
 
         // Use this for initialization
         void Start()
@@ -46,88 +47,130 @@ namespace Artngame.SKYMASTER
 
         void StateSwitch()
         {
-            float rate = 16 * 4.0f;
+            float speedup = 16 * 4.0f;
 
             if (NoGesture) //Volcano Erupt
             {
                 CurrMonth = 10;
                 CurrDay = 10;
 
-                if (CurrHour > 23.7f && CurrHour < 23.9f)
+               if (!G_sw && CurrHour >= 23.75f && CurrHour <= 23.9f)
                 {
-                    speed = 0;
+                    speed = 0.0f;
+                    G_sw = true;
                 }
-                else
+                else if (!G_sw)
                 {
-                    speed = rate;
+                    speed = speedup;
                 }
+
+                M_sw = false;
+                H_sw = false;
+                S_sw = false;
+                Instr1 = false;
+                Instr2 = false;
             }
             else if (Mediate) //Sunset
             {
                 CurrMonth = 5;
                 CurrDay = 5;
-                if (CurrHour > 20.0f && CurrHour < 20.2f)
+
+                if (!M_sw && CurrHour <= 20.2f && CurrHour >= 20.0f)
                 {
-                    speed = 0;
+                    speed = 0.5f;
+                    M_sw = true;
                 }
-                else
+                else if (!M_sw) 
                 {
-                    speed = rate;
+                    speed = speedup;
                 }
+
+                G_sw = false;
+                H_sw = false;
+                S_sw = false;
+                Instr1 = false;
+                Instr2 = false;
             }
             else if (Happy) //Midday Sun
             {
                 CurrMonth = 6;
                 CurrDay = 20;
 
-                if (CurrHour > 13.4f && CurrHour < 13.6f)
+                if (!H_sw && CurrHour > 13.4f && CurrHour < 13.6f)
                 {
-                    speed = 0;
+                    speed = 1.0f;
+                    H_sw = true;
                 }
-                else
+                else if (!H_sw)
                 {
-                    speed = rate;
+                    speed = speedup;
                 }
+
+                G_sw = false;
+                M_sw = false;
+                S_sw = false;
+                Instr1 = false;
+                Instr2 = false;
             }
             else if (Sad) //Winter Night
             {
                 CurrMonth = 1;
                 CurrDay = 1;
-                if (CurrHour > 8.95f && CurrHour < 9.0f)
+                if (!S_sw && CurrHour > 8.95f && CurrHour < 9.0f)
                 {
-                    speed = 0;
+                    speed = 0.0f;
+                    S_sw = true;
                 }
-                else
+                else if (!S_sw)
                 {
-                    speed = rate;
+                    speed = speedup;
                 }
+
+                G_sw = false;
+                M_sw = false;
+                H_sw = false;
+                Instr1 = false;
+                Instr2 = false;
             }
             else if (Instr1) //Rain morning
             {
                 CurrMonth = 8;
                 CurrDay = 8;
-                if (CurrHour > 9.3f && CurrHour < 9.5f)
+                if (!I1_sw && CurrHour > 9.3f && CurrHour < 9.5f)
                 {
-                    speed = 0;
+                    speed = 1.0f;
+                    Instr1 = true;
                 }
-                else
+                else if (!I1_sw)
                 {
-                    speed = rate;
+                    speed = speedup;
                 }
+
+                G_sw = false;
+                M_sw = false;
+                H_sw = false;
+                S_sw = false;
+                Instr2 = false;
             }
             else if (Instr2) //Raining Afternoon
             {
                 CurrMonth = 2;
                 CurrDay = 8;
-                if (CurrHour > 17.7f && CurrHour < 17.8f)
+                if (!I2_sw && CurrHour > 17.7f && CurrHour < 17.8f)
                 {
-                    speed = 0;
+                    speed = 1.0f;
+                    Instr2 = true;
                 }
-                else
+                else if (!I2_sw)
                 {
-                    speed = rate;
+                    speed = speedup;
                 }
 
+                G_sw = false;
+                M_sw = false;
+                H_sw = false;
+                S_sw = false;
+                Instr1 = false;
             }
             else
             {

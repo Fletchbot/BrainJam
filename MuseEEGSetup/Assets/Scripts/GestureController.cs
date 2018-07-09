@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniOSC;
 
-public class GestureController : MonoBehaviour {
+public class GestureController : MonoBehaviour
+{
     [Header("Mode")]
-    public bool Muse, Standalone , soundtest;
+    public bool Muse, Standalone;
     [Header("Wekinator Receiver")]
     public GameObject WekOSC_Receiver;
     public bool M_closed, M_open, H_closed, H_open, S_closed, S_open, I1_closed, I1_open, I2_closed, I2_open;
@@ -21,22 +22,17 @@ public class GestureController : MonoBehaviour {
     private System.Random randomizer;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         randomizer = new System.Random();
 
         state = -1;
         countdown = 30.0f;
         counter = countdown;
-        if (soundtest)
-        {
-            M_Enable();
-        }
-        else if (!soundtest)
-        {
-            NoG_Enable(); //VolcanoErupt
-        }
-        
+
+        NoG_Enable(); //VolcanoErupt
+
     }
     void GestureConvertor()
     {
@@ -161,12 +157,14 @@ public class GestureController : MonoBehaviour {
         }
     }
 
-            // Update is called once per frame
-            void Update () {
+    // Update is called once per frame
+    void Update()
+    {
         if (Muse)
         {
             GestureConvertor();
-        } else if (Standalone)
+        }
+        else if (Standalone)
         {
             StandaloneEnable();
         }

@@ -17,6 +17,8 @@ AudioMixerController:
   m_ExposedParameters:
   - guid: 3ab51fb4d0e6fd54ab79787a6d1f3606
     name: arpVol
+  - guid: 077a233f1b5229b4482e30619fa4734d
+    name: bassVol
   - guid: cd686111410a5b446a16ec498b158499
     name: droneVol
   - guid: c5bf712fd3d4d1047bbbcc9f23dd1166

@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class AudioPlaytestManager : MonoBehaviour
 {
+    [Header("Text Section")]
+    public GameObject timerText;
+    Text text;
     [Header("Gesture Controller")]
     public GameObject GC;
+    [Header("NarratorAudio")]
+    public AudioSource[] NarratorClips;
     [Header("Audio FX")]
     public AudioSource LavaAU, ThunderAU;
     [Header("Synth Section")]
@@ -19,10 +25,15 @@ public class AudioPlaytestManager : MonoBehaviour
     [Header("Chord Picker")]
     public bool[] chords = new bool[3];
 
+
     private bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
     private bool G_sw, M_sw, H_sw, S_sw, I1_sw, I2_sw;
+    private int N_Intro, N_Emotion, N_Instru, N_EndComplete, N_EndTwoG, N_EndReCalibrate;
     private float sfxlvl, dronelvl, basslvl;
-    public bool sfxPlaying, sfxFadedown, sfxFadeup;
+    private bool sfxPlaying, sfxFadedown, sfxFadeup, sfxDuck;
+
+    private bool startPlaytest;
+    private float counter;
 
     //Is the midi note 0 to 127 = to music note
     private int C2 = 48;
@@ -101,18 +112,18 @@ public class AudioPlaytestManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        text = timerText.GetComponent<Text>();
         DroneDisable();
         BassDisable();
         sfxlvl = 0.0f;
-
     }
     // Update is called once per frame
     void Update()
     {
         AudioGestureControl();
         SetSFXLvl();
+        NarratorEndings();
     }
-
     public void DroneEnable()
     {
         DroneSynth.AllNotesOff();
@@ -204,13 +215,10 @@ public class AudioPlaytestManager : MonoBehaviour
         }
     }
 
-
-
     public void DroneDisable()
     {
         DroneSynth.AllNotesOff();
     }
-
     public void BassDisable()
     {
         BassSeq.Clear();
@@ -218,15 +226,16 @@ public class AudioPlaytestManager : MonoBehaviour
 
     public void SetDroneSynthLvl(float synthLvl)
     {
-        //   synthMixer.SetFloat("synthVol", synthLvl);
+           synthMixer.SetFloat("droneVol", synthLvl);
     }
     public void SetBassSynthLvl(float synthLvl)
     {
-        //   synthMixer.SetFloat("synthVol", synthLvl);
+           synthMixer.SetFloat("bassVol", synthLvl);
     }
     public void SetSFXLvl()
     {
         sfxPlaying = ThunderAU.GetComponent<AudioSource>().isPlaying;
+        sfxDuck = NarratorClips[0].GetComponent<AudioSource>().isPlaying;
 
         if (sfxPlaying && sfxFadedown)
         {
@@ -251,6 +260,10 @@ public class AudioPlaytestManager : MonoBehaviour
             {
                 sfxFadeup = false;
             }
+        }
+        else if (sfxDuck)
+        {
+            sfxlvl = -6.0f;
         }
                   
             synthMixer.SetFloat("sfxVol", sfxlvl);
@@ -282,6 +295,10 @@ public class AudioPlaytestManager : MonoBehaviour
 
             sfxFadeup = true;
             sfxFadedown = false;
+
+            if (N_Intro == 0) N_Intro = 1;
+
+            NarratorUpdate();
         }
         else if (Mediate && !M_sw)
         {
@@ -301,6 +318,12 @@ public class AudioPlaytestManager : MonoBehaviour
 
             sfxFadedown = true;
             sfxFadeup = false;
+
+            if (N_Emotion == 0)
+            {
+                N_Emotion = 1;
+                Invoke("NarratorUpdate", 5.0f);
+            }
         }
         else if (Happy && !H_sw)
         {
@@ -320,6 +343,12 @@ public class AudioPlaytestManager : MonoBehaviour
 
             sfxFadedown = true;
             sfxFadeup = false;
+
+            if (N_Instru >= 0 && N_Instru <= 2)
+            {
+                N_Instru++;
+                if (N_Instru == 2) Invoke("NarratorUpdate", 5.0f);
+            }
         }
         else if (Sad && !S_sw)
         {
@@ -339,6 +368,12 @@ public class AudioPlaytestManager : MonoBehaviour
 
             sfxFadedown = true;
             sfxFadeup = false;
+
+            if (N_Instru >= 0 && N_Instru <= 2)
+            {
+                N_Instru++;
+                if (N_Instru == 2) Invoke("NarratorUpdate", 5.0f);
+            }
         }
         else if (Instr1 && !I1_sw)
         {
@@ -358,10 +393,14 @@ public class AudioPlaytestManager : MonoBehaviour
 
             sfxFadedown = true;
             sfxFadeup = false;
+
+            if (N_EndComplete >= 0 && N_EndComplete <= 2)
+            {
+                N_EndComplete++;
+            }
         }
         else if (Instr2 && !I2_sw)
         {
-
             chords[0] = false;
             chords[1] = false;
             chords[2] = true;
@@ -378,7 +417,112 @@ public class AudioPlaytestManager : MonoBehaviour
 
             sfxFadedown = true;
             sfxFadeup = false;
+
+            if (N_EndComplete >= 0 && N_EndComplete <= 2)
+            {
+                N_EndComplete++;            
+            }
+        }
+    }
+    public void NarratorUpdate()
+    {
+        float bassDuck = -6.0f;
+        float droneDuck = -6.0f;
+
+        if (N_Intro == 1)
+        {
+            NarratorClips[0].GetComponent<AudioSource>().Play();
+            N_Intro = 2;
+            Invoke("counterReset", 25.0f);
+
+            SetBassSynthLvl(bassDuck);
+            SetDroneSynthLvl(droneDuck);
+        }
+        else if (N_Emotion == 1)
+        {
+            NarratorClips[1].GetComponent<AudioSource>().Play();
+            N_Emotion = 2;
+            startPlaytest = false;
+            Invoke("counterReset", 31.0f);
+        }
+        else if (N_Instru == 1)
+        {
+            counterReset();
+        }
+        else if (N_Instru == 2)
+        {
+            NarratorClips[2].GetComponent<AudioSource>().Play();
+            N_Instru = 3;
+            startPlaytest = false;
+            Invoke("counterReset", 31.0f);
+        }
+        else if (N_EndComplete == 1)
+        {
+            counterReset();
+        }
+        else if (N_EndComplete == 2)
+        {
+            NarratorClips[3].GetComponent<AudioSource>().Play();
+            N_EndComplete = 3;
+        }
+        else if (N_EndTwoG == 1)
+        {
+            NarratorClips[4].GetComponent<AudioSource>().Play();
+            N_EndTwoG = 2;
+        }
+        else if (N_EndReCalibrate == 1)
+        {
+            NarratorClips[5].GetComponent<AudioSource>().Play();
+            N_EndReCalibrate = 2;
+        }
+
+    }
+    public void NarratorEndings()
+    {
+        if (startPlaytest)
+        {
+            counter -= Time.deltaTime;
+            if (counter <= 0)
+            {
+                counter = 0;
+                string seconds = Mathf.Round(counter % 60).ToString("00");
+                string minutes = Mathf.Round((counter % 3600) / 60).ToString("00");
+
+                if (NoGesture || Mediate)
+                {
+                    N_EndReCalibrate = 1;
+                    NarratorUpdate();
+                }
+                else if (Happy || Sad)
+                {
+                    N_EndTwoG = 1;
+                    NarratorUpdate();
+                }
+                else if (Instr1 || Instr2)
+                {
+                    if (N_EndComplete == 2) NarratorUpdate();
+                }
+            }
+            else
+            {
+                string minutes = Mathf.Floor((counter % 3600) / 60).ToString("00");
+                string seconds = (counter % 60).ToString("00");
+                text.text = minutes + ":" + seconds;
+            }
+        }
+        else
+        {
+            text.text = "";
         }
     }
 
+    public void counterReset()
+    {
+        counter = 60.0f;
+
+        if (!startPlaytest)
+        {
+            startPlaytest = true;
+        }
+    }
 }

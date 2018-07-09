@@ -127,7 +127,7 @@ Material:
         m_Scale: {x: 4, y: 4}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Snow_Cover_offset: -0.005999949
+    - Snow_Cover_offset: 1.1580001
     - _BumpPower: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -138,7 +138,7 @@ Material:
     - _Glossiness: 0.5
     - _LayerDepth: 0.005
     - _LayerStrength: 0.85
-    - _LightIntensity: 1
+    - _LightIntensity: 4
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -152,7 +152,7 @@ Material:
     - _UVSec: 0
     - _Wetness: 0.78
     - _ZWrite: 1
-    - _isLava: 0
+    - _isLava: 1
     - water_level: -3.04
     - water_spec: 0.5
     - water_tiling: -1.51
