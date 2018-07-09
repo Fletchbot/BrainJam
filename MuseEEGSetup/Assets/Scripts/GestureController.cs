@@ -28,7 +28,7 @@ public class GestureController : MonoBehaviour
         randomizer = new System.Random();
 
         state = -1;
-        countdown = 30.0f;
+        countdown = 45.0f;
         counter = countdown;
 
         NoG_Enable(); //VolcanoErupt

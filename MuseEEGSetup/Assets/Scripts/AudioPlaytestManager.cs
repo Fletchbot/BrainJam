@@ -30,7 +30,7 @@ public class AudioPlaytestManager : MonoBehaviour
     private bool G_sw, M_sw, H_sw, S_sw, I1_sw, I2_sw;
     private int N_Intro, N_Emotion, N_Instru, N_EndComplete, N_EndTwoG, N_EndReCalibrate;
     private float sfxlvl, dronelvl, basslvl;
-    private bool sfxPlaying, sfxFadedown, sfxFadeup, sfxDuck;
+    private bool sfxPlaying, sfxFadedown, sfxFadeup, sfxDuck, mDuck, eDuck, InstrDuck;
 
     private bool startPlaytest;
     private float counter;
@@ -122,6 +122,7 @@ public class AudioPlaytestManager : MonoBehaviour
     {
         AudioGestureControl();
         SetSFXLvl();
+        SetSynthsLvl();
         NarratorEndings();
     }
     public void DroneEnable()
@@ -224,13 +225,29 @@ public class AudioPlaytestManager : MonoBehaviour
         BassSeq.Clear();
     }
 
-    public void SetDroneSynthLvl(float synthLvl)
+    public void SetSynthsLvl()
     {
-           synthMixer.SetFloat("droneVol", synthLvl);
-    }
-    public void SetBassSynthLvl(float synthLvl)
-    {
-           synthMixer.SetFloat("bassVol", synthLvl);
+        mDuck = NarratorClips[1].GetComponent<AudioSource>().isPlaying;
+        eDuck = NarratorClips[2].GetComponent<AudioSource>().isPlaying;
+
+        if (InstrDuck)
+        {
+            dronelvl = -8.0f;
+            basslvl = -8.0f;
+        }
+        else if (mDuck || eDuck)
+        {
+            if (basslvl >= -6.0f && basslvl <= 0.1f) basslvl -= 0.1f;
+            if (dronelvl >= -6.0f && dronelvl <= 0.1f) dronelvl -= 0.1f;
+        }
+        else if (!mDuck || !eDuck)
+        {
+            if (basslvl >= -8.1f && basslvl <= -0.1f) basslvl += 0.1f;
+            if (dronelvl >= -8.1f && dronelvl <= -0.1f) dronelvl += 0.1f;
+        }
+
+        synthMixer.SetFloat("bassVol", basslvl);
+        synthMixer.SetFloat("droneVol", dronelvl);
     }
     public void SetSFXLvl()
     {
@@ -265,6 +282,11 @@ public class AudioPlaytestManager : MonoBehaviour
         {
             sfxlvl = -6.0f;
         }
+        else if (!sfxDuck)
+        {
+
+           if(sfxlvl <=0.0f) sfxlvl += 0.1f;
+        }
                   
             synthMixer.SetFloat("sfxVol", sfxlvl);
     }
@@ -282,6 +304,7 @@ public class AudioPlaytestManager : MonoBehaviour
         {
             DroneDisable();
             BassDisable();
+            InstrDuck = true;
 
             ThunderAU.GetComponent<AudioSource>().Play();
             LavaAU.GetComponent<AudioSource>().Play();
@@ -308,6 +331,7 @@ public class AudioPlaytestManager : MonoBehaviour
 
             DroneEnable();
             BassEnable();
+            InstrDuck = false;
 
             S_sw = false;
             G_sw = false;
@@ -426,24 +450,18 @@ public class AudioPlaytestManager : MonoBehaviour
     }
     public void NarratorUpdate()
     {
-        float bassDuck = -6.0f;
-        float droneDuck = -6.0f;
-
         if (N_Intro == 1)
         {
             NarratorClips[0].GetComponent<AudioSource>().Play();
             N_Intro = 2;
             Invoke("counterReset", 25.0f);
-
-            SetBassSynthLvl(bassDuck);
-            SetDroneSynthLvl(droneDuck);
         }
         else if (N_Emotion == 1)
         {
             NarratorClips[1].GetComponent<AudioSource>().Play();
             N_Emotion = 2;
             startPlaytest = false;
-            Invoke("counterReset", 31.0f);
+            Invoke("counterReset", 34.0f);
         }
         else if (N_Instru == 1)
         {
@@ -464,16 +482,22 @@ public class AudioPlaytestManager : MonoBehaviour
         {
             NarratorClips[3].GetComponent<AudioSource>().Play();
             N_EndComplete = 3;
+            DroneDisable();
+            BassDisable();
         }
         else if (N_EndTwoG == 1)
         {
             NarratorClips[4].GetComponent<AudioSource>().Play();
             N_EndTwoG = 2;
+            DroneDisable();
+            BassDisable();
         }
         else if (N_EndReCalibrate == 1)
         {
             NarratorClips[5].GetComponent<AudioSource>().Play();
             N_EndReCalibrate = 2;
+            DroneDisable();
+            BassDisable();
         }
 
     }
