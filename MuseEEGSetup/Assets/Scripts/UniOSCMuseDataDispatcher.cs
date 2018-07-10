@@ -357,22 +357,31 @@ namespace UniOSC {
                     msg.UpdateDataAt(53, at_r1);
                     msg.UpdateDataAt(54, at_r2);
                     msg.UpdateDataAt(55, at_r3);
+                    if (XYZ)
+                    {
+                        msg.UpdateDataAt(56, _gX);
+                        msg.UpdateDataAt(57, _gY);
+                        msg.UpdateDataAt(58, _gZ);
 
-                    msg.UpdateDataAt(56, _gX);
-                    msg.UpdateDataAt(57, _gY);
-                    msg.UpdateDataAt(58, _gZ);
-
-                    msg.UpdateDataAt(59, _accX);
-                    msg.UpdateDataAt(60, _accY);
-                    msg.UpdateDataAt(61, _accZ);
-
-                    if (eegData)
+                        msg.UpdateDataAt(59, _accX);
+                        msg.UpdateDataAt(60, _accY);
+                        msg.UpdateDataAt(61, _accZ);
+                    }
+                    if (eegData && XYZ)
                     {
                         msg.UpdateDataAt(62, eeg0);
                         msg.UpdateDataAt(63, eeg1);
                         msg.UpdateDataAt(64, eeg2);
                         msg.UpdateDataAt(65, eeg3);
                         msg.UpdateDataAt(66, eeg4);
+                    }
+                    else if (eegData && !XYZ)
+                    {
+                        msg.UpdateDataAt(56, eeg0);
+                        msg.UpdateDataAt(57, eeg1);
+                        msg.UpdateDataAt(58, eeg2);
+                        msg.UpdateDataAt(59, eeg3);
+                        msg.UpdateDataAt(60, eeg4);
                     }
                 }
                 else if (AllValues == false)
@@ -394,22 +403,31 @@ namespace UniOSC {
 
                     msg.UpdateDataAt(12, theta_beta_r);
                     msg.UpdateDataAt(13, alpha_theta_r);
+                    if (XYZ)
+                    {
+                        msg.UpdateDataAt(14, _gX);
+                        msg.UpdateDataAt(15, _gY);
+                        msg.UpdateDataAt(16, _gZ);
 
-                    msg.UpdateDataAt(14, _gX);
-                    msg.UpdateDataAt(15, _gY);
-                    msg.UpdateDataAt(16, _gZ);
-
-                    msg.UpdateDataAt(17, _accX);
-                    msg.UpdateDataAt(18, _accY);
-                    msg.UpdateDataAt(19, _accZ);
-
-                    if (eegData)
+                        msg.UpdateDataAt(17, _accX);
+                        msg.UpdateDataAt(18, _accY);
+                        msg.UpdateDataAt(19, _accZ);
+                    }
+                    if (eegData && XYZ)
                     {
                         msg.UpdateDataAt(22, eeg0);
                         msg.UpdateDataAt(23, eeg1);
                         msg.UpdateDataAt(24, eeg2);
                         msg.UpdateDataAt(25, eeg3);
                         msg.UpdateDataAt(26, eeg4);
+                    }
+                    else if (eegData && !XYZ)
+                    {
+                        msg.UpdateDataAt(14, eeg0);
+                        msg.UpdateDataAt(15, eeg1);
+                        msg.UpdateDataAt(16, eeg2);
+                        msg.UpdateDataAt(17, eeg3);
+                        msg.UpdateDataAt(18, eeg4);
                     }
                 }
 

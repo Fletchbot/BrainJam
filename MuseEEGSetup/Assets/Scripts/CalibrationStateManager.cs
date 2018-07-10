@@ -21,6 +21,7 @@ public class CalibrationStateManager : MonoBehaviour
     private Color32 OffColor, OnColor;
     private int _mClick, _eClick, _aClick, narrator;
     private bool PickText;
+    private float recTimer;
 
 
     // Use this for initialization
@@ -28,6 +29,7 @@ public class CalibrationStateManager : MonoBehaviour
     {
         text = timerText.GetComponent<Text>();
         state = -1;
+        recTimer = 30.5f;
         colorReset();
         Reset();
     }
@@ -150,7 +152,7 @@ public class CalibrationStateManager : MonoBehaviour
             if (counter <= 0) //state 2 = breath meditation eyes closed g1
             {
                 state++;
-                counter = 30.0f;
+                counter = recTimer;
                 statechange = true;
             }
         }
@@ -169,7 +171,7 @@ public class CalibrationStateManager : MonoBehaviour
             if (counter <= 0)  //state 4 = breath meditation eyes open g2
             {
                 state++;
-                counter = 30.0f;
+                counter = recTimer;
                 statechange = true;
             }
         }
@@ -212,7 +214,7 @@ public class CalibrationStateManager : MonoBehaviour
             if (counter <= 0)    //state 6 = Happy eyes closed g3
             {
                 state++;
-                counter = 30.0f;
+                counter = recTimer;
                 statechange = true;
             }
         }
@@ -231,7 +233,7 @@ public class CalibrationStateManager : MonoBehaviour
             if (counter <= 0)     //state 8 = Happy eyes open g4
             {
                 state++;
-                counter = 30.0f;
+                counter = recTimer;
                 statechange = true;
             }
         }
@@ -250,7 +252,7 @@ public class CalibrationStateManager : MonoBehaviour
             if (counter <= 0)   //state 10 = sad eyes closed g5
             {
                 state++;
-                counter = 30.0f;
+                counter = recTimer;
                 statechange = true;
             }
         }
@@ -269,7 +271,7 @@ public class CalibrationStateManager : MonoBehaviour
             if (counter <= 0)    //state 12 = sad eyes closed g6
             {
                 state++;
-                counter = 30.0f;
+                counter = recTimer;
                 statechange = true;
             }
         }
@@ -306,7 +308,7 @@ public class CalibrationStateManager : MonoBehaviour
             if (counter <= 0)  //state 14 = Recognise Instrument 1: eyes closed g7
             {
                 state++;
-                counter = 30.0f;
+                counter = recTimer;
                 statechange = true;
             }
         }
@@ -325,7 +327,7 @@ public class CalibrationStateManager : MonoBehaviour
             if (counter <= 0)   //state 16 = Recognise Instrument 1: eyes open g8
             {
                 state++;
-                counter = 30.0f;
+                counter = recTimer;
                 statechange = true;
             }
         }
@@ -344,7 +346,7 @@ public class CalibrationStateManager : MonoBehaviour
             if (counter <= 0)  //state 18 = Recognise Instrument 2: eyes closed g9
             {
                 state++;
-                counter = 30.0f;
+                counter = recTimer;
                 statechange = true;
             }
         }
@@ -363,7 +365,7 @@ public class CalibrationStateManager : MonoBehaviour
             if (counter <= 0)   //state 20 = Recognise Instrument 2: eyes open g10
             {
                 state++;
-                counter = 30.0f;
+                counter = recTimer;
                 statechange = true;
             }
         }
