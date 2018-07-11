@@ -29,7 +29,7 @@ public class CalibrationStateManager : MonoBehaviour
     {
         text = timerText.GetComponent<Text>();
         state = -1;
-        recTimer = 30.5f;
+        recTimer = 30.4f;
         colorReset();
         Reset();
     }
@@ -96,9 +96,11 @@ public class CalibrationStateManager : MonoBehaviour
 
     public void _counter()
     {
-        if (state > -1)
-        {
-            if (paused == false)
+            if (state == 21 || state == -1)
+            {
+                text.text = "";
+            }
+            else if (paused == false)
             {
                 counter -= Time.deltaTime * speed;
                 if (counter <= 0)
@@ -114,11 +116,6 @@ public class CalibrationStateManager : MonoBehaviour
                     text.text = minutes + ":" + seconds;
                 }
             }
-        }
-        else
-        {
-            text.text = "";
-        }
     }
     public void _stateChanger()
     {
@@ -380,24 +377,13 @@ public class CalibrationStateManager : MonoBehaviour
                     aFin = true;
                     Invoke("Stop_RunCalibration", 1.0f);
                 }
-                else if (AllSelected)
-                {
-                    narrator = 12;
+                else
+                { 
                     state++;
-                    counter = 30.0f;
+                    counter = 0.0f;
                     statechange = true;
                     aFin = true;
                 }
-            }
-        }
-        else if (state == 21)
-        {
-            if (counter <= 0) //state 22 = Scene Switch
-            {
-                state++;
-                counter = 0f;
-                statechange = true;
-                Invoke("Stop_RunCalibration", 1.0f);
             }
         }
         else if (state == 23)
@@ -459,11 +445,6 @@ public class CalibrationStateManager : MonoBehaviour
                 {
                     counter = 0;
                     state = 19;
-                }
-                else if (narrator == 12)
-                {
-                    counter = 0;
-                    state = 21;
                 }
             }
         }

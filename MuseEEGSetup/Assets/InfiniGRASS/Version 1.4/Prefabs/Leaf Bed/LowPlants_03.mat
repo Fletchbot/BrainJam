@@ -130,7 +130,7 @@ Material:
     - _EmissionColorUI: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColorWithMapUI: {r: 1, g: 1, b: 1, a: 1}
     - _InteractPos: {r: 28, g: 300, b: -400, a: 0}
-    - _InteractSpeed: {r: 3e-45, g: -0.0000354707, b: 0.0027342062, a: 0}
+    - _InteractSpeed: {r: 3e-45, g: -1.3410501e-13, b: 1.0337294e-11, a: 0}
     - _OceanCenter: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _SpecularColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

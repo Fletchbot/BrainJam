@@ -6,6 +6,8 @@ using UnityEngine.Audio;
 
 public class DTW_Calibration : MonoBehaviour
 {
+    public GameObject playtestButtonText;
+
     public GameObject DTW_Rec, DTW_Run, DTW_Delete;
     public GameObject StateManager;
     public GameObject[] Icons;
@@ -14,16 +16,17 @@ public class DTW_Calibration : MonoBehaviour
     public bool RunCalibration, isPaused, resume, statechange;
     public bool recOn, stopRec, deleteExamples;
 
+    //DTW REC
+    public float waitEpoch, counter;
+    public int gesture, epochStart;
+
     // Calibration SEQ
     private int state, sceneLoader;
-    private Color MedCol, EmoCol, AuCol, recCol, finCol, waitCol, lerpedCol;
+    private Color MedCol, EmoCol, AuCol, recCol, finCol, waitCol;
     private bool _M, _E, _A, _ME, _MA, _EA, _All;
     private bool mRec, eRec, aRec, colorRec, mFin, eFin, aFin;
     private Vector3 Middle, Left, Right;
-
-    //DTW REC
-    private float waitEpoch, counter;
-    private int gesture, epochStart;
+    private bool playtestButtonTxt;
 
     public void Start()
     {
@@ -638,38 +641,20 @@ public class DTW_Calibration : MonoBehaviour
                 AudioHelmCalibrationManager.main.BassDisable();
             }
         }
-        else if (state == 21) //Narrator End
+        else if (state == 21) //Narrator End (MENU)
         {
             if (statechange)
             {
                 AudioHelmCalibrationManager.main.BassDisable();
 
+                CalAudio[13].GetComponent<AudioSource>().Play();
                 CalAudio[1].GetComponent<AudioSource>().Play();
-                CalAudio[13].GetComponent<AudioSource>().Play();
+
                 epochStart = 0;
-
-                NarratorIconsSW();
-            }
-
-            if (isPaused == true && resume == false)
-            {
-                CalAudio[13].GetComponent<AudioSource>().Pause();
-                pauseIconSW();
-            }
-            else if (resume == true && isPaused == true)
-            {
-                CalAudio[13].GetComponent<AudioSource>().Play();
-                resumeIconSW();
+                MenuIconsSW();
             }
         }
-        else if (state == 22)
-        {
-            if (statechange)
-            {
-                Icons[6].GetComponent<LoadSceneOnClick>().LoadByIndex(sceneLoader);
-            }
-        }
-        else if (state == 23)
+        else if (state == 23) // skip menu
         {
             deactivateSkip();
             stopAllAudio();
@@ -839,6 +824,27 @@ public class DTW_Calibration : MonoBehaviour
     private void Switch()
     {
         if (stopRec) stopRec = false;
+    }
+
+    public void playtestButtonClick()
+    {
+        if (mFin || eFin || aFin)
+        {
+            Icons[14].GetComponent<LoadSceneOnClick>().LoadByIndex(sceneLoader);
+        }
+        else
+        {
+            playtestButtonText.GetComponent<ActivateObjects>().SetActive(true);
+            playtestButtonTxt = true;
+        }
+    }
+    public void deactivatePlaytestButtonText()
+    {
+        if (playtestButtonTxt)
+        {
+            playtestButtonText.GetComponent<ActivateObjects>().SetDeactive(true);
+            playtestButtonTxt = false;
+        }
     }
 
     private void activateNarratorIcon()
@@ -1037,15 +1043,15 @@ public class DTW_Calibration : MonoBehaviour
         }
         else if (colorRec)
         {
-            if (mRec)
+            if (mRec && !mFin)
             {
                 MedCol = recCol;
             }
-            if (eRec)
+            if (eRec && !eFin)
             {
                 EmoCol = recCol;
             }
-            if (aRec)
+            if (aRec && !aFin)
             {
                 AuCol = recCol;
             }
@@ -1100,23 +1106,13 @@ public class DTW_Calibration : MonoBehaviour
 
     public void isCompleted()
     {
-
-        if(mFin && eFin && aFin)
+        if(mFin || eFin || aFin)
         {
-            CalAudio[13].GetComponent<AudioSource>().Play();
-            lerpedCol = Color.Lerp(Color.white, Color.green, Mathf.PingPong(Time.time, 1));
-            Icons[15].GetComponent<Image>().color = lerpedCol;       
+            Icons[15].GetComponent<Image>().color = Color.green;       
         }
         else
         {
             Icons[15].GetComponent<Image>().color = new Color32(219,39,32,255);
-        }
-    }
-    public void playtestButtonClick()
-    {
-        if (mFin && eFin && aFin)
-        {
-            Icons[14].GetComponent<LoadSceneOnClick>().LoadByIndex(3);
         }
     }
 
