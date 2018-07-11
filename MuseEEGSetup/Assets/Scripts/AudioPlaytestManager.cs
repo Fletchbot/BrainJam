@@ -26,8 +26,8 @@ public class AudioPlaytestManager : MonoBehaviour
     public bool[] chords = new bool[3];
 
 
-    private bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
-    private bool G_sw, M_sw, H_sw, S_sw, I1_sw, I2_sw;
+    private bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, bothInstr;
+    private bool G_sw, M_sw, H_sw, S_sw, I1_sw, I2_sw, bothInstr_SW;
     private int N_Intro, N_Emotion, N_Instru, N_EndComplete, N_EndTwoG, N_EndReCalibrate;
     private float sfxlvl, dronelvl, basslvl;
     private bool sfxPlaying, sfxFadedown, sfxFadeup, sfxDuck, mDuck, eDuck, InstrDuck;
@@ -299,6 +299,7 @@ public class AudioPlaytestManager : MonoBehaviour
         Sad = GC.GetComponent<GestureController>().Sad;
         Instr1 = GC.GetComponent<GestureController>().Instr1;
         Instr2 = GC.GetComponent<GestureController>().Instr2;
+        bothInstr = GC.GetComponent<GestureController>().bothInstr;
 
         if (NoGesture && !G_sw)
         {
@@ -315,6 +316,7 @@ public class AudioPlaytestManager : MonoBehaviour
             M_sw = false;
             I1_sw = false;
             I2_sw = false;
+            bothInstr_SW = false;
 
             sfxFadeup = true;
             sfxFadedown = false;
@@ -339,6 +341,7 @@ public class AudioPlaytestManager : MonoBehaviour
             M_sw = true;
             I1_sw = false;
             I2_sw = false;
+            bothInstr_SW = false;
 
             sfxFadedown = true;
             sfxFadeup = false;
@@ -364,6 +367,7 @@ public class AudioPlaytestManager : MonoBehaviour
             M_sw = false;
             I1_sw = false;
             I2_sw = false;
+            bothInstr_SW = false;
 
             sfxFadedown = true;
             sfxFadeup = false;
@@ -389,6 +393,7 @@ public class AudioPlaytestManager : MonoBehaviour
             M_sw = false;
             I1_sw = false;
             I2_sw = false;
+            bothInstr_SW = false;
 
             sfxFadedown = true;
             sfxFadeup = false;
@@ -414,6 +419,7 @@ public class AudioPlaytestManager : MonoBehaviour
             M_sw = false;
             I1_sw = true;
             I2_sw = false;
+            bothInstr_SW = false;
 
             sfxFadedown = true;
             sfxFadeup = false;
@@ -438,6 +444,7 @@ public class AudioPlaytestManager : MonoBehaviour
             M_sw = false;
             I1_sw = false;
             I2_sw = true;
+            bothInstr_SW = false;
 
             sfxFadedown = true;
             sfxFadeup = false;
@@ -446,6 +453,24 @@ public class AudioPlaytestManager : MonoBehaviour
             {
                 N_EndComplete++;            
             }
+        }
+        else if (bothInstr && !bothInstr_SW)
+        {
+            DroneEnable();
+            BassEnable();
+
+            S_sw = false;
+            G_sw = false;
+            H_sw = false;
+            M_sw = false;
+            I1_sw = false;
+            I2_sw = false;
+            bothInstr_SW = true;
+
+            sfxFadedown = true;
+            sfxFadeup = false;
+
+            counterReset();
         }
     }
     public void NarratorUpdate()
@@ -524,7 +549,10 @@ public class AudioPlaytestManager : MonoBehaviour
                 }
                 else if (Instr1 || Instr2)
                 {
-                    if (N_EndComplete == 2) NarratorUpdate();
+                    if (N_EndComplete == 2)
+                    {
+                        NarratorUpdate();
+                    }
                 }
             }
             else

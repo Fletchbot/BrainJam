@@ -12,7 +12,7 @@ public class GestureController : MonoBehaviour
     public bool M_closed, M_open, H_closed, H_open, S_closed, S_open, I1_closed, I1_open, I2_closed, I2_open;
     public float M_closedF, M_openF, H_closedF, H_openF, S_closedF, S_openF, I1_closedF, I1_openF, I2_closedF, I2_openF;
     [Header("Game Gestures")]
-    public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
+    public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, bothInstr, mindStateTimeOut;
     [Header("Timer Section")]
     public float countdown;
     public float counter;
@@ -27,8 +27,16 @@ public class GestureController : MonoBehaviour
 
         randomizer = new System.Random();
 
-        state = -1;
-        countdown = 45.0f;
+        if (Standalone)
+        {
+            state = -1;
+            countdown = 45.0f;
+        }
+        else
+        {
+            countdown = 60.0f;
+        }
+
         counter = countdown;
 
         NoG_Enable(); //VolcanoErupt
@@ -78,9 +86,20 @@ public class GestureController : MonoBehaviour
         {
             I2_Enable();
         }
-        else
+        else if (mindStateTimeOut == false)
         {
-            NoG_Enable();
+            DisableAllGestures();
+        }
+
+        if (bothInstr)
+        {
+            counter -= Time.deltaTime * speed;
+            if (counter <= 0)
+            {
+                counter = countdown;
+                mindStateTimeOut = true;
+                NoG_Enable();
+            }
         }
     }
 
@@ -140,12 +159,21 @@ public class GestureController : MonoBehaviour
         {
             if (counter <= 0)
             {
+                DisableAllGestures();
+                state++;
+                counter = countdown;
+            }
+        }
+        else if (state == 5)
+        {
+            if (counter <= 0)
+            {
                 I2_Enable();
                 state++;
                 counter = countdown;
             }
         }
-        else if (state >= 5)
+        else if (state >= 6)
         {
             if (counter <= 0)
             {
@@ -178,6 +206,7 @@ public class GestureController : MonoBehaviour
         Sad = false;
         Instr1 = false;
         Instr2 = false;
+        bothInstr = false;
     }
 
     void M_Enable()
@@ -188,6 +217,9 @@ public class GestureController : MonoBehaviour
         Sad = false;
         Instr1 = false;
         Instr2 = false;
+        bothInstr = false;
+
+        mindStateTimeOut = false;
     }
 
     void H_Enable()
@@ -198,7 +230,9 @@ public class GestureController : MonoBehaviour
         Sad = false;
         Instr1 = false;
         Instr2 = false;
+        bothInstr = false;
 
+        mindStateTimeOut = false;
     }
 
     void S_Enable()
@@ -209,6 +243,9 @@ public class GestureController : MonoBehaviour
         Sad = true;
         Instr1 = false;
         Instr2 = false;
+        bothInstr = false;
+
+        mindStateTimeOut = false;
     }
 
     void I1_Enable()
@@ -219,6 +256,9 @@ public class GestureController : MonoBehaviour
         Sad = false;
         Instr1 = true;
         Instr2 = false;
+        bothInstr = false;
+
+        mindStateTimeOut = false;
     }
 
     void I2_Enable()
@@ -229,6 +269,9 @@ public class GestureController : MonoBehaviour
         Sad = false;
         Instr1 = false;
         Instr2 = true;
+        bothInstr = false;
+
+        mindStateTimeOut = false;
     }
 
     void DisableAllGestures()
@@ -239,6 +282,7 @@ public class GestureController : MonoBehaviour
         Sad = false;
         Instr1 = false;
         Instr2 = false;
+        bothInstr = true;
     }
 
     void RandomGesture()

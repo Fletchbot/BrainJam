@@ -7,8 +7,8 @@ public class ParticleToggle : MonoBehaviour
 {
     public GameObject gc;
     public ParticleSystem Eruption, Lava, BubblingLava, Smoke, PeekABooLava;
-    public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
-    public bool G_sw, M_sw, H_sw, S_sw, I1_sw, I2_sw;
+    public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, bothInstr;
+    public bool G_sw, M_sw, H_sw, S_sw, I1_sw, I2_sw, bothInstr_sw;
     private Color32 orange;
     // Use this for initialization
     void Start()
@@ -31,6 +31,7 @@ public class ParticleToggle : MonoBehaviour
         Sad = gc.GetComponent<GestureController>().Sad;
         Instr1 = gc.GetComponent<GestureController>().Instr1;
         Instr2 = gc.GetComponent<GestureController>().Instr2;
+        bothInstr = gc.GetComponent<GestureController>().bothInstr;
 
         var E_em = Eruption.GetComponent<ParticleSystem>().emission.enabled;
         var L_em = Lava.GetComponent<ParticleSystem>().emission.enabled;
@@ -62,6 +63,7 @@ public class ParticleToggle : MonoBehaviour
             M_sw = false;
             I1_sw = false;
             I2_sw = false;
+            bothInstr_sw = false;
         }
         else if (Sad && S_sw == false) //Winter Night
         {
@@ -85,6 +87,7 @@ public class ParticleToggle : MonoBehaviour
             M_sw = false;
             I1_sw = false;
             I2_sw = false;
+            bothInstr_sw = false;
         } 
         else if (Instr1 && I1_sw == false) //rainy morning
         {
@@ -111,7 +114,9 @@ public class ParticleToggle : MonoBehaviour
             M_sw = false;
             I1_sw = true;
             I2_sw = false;
-        } else if (Instr2 && I2_sw == false) // rainy afternoon
+            bothInstr_sw = false;
+        }
+        else if (Instr2 && I2_sw == false) // rainy afternoon
         {
             E_em = false;
             L_em = false;
@@ -136,6 +141,34 @@ public class ParticleToggle : MonoBehaviour
             M_sw = false;
             I1_sw = false;
             I2_sw = true;
+            bothInstr_sw = false;
+        }
+        else if (bothInstr && bothInstr_sw == false)
+        {
+            E_em = false;
+            L_em = false;
+            B_em = false;
+
+            S_em = true;
+            P_em = true;
+
+            ParticleSystem.MainModule PeekABooColor = PeekABooLava.GetComponent<ParticleSystem>().main;
+            PeekABooColor.startColor = new ParticleSystem.MinMaxGradient(Color.yellow, orange);
+
+            Eruption.GetComponent<ParticleSystem>().Stop();
+            Lava.GetComponent<ParticleSystem>().Stop();
+            BubblingLava.GetComponent<ParticleSystem>().Stop();
+
+            Smoke.GetComponent<ParticleSystem>().Play();
+            PeekABooLava.GetComponent<ParticleSystem>().Play();
+
+            S_sw = false;
+            G_sw = false;
+            H_sw = false;
+            M_sw = false;
+            I1_sw = false;
+            I2_sw = false;
+            bothInstr_sw = true;
         }
         else if (NoGesture && G_sw == false) //Volcano Erupt
         {
@@ -159,6 +192,7 @@ public class ParticleToggle : MonoBehaviour
             M_sw = false;
             I1_sw = false;
             I2_sw = false;
+            bothInstr_sw = false;
         }
         else if (Mediate && M_sw == false) //sunset
         { 
@@ -185,6 +219,7 @@ public class ParticleToggle : MonoBehaviour
             M_sw = true;
             I1_sw = false;
             I2_sw = false;
+            bothInstr_sw = false;
         }
     }
 }
