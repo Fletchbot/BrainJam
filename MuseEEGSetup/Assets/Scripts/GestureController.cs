@@ -11,6 +11,8 @@ public class GestureController : MonoBehaviour
     public GameObject WekOSC_Receiver;
     public bool M_closed, M_open, H_closed, H_open, S_closed, S_open, I1_closed, I1_open, I2_closed, I2_open;
     public float M_closedF, M_openF, H_closedF, H_openF, S_closedF, S_openF, I1_closedF, I1_openF, I2_closedF, I2_openF;
+    [Header("Wekinator Run Dispatcher")]
+    public GameObject WekOSC_RunDispatcher;
     [Header("Game Gestures")]
     public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, bothInstr, mindStateTimeOut;
     [Header("Timer Section")]
@@ -19,12 +21,16 @@ public class GestureController : MonoBehaviour
     public float speed = 1;
     public int state;
 
+    private bool Intro;
+
     private System.Random randomizer;
 
     // Use this for initialization
     void Start()
     {
-
+        bool isWekRun = true;
+        WekOSC_RunDispatcher.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+        Intro = true;
         randomizer = new System.Random();
 
         if (Standalone)
@@ -66,9 +72,14 @@ public class GestureController : MonoBehaviour
         I2_closedF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[8];
         I2_openF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[9];
 
-        if (M_closed || M_open)
+        if (Intro && !M_closed || !M_open)
+        {
+            NoG_Enable();
+        }
+        else if (Intro && M_closed || M_open)
         {
             M_Enable();
+            Intro = false;
         }
         else if (H_closed || H_open)
         {

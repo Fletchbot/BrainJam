@@ -134,6 +134,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4481623222541886, guid: 5845ca8500570254ba15e1b541ab6385,
     type: 2}
   m_PrefabInternal: {fileID: 1478061687}
+--- !u!114 &137851420 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114922022272137268, guid: 636e815eda977ec4b9d758958cf698cb,
+    type: 2}
+  m_PrefabInternal: {fileID: 207843964}
+  m_Script: {fileID: 11500000, guid: a08ec2b04d7cc22458523c9a5e90cb9b, type: 3}
 --- !u!1 &143592716
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +269,7 @@ Prefab:
     - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224724795223476488, guid: 636e815eda977ec4b9d758958cf698cb,
         type: 2}
@@ -368,12 +374,12 @@ Prefab:
     - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: CancelCalibration
+      value: LoadByIndex
       objectReference: {fileID: 0}
     - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
         type: 2}
@@ -384,6 +390,31 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 137851420}
+    - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1926950390}
+    - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 636e815eda977ec4b9d758958cf698cb, type: 2}
@@ -522,33 +553,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4814398805159186, guid: 5845ca8500570254ba15e1b541ab6385,
     type: 2}
   m_PrefabInternal: {fileID: 1478061687}
---- !u!83 &537980026
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!114 &545610843 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114828529970547912, guid: 5845ca8500570254ba15e1b541ab6385,
@@ -901,6 +905,21 @@ Prefab:
       propertyPath: BassSeq
       value: 
       objectReference: {fileID: 1129419056}
+    - target: {fileID: 114946302216572054, guid: d3a73c00966e87e41829d3e269ed6dba,
+        type: 2}
+      propertyPath: WekOSC_RunDispatcher
+      value: 
+      objectReference: {fileID: 1926950388}
+    - target: {fileID: 114946302216572054, guid: d3a73c00966e87e41829d3e269ed6dba,
+        type: 2}
+      propertyPath: Standalone
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114946302216572054, guid: d3a73c00966e87e41829d3e269ed6dba,
+        type: 2}
+      propertyPath: Muse
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d3a73c00966e87e41829d3e269ed6dba, type: 2}
   m_IsPrefabParent: 0
@@ -1866,33 +1885,6 @@ AudioSource:
   m_PrefabParentObject: {fileID: 82522908384226910, guid: 9f8862528368b2044831836048ecdf43,
     type: 2}
   m_PrefabInternal: {fileID: 859793835}
---- !u!83 &1541642524
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1001 &1559466213
 Prefab:
   m_ObjectHideFlags: 0
@@ -2211,8 +2203,7 @@ MonoBehaviour:
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 987916386}
   _drawDefaultInspector: 1
-  _myOSCConnections:
-  - {fileID: 987916386}
+  _myOSCConnections: []
   bundleMode: 1
   DTW_mode: 0
   oscOutAddress2: /wekinator/control/stopRunning

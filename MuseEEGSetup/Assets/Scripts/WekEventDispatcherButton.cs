@@ -23,12 +23,11 @@ namespace UniOSC
     [ExecuteInEditMode]
     public class WekEventDispatcherButton : UniOSCEventDispatcher
     {
-        public bool bundleMode, DTW_mode;
+        public bool bundleMode, DTW_mode, IsWekRun;
         public string oscOutAddress2;
         private List<UniOSCEventDispatcherCB> senderList = new List<UniOSCEventDispatcherCB>();
         public static WekEventDispatcherButton main;
         private int gesture;
-
 
         public override void Awake()
         {
@@ -74,6 +73,21 @@ namespace UniOSC
                 senderList[i] = null;
             }
             senderList.Clear();
+        }
+
+        public void Update()
+        {
+            if (!DTW_mode)
+            {
+                if (IsWekRun)
+                {
+                    SendOSCMessageDown();
+                } 
+                else if (!IsWekRun)
+                {
+                    SendOSCMessageUp();
+                }
+            }
         }
 
         /// <summary>
@@ -140,13 +154,29 @@ namespace UniOSC
         public void ButtonClick(bool isOn)
         {
 
-            if (isOn == true)
+            if (DTW_mode)
             {
-                SendOSCMessageDown();
-            } else if (isOn == false)
-            {
-                SendOSCMessageUp();
+                if (isOn == true)
+                {
+                    SendOSCMessageDown();
+                }
+                else if (isOn == false)
+                {
+                    SendOSCMessageUp();
+                }
             }
+            else if (!DTW_mode)
+            {
+                if (isOn == true)
+                {
+                    IsWekRun = true;
+                }
+                else if (isOn == false)
+                {
+                    IsWekRun = false;
+                }
+            }
+
         }
         public void Gesture(int val)
         {
