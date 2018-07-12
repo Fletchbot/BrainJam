@@ -269,7 +269,7 @@ Prefab:
     - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224724795223476488, guid: 636e815eda977ec4b9d758958cf698cb,
         type: 2}
@@ -415,6 +415,31 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1185323972}
+    - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: ButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 114678893557255980, guid: 636e815eda977ec4b9d758958cf698cb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 636e815eda977ec4b9d758958cf698cb, type: 2}
@@ -920,6 +945,16 @@ Prefab:
       propertyPath: Muse
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114946302216572054, guid: d3a73c00966e87e41829d3e269ed6dba,
+        type: 2}
+      propertyPath: WekOSC_Run1
+      value: 
+      objectReference: {fileID: 1926950388}
+    - target: {fileID: 114946302216572054, guid: d3a73c00966e87e41829d3e269ed6dba,
+        type: 2}
+      propertyPath: WekOSC_Run2
+      value: 
+      objectReference: {fileID: 1185323970}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d3a73c00966e87e41829d3e269ed6dba, type: 2}
   m_IsPrefabParent: 0
@@ -969,7 +1004,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 820388856}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
   m_Name: 
@@ -981,7 +1016,8 @@ MonoBehaviour:
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 1122817710}
   _drawDefaultInspector: 1
-  _myOSCConnections: []
+  _myOSCConnections:
+  - {fileID: 1122817710}
   MuseMonitor: {fileID: 820388856}
 --- !u!114 &820388859
 MonoBehaviour:
@@ -990,7 +1026,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 820388856}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
   m_Name: 
@@ -1002,7 +1038,8 @@ MonoBehaviour:
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 2044619288}
   _drawDefaultInspector: 1
-  _myOSCConnections: []
+  _myOSCConnections:
+  - {fileID: 2044619288}
   MuseMonitor: {fileID: 820388856}
 --- !u!114 &820388860
 MonoBehaviour:
@@ -1162,6 +1199,33 @@ MonoBehaviour:
   at_r1: 0
   at_r2: 0
   at_r3: 0
+--- !u!83 &846522845
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1001 &859793835
 Prefab:
   m_ObjectHideFlags: 0
@@ -1256,6 +1320,33 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 69b8ecb8c5ac7554f936b13ff7b5268a, type: 2}
   m_IsPrefabParent: 0
+--- !u!83 &933176762
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1001 &946496743
 Prefab:
   m_ObjectHideFlags: 0
@@ -1562,7 +1653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1122817710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1570,7 +1661,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1122817709}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaad75f03bc9d2942a2a4dd8e734324f, type: 3}
   m_Name: 
@@ -1671,12 +1762,12 @@ GameObject:
   - component: {fileID: 1185323971}
   - component: {fileID: 1185323972}
   m_Layer: 0
-  m_Name: WekNetRun
+  m_Name: WekDTWRun2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1185323971
 Transform:
   m_ObjectHideFlags: 0
@@ -1698,7 +1789,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1185323970}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09bf568cd165a8940972587f8efd40a3, type: 3}
   m_Name: 
@@ -1710,9 +1801,11 @@ MonoBehaviour:
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 2044619288}
   _drawDefaultInspector: 1
-  _myOSCConnections: []
+  _myOSCConnections:
+  - {fileID: 2044619288}
   bundleMode: 1
   DTW_mode: 0
+  IsWekRun: 0
   oscOutAddress2: /wekinator/control/stopRunning
 --- !u!114 &1230851685 stripped
 MonoBehaviour:
@@ -2164,7 +2257,7 @@ GameObject:
   - component: {fileID: 1926950389}
   - component: {fileID: 1926950390}
   m_Layer: 0
-  m_Name: WekDTWRun
+  m_Name: WekDTWRun1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2203,9 +2296,11 @@ MonoBehaviour:
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 987916386}
   _drawDefaultInspector: 1
-  _myOSCConnections: []
+  _myOSCConnections:
+  - {fileID: 987916386}
   bundleMode: 1
   DTW_mode: 0
+  IsWekRun: 0
   oscOutAddress2: /wekinator/control/stopRunning
 --- !u!4 &1933699996 stripped
 Transform:
@@ -2343,7 +2438,7 @@ MonoBehaviour:
   _isValidOscMulticastIPAddress: 1
   _oscMulticastIPAddress: 224.0.1.0
   oscOut: 1
-  autoConnectOSCOut: 0
+  autoConnectOSCOut: 1
   foldoutOSCOut: 1
   foldoutOSCIn: 1
   _isValidOscOutIPAddress: 1

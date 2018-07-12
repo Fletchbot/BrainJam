@@ -8,7 +8,7 @@ public class DTW_Calibration : MonoBehaviour
 {
     public GameObject playtestButtonText;
 
-    public GameObject DTW_Rec, DTW_Run, DTW_Delete;
+    public GameObject DTW_Rec1, DTW_Rec2, DTW_Run1, DTW_Run2, DTW_Delete1, DTW_Delete2;
     public GameObject StateManager;
     public GameObject[] Icons;
     public AudioSource[] CalAudio;
@@ -726,7 +726,8 @@ public class DTW_Calibration : MonoBehaviour
         {
             recOn = false;
             colorRec = false;
-            DTW_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            DTW_Rec1.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            DTW_Rec2.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
             epochStart = -1;
         }
     }
@@ -736,14 +737,17 @@ public class DTW_Calibration : MonoBehaviour
         if (counter == waitEpoch)
         {
             recOn = true;
-            DTW_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().Gesture(gesture);
-            DTW_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            DTW_Rec1.GetComponent<UniOSC.WekEventDispatcherButton>().Gesture(gesture);
+            DTW_Rec1.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            DTW_Rec2.GetComponent<UniOSC.WekEventDispatcherButton>().Gesture(gesture);
+            DTW_Rec2.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
             counter -= Time.deltaTime;
         }
         else if (counter <= 0)
         {
             recOn = false;
-            DTW_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            DTW_Rec1.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            DTW_Rec2.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
             counter = waitEpoch;
         }
         else
@@ -816,7 +820,8 @@ public class DTW_Calibration : MonoBehaviour
             counter = 0;
 
             recOn = false;
-            DTW_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            DTW_Rec1.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            DTW_Rec2.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
             stopAllAudio();
         }
@@ -1087,13 +1092,6 @@ public class DTW_Calibration : MonoBehaviour
         Icons[9].GetComponent<Image>().color = AuCol;
     }
 
-    public void DeleteExamples()
-    {
-        deleteExamples = true;
-        DTW_Delete.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(deleteExamples);
-        deleteExamples = false;
-    }
-
     public void stopAllAudio()
     {
         for (int i = 0; i < CalAudio.Length; i++)
@@ -1116,6 +1114,15 @@ public class DTW_Calibration : MonoBehaviour
         }
     }
 
+
+    //NOT BEING USED
+    public void DeleteExamples()
+    {
+        deleteExamples = true;
+        DTW_Delete1.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(deleteExamples);
+        DTW_Delete2.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(deleteExamples);
+        deleteExamples = false;
+    }
 }
 
 

@@ -118,33 +118,6 @@ AudioSource:
   m_PrefabParentObject: {fileID: 82159045316960220, guid: c9d043fdd9a438c499390f45e20d076f,
     type: 2}
   m_PrefabInternal: {fileID: 903403902}
---- !u!83 &13632740
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1001 &74082246
 Prefab:
   m_ObjectHideFlags: 0
@@ -197,38 +170,62 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39cebc38bca64ce4ba86d3094a131198, type: 2}
   m_IsPrefabParent: 0
---- !u!83 &81322026
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
---- !u!1 &105146530 stripped
+--- !u!1 &105146530
 GameObject:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 1328553201320756, guid: ec63262087d51194abe05b2e40523fa5,
     type: 2}
-  m_PrefabInternal: {fileID: 895816242}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 105146531}
+  - component: {fileID: 105146532}
+  m_Layer: 0
+  m_Name: WekDTWRec1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &105146531
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4612011554629446, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 105146530}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2135649725}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &105146532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114849165288711876, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 105146530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09bf568cd165a8940972587f8efd40a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendInterval: 100
+  _oscOutAddress: /wekinator/control/startDtwRecording
+  _oscOutIPAddress: 192.168.0.7
+  _oscOutPort: 6448
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1387025622}
+  _drawDefaultInspector: 1
+  _myOSCConnections:
+  - {fileID: 1387025622}
+  bundleMode: 1
+  DTW_mode: 1
+  IsWekRun: 0
+  oscOutAddress2: /wekinator/control/stopDtwRecording
 --- !u!82 &146755387 stripped
 AudioSource:
   m_PrefabParentObject: {fileID: 82291937177930252, guid: c9d043fdd9a438c499390f45e20d076f,
@@ -249,11 +246,62 @@ AudioSource:
   m_PrefabParentObject: {fileID: 82097462125586302, guid: c9d043fdd9a438c499390f45e20d076f,
     type: 2}
   m_PrefabInternal: {fileID: 903403902}
---- !u!1 &200700710 stripped
+--- !u!1 &200700710
 GameObject:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 1446473264406748, guid: ec63262087d51194abe05b2e40523fa5,
     type: 2}
-  m_PrefabInternal: {fileID: 895816242}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 200700711}
+  - component: {fileID: 200700712}
+  m_Layer: 0
+  m_Name: WekDTWRun1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &200700711
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4248800255171068, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 200700710}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2135649725}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &200700712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114761389844373018, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 200700710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09bf568cd165a8940972587f8efd40a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendInterval: 100
+  _oscOutAddress: /wekinator/control/startRunning
+  _oscOutIPAddress: 192.168.0.7
+  _oscOutPort: 6448
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1387025622}
+  _drawDefaultInspector: 1
+  _myOSCConnections:
+  - {fileID: 1387025622}
+  bundleMode: 1
+  DTW_mode: 0
+  IsWekRun: 0
+  oscOutAddress2: /wekinator/control/stopRunning
 --- !u!1 &228813453 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1179774283216270, guid: 8bd2d423646ae604ba5b6453243ecf66,
@@ -724,6 +772,307 @@ GameObject:
   m_PrefabParentObject: {fileID: 1708822012180486, guid: 8bd2d423646ae604ba5b6453243ecf66,
     type: 2}
   m_PrefabInternal: {fileID: 251781216}
+--- !u!1 &410837221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1294848563099440, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 410837222}
+  - component: {fileID: 410837226}
+  - component: {fileID: 410837225}
+  - component: {fileID: 410837224}
+  - component: {fileID: 410837223}
+  m_Layer: 0
+  m_Name: MuseMonitorOSCManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &410837222
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4971862013865712, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 410837221}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -3, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2135649725}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &410837223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114255526781234190, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 410837221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendInterval: 100
+  _oscOutAddress: /egg
+  _oscOutIPAddress: 192.168.0.7
+  _oscOutPort: 5001
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 443354526}
+  _drawDefaultInspector: 1
+  _myOSCConnections:
+  - {fileID: 443354526}
+  MuseMonitor: {fileID: 410837221}
+--- !u!114 &410837224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114545296497095678, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 410837221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendInterval: 100
+  _oscOutAddress: /eeg
+  _oscOutIPAddress: 192.168.0.7
+  _oscOutPort: 6449
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1650918517}
+  _drawDefaultInspector: 1
+  _myOSCConnections:
+  - {fileID: 1650918517}
+  MuseMonitor: {fileID: 410837221}
+--- !u!114 &410837225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114961591389272784, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 410837221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendInterval: 100
+  _oscOutAddress: /eeg
+  _oscOutIPAddress: 192.168.0.7
+  _oscOutPort: 6448
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1387025622}
+  _drawDefaultInspector: 1
+  _myOSCConnections:
+  - {fileID: 1387025622}
+  MuseMonitor: {fileID: 410837221}
+--- !u!114 &410837226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114341225407476762, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 410837221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1650cb532603448a71417dba0620dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _oscAddress: /
+  _oscAddresses:
+  - /muse/elements/delta_absolute
+  - /muse/elements/theta_absolute
+  - /muse/elements/alpha_absolute
+  - /muse/elements/beta_absolute
+  - /muse/elements/gamma_absolute
+  - /muse/elements/blink
+  - /muse/elements/jaw_clench
+  - /muse/elements/touching_forehead
+  - /muse/elements/horseshoe
+  - /muse/batt
+  _receiveAllAddresses: 0
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1387025622}
+  _oscPort: 5000
+  _receiveAllPorts: 0
+  _redrawFlag: 0
+  _foldoutList: []
+  AllValues: 1
+  ReceiveEEG: 0
+  XYZ: 0
+  Delta_Address: /muse/elements/delta_absolute
+  Theta_Address: /muse/elements/theta_absolute
+  Alpha_Address: /muse/elements/alpha_absolute
+  Beta_Address: /muse/elements/beta_absolute
+  Gamma_Address: /muse/elements/gamma_absolute
+  Gyro_Address: /muse/gyro
+  Acc_Address: /muse/acc
+  Blink_Address: /muse/elements/blink
+  JawClench_Address: /muse/elements/jaw_clench
+  TouchingForehead_Address: /muse/elements/touching_forehead
+  Horseshoe_Address: /muse/elements/horseshoe
+  Batt_Address: /muse/batt
+  eeg_Address: /muse/eeg
+  d0: 0
+  d1: 0
+  d2: 0
+  d3: 0
+  t0: 0
+  t1: 0
+  t2: 0
+  t3: 0
+  a0: 0
+  a1: 0
+  a2: 0
+  a3: 0
+  b0: 0
+  b1: 0
+  b2: 0
+  b3: 0
+  g0: 0
+  g1: 0
+  g2: 0
+  g3: 0
+  eeg0: 0
+  eeg1: 0
+  eeg2: 0
+  eeg3: 0
+  eeg4: 0
+  gyroX: 0
+  gyroY: 0
+  gyroZ: 0
+  accX: 0
+  accY: 0
+  accZ: 0
+  blink: 0
+  jc: 0
+  touchingforehead: 0
+  batt: 0
+  hs0: 0
+  hs1: 0
+  hs2: 0
+  hs3: 0
+  a_r0: 0
+  a_r1: 0
+  a_r2: 0
+  a_r3: 0
+  b_r0: 0
+  b_r1: 0
+  b_r2: 0
+  b_r3: 0
+  g_r0: 0
+  g_r1: 0
+  g_r2: 0
+  g_r3: 0
+  t_r0: 0
+  t_r1: 0
+  t_r2: 0
+  t_r3: 0
+  d_r0: 0
+  d_r1: 0
+  d_r2: 0
+  d_r3: 0
+  delta_relative: 0
+  alpha_relative: 0
+  theta_relative: 0
+  beta_relative: 0
+  gamma_relative: 0
+  delta_abs: 0
+  alpha_abs: 0
+  theta_abs: 0
+  beta_abs: 0
+  gamma_abs: 0
+  theta_beta_abs: 0
+  theta_beta_r: 0
+  alpha_theta_abs: 0
+  alpha_theta_r: 0
+  tb_abs0: 0
+  tb_abs1: 0
+  tb_abs2: 0
+  tb_abs3: 0
+  tb_r0: 0
+  tb_r1: 0
+  tb_r2: 0
+  tb_r3: 0
+  at_abs0: 0
+  at_abs1: 0
+  at_abs2: 0
+  at_abs3: 0
+  at_r0: 0
+  at_r1: 0
+  at_r2: 0
+  at_r3: 0
+--- !u!1 &443354525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1404684214409860, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 443354527}
+  - component: {fileID: 443354526}
+  m_Layer: 0
+  m_Name: MuseLabOSC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &443354526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114437926370971012, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 443354525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaad75f03bc9d2942a2a4dd8e734324f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transmissionTypeIn: 0
+  _transmissionTypeOut: 0
+  autoConnectOSCIn: 0
+  _oscPort: 0
+  _isValidOscIPAddress: 1
+  _isValidOscMulticastIPAddress: 1
+  _oscMulticastIPAddress: 224.0.1.0
+  oscOut: 1
+  autoConnectOSCOut: 1
+  foldoutOSCOut: 1
+  foldoutOSCIn: 1
+  _isValidOscOutIPAddress: 1
+  _oscOutIPAddress: 192.168.0.7
+  _isValidOscOutMulticastIPAddress: 1
+  _oscOutMulticastIPAddress: 224.0.1.0
+  _oscOutPort: 5001
+  redrawFlag: 0
+  dispatchOSC: 0
+  dispatchOSCOut: 0
+  oscMappingFileObjList: []
+  oscSessionFileObjList: []
+  SendSessionDataOnStart: 0
+--- !u!4 &443354527
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4425274065803196, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 443354525}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -3, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2135649725}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &447104356 stripped
 AudioSource:
   m_PrefabParentObject: {fileID: 82851630962713014, guid: c9d043fdd9a438c499390f45e20d076f,
@@ -769,48 +1118,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1541451557927264, guid: 8bd2d423646ae604ba5b6453243ecf66,
     type: 2}
   m_PrefabInternal: {fileID: 251781216}
---- !u!1001 &895816242
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4005763919977500, guid: ec63262087d51194abe05b2e40523fa5, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005763919977500, guid: ec63262087d51194abe05b2e40523fa5, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005763919977500, guid: ec63262087d51194abe05b2e40523fa5, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005763919977500, guid: ec63262087d51194abe05b2e40523fa5, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005763919977500, guid: ec63262087d51194abe05b2e40523fa5, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005763919977500, guid: ec63262087d51194abe05b2e40523fa5, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005763919977500, guid: ec63262087d51194abe05b2e40523fa5, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005763919977500, guid: ec63262087d51194abe05b2e40523fa5, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: ec63262087d51194abe05b2e40523fa5, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &903403902
 Prefab:
   m_ObjectHideFlags: 0
@@ -863,12 +1170,122 @@ AudioSource:
   m_PrefabParentObject: {fileID: 82412648508453332, guid: c9d043fdd9a438c499390f45e20d076f,
     type: 2}
   m_PrefabInternal: {fileID: 903403902}
+--- !u!83 &958402738
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
+--- !u!1 &1005735682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1087187579694838, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1005735683}
+  - component: {fileID: 1005735684}
+  m_Layer: 0
+  m_Name: WekDTWDelete2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1005735683
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4911512402231004, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1005735682}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2135649725}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1005735684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114790659492699776, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1005735682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09bf568cd165a8940972587f8efd40a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendInterval: 100
+  _oscOutAddress: /wekinator/control/deleteAllExamples
+  _oscOutIPAddress: 192.168.0.7
+  _oscOutPort: 6449
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1650918517}
+  _drawDefaultInspector: 1
+  _myOSCConnections:
+  - {fileID: 1650918517}
+  bundleMode: 1
+  DTW_mode: 0
+  IsWekRun: 0
+  oscOutAddress2: /
 --- !u!114 &1027386959 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114022422463437960, guid: c89d65524458b5d4992b4d3ac4b5b870,
     type: 2}
   m_PrefabInternal: {fileID: 1096886345}
   m_Script: {fileID: 11500000, guid: 8b90acb0c37176a47895f2270a29c774, type: 3}
+--- !u!83 &1070387224
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1001 &1096886345
 Prefab:
   m_ObjectHideFlags: 0
@@ -1131,6 +1548,115 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c89d65524458b5d4992b4d3ac4b5b870, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1113720953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1473540329626258, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1113720954}
+  - component: {fileID: 1113720955}
+  m_Layer: 0
+  m_Name: WekOSCManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1113720954
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4816099453224062, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1113720953}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2135649725}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1113720955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114058508168816204, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1113720953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee68c3f7b94ff2143827b4f3ab90070e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _oscAddress: /
+  _oscAddresses:
+  - /dtwouts
+  - /meditate_closed
+  - /meditate_open
+  - /happy_closed
+  - /happy_open
+  - /sad_closed
+  - /sad_open
+  - /instr1_closed
+  - /instr1_open
+  - /instr2_closed
+  - /instr2_open
+  _receiveAllAddresses: 0
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1650918517}
+  _oscPort: 12000
+  _receiveAllPorts: 0
+  _redrawFlag: 0
+  _foldoutList: []
+  DTW: 1
+  Neuralnet: 0
+  addressArray:
+  - /dtwouts
+  - /meditate_closed
+  - /meditate_open
+  - /happy_closed
+  - /happy_open
+  - /sad_closed
+  - /sad_open
+  - /instr1_closed
+  - /instr1_open
+  - /instr2_closed
+  - /instr2_open
+  gestureFloats:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  isGesture1: 0
+  isGesture2: 0
+  isGesture3: 0
+  isGesture4: 0
+  isGesture5: 0
+  isGesture6: 0
+  isGesture7: 0
+  isGesture8: 0
+  isGesture9: 0
+  isGesture10: 0
+  nnet:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
 --- !u!82 &1209395650 stripped
 AudioSource:
   m_PrefabParentObject: {fileID: 82566061579424902, guid: c9d043fdd9a438c499390f45e20d076f,
@@ -1152,11 +1678,127 @@ AudioSource:
   m_PrefabParentObject: {fileID: 82449044074135588, guid: c9d043fdd9a438c499390f45e20d076f,
     type: 2}
   m_PrefabInternal: {fileID: 903403902}
---- !u!1 &1430659828 stripped
+--- !u!1 &1387025621
 GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1061606581105506, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1387025623}
+  - component: {fileID: 1387025622}
+  m_Layer: 0
+  m_Name: UniOSC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1387025622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114672657152772706, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1387025621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaad75f03bc9d2942a2a4dd8e734324f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transmissionTypeIn: 0
+  _transmissionTypeOut: 0
+  autoConnectOSCIn: 1
+  _oscPort: 5000
+  _isValidOscIPAddress: 1
+  _isValidOscMulticastIPAddress: 1
+  _oscMulticastIPAddress: 224.0.1.0
+  oscOut: 1
+  autoConnectOSCOut: 1
+  foldoutOSCOut: 1
+  foldoutOSCIn: 1
+  _isValidOscOutIPAddress: 1
+  _oscOutIPAddress: 192.168.0.7
+  _isValidOscOutMulticastIPAddress: 1
+  _oscOutMulticastIPAddress: 224.0.1.0
+  _oscOutPort: 6448
+  redrawFlag: 1
+  dispatchOSC: 0
+  dispatchOSCOut: 0
+  oscMappingFileObjList: []
+  oscSessionFileObjList: []
+  SendSessionDataOnStart: 0
+--- !u!4 &1387025623
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4944957154889822, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1387025621}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -3, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2135649725}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1430659828
+GameObject:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 1087187579694838, guid: ec63262087d51194abe05b2e40523fa5,
     type: 2}
-  m_PrefabInternal: {fileID: 895816242}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1430659830}
+  - component: {fileID: 1430659829}
+  m_Layer: 0
+  m_Name: WekDTWDelete1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1430659829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114790659492699776, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1430659828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09bf568cd165a8940972587f8efd40a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendInterval: 100
+  _oscOutAddress: /wekinator/control/deleteAllExamples
+  _oscOutIPAddress: 192.168.0.7
+  _oscOutPort: 6448
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1387025622}
+  _drawDefaultInspector: 1
+  _myOSCConnections:
+  - {fileID: 1387025622}
+  bundleMode: 1
+  DTW_mode: 0
+  IsWekRun: 0
+  oscOutAddress2: /
+--- !u!4 &1430659830
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4911512402231004, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1430659828}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2135649725}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1439125243 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1905291714236378, guid: 8bd2d423646ae604ba5b6453243ecf66,
@@ -1177,11 +1819,132 @@ AudioSource:
   m_PrefabParentObject: {fileID: 82373905868038716, guid: c9d043fdd9a438c499390f45e20d076f,
     type: 2}
   m_PrefabInternal: {fileID: 903403902}
+--- !u!1 &1543187722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1446473264406748, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1543187723}
+  - component: {fileID: 1543187724}
+  m_Layer: 0
+  m_Name: WekDTWRun2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1543187723
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4248800255171068, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1543187722}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2135649725}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1543187724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114761389844373018, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1543187722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09bf568cd165a8940972587f8efd40a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendInterval: 100
+  _oscOutAddress: /wekinator/control/startRunning
+  _oscOutIPAddress: 192.168.0.7
+  _oscOutPort: 6449
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1650918517}
+  _drawDefaultInspector: 1
+  _myOSCConnections:
+  - {fileID: 1650918517}
+  bundleMode: 1
+  DTW_mode: 0
+  IsWekRun: 0
+  oscOutAddress2: /wekinator/control/stopRunning
 --- !u!1 &1549308751 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1319160720689772, guid: 8bd2d423646ae604ba5b6453243ecf66,
     type: 2}
   m_PrefabInternal: {fileID: 251781216}
+--- !u!1 &1650918516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1475922047471154, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1650918518}
+  - component: {fileID: 1650918517}
+  m_Layer: 0
+  m_Name: additionalOSC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1650918517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114819817415462072, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1650918516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaad75f03bc9d2942a2a4dd8e734324f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transmissionTypeIn: 0
+  _transmissionTypeOut: 0
+  autoConnectOSCIn: 1
+  _oscPort: 12000
+  _isValidOscIPAddress: 1
+  _isValidOscMulticastIPAddress: 1
+  _oscMulticastIPAddress: 224.0.1.0
+  oscOut: 1
+  autoConnectOSCOut: 1
+  foldoutOSCOut: 1
+  foldoutOSCIn: 1
+  _isValidOscOutIPAddress: 1
+  _oscOutIPAddress: 192.168.0.7
+  _isValidOscOutMulticastIPAddress: 1
+  _oscOutMulticastIPAddress: 224.0.1.0
+  _oscOutPort: 6449
+  redrawFlag: 1
+  dispatchOSC: 0
+  dispatchOSCOut: 0
+  oscMappingFileObjList: []
+  oscSessionFileObjList: []
+  SendSessionDataOnStart: 0
+--- !u!4 &1650918518
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4033657620555306, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1650918516}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -3, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2135649725}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!83 &1694632831
 AudioClip:
   m_ObjectHideFlags: 0
@@ -1225,6 +1988,62 @@ AudioSource:
   m_PrefabParentObject: {fileID: 82824909951152792, guid: c9d043fdd9a438c499390f45e20d076f,
     type: 2}
   m_PrefabInternal: {fileID: 903403902}
+--- !u!1 &1807863900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1328553201320756, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1807863901}
+  - component: {fileID: 1807863902}
+  m_Layer: 0
+  m_Name: WekDTWRec2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1807863901
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4612011554629446, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1807863900}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2135649725}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1807863902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114849165288711876, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1807863900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09bf568cd165a8940972587f8efd40a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendInterval: 100
+  _oscOutAddress: /wekinator/control/startDtwRecording
+  _oscOutIPAddress: 192.168.0.7
+  _oscOutPort: 6449
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 1650918517}
+  _drawDefaultInspector: 1
+  _myOSCConnections:
+  - {fileID: 1650918517}
+  bundleMode: 1
+  DTW_mode: 1
+  IsWekRun: 0
+  oscOutAddress2: /wekinator/control/stopDtwRecording
 --- !u!1 &1814359119 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1184427116995162, guid: 8bd2d423646ae604ba5b6453243ecf66,
@@ -1453,3 +2272,44 @@ GameObject:
   m_PrefabParentObject: {fileID: 1973100629777810, guid: 8bd2d423646ae604ba5b6453243ecf66,
     type: 2}
   m_PrefabInternal: {fileID: 251781216}
+--- !u!1 &2135649724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1412526890526688, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2135649725}
+  m_Layer: 0
+  m_Name: OSC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2135649725
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4005763919977500, guid: ec63262087d51194abe05b2e40523fa5,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2135649724}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1387025623}
+  - {fileID: 1650918518}
+  - {fileID: 443354527}
+  - {fileID: 410837222}
+  - {fileID: 1113720954}
+  - {fileID: 105146531}
+  - {fileID: 1807863901}
+  - {fileID: 200700711}
+  - {fileID: 1543187723}
+  - {fileID: 1430659830}
+  - {fileID: 1005735683}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

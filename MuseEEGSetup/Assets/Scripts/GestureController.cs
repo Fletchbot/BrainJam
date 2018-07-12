@@ -12,7 +12,7 @@ public class GestureController : MonoBehaviour
     public bool M_closed, M_open, H_closed, H_open, S_closed, S_open, I1_closed, I1_open, I2_closed, I2_open;
     public float M_closedF, M_openF, H_closedF, H_openF, S_closedF, S_openF, I1_closedF, I1_openF, I2_closedF, I2_openF;
     [Header("Wekinator Run Dispatcher")]
-    public GameObject WekOSC_RunDispatcher;
+    public GameObject WekOSC_Run1, WekOSC_Run2;
     [Header("Game Gestures")]
     public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, bothInstr, mindStateTimeOut;
     [Header("Timer Section")]
@@ -28,8 +28,6 @@ public class GestureController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        bool isWekRun = true;
-        WekOSC_RunDispatcher.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
         Intro = true;
         randomizer = new System.Random();
 
@@ -40,6 +38,9 @@ public class GestureController : MonoBehaviour
         }
         else
         {
+            bool isWekRun = true;
+            WekOSC_Run1.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+            WekOSC_Run2.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
             countdown = 60.0f;
         }
 
