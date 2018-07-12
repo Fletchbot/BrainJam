@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 132181015}
   - component: {fileID: 132181014}
   m_Layer: 0
-  m_Name: MuseLabOSC
+  m_Name: MuseLabOUT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 509723319}
   - component: {fileID: 509723318}
   m_Layer: 0
-  m_Name: UniOSC
+  m_Name: MuseIN_WekSoloOUT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -487,7 +487,7 @@ GameObject:
   - component: {fileID: 1679891230}
   - component: {fileID: 1679891229}
   m_Layer: 0
-  m_Name: additionalOSC
+  m_Name: WekIN_WekMultiOUT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -541,115 +541,6 @@ Transform:
   m_Father: {fileID: 1921987675}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1722803946
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1473540329626258, guid: ec63262087d51194abe05b2e40523fa5,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1722803947}
-  - component: {fileID: 1722803948}
-  m_Layer: 0
-  m_Name: WekOSCManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1722803947
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4816099453224062, guid: ec63262087d51194abe05b2e40523fa5,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1722803946}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1921987675}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1722803948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114058508168816204, guid: ec63262087d51194abe05b2e40523fa5,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1722803946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee68c3f7b94ff2143827b4f3ab90070e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _oscAddress: /
-  _oscAddresses:
-  - /dtwouts
-  - /meditate_closed
-  - /meditate_open
-  - /happy_closed
-  - /happy_open
-  - /sad_closed
-  - /sad_open
-  - /instr1_closed
-  - /instr1_open
-  - /instr2_closed
-  - /instr2_open
-  _receiveAllAddresses: 0
-  _useExplicitConnection: 1
-  _explicitConnection: {fileID: 1679891229}
-  _oscPort: 12000
-  _receiveAllPorts: 0
-  _redrawFlag: 0
-  _foldoutList: []
-  DTW: 1
-  Neuralnet: 0
-  addressArray:
-  - /dtwouts
-  - /meditate_closed
-  - /meditate_open
-  - /happy_closed
-  - /happy_open
-  - /sad_closed
-  - /sad_open
-  - /instr1_closed
-  - /instr1_open
-  - /instr2_closed
-  - /instr2_open
-  gestureFloats:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  isGesture1: 0
-  isGesture2: 0
-  isGesture3: 0
-  isGesture4: 0
-  isGesture5: 0
-  isGesture6: 0
-  isGesture7: 0
-  isGesture8: 0
-  isGesture9: 0
-  isGesture10: 0
-  nnet:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
 --- !u!1 &1917486822
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +634,6 @@ Transform:
   - {fileID: 1679891230}
   - {fileID: 132181015}
   - {fileID: 205927460}
-  - {fileID: 1722803947}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -932,6 +822,11 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114429631600341072, guid: 29dfc1fdd9d29b044a46a7394b800616,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 29dfc1fdd9d29b044a46a7394b800616, type: 2}

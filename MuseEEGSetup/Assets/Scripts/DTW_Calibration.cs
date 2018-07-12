@@ -8,7 +8,7 @@ public class DTW_Calibration : MonoBehaviour
 {
     public GameObject playtestButtonText;
 
-    public GameObject DTW_Rec1, DTW_Rec2, DTW_Run1, DTW_Run2, DTW_Delete1, DTW_Delete2;
+    public GameObject DTW_Rec1, DTW_Rec2, DTW_Delete1, DTW_Delete2;
     public GameObject StateManager;
     public GameObject[] Icons;
     public AudioSource[] CalAudio;

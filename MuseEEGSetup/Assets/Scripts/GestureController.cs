@@ -6,9 +6,9 @@ using UniOSC;
 public class GestureController : MonoBehaviour
 {
     [Header("Mode")]
-    public bool Muse, Standalone;
+    public bool MuseSolo, MuseMulti, Standalone;
     [Header("Wekinator Receiver")]
-    public GameObject WekOSC_Receiver;
+    public GameObject WekOSC_SoloReceiver, WekOSC_MultiReceiver;
     public bool M_closed, M_open, H_closed, H_open, S_closed, S_open, I1_closed, I1_open, I2_closed, I2_open;
     public float M_closedF, M_openF, H_closedF, H_openF, S_closedF, S_openF, I1_closedF, I1_openF, I2_closedF, I2_openF;
     [Header("Wekinator Run Dispatcher")]
@@ -26,7 +26,7 @@ public class GestureController : MonoBehaviour
     private System.Random randomizer;
 
     // Use this for initialization
-    void Start()
+    void OnEnable()
     {
         Intro = true;
         randomizer = new System.Random();
@@ -39,9 +39,16 @@ public class GestureController : MonoBehaviour
         else
         {
             bool isWekRun = true;
-            WekOSC_Run1.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-            WekOSC_Run2.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
             countdown = 60.0f;
+            if (MuseSolo)
+            {
+                WekOSC_Run1.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+            }
+            else if (MuseMulti)
+            {
+
+                WekOSC_Run2.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+            }
         }
 
         counter = countdown;
@@ -51,27 +58,55 @@ public class GestureController : MonoBehaviour
     }
     void GestureConvertor()
     {
-        M_closed = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isGesture1;
-        M_open = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isGesture2;
-        H_closed = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isGesture3;
-        H_open = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isGesture4;
-        S_closed = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isGesture5;
-        S_open = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isGesture6;
-        I1_closed = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isGesture7;
-        I1_open = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isGesture8;
-        I2_closed = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isGesture9;
-        I2_open = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isGesture10;
+        if (MuseSolo)
+        {
+            M_closed = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture1;
+            M_open = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture2;
+            H_closed = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture3;
+            H_open = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture4;
+            S_closed = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture5;
+            S_open = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture6;
+            I1_closed = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture7;
+            I1_open = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture8;
+            I2_closed = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture9;
+            I2_open = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture10;
 
-        M_closedF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[0];
-        M_openF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[1];
-        H_closedF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[2];
-        H_openF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[3];
-        S_closedF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[4];
-        S_openF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[5];
-        I1_closedF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[6];
-        I1_openF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[7];
-        I2_closedF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[8];
-        I2_openF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[9];
+            M_closedF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[0];
+            M_openF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[1];
+            H_closedF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[2];
+            H_openF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[3];
+            S_closedF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[4];
+            S_openF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[5];
+            I1_closedF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[6];
+            I1_openF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[7];
+            I2_closedF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[8];
+            I2_openF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[9];
+        }
+        else if (MuseMulti)
+        {
+            M_closed = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture1;
+            M_open = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture2;
+            H_closed = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture3;
+            H_open = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture4;
+            S_closed = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture5;
+            S_open = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture6;
+            I1_closed = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture7;
+            I1_open = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture8;
+            I2_closed = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture9;
+            I2_open = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture10;
+
+            M_closedF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[0];
+            M_openF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[1];
+            H_closedF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[2];
+            H_openF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[3];
+            S_closedF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[4];
+            S_openF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[5];
+            I1_closedF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[6];
+            I1_openF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[7];
+            I2_closedF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[8];
+            I2_openF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[9];
+        }
+
 
         if (Intro && !M_closed || !M_open)
         {
@@ -200,7 +235,7 @@ public class GestureController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Muse)
+        if (MuseSolo || MuseMulti)
         {
             GestureConvertor();
         }
@@ -297,7 +332,7 @@ public class GestureController : MonoBehaviour
         bothInstr = true;
     }
 
-    void RandomGesture()
+    private void RandomGesture()
     {
 
         int funcToChoose = randomizer.Next(7);
@@ -327,6 +362,47 @@ public class GestureController : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void MuseSoloMode(bool solo)
+    {
+        if (solo)
+        {
+            MuseSolo = true;
+            MuseMulti = false;
+            Standalone = false;
+        }
+        else if (!solo)
+        {
+            MuseSolo = false;
+        }
+    }
+    public void MuseMultiMode(bool multi)
+    {
+        if (multi)
+        {
+            MuseSolo = false;
+            MuseMulti = true;
+            Standalone = false;
+        }
+        else if (!multi)
+        {
+            MuseMulti = false;
+        }
+
+    }
+    public void StandaloneMode(bool standalone)
+    {
+        if (standalone)
+        {
+            MuseSolo = false;
+            MuseMulti = false;
+            Standalone = true;
+        }
+        else if (!standalone)
+        {
+            Standalone = false;
+        }
     }
 
 }
