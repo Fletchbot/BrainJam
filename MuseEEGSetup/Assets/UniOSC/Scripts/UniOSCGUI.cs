@@ -5,6 +5,7 @@
 * info@monoflow.org
 */
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Text;
 using OSCsharp.Data;
@@ -21,7 +22,7 @@ namespace UniOSC{
 		
 		#region private
 		private string _IPAddress;
-		private bool _showGUI= true;
+		private bool _showGUI= false;
 		private GUIStyle gs_textArea ;
 		private Vector2 traceScrollpos = new Vector2();
 		private string msgMode;
@@ -30,9 +31,10 @@ namespace UniOSC{
 		private string _oscTraceStr="";
 		private StringBuilder _osctraceStrb = new StringBuilder();
 		private Texture2D tex_logo;
-		#endregion
+        #endregion
 
-		#region public
+        #region public
+        public GameObject GUIpanel;
 		public bool ShowInEditMode;
 		public bool traceMessages;
 		#endregion
@@ -41,13 +43,13 @@ namespace UniOSC{
 		void Awake(){
             if (Application.isPlaying)
             {
-                DontDestroyOnLoad(gameObject);
+                DontDestroyOnLoad(this.gameObject);
             }
         }
 
 		void Start () {
 
-		}
+        }
 
 		void OnEnable(){
 			_IPAddress = UniOSCUtils.GetLocalIPAddress();
@@ -56,7 +58,7 @@ namespace UniOSC{
 				con.OSCMessageSend+=OnOSCMessageSended;
 			}
 			tex_logo = Resources.Load(UniOSCUtils.LOGO32_NAME,typeof(Texture2D)) as Texture2D;
-		}
+        }
 
 		#endregion Start
 
@@ -82,6 +84,8 @@ namespace UniOSC{
 			GUILayout.BeginVertical(GUILayout.Width(Screen.width/GUIScaler.GuiScale.x),GUILayout.Height(Screen.height/(GUIScaler.GuiScale.y)));//
 			GUILayout.Space(10f);
 
+            GUIpanel.GetComponent<ActivateObjects>().SetActive(true);
+
 			#region IPAddress
 				GUILayout.BeginHorizontal();
 					GUILayout.Space(10f);
@@ -97,7 +101,8 @@ namespace UniOSC{
 			if(!_showGUI){
 				GUILayout.EndVertical();
 					GUIScaler.End();
-				return;
+                GUIpanel.GetComponent<ActivateObjects>().SetDeactive(true);
+                return;
 			}
 
 			GUILayout.Space(10f);
@@ -113,7 +118,8 @@ namespace UniOSC{
 					if(con.gameObject.activeInHierarchy && con.enabled){
 						con.RenderGUI();
 						GUILayout.Space(5f);
-					}//if
+                        con.oscOutIPAddress = _IPAddress;
+                }//if
 				}//for
 
 			GUILayout.EndVertical();

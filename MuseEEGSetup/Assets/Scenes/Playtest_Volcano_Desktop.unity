@@ -2482,33 +2482,6 @@ AudioSource:
   m_PrefabParentObject: {fileID: 82522908384226910, guid: 9f8862528368b2044831836048ecdf43,
     type: 2}
   m_PrefabInternal: {fileID: 859793835}
---- !u!83 &1556564819
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1001 &1559466213
 Prefab:
   m_ObjectHideFlags: 0
@@ -2936,33 +2909,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1685059783}
---- !u!83 &1701479381
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1 &1701583952
 GameObject:
   m_ObjectHideFlags: 0
@@ -3313,8 +3259,7 @@ MonoBehaviour:
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 987916386}
   _drawDefaultInspector: 1
-  _myOSCConnections:
-  - {fileID: 987916386}
+  _myOSCConnections: []
   bundleMode: 1
   DTW_mode: 0
   IsWekRun: 0

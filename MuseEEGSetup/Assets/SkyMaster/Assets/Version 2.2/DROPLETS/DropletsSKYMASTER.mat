@@ -39,7 +39,7 @@ Material:
         m_Scale: {x: 16, y: 6}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BumpAmt: 4.3420224
+    - _BumpAmt: 0.3234021
     - _FreezeDirection: 0.96
     - _FreezeFacrorA: 1
     - _FreezeFacrorB: 1
@@ -47,6 +47,6 @@ Material:
     - _Slide: 9
     - _Slide2: 29
     - _Speed: 6
-    - _WaterAmount: 0.3859578
+    - _WaterAmount: 0.028746856
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
