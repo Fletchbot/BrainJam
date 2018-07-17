@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{08EECAED-B83B-F1BD-00EB-B2F9381461D4}</ProjectGuid>
+    <ProjectGuid>{539164DA-8139-3DE4-53AD-1CC50BD6087C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -126,10 +126,10 @@
      <Compile Include="Assets\UniOSC\Scripts\ScriptableObjects\Editor\UniOSCMappingFileObjEditor.cs" />
      <Compile Include="Assets\UniOSC\Scripts\ScriptableObjects\Editor\UniOSCSessionFileObjEditor.cs" />
  <Reference Include="UnityEditor.StandardEvents">
- <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+ <HintPath>C:/Users/Fletcher/Documents/GitHub/Soli/Soli/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>C:/Users/Fletcher/Documents/GitHub/Soli/Soli/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -375,10 +375,10 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="Sanford.Multimedia.Midi">
- <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Assets/AudioHelm/Plugins/Sanford.Multimedia.Midi.dll</HintPath>
+ <HintPath>C:/Users/Fletcher/Documents/GitHub/Soli/Soli/Assets/AudioHelm/Plugins/Sanford.Multimedia.Midi.dll</HintPath>
  </Reference>
  <Reference Include="OSCsharp">
- <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Assets/UniOSC/Lib/OSCsharp.dll</HintPath>
+ <HintPath>C:/Users/Fletcher/Documents/GitHub/Soli/Soli/Assets/UniOSC/Lib/OSCsharp.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Users/Fletcher/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.7/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -434,7 +434,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{18C3DE3B-FD79-EDD8-CF3C-8A57BFC917D5}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{F2ABF019-E0A8-B632-D1D4-BAF8C0F8D2F2}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

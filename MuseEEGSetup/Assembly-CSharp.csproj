@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{18C3DE3B-FD79-EDD8-CF3C-8A57BFC917D5}</ProjectGuid>
+    <ProjectGuid>{F2ABF019-E0A8-B632-D1D4-BAF8C0F8D2F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -508,10 +508,10 @@
      <None Include="Assets\SkyMaster\Scripts\V3.4 Scripts\ShaderVolumeClouds\ShaderVolumeCloudsSMV3.4b SM30 HIGH.shader" />
      <None Include="Assets\InfiniGRASS\Version 1.5\Scripts_Shaders\Mobile shaders\InfiniGRASS_Transp_Wind_SNOW_Mobile.shader" />
  <Reference Include="UnityEditor.StandardEvents">
- <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+ <HintPath>C:/Users/Fletcher/Documents/GitHub/Soli/Soli/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>C:/Users/Fletcher/Documents/GitHub/Soli/Soli/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -709,10 +709,10 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="Sanford.Multimedia.Midi">
- <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Assets/AudioHelm/Plugins/Sanford.Multimedia.Midi.dll</HintPath>
+ <HintPath>C:/Users/Fletcher/Documents/GitHub/Soli/Soli/Assets/AudioHelm/Plugins/Sanford.Multimedia.Midi.dll</HintPath>
  </Reference>
  <Reference Include="OSCsharp">
- <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Assets/UniOSC/Lib/OSCsharp.dll</HintPath>
+ <HintPath>C:/Users/Fletcher/Documents/GitHub/Soli/Soli/Assets/UniOSC/Lib/OSCsharp.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/Fletcher/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
