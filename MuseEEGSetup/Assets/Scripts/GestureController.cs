@@ -15,18 +15,19 @@ public class GestureController : MonoBehaviour
     public GameObject WekOSC_Run1, WekOSC_Run2;
     [Header("Game Gestures")]
     public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, bothInstr, mindStateTimeOut;
+    public bool Meditation, Happiness, Sadness, Instr1Solo, Instr2Solo;
     [Header("Timer Section")]
     public float countdown;
     public float counter;
     public float speed = 1;
     public int state;
 
-    private bool Intro;
+    public bool Intro, isWekRun;
 
     private System.Random randomizer;
 
     // Use this for initialization
-    void OnEnable()
+   public void OnEnable()
     {
         Intro = true;
         randomizer = new System.Random();
@@ -38,17 +39,8 @@ public class GestureController : MonoBehaviour
         }
         else
         {
-            bool isWekRun = true;
+            isWekRun = true;
             countdown = 60.0f;
-            if (MuseSolo)
-            {
-                WekOSC_Run1.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-            }
-            else if (MuseMulti)
-            {
-
-                WekOSC_Run2.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-            }
         }
 
         counter = countdown;
@@ -108,30 +100,62 @@ public class GestureController : MonoBehaviour
         }
 
 
-        if (Intro && !M_closed || !M_open)
+        if (Intro && !M_closed && !M_open)
         {
             NoG_Enable();
         }
-        else if (Intro && M_closed || M_open)
+        else if (Intro && M_closed || M_open && !Meditation)
         {
             M_Enable();
+
+            Debug.Log("MeditateState");
+            mindStateTimeOut = true;
+            Meditation = true;
+
             Intro = false;
+
+            Invoke("mindStateDisable", 65.0f);
         }
-        else if (H_closed || H_open)
+        else if (!Happiness && H_closed || H_open)
         {
             H_Enable();
+
+            Debug.Log("HappyState");
+            mindStateTimeOut = true;
+            Happiness = true;
+
+            Invoke("mindStateDisable", 65.0f);
         }
-        else if (S_closed || S_open)
+        else if (!Sadness && S_closed || S_open)
         {
             S_Enable();
+
+            Debug.Log("SadState");
+            mindStateTimeOut = true;
+            Sadness = true;
+
+            Invoke("mindStateDisable", 65.0f);
+
         }
-        else if (I1_closed || I1_open)
+        else if (!Instr1Solo && I1_closed || I1_open)
         {
             I1_Enable();
+
+            Debug.Log("Instr1State");
+            mindStateTimeOut = true;
+            Instr1Solo = true;
+
+            Invoke("mindStateDisable", 65.0f);
         }
-        else if (I2_closed || I2_open)
+        else if (!Instr2Solo && I2_closed || I2_open)
         {
             I2_Enable();
+
+            Debug.Log("Instr2State");
+            mindStateTimeOut = true;
+            Instr2Solo = true;
+
+            Invoke("mindStateDisable", 65.0f);
         }
         else if (mindStateTimeOut == false)
         {
@@ -238,11 +262,23 @@ public class GestureController : MonoBehaviour
         if (MuseSolo || MuseMulti)
         {
             GestureConvertor();
+
+
+            if (MuseSolo)
+            {
+                WekOSC_Run1.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+            }
+            else if (MuseMulti)
+            {
+
+                WekOSC_Run2.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+            }
         }
         else if (Standalone)
         {
             StandaloneEnable();
         }
+
     }
 
     void NoG_Enable()
@@ -362,6 +398,11 @@ public class GestureController : MonoBehaviour
                 break;
         }
 
+    }
+
+    private void mindStateDisable()
+    { 
+        mindStateTimeOut = false;
     }
 
     public void MuseSoloMode(bool solo)

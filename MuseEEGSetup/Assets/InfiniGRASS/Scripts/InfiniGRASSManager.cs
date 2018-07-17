@@ -166,8 +166,8 @@ public class InfiniGRASSManager : MonoBehaviour {
 		public bool AvoidOwnColl = true;
 
 		public bool PaintonTag = false;//paint on objects tagged as "PPaint"
-		public bool Tag_based_player = false;//otherwise search for camera
-		public bool Tag_based_player_prev = false;//otherwise search for camera
+		public bool Tag_based_player = true;//otherwise search for camera
+		public bool Tag_based_player_prev = true;//otherwise search for camera
 		public string Player_tag = "Player";
 		public string Player_tag_prev = "Player";
 
@@ -257,6 +257,7 @@ public class InfiniGRASSManager : MonoBehaviour {
 		public bool apply_to_all = false;//apply to all types !!!
 
 		public int Grass_selector;
+
 
 		public void Apply_Interactive(){
 			for (int i=0; i<Grasses.Count; i++) {
@@ -441,7 +442,7 @@ public class InfiniGRASSManager : MonoBehaviour {
 			} else {
 				if (player == null) {
 						if(Camera.main != null){
-							player = Camera.main.gameObject;
+						//	player = Camera.main.gameObject;
 						}
 				}
 			}
@@ -654,7 +655,7 @@ public class InfiniGRASSManager : MonoBehaviour {
 				} else {
 
 					if (Camera.main != null) {
-						player = Camera.main.gameObject;
+						//player = Camera.main.gameObject;
 					}
 
 				}

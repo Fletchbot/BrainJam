@@ -126,7 +126,6 @@
      <Compile Include="Assets\InfiniGRASS\Version 1.5\Scripts_Shaders\Vertex colored\PerlinINFINIGRASS.cs" />
      <Compile Include="Assets\InfiniGRASS\Version 1.5\Scripts_Shaders\Vertex colored\ProceduralNoiseINFINIGRASS.cs" />
      <Compile Include="Assets\InfiniGRASS\Version 1.7\Scripts - Shaders\InfiniGRASS_DemoRealTimev17.cs" />
-     <Compile Include="Assets\ink\Script\FontBrowser.cs" />
      <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\AnimationControl.cs" />
      <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\DeathButtonControl.cs" />
      <Compile Include="Assets\Low Poly Animated Dinosaurs\- Scripts\KillSwitch.cs" />
@@ -200,6 +199,7 @@
      <Compile Include="Assets\Scripts\GestureController.cs" />
      <Compile Include="Assets\Scripts\GrassGrower.cs" />
      <Compile Include="Assets\Scripts\LoadSceneOnClick.cs" />
+     <Compile Include="Assets\Scripts\LockScreenTo1024x768.cs" />
      <Compile Include="Assets\Scripts\ParticleToggle.cs" />
      <Compile Include="Assets\Scripts\Pause.cs" />
      <Compile Include="Assets\Scripts\UniOSCMuseDataDispatcher.cs" />
@@ -710,9 +710,6 @@
  </Reference>
  <Reference Include="Sanford.Multimedia.Midi">
  <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Assets/AudioHelm/Plugins/Sanford.Multimedia.Midi.dll</HintPath>
- </Reference>
- <Reference Include="ink">
- <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Assets/ink/Script/ink.dll</HintPath>
  </Reference>
  <Reference Include="OSCsharp">
  <HintPath>C:/Users/Fletcher/Documents/GitHub/BrainJam/MuseEEGSetup/Assets/UniOSC/Lib/OSCsharp.dll</HintPath>

@@ -667,7 +667,7 @@ MonoBehaviour:
   _transmissionTypeIn: 0
   _transmissionTypeOut: 0
   autoConnectOSCIn: 1
-  _oscPort: 5000
+  _oscPort: 5002
   _isValidOscIPAddress: 1
   _isValidOscMulticastIPAddress: 1
   _oscMulticastIPAddress: 224.0.1.0

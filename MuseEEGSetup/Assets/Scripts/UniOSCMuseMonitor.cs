@@ -115,7 +115,7 @@ namespace UniOSC{
                 tb_r2 = (t_r2 / b_r2);
                 tb_r3 = (t_r3 / b_r3);
                 at_abs0 = (a0 / t0);
-                at_abs0 = (a1 / t1);
+                at_abs1 = (a1 / t1);
                 at_abs2 = (a2 / t2);
                 at_abs3 = (a3 / t3);
                 at_r0 = (a_r0 / t_r0);

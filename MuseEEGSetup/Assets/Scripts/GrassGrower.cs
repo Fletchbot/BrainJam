@@ -14,7 +14,7 @@ namespace Artngame.SKYMASTER
         private bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
 
         // Use this for initialization
-        void Start()
+        void OnEnable()
         {
             grow = -200;
             ungrow = -400;
