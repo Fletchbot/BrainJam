@@ -170,6 +170,33 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39cebc38bca64ce4ba86d3094a131198, type: 2}
   m_IsPrefabParent: 0
+--- !u!83 &80585547
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &105146530
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +900,7 @@ MonoBehaviour:
   _receiveAllAddresses: 0
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 1387025622}
-  _oscPort: 5000
+  _oscPort: 5002
   _receiveAllPorts: 0
   _redrawFlag: 0
   _foldoutList: []
@@ -1519,7 +1546,7 @@ Transform:
   m_PrefabParentObject: {fileID: 4951147537721502, guid: c89d65524458b5d4992b4d3ac4b5b870,
     type: 2}
   m_PrefabInternal: {fileID: 1096886345}
---- !u!83 &1127334394
+--- !u!83 &1207878459
 AudioClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1599,7 +1626,7 @@ MonoBehaviour:
   _transmissionTypeIn: 0
   _transmissionTypeOut: 0
   autoConnectOSCIn: 1
-  _oscPort: 5000
+  _oscPort: 5002
   _isValidOscIPAddress: 1
   _isValidOscMulticastIPAddress: 1
   _oscMulticastIPAddress: 224.0.1.0
@@ -1816,33 +1843,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1799558228708058, guid: 8bd2d423646ae604ba5b6453243ecf66,
     type: 2}
   m_PrefabInternal: {fileID: 251781216}
---- !u!83 &1761080039
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!82 &1764786534 stripped
 AudioSource:
   m_PrefabParentObject: {fileID: 82824909951152792, guid: c9d043fdd9a438c499390f45e20d076f,
