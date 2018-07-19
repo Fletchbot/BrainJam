@@ -23,11 +23,12 @@ namespace UniOSC
     [ExecuteInEditMode]
     public class WekEventDispatcherButton : UniOSCEventDispatcher
     {
-        public bool bundleMode, DTW_mode, IsWekRun;
+        public bool bundleMode, DTW_mode, SVM_models, IsWekRun, SVMTrainOnStart;
         public string oscOutAddress2;
         private List<UniOSCEventDispatcherCB> senderList = new List<UniOSCEventDispatcherCB>();
         public static WekEventDispatcherButton main;
         private int gesture;
+        private int model;
 
         public override void Awake()
         {
@@ -61,6 +62,11 @@ namespace UniOSC
                     senderList.Add(oscSender2);
                 }              
             }
+
+            if (SVMTrainOnStart)
+            {
+                ButtonClick(true);
+            }
         }
 
         public override void OnDisable()
@@ -77,7 +83,7 @@ namespace UniOSC
 
         public void Update()
         {
-            if (!DTW_mode)
+            if (!DTW_mode && !SVM_models && !SVMTrainOnStart)
             {
                 if (IsWekRun)
                 {
@@ -110,6 +116,10 @@ namespace UniOSC
                     {
                         m.UpdateDataAt(0, gesture);
                     }
+                    else if (SVM_models)
+                    {
+                     //   m.UpdateDataAt(0, model);
+                    }
                     else
                     {
                         m.UpdateDataAt(0, 0);
@@ -138,8 +148,16 @@ namespace UniOSC
             {
                 foreach (OscMessage m2 in ((OscBundle)_OSCeArg.Packet).Messages)
                 {
-                    m2.Address = oscOutAddress2;    
-                    m2.UpdateDataAt(0, 0);
+                    m2.Address = oscOutAddress2;
+                    if (SVM_models)
+                    {
+                      //  m2.UpdateDataAt(0,model);
+                    } 
+                    else
+                    {
+                        m2.UpdateDataAt(0, 0);
+                    }   
+
                 }
             }
 
@@ -154,7 +172,7 @@ namespace UniOSC
         public void ButtonClick(bool isOn)
         {
 
-            if (DTW_mode)
+            if (DTW_mode || SVM_models || SVMTrainOnStart)
             {
                 if (isOn == true)
                 {
@@ -165,7 +183,7 @@ namespace UniOSC
                     SendOSCMessageUp();
                 }
             }
-            else if (!DTW_mode)
+            else if (!DTW_mode && !SVM_models)
             {
                 if (isOn == true)
                 {
@@ -181,6 +199,10 @@ namespace UniOSC
         public void Gesture(int val)
         {
             gesture = val;
+        }
+        public void Model(int val)
+        {
+            model = val;
         }
     }
 }

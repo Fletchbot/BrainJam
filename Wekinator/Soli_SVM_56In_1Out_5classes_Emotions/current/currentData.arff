@@ -1,0 +1,64 @@
+@relation dataset
+
+@attribute ID numeric
+@attribute Time date 'yyyy/MM/dd HH:mm:ss:SSS'
+@attribute 'Training round' numeric
+@attribute delta0_abs numeric
+@attribute delta1_abs numeric
+@attribute delta2_abs numeric
+@attribute delta3_abs numeric
+@attribute delta0_rel numeric
+@attribute delta1_rel numeric
+@attribute delta2_rel numeric
+@attribute delta3_rel numeric
+@attribute theta0_abs numeric
+@attribute theta1_abs numeric
+@attribute theta2_abs numeric
+@attribute theta3_abs numeric
+@attribute theta0_rel numeric
+@attribute theta1_rel numeric
+@attribute theta2_rel numeric
+@attribute theta3_rel numeric
+@attribute alpha0_abs numeric
+@attribute alpha1_abs numeric
+@attribute alpha2_abs numeric
+@attribute alpha3_abs numeric
+@attribute alpha0_rel numeric
+@attribute alpha1_rel numeric
+@attribute alpha2_rel numeric
+@attribute alpha3_rel numeric
+@attribute beta0_abs numeric
+@attribute beta1_abs numeric
+@attribute beta2_abs numeric
+@attribute beta3_abs numeric
+@attribute beta0_rel numeric
+@attribute beta1_rel numeric
+@attribute beta2_rel numeric
+@attribute beta3_rel numeric
+@attribute gamma0_abs numeric
+@attribute gamma1_abs numeric
+@attribute gamma2_abs numeric
+@attribute gamma3_abs numeric
+@attribute gamma0_rel numeric
+@attribute gamma1_rel numeric
+@attribute gamma2_rel numeric
+@attribute gamma3_rel numeric
+@attribute theta_beta_abs0 numeric
+@attribute theta_beta_abs1 numeric
+@attribute theta_beta_abs2 numeric
+@attribute theta_beta_abs3 numeric
+@attribute theta_beta_rel0 numeric
+@attribute theta_beta_rel1 numeric
+@attribute theta_beta_rel2 numeric
+@attribute theta_beta_rel3 numeric
+@attribute alpha_theta_abs0 numeric
+@attribute alpha_theta_abs1 numeric
+@attribute alpha_theta_abs2 numeric
+@attribute alpha_theta_abs3 numeric
+@attribute alpha_theta_rel0 numeric
+@attribute alpha_theta_rel1 numeric
+@attribute alpha_theta_rel2 numeric
+@attribute alpha_theta_rel3 numeric
+@attribute emotionclassifier {0,1,2,3,4,5}
+
+@data

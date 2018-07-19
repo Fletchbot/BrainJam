@@ -46,7 +46,7 @@ namespace Artngame.INfiniDy {
 
 		//InfiniGRASS
 		public bool got_LOD_dist;//dont change LOD during play time
-		public bool Tag_based_player = false;//otherwise search for camera
+		public bool Tag_based_player = true;//otherwise search for camera
 		public string Player_tag = "Player";
 		public int Type=0;
 		public Transform PaintedOn;//object first item in batch was painted on
@@ -187,8 +187,9 @@ namespace Artngame.INfiniDy {
 		}
 
 		void Start () {
+            Tag_based_player = true;
 
-			if (!realtime | (realtime & Application.isPlaying)) {
+            if (!realtime | (realtime & Application.isPlaying)) {
 
 				if(Application.isPlaying){
 					//started = false;
@@ -212,7 +213,7 @@ namespace Artngame.INfiniDy {
 					if (player == null) {
 						player = GameObject.FindGameObjectWithTag (Player_tag);
 					}
-				} else {
+				} /*else {
 
 					if (player == null) {
 						if (Application.isPlaying) {
@@ -237,7 +238,7 @@ namespace Artngame.INfiniDy {
 						}
 					}
 
-				}
+				}*/
 			
 				if (Added_items == null) {
 					Added_items = new List<Transform> ();
@@ -677,7 +678,7 @@ namespace Artngame.INfiniDy {
 					if (player == null) {
 						player = GameObject.FindGameObjectWithTag (Player_tag);
 					}
-				} else {
+				}/* else {
 					if (player == null) {
 						if (Application.isPlaying) {
 							if(Camera.main != null){//v1.4
@@ -712,7 +713,7 @@ namespace Artngame.INfiniDy {
 					if (Camera.current != null) {
 						player = Camera.current.gameObject;
 					}
-				}
+				}*/
 
 				//v1.4c
 				if(player == null){

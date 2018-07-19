@@ -12,7 +12,7 @@ public class GestureController : MonoBehaviour
     public bool M_closed, M_open, H_closed, H_open, S_closed, S_open, I1_closed, I1_open, I2_closed, I2_open;
     public float M_closedF, M_openF, H_closedF, H_openF, S_closedF, S_openF, I1_closedF, I1_openF, I2_closedF, I2_openF;
     [Header("Wekinator Run Dispatcher")]
-    public GameObject WekOSC_Run1, WekOSC_Run2;
+    public GameObject WekSoloDTW_Run, WekSoloSVM_Run, WekMultiDTW_Run, WekMultiSVM_Run;
     [Header("Game Gestures")]
     public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, bothInstr, mindStateTimeOut;
     public bool Meditation, Happiness, Sadness, Instr1Solo, Instr2Solo;
@@ -266,12 +266,14 @@ public class GestureController : MonoBehaviour
 
             if (MuseSolo)
             {
-                WekOSC_Run1.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+                WekSoloDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+                WekSoloSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
             }
             else if (MuseMulti)
             {
 
-                WekOSC_Run2.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+                WekMultiDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+                WekMultiSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
             }
         }
         else if (Standalone)
