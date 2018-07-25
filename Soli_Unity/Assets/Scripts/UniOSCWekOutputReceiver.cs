@@ -13,12 +13,9 @@ namespace UniOSC
     [AddComponentMenu("UniOSC/WekInputReceiver")]
     public class UniOSCWekOutputReceiver : UniOSCEventTarget
     {
-        public bool DTW, Neuralnet;
         public string[] addressArray;
-        public float[] gestureFloats = new float[10];
-        public bool isGesture1, isGesture2, isGesture3, isGesture4, isGesture5, isGesture6, isGesture7, isGesture8, isGesture9, isGesture10;
-        public float[] nnet;
-
+        public float meditateFloat, emotions, instruments, happyFloat, sadFloat, unsureFloat, instr1Float, instr2Float, noInstrFloat;
+        public bool isMeditate;
 
         public static UniOSCWekOutputReceiver main;
 
@@ -63,93 +60,45 @@ namespace UniOSC
             //if (!(msg.Data [0] is System.Single))
             //	return;
 
-            if (DTW)
-            {
-                if (addressArray != null)
+            if (addressArray != null)
                 {
-                    if (String.Equals(args.Address, addressArray[0]))
+                if (String.Equals(args.Address, addressArray[0]))
                     {
-                        for (int g = 0; g < msg.Data.Count; g++)
-                        {
-                            gestureFloats[g] = (float)msg.Data[g];
-                        }
+                            meditateFloat = (float)msg.Data[0];
                     }
-                    if (String.Equals(args.Address, addressArray[1]))
+                if (String.Equals(args.Address, addressArray[1]))
                     {
-                        isGesture1 = true;
-                        Invoke("Switch", 0.3f);
-                    }
-                    if (String.Equals(args.Address, addressArray[2]))
-                    {
-                        isGesture2 = true; ;
-                        Invoke("Switch", 0.3f);
-                    }
-                    if (String.Equals(args.Address, addressArray[3]))
-                    {
-                        isGesture3 = true;
-                        Invoke("Switch", 0.3f);
-                    }
-                    if (String.Equals(args.Address, addressArray[4]))
-                    {
-                        isGesture4 = true;
-                        Invoke("Switch", 0.3f);
-                    }
-                    if (String.Equals(args.Address, addressArray[5]))
-                    {
-                        isGesture5 = true;
-                        Invoke("Switch", 0.3f);
-                    }
-                    if (String.Equals(args.Address, addressArray[6]))
-                    {
-                        isGesture6 = true;
-                        Invoke("Switch", 0.3f);
-                    }
-                    if (String.Equals(args.Address, addressArray[7]))
-                    {
-                        isGesture7 = true;
-                        Invoke("Switch", 0.3f);
-                    }
-                    if (String.Equals(args.Address, addressArray[8]))
-                    {
-                        isGesture8 = true;
-                        Invoke("Switch", 0.3f);
-                    }
-                    if (String.Equals(args.Address, addressArray[9]))
-                    {
-                        isGesture9 = true;
-                        Invoke("Switch", 0.3f);
-                    }
-                    if (String.Equals(args.Address, addressArray[10]))
-                    {
-                        isGesture10 = true;
+                        isMeditate = true;
                         Invoke("Switch", 0.3f);
                     }
 
-                }
-            }
-            else if (Neuralnet)
-            {
-                if (String.Equals(args.Address, addressArray[0]))
+                if (String.Equals(args.Address, addressArray[2]))
                 {
-                    for (int n = 0; n < nnet.Length; n++)
-                    {
-                        nnet[n] = (float)msg.Data[n];
-                    }
+
+                    emotions = (float)msg.Data[0];
+                    instruments = (float)msg.Data[1];
+
                 }
+                if (String.Equals(args.Address, addressArray[3]))
+                {
+                    unsureFloat = (float)msg.Data[0];
+                    happyFloat = (float)msg.Data[1];
+                    sadFloat = (float)msg.Data[2];
+
+                }
+                if (String.Equals(args.Address, addressArray[4]))
+                {
+                    noInstrFloat = (float)msg.Data[0];
+                    instr1Float = (float)msg.Data[1];
+                    instr2Float = (float)msg.Data[2];
+                }
+
             }
         }
         void Switch()
         {
-            if (isGesture1 == true) isGesture1 = false;
-            if (isGesture2 == true) isGesture2 = false;
-            if (isGesture3 == true) isGesture3 = false;
-            if (isGesture4 == true) isGesture4 = false;
-            if (isGesture5 == true) isGesture5 = false;
-            if (isGesture6 == true) isGesture6 = false;
-            if (isGesture7 == true) isGesture7 = false;
-            if (isGesture8 == true) isGesture8 = false;
-            if (isGesture9 == true) isGesture9 = false;
-            if (isGesture10 == true) isGesture10 = false;
+            if (isMeditate == true) isMeditate = false;
+
         }
     }
 }

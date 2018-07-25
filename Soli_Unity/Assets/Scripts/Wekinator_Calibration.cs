@@ -18,7 +18,7 @@ public class Wekinator_Calibration : MonoBehaviour
     public bool recOn, stopRec, deleteExamples;
 
     //DTW REC
-    public float waitEpoch, counter;
+    public float waitEpoch, fullEpoch, halfEpoch, counter;
     public int gesture, models, epochStart;
 
     // Calibration SEQ
@@ -32,6 +32,7 @@ public class Wekinator_Calibration : MonoBehaviour
     public void Start()
     {
         waitEpoch = 1.0f;
+        fullEpoch = 30.0f;
         counter = waitEpoch;
         sceneLoader = 3;
     }
@@ -91,17 +92,18 @@ public class Wekinator_Calibration : MonoBehaviour
             }
 
         }
-        else if (state == 1) //Narrator Meditation1
+        else if (state == 1) //Narrator NoGesture1
         {
             if (statechange)
             {
-                if(_M || _ME || _MA)
+                if (_M || _ME || _MA)
                 {
                     CalAudio[14].GetComponent<AudioSource>().Play();
                     epochStart = 0;
 
                     NarratorIconsSW();
-                } else if (_All)
+                }
+                else if (_All)
                 {
                     CalAudio[3].GetComponent<AudioSource>().Play();
                     epochStart = 0;
@@ -114,7 +116,8 @@ public class Wekinator_Calibration : MonoBehaviour
                 {
                     CalAudio[14].GetComponent<AudioSource>().Pause();
                     pauseIconSW();
-                } else if (_All) 
+                }
+                else if (_All)
                 {
                     CalAudio[3].GetComponent<AudioSource>().Pause();
                     pauseIconSW();
@@ -134,18 +137,17 @@ public class Wekinator_Calibration : MonoBehaviour
                 }
             }
         }
-        else if (state == 2)//breath meditation eyes closed g1
+        else if (state == 2)//NoGestureClosed Wek
         {
             if (statechange)
             {
-                counter = waitEpoch;
-                gesture = 1;
+                counter = halfEpoch;
                 mRec = true;
                 epochStart = 1;
-                
+
                 CalibrateIconsSW();
-          
-                CalAudio[0].GetComponent<AudioSource>().Play();    
+
+                CalAudio[0].GetComponent<AudioSource>().Play();
             }
 
             if (stopRec == true)
@@ -156,12 +158,13 @@ public class Wekinator_Calibration : MonoBehaviour
                 epochStart = 0;
             }
         }
-        else if (state == 3) //Narrator Meditation2
+        else if (state == 3) //Narrator NoGesture open wek
         {
             if (statechange)
             {
                 CalAudio[1].GetComponent<AudioSource>().Play();
                 CalAudio[4].GetComponent<AudioSource>().Play();
+
                 epochStart = 0;
 
                 NarratorIconsSW();
@@ -178,12 +181,11 @@ public class Wekinator_Calibration : MonoBehaviour
                 resumeIconSW();
             }
         }
-        else if (state == 4)//breath meditation eyes open g2
+        else if (state == 4)//NoGesture Open wek
         {
             if (statechange)
             {
-                counter = waitEpoch;
-                gesture = 2;
+                counter = halfEpoch;;
                 mRec = true;
                 epochStart = 1;
 
@@ -200,7 +202,97 @@ public class Wekinator_Calibration : MonoBehaviour
                 epochStart = 0;
             }
         }
-        else if (state == 5) //Narrator Emotion1
+        else if (state == 5) //Narrator Meditation1
+        {
+            if (statechange)
+            {
+
+                    CalAudio[14].GetComponent<AudioSource>().Play();
+                    epochStart = 0;
+
+                    NarratorIconsSW();
+            }
+
+            if (isPaused == true && resume == false)
+            {
+                    CalAudio[14].GetComponent<AudioSource>().Pause();
+                    pauseIconSW();
+
+            }
+            else if (resume == true && isPaused == true)
+            {
+
+                    CalAudio[14].GetComponent<AudioSource>().Play();
+            }
+        }
+        else if (state == 6)//breath meditation eyes closed g1
+        {
+            if (statechange)
+            {
+                counter = waitEpoch;
+                gesture = 1;
+                mRec = true;
+                epochStart = 1;
+                
+                CalibrateIconsSW();
+          
+                CalAudio[0].GetComponent<AudioSource>().Play();
+            }
+
+            if (stopRec == true)
+            {
+                deactivateRecIcons();
+                activateBackIcon();
+                mRec = false;
+                epochStart = 0;
+            }
+        }
+        else if (state == 7) //Narrator Meditation2
+        {
+            if (statechange)
+            {
+                CalAudio[1].GetComponent<AudioSource>().Play();
+                CalAudio[4].GetComponent<AudioSource>().Play();
+
+                epochStart = 0;
+
+                NarratorIconsSW();
+            }
+
+            if (isPaused == true && resume == false)
+            {
+                CalAudio[4].GetComponent<AudioSource>().Pause();
+                pauseIconSW();
+            }
+            else if (resume == true && isPaused == true)
+            {
+                CalAudio[4].GetComponent<AudioSource>().Play();
+                resumeIconSW();
+            }
+        }
+        else if (state == 8)//breath meditation eyes open g2
+        {
+            if (statechange)
+            {
+                counter = waitEpoch;
+                gesture = 1;
+                mRec = true;
+                epochStart = 1;
+
+                CalAudio[0].GetComponent<AudioSource>().Play();
+
+                CalibrateIconsSW();
+            }
+
+            if (stopRec == true)
+            {
+                deactivateRecIcons();
+                activateBackIcon();
+                mRec = false;
+                epochStart = 0;
+            }
+        }
+        else if (state == 9) //Narrator Emotion1
         {
             if (statechange)
             {
@@ -248,16 +340,20 @@ public class Wekinator_Calibration : MonoBehaviour
                 }
             }
         }
-        else if (state == 6) //Happy eyes closed g3
+        else if (state == 10) //Happy eyes closed g3
         {
             if (statechange)
             {
-                counter = waitEpoch;
-                gesture = 3;
+                counter = fullEpoch;
                 eRec = true;
+                gesture = 0;
                 epochStart = 1;
 
                 CalAudio[0].GetComponent<AudioSource>().Play();
+
+                AudioHelmCalibrationManager.main.chords[0] = true;
+                AudioHelmCalibrationManager.main.DroneEnable();
+                AudioHelmCalibrationManager.main.BassEnable();
 
                 CalibrateIconsSW();
             }
@@ -268,14 +364,18 @@ public class Wekinator_Calibration : MonoBehaviour
                 activateBackIcon();
                 eRec = false;
                 epochStart = 0;
+                AudioHelmCalibrationManager.main.DroneDisable();
+                AudioHelmCalibrationManager.main.BassDisable();
             }
         }
-        else if (state == 7) //Narrator Emotion2
+        else if (state == 11) //Narrator Emotion2
         {
             if (statechange)
             {
                 CalAudio[1].GetComponent<AudioSource>().Play();
                 CalAudio[6].GetComponent<AudioSource>().Play();
+                AudioHelmCalibrationManager.main.DroneDisable();
+                AudioHelmCalibrationManager.main.BassDisable();
                 epochStart = 0;
 
                 NarratorIconsSW();
@@ -292,16 +392,18 @@ public class Wekinator_Calibration : MonoBehaviour
                 resumeIconSW();
             }
         }
-        else if (state == 8)//Happy eyes open g4
+        else if (state == 12)//Happy eyes open g4
         {
             if (statechange)
             {
-                counter = waitEpoch;
-                gesture = 4;
+                counter = fullEpoch;
                 eRec = true;
                 epochStart = 1;
 
                 CalAudio[0].GetComponent<AudioSource>().Play();
+
+                AudioHelmCalibrationManager.main.DroneEnable();
+                AudioHelmCalibrationManager.main.BassEnable();
 
                 CalibrateIconsSW();
             }
@@ -312,14 +414,18 @@ public class Wekinator_Calibration : MonoBehaviour
                 activateBackIcon();
                 eRec = false;
                 epochStart = 0;
+                AudioHelmCalibrationManager.main.DroneDisable();
+                AudioHelmCalibrationManager.main.BassDisable();
             }
         }
-        else if (state == 9) //Narrator Emotion3
+        else if (state == 13) //Narrator Emotion3
         {
             if (statechange)
             {
                 CalAudio[1].GetComponent<AudioSource>().Play();
                 CalAudio[7].GetComponent<AudioSource>().Play();
+                AudioHelmCalibrationManager.main.DroneDisable();
+                AudioHelmCalibrationManager.main.BassDisable();
                 epochStart = 0;
 
                 NarratorIconsSW();
@@ -336,16 +442,20 @@ public class Wekinator_Calibration : MonoBehaviour
                 resumeIconSW();
             }
         }
-        else if (state == 10)//Sad eyes closed g5
+        else if (state == 14)//Sad eyes closed g5
         {
             if (statechange)
             {
-                counter = waitEpoch;
-                gesture = 5;
+                counter = fullEpoch;
                 eRec = true;
                 epochStart = 1;
 
                 CalAudio[0].GetComponent<AudioSource>().Play();
+
+                AudioHelmCalibrationManager.main.chords[0] = false;
+                AudioHelmCalibrationManager.main.chords[1] = true;
+                AudioHelmCalibrationManager.main.DroneEnable();
+                AudioHelmCalibrationManager.main.BassEnable();
 
                 CalibrateIconsSW();
             }
@@ -356,14 +466,18 @@ public class Wekinator_Calibration : MonoBehaviour
                 activateBackIcon();
                 eRec = false;
                 epochStart = 0;
+                AudioHelmCalibrationManager.main.DroneDisable();
+                AudioHelmCalibrationManager.main.BassDisable();
             }
         }
-        else if (state == 11) //Narrator Emotion4
+        else if (state == 15) //Narrator Emotion4
         {
             if (statechange)
             {
                 CalAudio[1].GetComponent<AudioSource>().Play();
                 CalAudio[8].GetComponent<AudioSource>().Play();
+                AudioHelmCalibrationManager.main.DroneDisable();
+                AudioHelmCalibrationManager.main.BassDisable();
                 epochStart = 0;
 
                 NarratorIconsSW();
@@ -380,16 +494,18 @@ public class Wekinator_Calibration : MonoBehaviour
                 resumeIconSW();
             }
         }
-        else if (state == 12)//Sad eyes open g6
+        else if (state == 16)//Sad eyes open g6
         {
             if (statechange)
             {
                 counter = waitEpoch;
-                gesture = 6;
                 eRec = true;
                 epochStart = 1;
 
                 CalAudio[0].GetComponent<AudioSource>().Play();
+
+                AudioHelmCalibrationManager.main.DroneEnable();
+                AudioHelmCalibrationManager.main.BassEnable();
 
                 CalibrateIconsSW();
             }
@@ -400,9 +516,11 @@ public class Wekinator_Calibration : MonoBehaviour
                 activateBackIcon();
                 eRec = false;
                 epochStart = 0;
+                AudioHelmCalibrationManager.main.DroneDisable();
+                AudioHelmCalibrationManager.main.BassDisable();
             }
         }
-        else if (state == 13) //Narrator Instrument1 closed
+        else if (state == 17) //Narrator Instrument1 closed
         {
             if (statechange)
             {
@@ -410,6 +528,8 @@ public class Wekinator_Calibration : MonoBehaviour
                 {
                     CalAudio[1].GetComponent<AudioSource>().Play();
                     CalAudio[16].GetComponent<AudioSource>().Play();
+                    AudioHelmCalibrationManager.main.DroneDisable();
+                    AudioHelmCalibrationManager.main.BassDisable();
                     epochStart = 0;
 
                     NarratorIconsSW();
@@ -418,6 +538,8 @@ public class Wekinator_Calibration : MonoBehaviour
                 {
                     CalAudio[1].GetComponent<AudioSource>().Play();
                     CalAudio[17].GetComponent<AudioSource>().Play();
+                    AudioHelmCalibrationManager.main.DroneDisable();
+                    AudioHelmCalibrationManager.main.BassDisable();
                     epochStart = 0;
 
                     NarratorIconsSW();
@@ -426,6 +548,8 @@ public class Wekinator_Calibration : MonoBehaviour
                 {
                     CalAudio[1].GetComponent<AudioSource>().Play();
                     CalAudio[9].GetComponent<AudioSource>().Play();
+                    AudioHelmCalibrationManager.main.DroneDisable();
+                    AudioHelmCalibrationManager.main.BassDisable();
                     epochStart = 0;
 
                     NarratorIconsSW();
@@ -470,18 +594,21 @@ public class Wekinator_Calibration : MonoBehaviour
                 }
             }
         }
-        else if (state == 14) //Instrument1 closed g7
+        else if (state == 18) //Instrument1 closed g7
         {
             if (statechange)
             {
                 counter = waitEpoch;
-                gesture = 7;
                 aRec = true;
+                gesture = 0;
                 epochStart = 1;
 
                 CalibrateIconsSW();
 
                 CalAudio[0].GetComponent<AudioSource>().Play();
+
+                AudioHelmCalibrationManager.main.chords[1] = false;
+                AudioHelmCalibrationManager.main.chords[2] = true;
                 AudioHelmCalibrationManager.main.DroneEnable();
             }
 
@@ -495,7 +622,7 @@ public class Wekinator_Calibration : MonoBehaviour
                 AudioHelmCalibrationManager.main.DroneDisable();
             }
         }
-        else if (state == 15) //Narrator Instrument1 open
+        else if (state == 19) //Narrator Instrument1 open
         {
             if (statechange)
             {
@@ -519,12 +646,11 @@ public class Wekinator_Calibration : MonoBehaviour
                 resumeIconSW();
             }
         }
-        else if (state == 16)//Instrument1 eyes open g8
+        else if (state == 20)//Instrument1 eyes open g8
         {
             if (statechange)
             {
                 counter = waitEpoch;
-                gesture = 8;
                 aRec = true;
                 epochStart = 1;
 
@@ -544,7 +670,7 @@ public class Wekinator_Calibration : MonoBehaviour
                 AudioHelmCalibrationManager.main.DroneDisable();
             }
         }
-        else if (state == 17) //Narrator Instrument2 closed
+        else if (state == 21) //Narrator Instrument2 closed
         {
             if (statechange)
             {
@@ -568,12 +694,11 @@ public class Wekinator_Calibration : MonoBehaviour
                 resumeIconSW();
             }
         }
-        else if (state == 18)//Instrument2 closed g9
+        else if (state == 22)//Instrument2 closed g9
         {
             if (statechange)
             {
                 counter = waitEpoch;
-                gesture = 9;
                 aRec = true;
                 epochStart = 1;
 
@@ -593,7 +718,7 @@ public class Wekinator_Calibration : MonoBehaviour
                 AudioHelmCalibrationManager.main.BassDisable();
             }
         }
-        else if (state == 19) //Narrator Instrument2 open
+        else if (state == 23) //Narrator Instrument2 open
         {
             if (statechange)
             {
@@ -617,12 +742,11 @@ public class Wekinator_Calibration : MonoBehaviour
                 resumeIconSW();
             }
         }
-        else if (state == 20)//Instrument2 open g10
+        else if (state == 24)//Instrument2 open g10
         {
             if (statechange)
             {
                 counter = waitEpoch;
-                gesture = 10;
                 aRec = true;
                 epochStart = 1;
 
@@ -642,7 +766,7 @@ public class Wekinator_Calibration : MonoBehaviour
                 AudioHelmCalibrationManager.main.BassDisable();
             }
         }
-        else if (state == 21) //Narrator End (MENU)
+        else if (state == 25) //Narrator End (MENU)
         {
             if (statechange)
             {
@@ -655,7 +779,7 @@ public class Wekinator_Calibration : MonoBehaviour
                 MenuIconsSW();
             }
         }
-        else if (state == 23) // skip menu
+        else if (state == 27) // skip menu
         {
             deactivateSkip();
             stopAllAudio();
@@ -673,52 +797,62 @@ public class Wekinator_Calibration : MonoBehaviour
 
     public void TriggerEpoch()
     {
-        if (state == 2 && epochStart == 1) // Meditate closed
+        if (state == 2 && epochStart == 1) // noGesture closed
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 4 && epochStart == 1) // Meditate open
+        else if (state == 4 && epochStart == 1) // noGesture open
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 6 && epochStart == 1) //Happy closed
+        else if (state == 6 && epochStart == 1) // Meditate closed
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 8 && epochStart == 1) //Happy open
+        else if (state == 8 && epochStart == 1) // Meditate open
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 10 && epochStart == 1) // Sad closed
+        else if (state == 10 && epochStart == 1) //Happy closed
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 12 && epochStart == 1) //Sad open
+        else if (state == 12 && epochStart == 1) //Happy open
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 14 && epochStart == 1) // Instr1 closed
+        else if (state == 14 && epochStart == 1) // Sad closed
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 16 && epochStart == 1) //Instr1 open
+        else if (state == 16 && epochStart == 1) //Sad open
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 18 && epochStart == 1) //Instr2 closed
+        else if (state == 18 && epochStart == 1) // Instr1 closed
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 20 && epochStart == 1) //Instr2 open
+        else if (state == 20 && epochStart == 1) //Instr1 open
+        {
+            EpochRecorder();
+            colorRec = true;
+        }
+        else if (state == 22 && epochStart == 1) //Instr2 closed
+        {
+            EpochRecorder();
+            colorRec = true;
+        }
+        else if (state == 24 && epochStart == 1) //Instr2 open
         {
             EpochRecorder();
             colorRec = true;
@@ -738,9 +872,9 @@ public class Wekinator_Calibration : MonoBehaviour
         }
     }
    
-    public void EpochRecorder()
+    public void EpochRecorder() 
     {
-        if (counter == waitEpoch)
+        if (counter == waitEpoch || counter == fullEpoch)
         {
             recOn = true;
 

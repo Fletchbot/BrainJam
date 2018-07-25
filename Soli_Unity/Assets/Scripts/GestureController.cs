@@ -9,8 +9,8 @@ public class GestureController : MonoBehaviour
     public bool MuseSolo, MuseMulti, Standalone;
     [Header("Wekinator Receiver")]
     public GameObject WekOSC_SoloReceiver, WekOSC_MultiReceiver;
-    public bool M_closed, M_open, H_closed, H_open, S_closed, S_open, I1_closed, I1_open, I2_closed, I2_open;
-    public float M_closedF, M_openF, H_closedF, H_openF, S_closedF, S_openF, I1_closedF, I1_openF, I2_closedF, I2_openF;
+    public float meditateFloat, emotions, instruments, happyFloat, sadFloat, unsureFloat, instr1Float, instr2Float, noInstrFloat;
+    public bool isMeditate, isHappy, isSad, isUnsure, isNoInstr, isInstr1, isInstr2;
     [Header("Wekinator Run Dispatcher")]
     public GameObject WekSoloDTW_Run, WekSoloSVM_Run, WekMultiDTW_Run, WekMultiSVM_Run;
     [Header("Game Gestures")]
@@ -52,59 +52,38 @@ public class GestureController : MonoBehaviour
     {
         if (MuseSolo)
         {
-            M_closed = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture1;
-            M_open = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture2;
-            H_closed = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture3;
-            H_open = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture4;
-            S_closed = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture5;
-            S_open = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture6;
-            I1_closed = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture7;
-            I1_open = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture8;
-            I2_closed = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture9;
-            I2_open = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture10;
-
-            M_closedF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[0];
-            M_openF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[1];
-            H_closedF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[2];
-            H_openF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[3];
-            S_closedF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[4];
-            S_openF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[5];
-            I1_closedF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[6];
-            I1_openF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[7];
-            I2_closedF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[8];
-            I2_openF = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[9];
+            isMeditate = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isMeditate;
+            meditateFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().meditateFloat;
+            emotions = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().emotions;
+            instruments = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().instruments;
+            happyFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().happyFloat;
+            sadFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().sadFloat;
+            unsureFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().unsureFloat;
+            noInstrFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().noInstrFloat;
+            instr1Float = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().instr1Float;
+            instr2Float = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().instr2Float;
         }
         else if (MuseMulti)
         {
-            M_closed = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture1;
-            M_open = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture2;
-            H_closed = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture3;
-            H_open = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture4;
-            S_closed = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture5;
-            S_open = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture6;
-            I1_closed = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture7;
-            I1_open = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture8;
-            I2_closed = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture9;
-            I2_open = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isGesture10;
+            isMeditate = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isMeditate;
+            meditateFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().meditateFloat;
+            emotions = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().emotions;
+            instruments = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().instruments;
+            happyFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().happyFloat;
+            sadFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().sadFloat;
+            unsureFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().unsureFloat;
+            noInstrFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().noInstrFloat;
+            instr1Float = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().instr1Float;
+            instr2Float = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().instr2Float;
 
-            M_closedF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[0];
-            M_openF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[1];
-            H_closedF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[2];
-            H_openF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[3];
-            S_closedF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[4];
-            S_openF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[5];
-            I1_closedF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[6];
-            I1_openF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[7];
-            I2_closedF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[8];
-            I2_openF = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().gestureFloats[9];
         }
 
 
-        if (Intro && !M_closed && !M_open)
+        if (Intro && !isMeditate)
         {
             NoG_Enable();
         }
-        else if (Intro && M_closed || M_open && !Meditation)
+        else if (Intro && isMeditate && !Meditation)
         {
             M_Enable();
 
@@ -116,7 +95,7 @@ public class GestureController : MonoBehaviour
 
             Invoke("mindStateDisable", 65.0f);
         }
-        else if (!Happiness && H_closed || H_open)
+        else if (!Happiness && isHappy)
         {
             H_Enable();
 
@@ -126,7 +105,7 @@ public class GestureController : MonoBehaviour
 
             Invoke("mindStateDisable", 65.0f);
         }
-        else if (!Sadness && S_closed || S_open)
+        else if (!Sadness && isSad)
         {
             S_Enable();
 
@@ -137,7 +116,7 @@ public class GestureController : MonoBehaviour
             Invoke("mindStateDisable", 65.0f);
 
         }
-        else if (!Instr1Solo && I1_closed || I1_open)
+        else if (!Instr1Solo && isInstr1)
         {
             I1_Enable();
 
@@ -147,7 +126,7 @@ public class GestureController : MonoBehaviour
 
             Invoke("mindStateDisable", 65.0f);
         }
-        else if (!Instr2Solo && I2_closed || I2_open)
+        else if (!Instr2Solo && isInstr2)
         {
             I2_Enable();
 
@@ -279,6 +258,8 @@ public class GestureController : MonoBehaviour
         else if (Standalone)
         {
             StandaloneEnable();
+            WekSoloDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+            WekSoloSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
         }
 
     }
@@ -448,4 +429,44 @@ public class GestureController : MonoBehaviour
         }
     }
 
+    public void GestureUpdate()
+    {
+        if (emotions == 1)
+        {
+            isHappy = false;
+            isSad = false;
+            isUnsure = true;
+        }
+        else if (emotions == 2)
+        {
+            isHappy = true;
+            isSad = false;
+            isUnsure = false;
+        }
+        else if (emotions == 3)
+        {
+            isHappy = false;
+            isSad = true;
+            isUnsure = false;
+        }
+
+        if (instruments == 1)
+        {
+            isInstr1 = false;
+            isInstr2 = false;
+            isNoInstr = true;
+        }
+        else if (instruments == 2)
+        {
+            isInstr1 = true;
+            isInstr2 = false;
+            isNoInstr = false;
+        }
+        else if (instruments == 3)
+        {
+            isInstr1 = false;
+            isInstr2 = true;
+            isNoInstr = false;
+        }
+    }
 }

@@ -1,0 +1,33 @@
+@relation dataset
+
+@attribute ID numeric
+@attribute Time date 'yyyy/MM/dd HH:mm:ss:SSS'
+@attribute 'Training round' numeric
+@attribute theta_0 numeric
+@attribute theta_1 numeric
+@attribute theta_2 numeric
+@attribute theta_3 numeric
+@attribute alpha_0 numeric
+@attribute alpha_1 numeric
+@attribute alpha_2 numeric
+@attribute alpha_3 numeric
+@attribute beta_0 numeric
+@attribute beta_1 numeric
+@attribute beta_2 numeric
+@attribute beta_3 numeric
+@attribute gamma_0 numeric
+@attribute gamma_1 numeric
+@attribute gamma_2 numeric
+@attribute gamma_3 numeric
+@attribute theta_beta_0 numeric
+@attribute theta_beta_1 numeric
+@attribute theta_beta_2 numeric
+@attribute theta_beta_3 numeric
+@attribute alpha_theta_0 numeric
+@attribute alpha_theta_1 numeric
+@attribute alpha_theta_2 numeric
+@attribute alpha_theta_3 numeric
+@attribute emotions {0,1,2,3}
+@attribute instruments {0,1,2,3}
+
+@data

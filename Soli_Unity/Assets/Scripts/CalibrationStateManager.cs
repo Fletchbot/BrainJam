@@ -21,7 +21,7 @@ public class CalibrationStateManager : MonoBehaviour
     private Color32 OffColor, OnColor;
     private int _mClick, _eClick, _aClick, narrator;
     private bool PickText;
-    private float recTimer;
+    private float recTimer, noGestureTimer;
 
 
     // Use this for initialization
@@ -30,6 +30,7 @@ public class CalibrationStateManager : MonoBehaviour
         text = timerText.GetComponent<Text>();
         state = -1;
         recTimer = 30.4f;
+        noGestureTimer = 15.0f;
         colorReset();
         Reset();
     }
@@ -96,7 +97,7 @@ public class CalibrationStateManager : MonoBehaviour
 
     public void _counter()
     {
-            if (state == 21 || state == -1)
+            if (state == 25 || state == -1)
             {
                 text.text = "";
             }
@@ -128,7 +129,7 @@ public class CalibrationStateManager : MonoBehaviour
             {
                 Reset();
             }
-            else if (counter <= 0) //state 1 = Narrator Meditation1
+            else if (counter <= 0) //state 1 = Narrator NoGesture1
             {
                 narrator = 2;
                 state++;
@@ -146,16 +147,16 @@ public class CalibrationStateManager : MonoBehaviour
         }
         else if (state == 1)
         {
-            if (counter <= 0) //state 2 = breath meditation eyes closed g1
+            if (counter <= 0) //state 2 = NoGestureClosed Wek
             {
                 state++;
-                counter = recTimer;
+                counter = noGestureTimer;
                 statechange = true;
             }
         }
         else if (state == 2)
         {
-            if (counter <= 0) //state 3 = Narrator Meditation2
+            if (counter <= 0) //state 3 = Narrator NoGesture2
             {
                 narrator = 3;
                 state++;
@@ -165,16 +166,54 @@ public class CalibrationStateManager : MonoBehaviour
         }
         else if (state == 3)
         {
-            if (counter <= 0)  //state 4 = breath meditation eyes open g2
+            if (counter <= 0)  //state 4 = NoGestureOpen Wek
+            {
+                state++;
+                counter = noGestureTimer;
+                statechange = true;
+            }
+        }
+        else if (state == 4)
+        {
+            if (counter <= 0) //state 5 = Narrator Meditation1
+            {
+                narrator = 4;
+                state++;
+                counter = 40.0f;
+                statechange = true;
+            }
+        }
+        else if (state == 5)
+        {
+            if (counter <= 0) //state 6 = breath meditation eyes closed g1
             {
                 state++;
                 counter = recTimer;
                 statechange = true;
             }
         }
-        else if (state == 4)
+        else if (state == 6)
         {
-            if (counter <= 0)    //state 5 = Narrator Emotion1
+            if (counter <= 0) //state 7 = Narrator Meditation2
+            {
+                narrator = 5;
+                state++;
+                counter = 40.0f;
+                statechange = true;
+            }
+        }
+        else if (state == 7)
+        {
+            if (counter <= 0)  //state 8 = breath meditation eyes open g2
+            {
+                state++;
+                counter = recTimer;
+                statechange = true;
+            }
+        }
+        else if (state == 8)
+        {
+            if (counter <= 0)    //state 9 = Narrator Emotion1
             {
                 if (Meditate)
                 {
@@ -186,19 +225,19 @@ public class CalibrationStateManager : MonoBehaviour
                 else if (MeditateAudio)
                 {
                     counter = 0;
-                    state = 12;
+                    state = 16;
                     mFin = true;
                 }
                 else if (Emotion || EmotionAudio)
                 {
-                    narrator = 4;
+                    narrator = 6;
                     state++;
                     counter = 62.0f;
                     statechange = true;
                 }
                 else if (AllSelected || MeditateEmo)
                 {
-                    narrator = 4;
+                    narrator = 6;
                     state++;
                     counter = 42.0f;
                     statechange = true;
@@ -206,47 +245,9 @@ public class CalibrationStateManager : MonoBehaviour
                 }
             }
         }
-        else if (state == 5)
-        {
-            if (counter <= 0)    //state 6 = Happy eyes closed g3
-            {
-                state++;
-                counter = recTimer;
-                statechange = true;
-            }
-        }
-        else if (state == 6)
-        {
-            if (counter <= 0) //state 7 = Narrator Emotion2
-            {
-                narrator = 5;
-                state++;
-                counter = 42.0f;
-                statechange = true;
-            }
-        }
-        else if (state == 7)
-        {
-            if (counter <= 0)     //state 8 = Happy eyes open g4
-            {
-                state++;
-                counter = recTimer;
-                statechange = true;
-            }
-        }
-        else if (state == 8)
-        {
-            if (counter <= 0) //state 9 = Narrator Emotion3
-            {
-                narrator = 6;
-                state++;
-                counter = 42.0f;
-                statechange = true;
-            }
-        }
         else if (state == 9)
         {
-            if (counter <= 0)   //state 10 = sad eyes closed g5
+            if (counter <= 0)    //state 10 = Happy eyes closed g3
             {
                 state++;
                 counter = recTimer;
@@ -255,7 +256,7 @@ public class CalibrationStateManager : MonoBehaviour
         }
         else if (state == 10)
         {
-            if (counter <= 0) //state 11 = Narrator Emotion4
+            if (counter <= 0) //state 11 = Narrator Emotion2
             {
                 narrator = 7;
                 state++;
@@ -265,7 +266,7 @@ public class CalibrationStateManager : MonoBehaviour
         }
         else if (state == 11)
         {
-            if (counter <= 0)    //state 12 = sad eyes closed g6
+            if (counter <= 0)     //state 12 = Happy eyes open g4
             {
                 state++;
                 counter = recTimer;
@@ -274,7 +275,45 @@ public class CalibrationStateManager : MonoBehaviour
         }
         else if (state == 12)
         {
-            if (counter <= 0) //state 13 = Narrator Instrument1 closed
+            if (counter <= 0) //state 13 = Narrator Emotion3
+            {
+                narrator = 8;
+                state++;
+                counter = 42.0f;
+                statechange = true;
+            }
+        }
+        else if (state == 13)
+        {
+            if (counter <= 0)   //state 14 = sad eyes closed g5
+            {
+                state++;
+                counter = recTimer;
+                statechange = true;
+            }
+        }
+        else if (state == 14)
+        {
+            if (counter <= 0) //state 15 = Narrator Emotion4
+            {
+                narrator = 9;
+                state++;
+                counter = 42.0f;
+                statechange = true;
+            }
+        }
+        else if (state == 15)
+        {
+            if (counter <= 0)    //state 16 = sad eyes closed g6
+            {
+                state++;
+                counter = recTimer;
+                statechange = true;
+            }
+        }
+        else if (state == 16)
+        {
+            if (counter <= 0) //state 17 = Narrator Instrument1 closed
             {
                 if (MeditateEmo || Emotion)
                 {
@@ -285,7 +324,7 @@ public class CalibrationStateManager : MonoBehaviour
                 }
                 else if (AllSelected || EmotionAudio || MeditateAudio)
                 {
-                    narrator = 8;
+                    narrator = 10;
                     state++;
                     counter = 32.0f;
                     statechange = true;
@@ -293,54 +332,16 @@ public class CalibrationStateManager : MonoBehaviour
                 }
                 else if (Audio)
                 {
-                    narrator = 8;
+                    narrator = 10;
                     state++;
                     counter = 52.0f;
                     statechange = true;
                 }
             }
         }
-        else if (state == 13)
-        {
-            if (counter <= 0)  //state 14 = Recognise Instrument 1: eyes closed g7
-            {
-                state++;
-                counter = recTimer;
-                statechange = true;
-            }
-        }
-        else if (state == 14)
-        {
-            if (counter <= 0) //state 15 = Narrator Instrument1 open
-            {
-                narrator = 9;
-                state++;
-                counter = 30.0f;
-                statechange = true;
-            }
-        }
-        else if (state == 15)
-        {
-            if (counter <= 0)   //state 16 = Recognise Instrument 1: eyes open g8
-            {
-                state++;
-                counter = recTimer;
-                statechange = true;
-            }
-        }
-        else if (state == 16)
-        {
-            if (counter <= 0) //state 17 = Narrator Instrument2 closed
-            {
-                narrator = 10;
-                state++;
-                counter = 30.0f;
-                statechange = true;
-            }
-        }
         else if (state == 17)
         {
-            if (counter <= 0)  //state 18 = Recognise Instrument 2: eyes closed g9
+            if (counter <= 0)  //state 18 = Recognise Instrument 1: eyes closed g7
             {
                 state++;
                 counter = recTimer;
@@ -349,17 +350,17 @@ public class CalibrationStateManager : MonoBehaviour
         }
         else if (state == 18)
         {
-            if (counter <= 0) //state 19 = Narrator Instrument2 open
+            if (counter <= 0) //state 19 = Narrator Instrument1 open
             {
                 narrator = 11;
                 state++;
-                counter = 28.0f;
+                counter = 30.0f;
                 statechange = true;
             }
         }
         else if (state == 19)
         {
-            if (counter <= 0)   //state 20 = Recognise Instrument 2: eyes open g10
+            if (counter <= 0)   //state 20 = Recognise Instrument 1: eyes open g8
             {
                 state++;
                 counter = recTimer;
@@ -368,7 +369,45 @@ public class CalibrationStateManager : MonoBehaviour
         }
         else if (state == 20)
         {
-            if (counter <= 0) //state 21 = Narrator End
+            if (counter <= 0) //state 21 = Narrator Instrument2 closed
+            {
+                narrator = 12;
+                state++;
+                counter = 30.0f;
+                statechange = true;
+            }
+        }
+        else if (state == 21)
+        {
+            if (counter <= 0)  //state 22 = Recognise Instrument 2: eyes closed g9
+            {
+                state++;
+                counter = recTimer;
+                statechange = true;
+            }
+        }
+        else if (state == 22)
+        {
+            if (counter <= 0) //state 23 = Narrator Instrument2 open
+            {
+                narrator = 13;
+                state++;
+                counter = 28.0f;
+                statechange = true;
+            }
+        }
+        else if (state == 23)
+        {
+            if (counter <= 0)   //state 24 = Recognise Instrument 2: eyes open g10
+            {
+                state++;
+                counter = recTimer;
+                statechange = true;
+            }
+        }
+        else if (state == 24)
+        {
+            if (counter <= 0) //state 25 = Narrator End
             {
                 if (Audio || MeditateAudio || EmotionAudio)
                 {
@@ -386,7 +425,7 @@ public class CalibrationStateManager : MonoBehaviour
                 }
             }
         }
-        else if (state == 23)
+        else if (state == 27)
         {
             if (counter <= 0)
             {
@@ -445,6 +484,16 @@ public class CalibrationStateManager : MonoBehaviour
                 {
                     counter = 0;
                     state = 19;
+                }
+                else if (narrator == 12)
+                {
+                    counter = 0;
+                    state = 21;
+                }
+                else if (narrator == 13)
+                {
+                    counter = 0;
+                    state = 23;
                 }
             }
         }
@@ -544,19 +593,19 @@ public class CalibrationStateManager : MonoBehaviour
         else if (Emotion && EmotionAudio == false && MeditateEmo == false)
         {
             counter = 0;
-            state = 4;
+            state = 8;
         }
         else if (EmotionAudio)
         {
             Emotion = false;
             Audio = false;
             counter = 0;
-            state = 4;
+            state = 8;
         }
         else if (Audio && EmotionAudio == false && MeditateAudio == false && AllSelected == false)
         {
             counter = 0;
-            state = 12;
+            state = 16;
         }
 
         if (AllSelected)
@@ -588,7 +637,7 @@ public class CalibrationStateManager : MonoBehaviour
         if (skip)
         {
             counter = 10.5f;
-            state = 23;
+            state = 27;
         }
     }
     public void ClickBack(bool back)
