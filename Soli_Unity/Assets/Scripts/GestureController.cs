@@ -9,7 +9,8 @@ public class GestureController : MonoBehaviour
     public bool MuseSolo, MuseMulti, Standalone;
     [Header("Wekinator Receiver")]
     public GameObject WekOSC_SoloReceiver, WekOSC_MultiReceiver;
-    public float meditateFloat, emotions, instruments, happyFloat, sadFloat, unsureFloat, instr1Float, instr2Float, noInstrFloat;
+    public float meditateFloat, emotions, instruments;
+    //public float happyFloat, sadFloat, unsureFloat, instr1Float, instr2Float, noInstrFloat;
     public bool isMeditate, isHappy, isSad, isUnsure, isNoInstr, isInstr1, isInstr2;
     [Header("Wekinator Run Dispatcher")]
     public GameObject WekSoloDTW_Run, WekSoloSVM_Run, WekMultiDTW_Run, WekMultiSVM_Run;
@@ -17,8 +18,8 @@ public class GestureController : MonoBehaviour
     public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, bothInstr, mindStateTimeOut;
     public bool Meditation, Happiness, Sadness, Instr1Solo, Instr2Solo;
     [Header("Timer Section")]
-    public float countdown;
-    public float counter;
+    public float countdown, unsureCountdown, happyCountdown, sadCountdown, noInstrCountdown, instr1Countdown, instr2Countdown, meditateCountdown;
+    public float counter, gCounter;
     public float speed = 1;
     public int state;
 
@@ -36,11 +37,22 @@ public class GestureController : MonoBehaviour
         {
             state = -1;
             countdown = 45.0f;
+
         }
         else
         {
             isWekRun = true;
             countdown = 60.0f;
+
+            gCounter = 6.0f;
+
+            meditateCountdown = gCounter;
+            unsureCountdown = gCounter;
+            happyCountdown = gCounter;
+            sadCountdown = gCounter;
+            noInstrCountdown = gCounter;
+            instr1Countdown = gCounter;
+            instr2Countdown = gCounter;
         }
 
         counter = countdown;
@@ -52,29 +64,28 @@ public class GestureController : MonoBehaviour
     {
         if (MuseSolo)
         {
-            isMeditate = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isMeditate;
+        //    isMeditate = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isMeditate;
             meditateFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().meditateFloat;
             emotions = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().emotions;
             instruments = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().instruments;
-            happyFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().happyFloat;
-            sadFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().sadFloat;
-            unsureFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().unsureFloat;
-            noInstrFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().noInstrFloat;
-            instr1Float = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().instr1Float;
-            instr2Float = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().instr2Float;
+         //   happyFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().happyFloat;
+         //   sadFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().sadFloat;
+         //   unsureFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().unsureFloat;
+         //   noInstrFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().noInstrFloat;
+          //  instr1Float = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().instr1Float;
+         //   instr2Float = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().instr2Float;
         }
         else if (MuseMulti)
         {
-            isMeditate = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().isMeditate;
             meditateFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().meditateFloat;
             emotions = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().emotions;
             instruments = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().instruments;
-            happyFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().happyFloat;
-            sadFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().sadFloat;
-            unsureFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().unsureFloat;
-            noInstrFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().noInstrFloat;
-            instr1Float = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().instr1Float;
-            instr2Float = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().instr2Float;
+           // happyFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().happyFloat;
+           // sadFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().sadFloat;
+           // unsureFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().unsureFloat;
+           // noInstrFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().noInstrFloat;
+           // instr1Float = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().instr1Float;
+           // instr2Float = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().instr2Float;
 
         }
 
@@ -95,7 +106,7 @@ public class GestureController : MonoBehaviour
 
             Invoke("mindStateDisable", 65.0f);
         }
-        else if (!Happiness && isHappy)
+        else if (!Happiness && isHappy && !Intro)
         {
             H_Enable();
 
@@ -105,7 +116,7 @@ public class GestureController : MonoBehaviour
 
             Invoke("mindStateDisable", 65.0f);
         }
-        else if (!Sadness && isSad)
+        else if (!Sadness && isSad && !Intro)
         {
             S_Enable();
 
@@ -116,7 +127,7 @@ public class GestureController : MonoBehaviour
             Invoke("mindStateDisable", 65.0f);
 
         }
-        else if (!Instr1Solo && isInstr1)
+        else if (!Instr1Solo && isInstr1 && !Intro && Happiness && Sadness)
         {
             I1_Enable();
 
@@ -126,7 +137,7 @@ public class GestureController : MonoBehaviour
 
             Invoke("mindStateDisable", 65.0f);
         }
-        else if (!Instr2Solo && isInstr2)
+        else if (!Instr2Solo && isInstr2 && !Intro && Happiness && Sadness)
         {
             I2_Enable();
 
@@ -241,6 +252,9 @@ public class GestureController : MonoBehaviour
         if (MuseSolo || MuseMulti)
         {
             GestureConvertor();
+            MeditateStates();
+            EmotionStates();
+            InstrumentStates();
 
 
             if (MuseSolo)
@@ -429,44 +443,146 @@ public class GestureController : MonoBehaviour
         }
     }
 
-    public void GestureUpdate()
+    public void MeditateStates()
     {
-        if (emotions == 1)
+        if (meditateFloat <= 4.5f)
         {
-            isHappy = false;
-            isSad = false;
-            isUnsure = true;
+            if(meditateCountdown <= 0.0f)
+            {
+                isMeditate = true;
+                meditateCountdown = gCounter;
+                Debug.Log("isMeditate");
+            }
+            else
+            {
+                meditateCountdown -= Time.deltaTime;
+            }
         }
-        else if (emotions == 2)
+        else
         {
-            isHappy = true;
-            isSad = false;
-            isUnsure = false;
+            isMeditate = false;
+            meditateCountdown = gCounter;
+            Debug.Log("notMeditate");
         }
-        else if (emotions == 3)
-        {
-            isHappy = false;
-            isSad = true;
-            isUnsure = false;
-        }
+    }
+    public void EmotionStates()
+    {
 
-        if (instruments == 1)
+        if (emotions == 1 && !isUnsure)
         {
-            isInstr1 = false;
-            isInstr2 = false;
-            isNoInstr = true;
+            if (unsureCountdown <= 0)
+            {
+                isHappy = false;
+                isSad = false;
+                isUnsure = true;
+                unsureCountdown = gCounter;
+                Debug.Log("isUnsure");
+            }
+            else
+            {
+                unsureCountdown -= Time.deltaTime;
+
+                happyCountdown = gCounter;
+                sadCountdown = gCounter;
+            }
         }
-        else if (instruments == 2)
+        else if (emotions == 2 && !isHappy)
         {
-            isInstr1 = true;
-            isInstr2 = false;
-            isNoInstr = false;
+            if (happyCountdown <= 0)
+            {
+                isHappy = true;
+                isSad = false;
+                isUnsure = false;
+                happyCountdown = gCounter;
+                Debug.Log("isHappy");
+            }
+            else
+            {
+                happyCountdown -= Time.deltaTime;
+
+                unsureCountdown = gCounter;
+                sadCountdown = gCounter;
+            }
+
         }
-        else if (instruments == 3)
+        else if (emotions == 3 && !isSad)
         {
-            isInstr1 = false;
-            isInstr2 = true;
-            isNoInstr = false;
+            if (sadCountdown <= 0)
+            {
+                isHappy = false;
+                isSad = true;
+                isUnsure = false;
+                sadCountdown = gCounter;
+                Debug.Log("isSad");
+            }
+            else
+            {
+                sadCountdown -= Time.deltaTime;
+
+                happyCountdown = gCounter;
+                unsureCountdown = gCounter;
+            }
+        }
+    }
+
+    public void InstrumentStates()
+    {
+        if (instruments == 1 && !isNoInstr)
+        {
+            if (noInstrCountdown <= 0)
+            {
+                isInstr1 = false;
+                isInstr2 = false;
+                isNoInstr = true;
+                noInstrCountdown = gCounter;
+                Debug.Log("noInstr");
+            }
+            else
+            {
+                noInstrCountdown -= Time.deltaTime;
+
+                instr1Countdown = gCounter;
+                instr2Countdown = gCounter;
+            }
+
+        }
+        else if (instruments == 2 && !isInstr1)
+        {
+            if (instr1Countdown <= 0)
+            {
+                isInstr1 = true;
+                isInstr2 = false;
+                isNoInstr = false;
+                instr1Countdown = gCounter;
+                Debug.Log("isInstr1");
+            }
+            else
+            {
+                instr1Countdown -= Time.deltaTime;
+
+                noInstrCountdown = gCounter;
+                instr2Countdown = gCounter;
+            }
+
+        }
+        else if (instruments == 3 && !isInstr2)
+        {
+            if (instr2Countdown <= 0)
+            {
+                isInstr1 = false;
+                isInstr2 = true;
+                isNoInstr = false;
+                instr1Countdown = gCounter;
+                Debug.Log("isInstr2");
+            }
+            else
+            {
+                instr2Countdown -= Time.deltaTime;
+
+                noInstrCountdown = gCounter;
+                instr1Countdown = gCounter;
+            }
+
         }
     }
 }

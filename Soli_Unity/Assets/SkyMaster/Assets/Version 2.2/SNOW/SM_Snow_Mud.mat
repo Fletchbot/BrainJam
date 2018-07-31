@@ -127,7 +127,7 @@ Material:
         m_Scale: {x: 4, y: 4}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Snow_Cover_offset: 1.8000046
+    - Snow_Cover_offset: 0.5760003
     - _BumpPower: 1
     - _BumpScale: 1
     - _Cutoff: 0.5

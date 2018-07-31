@@ -524,6 +524,13 @@ public class AudioPlaytestManager : MonoBehaviour
             DroneDisable();
             BassDisable();
         }
+        else if (Mediate || Happy || Sad || Instr1 || Instr2)
+        {
+            NarratorClips[0].GetComponent<AudioSource>().Stop();
+            NarratorClips[1].GetComponent<AudioSource>().Stop();
+            NarratorClips[2].GetComponent<AudioSource>().Stop();
+
+        }
 
     }
     public void NarratorEndings()
