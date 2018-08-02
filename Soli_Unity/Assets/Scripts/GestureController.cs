@@ -9,17 +9,18 @@ public class GestureController : MonoBehaviour
     public bool MuseSolo, MuseMulti, Standalone;
     [Header("Wekinator Receiver")]
     public GameObject WekOSC_SoloReceiver, WekOSC_MultiReceiver;
-    public float meditateFloat, emotions, instruments;
+    public float meditateFloat, focusFloat, emotions, instruments;
     //public float happyFloat, sadFloat, unsureFloat, instr1Float, instr2Float, noInstrFloat;
     public bool isMeditate, isHappy, isSad, isUnsure, isNoInstr, isInstr1, isInstr2;
+    public bool isFocus;
     [Header("Wekinator Run Dispatcher")]
     public GameObject WekSoloDTW_Run, WekSoloSVM_Run, WekMultiDTW_Run, WekMultiSVM_Run;
     [Header("Game Gestures")]
-    public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, bothInstr, mindStateTimeOut;
+    public bool NoGesture, Mediate, Focus, Happy, Sad, Instr1, Instr2, bothInstr, mindStateTimeOut;
     public bool Meditation, Happiness, Sadness, Instr1Solo, Instr2Solo;
     [Header("Timer Section")]
-    public float countdown, unsureCountdown, happyCountdown, sadCountdown, noInstrCountdown, instr1Countdown, instr2Countdown, meditateCountdown;
-    public float counter, gCounter;
+    public float countdown, unsureCountdown, happyCountdown, sadCountdown, noInstrCountdown, instr1Countdown, instr2Countdown, meditateCountdown, focusCountdown;
+    public float counter, fivesecCounter, secCounter, threesecCounter;
     public float speed = 1;
     public int state;
 
@@ -44,15 +45,20 @@ public class GestureController : MonoBehaviour
             isWekRun = true;
             countdown = 60.0f;
 
-            gCounter = 6.0f;
+            fivesecCounter = 5.0f;
+            threesecCounter = 2.0f;
+            secCounter = 1.0f;
 
-            meditateCountdown = gCounter;
-            unsureCountdown = gCounter;
-            happyCountdown = gCounter;
-            sadCountdown = gCounter;
-            noInstrCountdown = gCounter;
-            instr1Countdown = gCounter;
-            instr2Countdown = gCounter;
+
+            meditateCountdown = fivesecCounter;
+            unsureCountdown = secCounter;
+            happyCountdown = threesecCounter;
+            sadCountdown = threesecCounter;
+            noInstrCountdown = secCounter;
+            instr1Countdown = threesecCounter;
+            instr2Countdown = threesecCounter;
+            focusCountdown = secCounter;
+            
         }
 
         counter = countdown;
@@ -66,6 +72,7 @@ public class GestureController : MonoBehaviour
         {
         //    isMeditate = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().isMeditate;
             meditateFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().meditateFloat;
+            focusFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().focusFloat;
             emotions = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().emotions;
             instruments = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().instruments;
          //   happyFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().happyFloat;
@@ -78,6 +85,7 @@ public class GestureController : MonoBehaviour
         else if (MuseMulti)
         {
             meditateFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().meditateFloat;
+            focusFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().focusFloat;
             emotions = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().emotions;
             instruments = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().instruments;
            // happyFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().happyFloat;
@@ -127,7 +135,7 @@ public class GestureController : MonoBehaviour
             Invoke("mindStateDisable", 65.0f);
 
         }
-        else if (!Instr1Solo && isInstr1 && !Intro && Happiness && Sadness)
+        else if (!Instr1Solo && isInstr1 && Happiness && Sadness && !Intro )
         {
             I1_Enable();
 
@@ -137,7 +145,7 @@ public class GestureController : MonoBehaviour
 
             Invoke("mindStateDisable", 65.0f);
         }
-        else if (!Instr2Solo && isInstr2 && !Intro && Happiness && Sadness)
+        else if (!Instr2Solo && isInstr2 && Happiness && Sadness && !Intro)
         {
             I2_Enable();
 
@@ -147,6 +155,7 @@ public class GestureController : MonoBehaviour
 
             Invoke("mindStateDisable", 65.0f);
         }
+
         else if (mindStateTimeOut == false)
         {
             DisableAllGestures();
@@ -161,6 +170,11 @@ public class GestureController : MonoBehaviour
                 mindStateTimeOut = true;
                 NoG_Enable();
             }
+        }
+
+        if (isFocus)
+        {
+            Debug.Log("FocusState");
         }
     }
 
@@ -255,12 +269,14 @@ public class GestureController : MonoBehaviour
             MeditateStates();
             EmotionStates();
             InstrumentStates();
+            FocusStates();
 
 
             if (MuseSolo)
             {
                 WekSoloDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
                 WekSoloSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+                WekMultiDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
             }
             else if (MuseMulti)
             {
@@ -445,12 +461,12 @@ public class GestureController : MonoBehaviour
 
     public void MeditateStates()
     {
-        if (meditateFloat <= 4.5f)
+        if (meditateFloat <= 5.7f)
         {
             if(meditateCountdown <= 0.0f)
             {
                 isMeditate = true;
-                meditateCountdown = gCounter;
+                meditateCountdown = fivesecCounter;
                 Debug.Log("isMeditate");
             }
             else
@@ -458,11 +474,32 @@ public class GestureController : MonoBehaviour
                 meditateCountdown -= Time.deltaTime;
             }
         }
-        else
+        else if (meditateFloat >= 15.0f)
         {
             isMeditate = false;
-            meditateCountdown = gCounter;
-            Debug.Log("notMeditate");
+            meditateCountdown = fivesecCounter;
+        }
+    }
+
+    public void FocusStates()
+    {
+        if (focusFloat <= 3.5f)
+        {
+            if (focusCountdown <= 0.0f)
+            {
+                isFocus = true;
+                focusCountdown = secCounter;
+                Debug.Log("isFocus");
+            }
+            else
+            {
+                focusCountdown -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            isFocus = false;
+            focusCountdown = secCounter;
         }
     }
     public void EmotionStates()
@@ -475,74 +512,74 @@ public class GestureController : MonoBehaviour
                 isHappy = false;
                 isSad = false;
                 isUnsure = true;
-                unsureCountdown = gCounter;
+                unsureCountdown = secCounter;
                 Debug.Log("isUnsure");
             }
             else
             {
                 unsureCountdown -= Time.deltaTime;
 
-                happyCountdown = gCounter;
-                sadCountdown = gCounter;
+                happyCountdown = threesecCounter;
+                sadCountdown = threesecCounter;
             }
         }
-        else if (emotions == 2 && !isHappy)
+        else if (emotions == 2 && !isHappy && !isMeditate)
         {
             if (happyCountdown <= 0)
             {
                 isHappy = true;
                 isSad = false;
                 isUnsure = false;
-                happyCountdown = gCounter;
+                happyCountdown = threesecCounter;
                 Debug.Log("isHappy");
             }
             else
             {
                 happyCountdown -= Time.deltaTime;
 
-                unsureCountdown = gCounter;
-                sadCountdown = gCounter;
+                unsureCountdown = secCounter;
+                sadCountdown = threesecCounter;
             }
 
         }
-        else if (emotions == 3 && !isSad)
+        else if (emotions == 3 && !isSad && !isMeditate)
         {
             if (sadCountdown <= 0)
             {
                 isHappy = false;
                 isSad = true;
                 isUnsure = false;
-                sadCountdown = gCounter;
+                sadCountdown = threesecCounter;
                 Debug.Log("isSad");
             }
             else
             {
                 sadCountdown -= Time.deltaTime;
 
-                happyCountdown = gCounter;
-                unsureCountdown = gCounter;
+                happyCountdown = threesecCounter;
+                unsureCountdown = secCounter;
             }
         }
     }
 
     public void InstrumentStates()
     {
-        if (instruments == 1 && !isNoInstr)
+        if (instruments == 1 && !isNoInstr )
         {
             if (noInstrCountdown <= 0)
             {
                 isInstr1 = false;
                 isInstr2 = false;
                 isNoInstr = true;
-                noInstrCountdown = gCounter;
+                noInstrCountdown = secCounter;
                 Debug.Log("noInstr");
             }
             else
             {
                 noInstrCountdown -= Time.deltaTime;
 
-                instr1Countdown = gCounter;
-                instr2Countdown = gCounter;
+                instr1Countdown = threesecCounter;
+                instr2Countdown = threesecCounter;
             }
 
         }
@@ -553,15 +590,15 @@ public class GestureController : MonoBehaviour
                 isInstr1 = true;
                 isInstr2 = false;
                 isNoInstr = false;
-                instr1Countdown = gCounter;
+                instr1Countdown = threesecCounter;
                 Debug.Log("isInstr1");
             }
             else
             {
                 instr1Countdown -= Time.deltaTime;
 
-                noInstrCountdown = gCounter;
-                instr2Countdown = gCounter;
+                noInstrCountdown = secCounter;
+                instr2Countdown = threesecCounter;
             }
 
         }
@@ -572,15 +609,15 @@ public class GestureController : MonoBehaviour
                 isInstr1 = false;
                 isInstr2 = true;
                 isNoInstr = false;
-                instr1Countdown = gCounter;
+                instr1Countdown = threesecCounter;
                 Debug.Log("isInstr2");
             }
             else
             {
                 instr2Countdown -= Time.deltaTime;
 
-                noInstrCountdown = gCounter;
-                instr1Countdown = gCounter;
+                noInstrCountdown = secCounter;
+                instr1Countdown = threesecCounter;
             }
 
         }

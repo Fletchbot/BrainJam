@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <OSCOutputGroup>
-  <oscMessage>/dtw</oscMessage>
+  <oscMessage>/dtwMeditate</oscMessage>
   <hostName>localhost</hostName>
   <outputPort>12000</outputPort>
   <outputs class="linked-list">

@@ -32,8 +32,8 @@ namespace Artngame.SKYMASTER
             Mediate = gc.GetComponent<GestureController>().Mediate;
             Happy = gc.GetComponent<GestureController>().Happy;
             Sad = gc.GetComponent<GestureController>().Sad;
-            Instr1 = gc.GetComponent<GestureController>().Instr1;
-            Instr2 = gc.GetComponent<GestureController>().Instr2;
+            Instr1 = gc.GetComponent<GestureController>().Instr1Solo;
+            Instr2 = gc.GetComponent<GestureController>().Instr2Solo;
 
             if (NoGesture || Sad)
             {

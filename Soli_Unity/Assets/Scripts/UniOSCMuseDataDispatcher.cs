@@ -42,7 +42,7 @@ namespace UniOSC {
             
             if (MuseMonitor == null) MuseMonitor = gameObject;
             AllValues = MuseMonitor.GetComponent<UniOSCMuseMonitor>().AllValues;
-            XYZ = MuseMonitor.GetComponent<UniOSCMuseMonitor>().XYZ;
+          //  XYZ = MuseMonitor.GetComponent<UniOSCMuseMonitor>().XYZ;
             eegData = MuseMonitor.GetComponent<UniOSCMuseMonitor>().ReceiveEEG;
             //Here we setup our OSC message
             base.OnEnable();
@@ -313,13 +313,13 @@ namespace UniOSC {
                     msg.UpdateDataAt(55, at_r3);*/
                     if (XYZ)
                     {
-                        msg.UpdateDataAt(56, _gX);
-                        msg.UpdateDataAt(57, _gY);
-                        msg.UpdateDataAt(58, _gZ);
+                        msg.UpdateDataAt(24, _gX);
+                        msg.UpdateDataAt(25, _gY);
+                        msg.UpdateDataAt(26, _gZ);
 
-                        msg.UpdateDataAt(59, _accX);
-                        msg.UpdateDataAt(60, _accY);
-                        msg.UpdateDataAt(61, _accZ);
+                        msg.UpdateDataAt(27, _accX);
+                        msg.UpdateDataAt(28, _accY);
+                        msg.UpdateDataAt(29, _accZ);
                     }
                     if (eegData && XYZ)
                     {
@@ -350,13 +350,13 @@ namespace UniOSC {
 
                     if (XYZ)
                     {
-                        msg.UpdateDataAt(14, _gX);
-                        msg.UpdateDataAt(15, _gY);
-                        msg.UpdateDataAt(16, _gZ);
+                        msg.UpdateDataAt(6, _gX);
+                        msg.UpdateDataAt(7, _gY);
+                        msg.UpdateDataAt(8, _gZ);
 
-                        msg.UpdateDataAt(17, _accX);
-                        msg.UpdateDataAt(18, _accY);
-                        msg.UpdateDataAt(19, _accZ);
+                        msg.UpdateDataAt(9, _accX);
+                        msg.UpdateDataAt(10, _accY);
+                        msg.UpdateDataAt(11, _accZ);
                     }
                     if (eegData && XYZ)
                     {

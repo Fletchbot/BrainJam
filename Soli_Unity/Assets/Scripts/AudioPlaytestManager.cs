@@ -297,8 +297,8 @@ public class AudioPlaytestManager : MonoBehaviour
         Mediate = GC.GetComponent<GestureController>().Mediate;
         Happy = GC.GetComponent<GestureController>().Happy;
         Sad = GC.GetComponent<GestureController>().Sad;
-        Instr1 = GC.GetComponent<GestureController>().Instr1;
-        Instr2 = GC.GetComponent<GestureController>().Instr2;
+        Instr1 = GC.GetComponent<GestureController>().Instr1Solo;
+        Instr2 = GC.GetComponent<GestureController>().Instr2Solo;
         bothInstr = GC.GetComponent<GestureController>().bothInstr;
 
         if (NoGesture && !G_sw)
@@ -475,6 +475,13 @@ public class AudioPlaytestManager : MonoBehaviour
     }
     public void NarratorUpdate()
     {
+        if (Mediate || Happy || Sad || Instr1 || Instr2)
+        {
+            NarratorClips[0].GetComponent<AudioSource>().Stop();
+            NarratorClips[1].GetComponent<AudioSource>().Stop();
+            NarratorClips[2].GetComponent<AudioSource>().Stop();
+        }
+
         if (N_Intro == 1)
         {
             NarratorClips[0].GetComponent<AudioSource>().Play();
@@ -506,6 +513,9 @@ public class AudioPlaytestManager : MonoBehaviour
         else if (N_EndComplete == 2)
         {
             NarratorClips[3].GetComponent<AudioSource>().Play();
+            NarratorClips[0].GetComponent<AudioSource>().Stop();
+            NarratorClips[1].GetComponent<AudioSource>().Stop();
+            NarratorClips[2].GetComponent<AudioSource>().Stop();
             N_EndComplete = 3;
             DroneDisable();
             BassDisable();
@@ -513,6 +523,9 @@ public class AudioPlaytestManager : MonoBehaviour
         else if (N_EndTwoG == 1)
         {
             NarratorClips[4].GetComponent<AudioSource>().Play();
+            NarratorClips[0].GetComponent<AudioSource>().Stop();
+            NarratorClips[1].GetComponent<AudioSource>().Stop();
+            NarratorClips[2].GetComponent<AudioSource>().Stop();
             N_EndTwoG = 2;
             DroneDisable();
             BassDisable();
@@ -520,16 +533,12 @@ public class AudioPlaytestManager : MonoBehaviour
         else if (N_EndReCalibrate == 1)
         {
             NarratorClips[5].GetComponent<AudioSource>().Play();
-            N_EndReCalibrate = 2;
-            DroneDisable();
-            BassDisable();
-        }
-        else if (Mediate || Happy || Sad || Instr1 || Instr2)
-        {
             NarratorClips[0].GetComponent<AudioSource>().Stop();
             NarratorClips[1].GetComponent<AudioSource>().Stop();
             NarratorClips[2].GetComponent<AudioSource>().Stop();
-
+            N_EndReCalibrate = 2;
+            DroneDisable();
+            BassDisable();
         }
 
     }

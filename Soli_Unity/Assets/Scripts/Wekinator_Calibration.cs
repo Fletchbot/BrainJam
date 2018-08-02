@@ -9,7 +9,7 @@ public class Wekinator_Calibration : MonoBehaviour
     public GameObject playtestButtonText;
 
     public GameObject DTWSolo_Rec, SVMSolo_Rec, DTWSolo_Delete, SVMSolo_Delete, SVMSolo_Models;
-    public GameObject DTWMulti_Rec, SVMMulti_Rec, DTWMulti_Delete, SVMMulti_Delete, SVMMulti_Models;
+    public GameObject DTWMulti_Rec, DTWMulti_Delete;
     public GameObject StateManager;
     public GameObject[] Icons;
     public AudioSource[] CalAudio;
@@ -866,7 +866,6 @@ public class Wekinator_Calibration : MonoBehaviour
             SVMSolo_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
             DTWMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
-            SVMMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
             epochStart = -1;
         }
@@ -887,8 +886,6 @@ public class Wekinator_Calibration : MonoBehaviour
             DTWMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().Gesture(gesture);
             DTWMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
-            SVMMulti_Models.GetComponent<UniOSC.WekEventDispatcherButton>().Model(models);
-            SVMMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
             counter -= Time.deltaTime;
         }
         else if (counter <= 0)
@@ -898,7 +895,6 @@ public class Wekinator_Calibration : MonoBehaviour
             SVMSolo_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
             DTWMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
-            SVMMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
             counter = waitEpoch;
         }
@@ -976,7 +972,6 @@ public class Wekinator_Calibration : MonoBehaviour
             SVMSolo_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
             DTWMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
-            SVMMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
             stopAllAudio();
         }
@@ -1277,7 +1272,6 @@ public class Wekinator_Calibration : MonoBehaviour
         DTWSolo_Delete.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(deleteExamples);
         DTWMulti_Delete.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(deleteExamples);
         SVMSolo_Delete.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(deleteExamples);
-        SVMMulti_Delete.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(deleteExamples);
         deleteExamples = false;
     }
 }

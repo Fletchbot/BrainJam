@@ -14,8 +14,8 @@ namespace UniOSC
     public class UniOSCWekOutputReceiver : UniOSCEventTarget
     {
         public string[] addressArray;
-        public float meditateFloat, emotions, instruments, happyFloat, sadFloat, unsureFloat, instr1Float, instr2Float, noInstrFloat;
-        public bool isMeditate;
+        public float meditateFloat, focusFloat, emotions, instruments, happyFloat, sadFloat, unsureFloat, instr1Float, instr2Float, noInstrFloat;
+        public bool isMeditate, isFocus;
 
         public static UniOSCWekOutputReceiver main;
 
@@ -69,7 +69,7 @@ namespace UniOSC
                 if (String.Equals(args.Address, addressArray[1]))
                     {
                         isMeditate = true;
-                        Invoke("Switch", 0.3f);
+                        Invoke("mSwitch", 0.3f);
                     }
 
                 if (String.Equals(args.Address, addressArray[2]))
@@ -92,13 +92,26 @@ namespace UniOSC
                     instr1Float = (float)msg.Data[1];
                     instr2Float = (float)msg.Data[2];
                 }
+                if (String.Equals(args.Address, addressArray[5]))
+                {
+                    focusFloat = (float)msg.Data[0];
+                }
+                if (String.Equals(args.Address, addressArray[6]))
+                {
+                    isFocus = true;
+                    Invoke("fSwitch", 0.3f);
+                }
 
             }
         }
-        void Switch()
+        void mSwitch()
         {
             if (isMeditate == true) isMeditate = false;
 
+        }
+        void fSwitch()
+        {
+            if (isFocus == true) isFocus = false;
         }
     }
 }

@@ -40,8 +40,8 @@ namespace Artngame.SKYMASTER
             Mediate = gestureController.GetComponent<GestureController>().Mediate;
             Happy = gestureController.GetComponent<GestureController>().Happy;
             Sad = gestureController.GetComponent<GestureController>().Sad;
-            Instr1 = gestureController.GetComponent<GestureController>().Instr1;
-            Instr2 = gestureController.GetComponent<GestureController>().Instr2;
+            Instr1 = gestureController.GetComponent<GestureController>().Instr1Solo;
+            Instr2 = gestureController.GetComponent<GestureController>().Instr2Solo;
 
             StateSwitch();
             snow_lava_SW();
