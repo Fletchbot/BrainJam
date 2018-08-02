@@ -5,8 +5,12 @@ using UnityEngine;
 public class ProjectileEmitter : MonoBehaviour
 {
     public GameObject projectileEmitter;
-    public GameObject projectile;
+    public GameObject projectile1, projectile2;
     public GameObject emitterForce;
+
+    public GameObject gc;
+    public GameObject playercursor;
+
     private GameObject Temp_Projectile_Handler;
 
     private float leftEdge, rightEdge, topEdge, bottomEdge, backEdge, frontEdge;
@@ -14,6 +18,10 @@ public class ProjectileEmitter : MonoBehaviour
     private float moveX, moveY, moveZ, velocityMax, emitterbaseSpeed;
     private float emissionRate, emitMax, emitMin;
     private float forceY, forceZ, forceRot, forceRotVelocity, forceRotSpeed, f_x, f_y, f_z, f_w;
+
+    private float randomProjectile;
+
+    private bool startGame, enableCursor;
 
     // Use this for initialization
     void Start()
@@ -42,15 +50,29 @@ public class ProjectileEmitter : MonoBehaviour
 
         emissionRate = Random.Range(emitMin, emitMax);
 
+        randomProjectile = Random.Range(-1.0f, 1.0f);
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        randomMovement();
-        randomEmitter();
-        forceRotate();
+        startGame = gc.GetComponent<GestureController>().startGame;
+
+        if (startGame)
+        {
+            if (!enableCursor)
+            {
+                playercursor.GetComponent<ActivateObjects>().SetActive(true);
+                enableCursor = true;
+            }
+
+            randomMovement();
+            randomEmitter();
+            forceRotate();
+        }
+
     }
 
     void forceRotate()
@@ -93,6 +115,7 @@ public class ProjectileEmitter : MonoBehaviour
         emitterForce.transform.rotation = new Quaternion(f_x, f_y + forceY, f_z + forceZ, f_w);
 
     }
+
     void randomMovement()
     {
         emitterbaseSpeed += Time.deltaTime;
@@ -148,7 +171,17 @@ public class ProjectileEmitter : MonoBehaviour
 
         if (emissionRate <= 0.0f)
         {
-            Temp_Projectile_Handler = Instantiate(projectile, projectileEmitter.transform.position, projectileEmitter.transform.rotation) as GameObject;
+            if(randomProjectile >= 0.0f)
+            {
+                Temp_Projectile_Handler = Instantiate(projectile1, projectileEmitter.transform.position, projectileEmitter.transform.rotation) as GameObject;
+                randomProjectile = Random.Range(-1, 1);
+            }
+            else
+            {
+                Temp_Projectile_Handler = Instantiate(projectile2, projectileEmitter.transform.position, projectileEmitter.transform.rotation) as GameObject;
+                randomProjectile = Random.Range(-1, 1);
+            }
+
             emissionRate = Random.Range(emitMin, emitMax);
         }
             Destroy(Temp_Projectile_Handler, 7.0f);

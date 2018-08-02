@@ -9,22 +9,31 @@ public class GestureController : MonoBehaviour
     public bool MuseSolo, MuseMulti, Standalone;
     [Header("Wekinator Receiver")]
     public GameObject WekOSC_SoloReceiver, WekOSC_MultiReceiver;
+
     public float meditateFloat, focusFloat, emotions, instruments;
+   
+    public bool isMeditate, isFocus;
+    public bool isHappy, isSad, isUnsure; 
+    public bool isNoInstr, isInstr1, isInstr2;
     //public float happyFloat, sadFloat, unsureFloat, instr1Float, instr2Float, noInstrFloat;
-    public bool isMeditate, isHappy, isSad, isUnsure, isNoInstr, isInstr1, isInstr2;
-    public bool isFocus;
+
     [Header("Wekinator Run Dispatcher")]
     public GameObject WekSoloDTW_Run, WekSoloSVM_Run, WekMultiDTW_Run, WekMultiSVM_Run;
     [Header("Game Gestures")]
-    public bool NoGesture, Mediate, Focus, Happy, Sad, Instr1, Instr2, bothInstr, mindStateTimeOut;
-    public bool Meditation, Happiness, Sadness, Instr1Solo, Instr2Solo;
+    public bool NoGesture, Mediate, Focus, Happy, Sad, mindStateTimeOut;
+
+    public bool Meditation, Happiness, Sadness;
+    public bool Instr1, Instr2, bothInstr, Instr1Solo, Instr2Solo;
+
     [Header("Timer Section")]
-    public float countdown, unsureCountdown, happyCountdown, sadCountdown, noInstrCountdown, instr1Countdown, instr2Countdown, meditateCountdown, focusCountdown;
+    public float countdown, unsureCountdown, happyCountdown, sadCountdown, meditateCountdown, focusCountdown;
+    public float noInstrCountdown, instr1Countdown, instr2Countdown;
+
     public float counter, fivesecCounter, secCounter, threesecCounter;
     public float speed = 1;
     public int state;
 
-    public bool Intro, isWekRun;
+    public bool Intro, isWekRun, startGame;
 
     private System.Random randomizer;
 

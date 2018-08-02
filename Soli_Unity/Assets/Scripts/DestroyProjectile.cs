@@ -38,7 +38,7 @@ public class DestroyProjectile : MonoBehaviour {
     void OnTriggerStay(Collider other)
     {
         Debug.Log("PlayerBullseye");
-        if (!focusShot)
+        if (focusShot)
         {
             damage--;
         }
