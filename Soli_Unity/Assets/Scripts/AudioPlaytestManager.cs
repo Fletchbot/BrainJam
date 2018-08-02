@@ -35,6 +35,9 @@ public class AudioPlaytestManager : MonoBehaviour
     private bool startPlaytest;
     private float counter;
 
+//    private bool projectile1, projectile2;.........................
+//    private int p1combo, p2combo, superCombo, superduperCombo;........................
+
     //Is the midi note 0 to 127 = to music note
     private int C2 = 48;
     private int Db2 = 49;
@@ -491,6 +494,7 @@ public class AudioPlaytestManager : MonoBehaviour
         else if (N_Emotion == 1)
         {
             NarratorClips[1].GetComponent<AudioSource>().Play();
+            NarratorClips[0].GetComponent<AudioSource>().Stop();
             N_Emotion = 2;
             startPlaytest = false;
             Invoke("counterReset", 34.0f);
@@ -502,6 +506,7 @@ public class AudioPlaytestManager : MonoBehaviour
         else if (N_Instru == 2)
         {
             NarratorClips[2].GetComponent<AudioSource>().Play();
+            NarratorClips[1].GetComponent<AudioSource>().Stop();
             N_Instru = 3;
             startPlaytest = false;
             Invoke("counterReset", 31.0f);

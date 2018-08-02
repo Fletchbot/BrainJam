@@ -23,7 +23,8 @@ TagManager:
   - Axe
   - INfiniDyTree
   - projectile
-  - GestureController
+  - Projectile1
+  - Projectile2
   layers:
   - Default
   - TransparentFX

@@ -33,6 +33,10 @@ public class GestureController : MonoBehaviour
     public float speed = 1;
     public int state;
 
+    public bool p1Destroyed, p2Destroyed, sCombo, sdCombo, comboStack; //................................
+    public int p1combo, p2combo, superCombo, superduperCombo;
+    public float projectileCountdown, comboCountdown;//..........................................................
+
     public bool Intro, isWekRun, startGame;
 
     private System.Random randomizer;
@@ -67,6 +71,7 @@ public class GestureController : MonoBehaviour
             instr1Countdown = threesecCounter;
             instr2Countdown = threesecCounter;
             focusCountdown = secCounter;
+            projectileCountdown = threesecCounter;
             
         }
 
@@ -152,7 +157,7 @@ public class GestureController : MonoBehaviour
             mindStateTimeOut = true;
             Instr1Solo = true;
 
-            Invoke("mindStateDisable", 65.0f);
+            Invoke("mindStateDisable", 30.0f);
         }
         else if (!Instr2Solo && isInstr2 && Happiness && Sadness && !Intro)
         {
@@ -162,7 +167,7 @@ public class GestureController : MonoBehaviour
             mindStateTimeOut = true;
             Instr2Solo = true;
 
-            Invoke("mindStateDisable", 65.0f);
+            Invoke("mindStateDisable", 30.0f);
         }
 
         else if (mindStateTimeOut == false)
@@ -184,6 +189,11 @@ public class GestureController : MonoBehaviour
         if (isFocus)
         {
             Debug.Log("FocusState");
+        }
+
+        if(!Intro && Happiness && Sadness && !startGame && Instr1Solo && Instr2Solo)
+        {
+            startGame = true;
         }
     }
 
@@ -279,6 +289,7 @@ public class GestureController : MonoBehaviour
             EmotionStates();
             InstrumentStates();
             FocusStates();
+            ScoreBoard();
 
 
             if (MuseSolo)
@@ -630,5 +641,55 @@ public class GestureController : MonoBehaviour
             }
 
         }
+    }
+
+    public void projectileDestroyed(string p)
+    {
+        if(p == "Projectile1")
+        {
+            p1Destroyed = true;
+            Invoke("pSW", 0.1f);
+        }
+        else if (p == "Projectile2")
+        {
+            p2Destroyed = true;
+            Invoke("pSW", 0.1f);
+        }
+
+    }
+
+    void pSW()
+    {
+        if (p1Destroyed)
+        {
+            p1combo++;
+            p1Destroyed = false;
+        }
+
+        if (p2Destroyed)
+        {
+            p2combo++;
+            p2Destroyed = false;
+        }
+    }
+
+    void ScoreBoard()
+    {
+        projectileCountdown -= Time.deltaTime;
+
+        if (projectileCountdown <= 0.0f)
+        {
+            if (p1combo >= 3 && p2combo >= 3)
+            {
+                superduperCombo++;
+            }
+            else if (p1combo >= 2 && p2combo >= 2)
+            {
+                superCombo++;
+            }
+           
+
+        }
+
     }
 }
