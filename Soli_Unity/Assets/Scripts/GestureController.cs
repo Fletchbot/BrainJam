@@ -81,7 +81,8 @@ public class GestureController : MonoBehaviour
             projectileCountdown = threesecCounter;
             comboCountdown = tensecCounter;
 
-            OnenessPercentage = 3.5f;          
+            OnenessPercentage = 3.5f;
+                      
         }     
     }
     // Update is called once per frame
@@ -91,12 +92,24 @@ public class GestureController : MonoBehaviour
         {
             UpdateMuseHeadset();
 
-            GestureStates();
+            if (StartGame)
+            {
+                GestureStates();
+                ScoreBoard();
+            }
+            else if (!StartGame)
+            {
+
+                TestGestures();
+            }
+
+            EndTest_StartGame();
+            MindStateTimeOut();
+
             MeditateStates();
             EmotionStates();
             FocusStates();
-
-           if(StartGame) ScoreBoard();
+            OnenessState();
 
             if (MuseSolo)
             {
@@ -166,11 +179,12 @@ public class GestureController : MonoBehaviour
             sadFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().sadFloat;
         }
     }
-    void InvokeIntro()
+    private void InvokeIntro()
     {
         IntroTest = false;
     }
-    public void GestureStates()
+
+    public void TestGestures()
     {
         if (StartTest && !isMeditate) //Intro Lava Erupting
         {
@@ -179,116 +193,50 @@ public class GestureController : MonoBehaviour
             if (StartTest) StartTest = false;
             Debug.Log("IntroState");
         }
-        else if (IntroTest && isMeditate && !MeditationTested && !onenessTimeout || isMeditate && !M_sw && !onenessTimeout) //Intro into meditation Sunset
+        else if (IntroTest && isMeditate && !MeditationTested) //Intro into meditation Sunset
         {
             if (IntroTest) Invoke("InvokeIntro", 10.0f);
-            if(MeditationTested) MeditationTested = true;
+            if (!MeditationTested) MeditationTested = true;
 
             M_Enable();
 
-            onenessCountdown = fivesecCounter;
             noGestureCountdown = sixtysecCounter;
             mindStateTimeOut = true;
-            onenessTimeout = true;
-            Debug.Log("MeditateState");
+
+            Debug.Log("MeditateTest");
 
             M_sw = true;
             H_sw = false;
             S_sw = false;
         }
-        else if (!IntroTest && !HappinessTested && isHappy && !onenessTimeout || isHappy && HappinessTested && !H_sw && !onenessTimeout) // meditation or sad into Happy Clear Day
+        else if (!IntroTest && !HappinessTested && isHappy) // meditation or sad into Happy Clear Day
         {
             if (!HappinessTested) HappinessTested = true;
 
             H_Enable();
 
-            onenessCountdown = fivesecCounter;
             noGestureCountdown = sixtysecCounter;
             mindStateTimeOut = true;
-            onenessTimeout = true;
-            Debug.Log("HappyState");
+
+            Debug.Log("HappyTest");
 
             M_sw = false;
             H_sw = true;
             S_sw = false;
         }
-        else if (!IntroTest && !SadnessTested && isSad && !onenessTimeout|| isSad && SadnessTested && !S_sw && !onenessTimeout) // meditation or happy into Sad Winter night
+        else if (!IntroTest && !SadnessTested && isSad) // meditation or happy into Sad Winter night
         {
             if (!SadnessTested) SadnessTested = true;
             S_Enable();
 
-            onenessCountdown = fivesecCounter;
             noGestureCountdown = sixtysecCounter;
             mindStateTimeOut = true;
-            onenessTimeout = true;
+
             Debug.Log("SadState");
 
             M_sw = false;
             H_sw = false;
             S_sw = true;
-        }
-
-        if (HappinessTested && SadnessTested && !StartGame && !NoGesture && !EndTest) // after all tests complete start game
-        {
-            StartGame = true;
-            EndTest = true;
-        }
-        else if (!EndTest)
-        {
-            StartGame = false;
-        }
-
-        if (isFocus)
-        {
-            Debug.Log("FocusState");
-        }
-
-        if (onenessTimeout) // oneness int = 10 secs in one state
-        {
-            onenessCountdown -= Time.deltaTime;
-
-            if (onenessCountdown <= 0)
-            {
-                onenessCountdown = fivesecCounter;
-
-                if (noG_Oneness <= 0 || M_Oneness <= 0 || H_Oneness <= 0 || S_Oneness <= 0)
-                {
-                //    DisableAllGestures();
-                    noG_Oneness = OnenessPercentage;
-                    M_Oneness = OnenessPercentage;
-                    H_Oneness = OnenessPercentage;
-                    S_Oneness = OnenessPercentage;
-                }
-                else
-                {
-                    onenessTimeout = false;
-                }
-   
-
-            }
-            else
-            {
-                if (NoGesture && !isMeditate && !isHappy && !isSad)
-                {
-                    noG_Oneness -= Time.deltaTime;
-                    noG_OnenessScore += Time.deltaTime;
-                }
-                else if (Mediate && isMeditate)
-                {
-                    M_Oneness -= Time.deltaTime;
-                    M_OnenessScore += Time.deltaTime;
-                }
-                else if (Happy && isHappy)
-                {
-                    H_Oneness -= Time.deltaTime;
-                    H_OnenessScore += Time.deltaTime;
-                }
-                else if (Sad && isSad)
-                {
-                    S_Oneness -= Time.deltaTime;
-                    S_OnenessScore += Time.deltaTime;
-                }
-            }
         }
 
         if (mindStateTimeOut) // no state change within 1min goto no gesture(lava erupting)
@@ -298,12 +246,142 @@ public class GestureController : MonoBehaviour
             if (noGestureCountdown <= 0)
             {
                 NoG_Enable();
+                mindStateTimeOut = false;
+            }
+        }
 
-                onenessCountdown = tensecCounter;
+    }
+    public void GestureStates()
+    {
+
+        if (isMeditate && !M_sw && !onenessTimeout) //Intro into meditation Sunset
+        {
+            M_Enable();
+
+            onenessCountdown = fivesecCounter;
+            noGestureCountdown = sixtysecCounter;
+            mindStateTimeOut = true;
+            onenessTimeout = true;
+
+            Debug.Log("MeditateState");
+
+            M_sw = true;
+            H_sw = false;
+            S_sw = false;
+        }
+        else if (isHappy && !H_sw && !onenessTimeout) // meditation or sad into Happy Clear Day
+        {
+            H_Enable();
+
+            onenessCountdown = fivesecCounter;
+            noGestureCountdown = sixtysecCounter;
+            mindStateTimeOut = true;
+            onenessTimeout = true;
+
+            Debug.Log("HappyState");
+
+            M_sw = false;
+            H_sw = true;
+            S_sw = false;
+        }
+        else if (isSad && !S_sw && !onenessTimeout) // meditation or happy into Sad Winter night
+        {
+            S_Enable();
+
+            onenessCountdown = fivesecCounter;
+            noGestureCountdown = sixtysecCounter;
+            mindStateTimeOut = true;
+            onenessTimeout = true;
+
+            Debug.Log("SadState");
+
+            M_sw = false;
+            H_sw = false;
+            S_sw = true;
+        }
+
+        if (isFocus)
+        {
+            Debug.Log("Focused");
+        }
+    }
+
+    public void EndTest_StartGame()
+    {
+        if (HappinessTested && SadnessTested && !StartGame && !NoGesture && !EndTest) // after all tests complete start game
+        {
+            StartGame = true;
+            EndTest = true;
+        }
+        else if (!EndTest)
+        {
+            StartGame = false;
+        }
+    }
+    public void MindStateTimeOut()
+    {
+        if (mindStateTimeOut) // no state change within 1min goto no gesture(lava erupting)
+        {
+            noGestureCountdown -= Time.deltaTime;
+
+            if (noGestureCountdown <= 0)
+            {
+                NoG_Enable();
+
+                onenessCountdown = fivesecCounter;
                 onenessTimeout = true;
 
                 mindStateTimeOut = false;
             }
+        }
+
+    }
+    public void OnenessState()
+    {
+        float time = Time.deltaTime;
+
+        if (onenessTimeout) // oneness int = 5 secs in one state
+        {
+            if (onenessCountdown <= 0)
+            {
+                if (noG_Oneness <= 0.0f || M_Oneness <= 0.0f || H_Oneness <= 0.0f || S_Oneness <= 0.0f)
+                {
+                    noG_Oneness = OnenessPercentage;
+                    M_Oneness = OnenessPercentage;
+                    H_Oneness = OnenessPercentage;
+                    S_Oneness = OnenessPercentage;
+                }
+                else
+                {
+                    onenessTimeout = false;
+                }
+
+                onenessCountdown = fivesecCounter;
+            }
+            else
+            {
+                if (NoGesture && !isMeditate && !isHappy && !isSad)
+                {
+                    noG_Oneness -= time;
+                    noG_OnenessScore += time;
+                }
+                else if (Mediate && isMeditate)
+                {
+                    M_Oneness -= time;
+                    M_OnenessScore += time;
+                }
+                else if (Happy && isHappy)
+                {
+                    H_Oneness -= time;
+                    H_OnenessScore += time;
+                }
+                else if (Sad && isSad)
+                {
+                    S_Oneness -= time;
+                    S_OnenessScore += time;
+                }
+            }
+            onenessCountdown -= time;
         }
     }
 
@@ -331,7 +409,7 @@ public class GestureController : MonoBehaviour
 
     public void FocusStates()
     {
-        if (focusFloat <= 3.5f)
+        if (focusFloat <= 4.5f)
         {
             if (focusCountdown <= 0.0f)
             {
@@ -353,7 +431,6 @@ public class GestureController : MonoBehaviour
 
     public void EmotionStates()
     {
-
         if (emotions == 1 && !isUnsure)
         {
             if (unsureCountdown <= 0)
@@ -374,7 +451,7 @@ public class GestureController : MonoBehaviour
         }
         else if (emotions == 2 && !isHappy)
         {
-            if (happyCountdown <= 0)
+            if (happyCountdown <= 0 && meditateFloat >= 8.0f)
             {
                 isHappy = true;
                 isSad = false;
@@ -393,7 +470,7 @@ public class GestureController : MonoBehaviour
         }
         else if (emotions == 3 && !isSad)
         {
-            if (sadCountdown <= 0)
+            if (sadCountdown <= 0 && meditateFloat >= 8.0f)
             {
                 isHappy = false;
                 isSad = true;
