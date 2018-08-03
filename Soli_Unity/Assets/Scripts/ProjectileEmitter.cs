@@ -21,7 +21,7 @@ public class ProjectileEmitter : MonoBehaviour
 
     private float randomProjectile;
 
-    private bool startGame, enableCursor;
+    private bool StartGame, enableCursor;
 
     // Use this for initialization
     void Start()
@@ -58,9 +58,9 @@ public class ProjectileEmitter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        startGame = gc.GetComponent<GestureController>().startGame;
+        StartGame = gc.GetComponent<GestureController>().StartGame;
 
-        if (startGame)
+        if (StartGame)
         {
             if (!enableCursor)
             {

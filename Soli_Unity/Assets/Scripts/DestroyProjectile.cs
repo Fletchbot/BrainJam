@@ -6,7 +6,6 @@ public class DestroyProjectile : MonoBehaviour {
 
     public GameObject gc;
 
-
     //public GameObject exposion;
 
     public int damage = 4;
@@ -18,17 +17,35 @@ public class DestroyProjectile : MonoBehaviour {
     // Use this for initialization
     void Start () {
         gc_tag = "GameController";
-
     }
 
     // Update is called once per frame
     void Update () {
+
         if (!noGC)
         {
             findGameObj();
             noGC = true;
         }
+
         focusShot = gc.GetComponent<GestureController>().isFocus;
+
+        if (damage <= 0)
+        {
+            string tag = gameObject.tag;
+
+            gc.GetComponent<GestureController>().projectileDestroyed(tag);
+
+            //GameObject exposionClone = Instantiate(exposion, transform.position, transform.rotation);
+
+            Debug.Log("pTag" + tag);
+
+            Destroy(gameObject);
+        }
+        else
+        {
+            gc.GetComponent<GestureController>().projectileDestroyed("");
+        }
     }
 
     void findGameObj()
@@ -38,21 +55,10 @@ public class DestroyProjectile : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        Debug.Log("PlayerBullseye");
-        if (!focusShot)
+        if (focusShot)
         {
             damage--;
         }
-
-        if (damage <= 0)
-        {
-            string tag = gameObject.tag;
-            Debug.Log("pTag" + tag);
-            gc.GetComponent<GestureController>().projectileDestroyed(tag);
-            //GameObject exposionClone = Instantiate(exposion, transform.position, transform.rotation);
-            Destroy(gameObject);
-        }
-
 
     }
 }

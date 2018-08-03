@@ -80,11 +80,6 @@ namespace UniOSC
             {
                 transform.position += xyz;
             }
-
-
-
-
-
         }
     }
 }

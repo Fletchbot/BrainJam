@@ -18,7 +18,7 @@ namespace Artngame.SKYMASTER
         public bool isLava;
         public float shaderOffset;
 
-        public bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2; 
+        public bool NoGesture, Mediate, Happy, Sad; 
         // Use this for initialization
         void Start()
         {
@@ -40,8 +40,6 @@ namespace Artngame.SKYMASTER
             Mediate = gestureController.GetComponent<GestureController>().Mediate;
             Happy = gestureController.GetComponent<GestureController>().Happy;
             Sad = gestureController.GetComponent<GestureController>().Sad;
-            Instr1 = gestureController.GetComponent<GestureController>().Instr1Solo;
-            Instr2 = gestureController.GetComponent<GestureController>().Instr2Solo;
 
             StateSwitch();
             snow_lava_SW();
@@ -189,14 +187,6 @@ namespace Artngame.SKYMASTER
                 isLava = false;
                 weatherChoice = 6;
             }
-            else if (Instr1) // Rainy Morning
-            {
-                weatherChoice = 1;
-            }
-            else if (Instr2) // Rainy Afternoon
-            {
-                weatherChoice = 1;
-            }
         }
 
         void snow_lava_SW()
@@ -222,7 +212,7 @@ namespace Artngame.SKYMASTER
                 SnowLavaMat.SetFloat("_isLava", 0);
                 SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
 
-            } else if (Happy || Mediate || Instr1 || Instr2)
+            } else if (Happy || Mediate)
             {
                 if (shaderOffset >= 0.0f)
                 {

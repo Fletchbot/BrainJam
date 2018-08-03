@@ -11,7 +11,7 @@ namespace Artngame.SKYMASTER
         public float growSpeed, ungrowSpeed;
         private float grow, ungrow;
         private Vector3 grown, ungrown;
-        private bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
+        private bool NoGesture, Mediate, Happy, Sad;
 
         // Use this for initialization
         void OnEnable()
@@ -32,8 +32,6 @@ namespace Artngame.SKYMASTER
             Mediate = gc.GetComponent<GestureController>().Mediate;
             Happy = gc.GetComponent<GestureController>().Happy;
             Sad = gc.GetComponent<GestureController>().Sad;
-            Instr1 = gc.GetComponent<GestureController>().Instr1Solo;
-            Instr2 = gc.GetComponent<GestureController>().Instr2Solo;
 
             if (NoGesture || Sad)
             {
@@ -44,7 +42,7 @@ namespace Artngame.SKYMASTER
                 }
 
             }
-            else if (Happy || Instr1 || Instr2)
+            else if (Happy)
             {
                 if (transform.position.z <= grow && transform.position.z >= ungrow)
                 {

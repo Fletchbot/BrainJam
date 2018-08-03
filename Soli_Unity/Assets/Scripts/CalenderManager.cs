@@ -15,8 +15,8 @@ namespace Artngame.SKYMASTER
         public float CurrHour;
         public float speed;
 
-        private bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2;
-        private bool G_sw, M_sw, H_sw, S_sw, I1_sw, I2_sw;
+        private bool NoGesture, Mediate, Happy, Sad;
+        private bool G_sw, M_sw, H_sw, S_sw;
 
         // Use this for initialization
         void Start()
@@ -33,8 +33,6 @@ namespace Artngame.SKYMASTER
             Mediate = weatherManager.Mediate;
             Happy = weatherManager.Happy;
             Sad = weatherManager.Sad;
-            Instr1 = weatherManager.Instr1;
-            Instr2 = weatherManager.Instr2;
 
             skyManager.Current_Month = CurrMonth;
             skyManager.Current_Day = CurrDay;
@@ -67,8 +65,6 @@ namespace Artngame.SKYMASTER
                 M_sw = false;
                 H_sw = false;
                 S_sw = false;
-                Instr1 = false;
-                Instr2 = false;
             }
             else if (Mediate) //Sunset
             {
@@ -88,8 +84,6 @@ namespace Artngame.SKYMASTER
                 G_sw = false;
                 H_sw = false;
                 S_sw = false;
-                Instr1 = false;
-                Instr2 = false;
             }
             else if (Happy) //Midday Sun
             {
@@ -109,8 +103,6 @@ namespace Artngame.SKYMASTER
                 G_sw = false;
                 M_sw = false;
                 S_sw = false;
-                Instr1 = false;
-                Instr2 = false;
             }
             else if (Sad) //Winter Night
             {
@@ -129,10 +121,8 @@ namespace Artngame.SKYMASTER
                 G_sw = false;
                 M_sw = false;
                 H_sw = false;
-                Instr1 = false;
-                Instr2 = false;
             }
-            else if (Instr1) //Rain morning
+         /*   else if (Instr1) //Rain morning
             {
                 CurrMonth = 8;
                 CurrDay = 8;
@@ -171,7 +161,7 @@ namespace Artngame.SKYMASTER
                 H_sw = false;
                 S_sw = false;
                 Instr1 = false;
-            }
+            }*/
             else
             {
                 speed = 1;

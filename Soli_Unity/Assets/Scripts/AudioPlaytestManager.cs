@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class AudioPlaytestManager : MonoBehaviour
 {
-    [Header("Text Section")]
-    public GameObject timerText;
-    Text text;
     [Header("Gesture Controller")]
     public GameObject GC;
     [Header("NarratorAudio")]
@@ -24,19 +21,18 @@ public class AudioPlaytestManager : MonoBehaviour
     public AudioMixer synthMixer;
     [Header("Chord Picker")]
     public bool[] chords = new bool[3];
-    public float noteSustain = 2.0f;
+    public float noteSustain;
 
 
-    private bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, bothInstr;
-    private bool G_sw, M_sw, H_sw, S_sw, I1_sw, I2_sw, bothInstr_SW;
-    private int N_Intro, N_Emotion, N_Instru, N_EndComplete, N_EndTwoG, N_EndReCalibrate;
+    private bool NoGesture, Mediate, Happy, Sad;
+    private bool G_sw, M_sw, H_sw, S_sw;
+    private int N_Intro, N_MeditateComplete, N_EmotionComplete;
     private float sfxlvl, dronelvl, basslvl;
     private bool sfxPlaying, sfxFadedown, sfxFadeup, sfxDuck, mDuck, eDuck, InstrDuck;
 
     private bool startPlaytest;
-    private float counter;
 
-    private bool startGame;
+    private bool StartGame, sw_BassGameEnable;
     private bool p1Destroyed, p2Destroyed, pPoint, sCombo, sdCombo, cStack;
 
 
@@ -122,7 +118,6 @@ public class AudioPlaytestManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        text = timerText.GetComponent<Text>();
         DroneDisable();
         BassDisable();
         sfxlvl = 0.0f;
@@ -165,7 +160,6 @@ public class AudioPlaytestManager : MonoBehaviour
         AudioGestureControl();
         SetSFXLvl();
         SetSynthsLvl();
-        NarratorEndings();
     }
     public void DroneEnable()
     {
@@ -258,9 +252,7 @@ public class AudioPlaytestManager : MonoBehaviour
         }
     }
     public void BassGameEnable()
-    {
-        BassSeq.Clear();
-
+    {  
         p1Destroyed = GC.GetComponent<GestureController>().p1Destroyed;
         p2Destroyed = GC.GetComponent<GestureController>().p2Destroyed;
 
@@ -276,19 +268,22 @@ public class AudioPlaytestManager : MonoBehaviour
                             int n0 = Random.Range(0, bassEbmaj69.Length - 4);
                             int n1 = Random.Range(bassEbmaj69.Length - 3, bassEbmaj69.Length);
                             Bass.NoteOn(n0, 1.0f, noteSustain);
-                            Bass.NoteOn(n1, 1.0f, noteSustain);
+                          //  Bass.NoteOn(n1, 1.0f, noteSustain);
+                            Debug.Log("noteplayed" + n0);
                             break;
                         case 1: // D min9
                             int n2 = Random.Range(0, bassDmin9.Length - 4);
                             int n3 = Random.Range(bassDmin9.Length - 3, bassDmin9.Length);
                             Bass.NoteOn(n2, 1.0f, noteSustain);
-                            Bass.NoteOn(n3, 1.0f, noteSustain);
+                         //   Bass.NoteOn(n3, 1.0f, noteSustain);
+                            Debug.Log("noteplayed" + n2);
                             break;
                         case 2: // F9
                             int n4 = Random.Range(0, bassF9.Length - 4);
                             int n5 = Random.Range(bassF9.Length - 3, bassF9.Length);
                             Bass.NoteOn(n4, 1.0f, noteSustain);
-                            Bass.NoteOn(n5, 1.0f, noteSustain);
+                         //   Bass.NoteOn(n5, 1.0f, noteSustain);
+                            Debug.Log("noteplayed" + n4);
                             break;
                     }
                 }
@@ -378,33 +373,34 @@ public class AudioPlaytestManager : MonoBehaviour
         Mediate = GC.GetComponent<GestureController>().Mediate;
         Happy = GC.GetComponent<GestureController>().Happy;
         Sad = GC.GetComponent<GestureController>().Sad;
-        Instr1 = GC.GetComponent<GestureController>().Instr1Solo;
-        Instr2 = GC.GetComponent<GestureController>().Instr2Solo;
-        bothInstr = GC.GetComponent<GestureController>().bothInstr;
 
-        startGame = GC.GetComponent<GestureController>().startGame;
+        StartGame = GC.GetComponent<GestureController>().StartGame;
 
         if (NoGesture && !G_sw)
         {
             DroneDisable();
             BassDisable();
-            InstrDuck = true;
+
+            if (!StartGame)
+            {
+                InstrDuck = true;
+            }
 
             ThunderAU.GetComponent<AudioSource>().Play();
             LavaAU.GetComponent<AudioSource>().Play();
 
-            S_sw = false;
             G_sw = true;
-            H_sw = false;
             M_sw = false;
-            I1_sw = false;
-            I2_sw = false;
-            bothInstr_SW = false;
+            H_sw = false;
+            S_sw = false;
 
             sfxFadeup = true;
             sfxFadedown = false;
 
-            if (N_Intro == 0) N_Intro = 1;
+            if (N_Intro == 0)
+            {
+                N_Intro = 1;
+            }
 
             NarratorUpdate();
         }
@@ -414,27 +410,24 @@ public class AudioPlaytestManager : MonoBehaviour
             chords[1] = false;
             chords[2] = true;
 
-            if (!startGame)
+            if (!StartGame)
             {
                 DroneEnable();
             }
 
             InstrDuck = false;
 
-            S_sw = false;
+            M_sw = true;
             G_sw = false;
             H_sw = false;
-            M_sw = true;
-            I1_sw = false;
-            I2_sw = false;
-            bothInstr_SW = false;
+            S_sw = false;
 
             sfxFadedown = true;
             sfxFadeup = false;
 
-            if (N_Emotion == 0)
+            if (N_MeditateComplete == 0)
             {
-                N_Emotion = 1;
+                N_MeditateComplete = 1;
                 Invoke("NarratorUpdate", 5.0f);
             }
         }
@@ -444,26 +437,25 @@ public class AudioPlaytestManager : MonoBehaviour
             chords[1] = false;
             chords[2] = false;
 
-            if (!startGame)
+            if (!StartGame)
             {
                 DroneEnable();
             }
 
-            S_sw = false;
+            M_sw = false;
             G_sw = false;
             H_sw = true;
-            M_sw = false;
-            I1_sw = false;
-            I2_sw = false;
-            bothInstr_SW = false;
+            S_sw = false;
 
             sfxFadedown = true;
             sfxFadeup = false;
 
-            if (N_Instru >= 0 && N_Instru <= 2)
+            if (N_EmotionComplete >= 0 && N_EmotionComplete <= 2)
             {
-                N_Instru++;
-                if (N_Instru == 2) Invoke("NarratorUpdate", 5.0f);
+                
+                if (N_EmotionComplete == 2) Invoke("NarratorUpdate", 5.0f);
+
+                N_EmotionComplete++;
             }
         }
         else if (Sad && !S_sw)
@@ -472,116 +464,42 @@ public class AudioPlaytestManager : MonoBehaviour
             chords[1] = true;
             chords[2] = false;
 
-            if (!startGame)
+            if (!StartGame)
             {
                 DroneEnable();
             }
 
+            M_sw = false;
+            G_sw = false;
+            H_sw = false;
             S_sw = true;
-            G_sw = false;
-            H_sw = false;
-            M_sw = false;
-            I1_sw = false;
-            I2_sw = false;
-            bothInstr_SW = false;
 
             sfxFadedown = true;
             sfxFadeup = false;
 
-            if (N_Instru >= 0 && N_Instru <= 2)
+            if (N_EmotionComplete >= 0 && N_EmotionComplete <= 2)
             {
-                N_Instru++;
-                if (N_Instru == 2) Invoke("NarratorUpdate", 5.0f);
+                if (N_EmotionComplete == 2) Invoke("NarratorUpdate", 5.0f);
+
+                N_EmotionComplete++;
             }
         }
-        else if (Instr1 && !I1_sw)
-        {
-            chords[0] = false;
-            chords[1] = false;
-            chords[2] = true;
 
-            if (!startGame)
+        if (StartGame && !NoGesture)
+        {
+            if (!sw_BassGameEnable)
             {
-                DroneEnable();
                 BassDisable();
-            }
-
-            S_sw = false;
-            G_sw = false;
-            H_sw = false;
-            M_sw = false;
-            I1_sw = true;
-            I2_sw = false;
-            bothInstr_SW = false;
-
-            sfxFadedown = true;
-            sfxFadeup = false;
-
-            if (N_EndComplete >= 0 && N_EndComplete <= 2)
-            {
-                N_EndComplete++;
-            }
-        }
-        else if (Instr2 && !I2_sw)
-        {
-            chords[0] = false;
-            chords[1] = false;
-            chords[2] = true;
-
-            if (!startGame)
-            {
-                DroneDisable();
-                BassEnable();
-            }
-
-            S_sw = false;
-            G_sw = false;
-            H_sw = false;
-            M_sw = false;
-            I1_sw = false;
-            I2_sw = true;
-            bothInstr_SW = false;
-
-            sfxFadedown = true;
-            sfxFadeup = false;
-
-            if (N_EndComplete >= 0 && N_EndComplete <= 2)
-            {
-                N_EndComplete++;            
-            }
-        }
-        else if (bothInstr && !bothInstr_SW)
-        {
-            
-            if (!startGame)
-            {
                 DroneEnable();
-                BassEnable();
+                sw_BassGameEnable = true;
             }
-
-            S_sw = false;
-            G_sw = false;
-            H_sw = false;
-            M_sw = false;
-            I1_sw = false;
-            I2_sw = false;
-            bothInstr_SW = true;
-
-            sfxFadedown = true;
-            sfxFadeup = false;
-
-            counterReset();
-        }
-
-        if (startGame && !NoGesture)
-        {
-            DroneEnable();
+            
             BassGameEnable();
         }
     }
     public void NarratorUpdate()
     {
-        if (Mediate || Happy || Sad || Instr1 || Instr2)
+        if (Mediate || Happy || Sad)
         {
             NarratorClips[0].GetComponent<AudioSource>().Stop();
             NarratorClips[1].GetComponent<AudioSource>().Stop();
@@ -592,112 +510,23 @@ public class AudioPlaytestManager : MonoBehaviour
         {
             NarratorClips[0].GetComponent<AudioSource>().Play();
             N_Intro = 2;
-            Invoke("counterReset", 25.0f);
         }
-        else if (N_Emotion == 1)
+
+        if (N_MeditateComplete == 1)
         {
             NarratorClips[1].GetComponent<AudioSource>().Play();
             NarratorClips[0].GetComponent<AudioSource>().Stop();
-            N_Emotion = 2;
+            N_MeditateComplete = 2;
             startPlaytest = false;
-            Invoke("counterReset", 34.0f);
         }
-        else if (N_Instru == 1)
-        {
-            counterReset();
-        }
-        else if (N_Instru == 2)
+
+        if (N_EmotionComplete == 2)
         {
             NarratorClips[2].GetComponent<AudioSource>().Play();
             NarratorClips[1].GetComponent<AudioSource>().Stop();
-            N_Instru = 3;
+            N_EmotionComplete = 3;
             startPlaytest = false;
-            Invoke("counterReset", 31.0f);
-        }
-        else if (N_EndComplete == 1)
-        {
-            counterReset();
-        }
-        else if (N_EndComplete == 2)
-        {
-            NarratorClips[3].GetComponent<AudioSource>().Play();
-            NarratorClips[0].GetComponent<AudioSource>().Stop();
-            NarratorClips[1].GetComponent<AudioSource>().Stop();
-            NarratorClips[2].GetComponent<AudioSource>().Stop();
-            N_EndComplete = 3;
-            DroneDisable();
-            BassDisable();
-        }
-        else if (N_EndTwoG == 1)
-        {
-            NarratorClips[4].GetComponent<AudioSource>().Play();
-            NarratorClips[0].GetComponent<AudioSource>().Stop();
-            NarratorClips[1].GetComponent<AudioSource>().Stop();
-            NarratorClips[2].GetComponent<AudioSource>().Stop();
-            N_EndTwoG = 2;
-            DroneDisable();
-            BassDisable();
-        }
-        else if (N_EndReCalibrate == 1)
-        {
-            NarratorClips[5].GetComponent<AudioSource>().Play();
-            NarratorClips[0].GetComponent<AudioSource>().Stop();
-            NarratorClips[1].GetComponent<AudioSource>().Stop();
-            NarratorClips[2].GetComponent<AudioSource>().Stop();
-            N_EndReCalibrate = 2;
-            DroneDisable();
-            BassDisable();
-        }
-
-    }
-    public void NarratorEndings()
-    {
-        if (startPlaytest)
-        {
-            counter -= Time.deltaTime;
-            if (counter <= 0)
-            {
-                string seconds = Mathf.Round(counter % 60).ToString("00");
-                string minutes = Mathf.Round((counter % 3600) / 60).ToString("00");
-
-                if (NoGesture || Mediate)
-                {
-                    N_EndReCalibrate = 1;
-                    NarratorUpdate();
-                }
-                else if (Happy || Sad)
-                {
-                    N_EndTwoG = 1;
-                    NarratorUpdate();
-                }
-                else if (Instr1 || Instr2)
-                {
-                    if (N_EndComplete == 2)
-                    {
-                        NarratorUpdate();
-                    }
-                }
-            }
-            else
-            {
-                string minutes = Mathf.Floor((counter % 3600) / 60).ToString("00");
-                string seconds = (counter % 60).ToString("00");
-                text.text = minutes + ":" + seconds;
-            }
-        }
-        else
-        {
-            text.text = "";
         }
     }
 
-    public void counterReset()
-    {
-        counter = 60.0f;
-
-        if (!startPlaytest)
-        {
-            startPlaytest = true;
-        }
-    }
 }
