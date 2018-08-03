@@ -24,6 +24,7 @@ public class AudioPlaytestManager : MonoBehaviour
     public AudioMixer synthMixer;
     [Header("Chord Picker")]
     public bool[] chords = new bool[3];
+    public float noteSustain = 2.0f;
 
 
     private bool NoGesture, Mediate, Happy, Sad, Instr1, Instr2, bothInstr;
@@ -35,8 +36,9 @@ public class AudioPlaytestManager : MonoBehaviour
     private bool startPlaytest;
     private float counter;
 
-//    private bool projectile1, projectile2;.........................
-//    private int p1combo, p2combo, superCombo, superduperCombo;........................
+    private bool startGame;
+    private bool p1Destroyed, p2Destroyed, pPoint, sCombo, sdCombo, cStack;
+
 
     //Is the midi note 0 to 127 = to music note
     private int C2 = 48;
@@ -105,6 +107,11 @@ public class AudioPlaytestManager : MonoBehaviour
     private int B6 = 107;
     private int C7 = 108;
 
+
+    private int[] bassEbmaj69 = new int [8];
+    private int[] bassDmin9 = new int[8];
+    private int[] bassF9 = new int[8];
+
     public static AudioPlaytestManager main;
 
     void Awake()
@@ -119,6 +126,38 @@ public class AudioPlaytestManager : MonoBehaviour
         DroneDisable();
         BassDisable();
         sfxlvl = 0.0f;
+
+        noteArraysStart();
+    }
+
+    void noteArraysStart()
+    {
+        bassEbmaj69[0] = Eb2;
+        bassEbmaj69[1] = G2;
+        bassEbmaj69[2] = C2;
+        bassEbmaj69[3] = F2;
+        bassEbmaj69[4] = Eb3;
+        bassEbmaj69[5] = G3;
+        bassEbmaj69[6] = C3;
+        bassEbmaj69[7] = F3;
+
+        bassDmin9[0] = D2; 
+        bassDmin9[1] = F2;
+        bassDmin9[2] = A2;
+        bassDmin9[3] = E2;
+        bassDmin9[4] = D3;
+        bassDmin9[5] = F3;
+        bassDmin9[6] = A3;
+        bassDmin9[7] = E3;
+
+        bassF9[0] = F2;
+        bassF9[1] = A2;
+        bassF9[2] = Eb2;
+        bassF9[3] = G2;
+        bassF9[4] = F3;
+        bassF9[5] = A3;
+        bassF9[6] = Eb3;
+        bassF9[7] = G3;
     }
     // Update is called once per frame
     void Update()
@@ -218,7 +257,45 @@ public class AudioPlaytestManager : MonoBehaviour
             }
         }
     }
+    public void BassGameEnable()
+    {
+        BassSeq.Clear();
 
+        p1Destroyed = GC.GetComponent<GestureController>().p1Destroyed;
+        p2Destroyed = GC.GetComponent<GestureController>().p2Destroyed;
+
+        if(p1Destroyed || p2Destroyed)
+        {
+            for (int i = 0; i < chords.Length; i++)
+            {
+                if (chords[i])
+                {
+                    switch (i)
+                    {
+                        case 0: //Eb Maj69
+                            int n0 = Random.Range(0, bassEbmaj69.Length - 4);
+                            int n1 = Random.Range(bassEbmaj69.Length - 3, bassEbmaj69.Length);
+                            Bass.NoteOn(n0, 1.0f, noteSustain);
+                            Bass.NoteOn(n1, 1.0f, noteSustain);
+                            break;
+                        case 1: // D min9
+                            int n2 = Random.Range(0, bassDmin9.Length - 4);
+                            int n3 = Random.Range(bassDmin9.Length - 3, bassDmin9.Length);
+                            Bass.NoteOn(n2, 1.0f, noteSustain);
+                            Bass.NoteOn(n3, 1.0f, noteSustain);
+                            break;
+                        case 2: // F9
+                            int n4 = Random.Range(0, bassF9.Length - 4);
+                            int n5 = Random.Range(bassF9.Length - 3, bassF9.Length);
+                            Bass.NoteOn(n4, 1.0f, noteSustain);
+                            Bass.NoteOn(n5, 1.0f, noteSustain);
+                            break;
+                    }
+                }
+            }
+        }
+ 
+    }
     public void DroneDisable()
     {
         DroneSynth.AllNotesOff();
@@ -226,6 +303,7 @@ public class AudioPlaytestManager : MonoBehaviour
     public void BassDisable()
     {
         BassSeq.Clear();
+        Bass.AllNotesOff();
     }
 
     public void SetSynthsLvl()
@@ -304,6 +382,8 @@ public class AudioPlaytestManager : MonoBehaviour
         Instr2 = GC.GetComponent<GestureController>().Instr2Solo;
         bothInstr = GC.GetComponent<GestureController>().bothInstr;
 
+        startGame = GC.GetComponent<GestureController>().startGame;
+
         if (NoGesture && !G_sw)
         {
             DroneDisable();
@@ -334,8 +414,11 @@ public class AudioPlaytestManager : MonoBehaviour
             chords[1] = false;
             chords[2] = true;
 
-            DroneEnable();
-            BassEnable();
+            if (!startGame)
+            {
+                DroneEnable();
+            }
+
             InstrDuck = false;
 
             S_sw = false;
@@ -361,8 +444,10 @@ public class AudioPlaytestManager : MonoBehaviour
             chords[1] = false;
             chords[2] = false;
 
-            DroneEnable();
-            BassEnable();
+            if (!startGame)
+            {
+                DroneEnable();
+            }
 
             S_sw = false;
             G_sw = false;
@@ -387,8 +472,10 @@ public class AudioPlaytestManager : MonoBehaviour
             chords[1] = true;
             chords[2] = false;
 
-            DroneEnable();
-            BassEnable();
+            if (!startGame)
+            {
+                DroneEnable();
+            }
 
             S_sw = true;
             G_sw = false;
@@ -413,8 +500,11 @@ public class AudioPlaytestManager : MonoBehaviour
             chords[1] = false;
             chords[2] = true;
 
-            DroneEnable();
-            BassDisable();
+            if (!startGame)
+            {
+                DroneEnable();
+                BassDisable();
+            }
 
             S_sw = false;
             G_sw = false;
@@ -438,8 +528,11 @@ public class AudioPlaytestManager : MonoBehaviour
             chords[1] = false;
             chords[2] = true;
 
-            DroneDisable();
-            BassEnable();
+            if (!startGame)
+            {
+                DroneDisable();
+                BassEnable();
+            }
 
             S_sw = false;
             G_sw = false;
@@ -459,8 +552,12 @@ public class AudioPlaytestManager : MonoBehaviour
         }
         else if (bothInstr && !bothInstr_SW)
         {
-            DroneEnable();
-            BassEnable();
+            
+            if (!startGame)
+            {
+                DroneEnable();
+                BassEnable();
+            }
 
             S_sw = false;
             G_sw = false;
@@ -474,6 +571,12 @@ public class AudioPlaytestManager : MonoBehaviour
             sfxFadeup = false;
 
             counterReset();
+        }
+
+        if (startGame && !NoGesture)
+        {
+            DroneEnable();
+            BassGameEnable();
         }
     }
     public void NarratorUpdate()
@@ -554,7 +657,6 @@ public class AudioPlaytestManager : MonoBehaviour
             counter -= Time.deltaTime;
             if (counter <= 0)
             {
-                counter = 0;
                 string seconds = Mathf.Round(counter % 60).ToString("00");
                 string minutes = Mathf.Round((counter % 3600) / 60).ToString("00");
 

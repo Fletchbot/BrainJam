@@ -29,13 +29,15 @@ public class GestureController : MonoBehaviour
     public float countdown, unsureCountdown, happyCountdown, sadCountdown, meditateCountdown, focusCountdown;
     public float noInstrCountdown, instr1Countdown, instr2Countdown;
 
-    public float counter, fivesecCounter, secCounter, threesecCounter;
+    public float counter, fivesecCounter, secCounter, threesecCounter, tensecCounter;
     public float speed = 1;
     public int state;
 
-    public bool p1Destroyed, p2Destroyed, sCombo, sdCombo, comboStack; //................................
-    public int p1combo, p2combo, superCombo, superduperCombo;
-    public float projectileCountdown, comboCountdown;//..........................................................
+    [Header("Game Section")]
+    public bool p1Destroyed, p2Destroyed, pPoint, sCombo, sdCombo, cStack; 
+    public int p1combo, p2combo, superCombo, superduperCombo, comboStackTotal;
+    public int p1Total, p2Total, superTotal, superduperTotal;
+    public float projectileCountdown, comboCountdown;
 
     public bool Intro, isWekRun, startGame;
 
@@ -58,6 +60,7 @@ public class GestureController : MonoBehaviour
             isWekRun = true;
             countdown = 60.0f;
 
+            tensecCounter = 10.0f;
             fivesecCounter = 5.0f;
             threesecCounter = 2.0f;
             secCounter = 1.0f;
@@ -71,7 +74,9 @@ public class GestureController : MonoBehaviour
             instr1Countdown = threesecCounter;
             instr2Countdown = threesecCounter;
             focusCountdown = secCounter;
+
             projectileCountdown = threesecCounter;
+            comboCountdown = tensecCounter;
             
         }
 
@@ -80,6 +85,41 @@ public class GestureController : MonoBehaviour
         NoG_Enable(); //VolcanoErupt
 
     }
+    // Update is called once per frame
+    void Update()
+    {
+        if (MuseSolo || MuseMulti)
+        {
+            GestureConvertor();
+            MeditateStates();
+            EmotionStates();
+            InstrumentStates();
+            FocusStates();
+            ScoreBoard();
+
+
+            if (MuseSolo)
+            {
+                WekSoloDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+                WekSoloSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+                WekMultiDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+            }
+            else if (MuseMulti)
+            {
+
+                WekMultiDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+                WekMultiSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+            }
+        }
+        else if (Standalone)
+        {
+            StandaloneEnable();
+            WekSoloDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+            WekSoloSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+        }
+
+    }
+
     void GestureConvertor()
     {
         if (MuseSolo)
@@ -191,9 +231,13 @@ public class GestureController : MonoBehaviour
             Debug.Log("FocusState");
         }
 
-        if(!Intro && Happiness && Sadness && !startGame && Instr1Solo && Instr2Solo)
+        if(!Intro && Happiness && Sadness && !startGame && Instr1Solo && Instr2Solo && !NoGesture)
         {
             startGame = true;
+        }
+        else
+        {
+            startGame = false;
         }
     }
 
@@ -277,41 +321,6 @@ public class GestureController : MonoBehaviour
             }
 
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (MuseSolo || MuseMulti)
-        {
-            GestureConvertor();
-            MeditateStates();
-            EmotionStates();
-            InstrumentStates();
-            FocusStates();
-            ScoreBoard();
-
-
-            if (MuseSolo)
-            {
-                WekSoloDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-                WekSoloSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-                WekMultiDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-            }
-            else if (MuseMulti)
-            {
-
-                WekMultiDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-                WekMultiSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-            }
-        }
-        else if (Standalone)
-        {
-            StandaloneEnable();
-            WekSoloDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-            WekSoloSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-        }
-
     }
 
     void NoG_Enable()
@@ -436,6 +445,21 @@ public class GestureController : MonoBehaviour
     private void mindStateDisable()
     { 
         mindStateTimeOut = false;
+
+        // Quick hack to bypass instruments and go to game if instr doesn't work
+        if (!Instr1Solo && Happiness && Sadness && !Intro)
+        {
+            Debug.Log("Instr1 Bypass");
+            Instr1Solo = true;
+        }
+
+        if (!Instr2Solo && Happiness && Sadness && !Intro)
+        {
+            Debug.Log("Instr2 Bypass");
+            Instr2Solo = true;
+        }
+
+
     }
 
     public void MuseSoloMode(bool solo)
@@ -648,11 +672,15 @@ public class GestureController : MonoBehaviour
         if(p == "Projectile1")
         {
             p1Destroyed = true;
+            p1Total++;
+            p1combo++;
             Invoke("pSW", 0.1f);
         }
         else if (p == "Projectile2")
         {
             p2Destroyed = true;
+            p2Total++;
+            p2combo++;
             Invoke("pSW", 0.1f);
         }
 
@@ -662,13 +690,11 @@ public class GestureController : MonoBehaviour
     {
         if (p1Destroyed)
         {
-            p1combo++;
             p1Destroyed = false;
         }
 
         if (p2Destroyed)
         {
-            p2combo++;
             p2Destroyed = false;
         }
     }
@@ -676,19 +702,53 @@ public class GestureController : MonoBehaviour
     void ScoreBoard()
     {
         projectileCountdown -= Time.deltaTime;
+        comboCountdown -= Time.deltaTime;
 
         if (projectileCountdown <= 0.0f)
         {
-            if (p1combo >= 3 && p2combo >= 3)
+            if (p1combo >= 2 && p2combo >= 2)
             {
-                superduperCombo++;
-            }
-            else if (p1combo >= 2 && p2combo >= 2)
-            {
-                superCombo++;
-            }
-           
+                pPoint = false;
+                sCombo = false;
+                sdCombo = true;
 
+                superduperCombo++;
+                superduperTotal++;
+            }
+            else if (p1combo >= 1 && p2combo >= 1)
+            {
+                pPoint = false;
+                sCombo = true;
+                sdCombo = false;
+
+                superCombo++;
+                superTotal++;
+            }
+            else if (p1combo >= 1 && p2combo == 0 || p1combo == 0 && p2combo >= 1)
+            {
+                pPoint = true;
+                sCombo = false;
+                sdCombo = false;
+            }
+
+            p1combo = 0;
+            p2combo = 0;
+            projectileCountdown = threesecCounter;
+        }
+
+        if(comboCountdown <= 0.0f)
+        {
+            if(superCombo >= 2 || superduperCombo >= 2)
+            {
+                cStack = true;
+            }
+            else
+            {
+                cStack = false;
+            }
+            superduperCombo = 0;
+            superCombo = 0;
+            comboCountdown = tensecCounter;
         }
 
     }
