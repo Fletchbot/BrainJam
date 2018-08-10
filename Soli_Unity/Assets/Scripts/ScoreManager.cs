@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour {
     public int p1Total, p2Total, superTotal, superduperTotal;
     public float projectileCountdown, comboCountdown;
 
-    public float m_HeldScore, h_HeldScore, s_HeldScore, u_HeldScore, noG_HeldScore, HeldScoresTotal;
+    public float m_HeldScore, h_HeldScore, s_HeldScore, u_HeldScore, noG_HeldScore, ScoresTotal;
     public float m_ScorePercent, h_ScorePercent, s_ScorePercent, u_ScorePercent, noG_ScorePercent;
 
     public float sixtysecCounter, thirtysecCounter, tensecCounter, fivesecCounter, threesecCounter, twosecCounter, secCounter;
@@ -39,18 +39,18 @@ public class ScoreManager : MonoBehaviour {
     void HeldScorePercentages()
     {
         noG_HeldScore = gestureController.GetComponent<GestureController>().noG_HeldScore;
-        m_HeldScore = gestureController.GetComponent<GestureController>().m_HeldScore;
+   //     m_HeldScore = gestureController.GetComponent<GestureController>().m_HeldScore;
         h_HeldScore = gestureController.GetComponent<GestureController>().h_HeldScore;
         s_HeldScore = gestureController.GetComponent<GestureController>().s_HeldScore;
         u_HeldScore = gestureController.GetComponent<GestureController>().u_HeldScore;
 
-        HeldScoresTotal = noG_HeldScore + m_HeldScore + h_HeldScore + s_HeldScore + u_HeldScore;
+        ScoresTotal = noG_HeldScore + h_HeldScore + s_HeldScore + u_HeldScore;
 
-        noG_ScorePercent = noG_HeldScore / HeldScoresTotal * 100;
-        m_ScorePercent = m_HeldScore / HeldScoresTotal * 100;
-        h_ScorePercent = h_HeldScore / HeldScoresTotal * 100;
-        s_ScorePercent = s_HeldScore / HeldScoresTotal * 100;
-        u_ScorePercent = u_HeldScore / HeldScoresTotal * 100;
+        noG_ScorePercent = noG_HeldScore / ScoresTotal * 100;
+ //       m_ScorePercent = m_HeldScore / HeldScoresTotal * 100;
+        h_ScorePercent = h_HeldScore / ScoresTotal * 100;
+        s_ScorePercent = s_HeldScore / ScoresTotal * 100;
+        u_ScorePercent = u_HeldScore / ScoresTotal * 100;
 
     } 
 

@@ -12,11 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: 4a471372a5c62234888321ce7a8be4a5
   - enabled: 1
-    path: Assets/Scenes/Calibration_DTW_Desktop.unity
+    path: Assets/Scenes/Calibration_Desktop.unity
     guid: 64212ca11eda0554ab44f1cdc095567c
-  - enabled: 1
-    path: Assets/Scenes/GameModes/GameModeLoader.unity
-    guid: 7b32fe82ac2c37249addfd35cbd4d823
   - enabled: 1
     path: Assets/Scenes/Playtest_Volcano_Desktop.unity
     guid: 7ae6f082a4df5e8449ca07ce80f50569

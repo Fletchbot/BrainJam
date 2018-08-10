@@ -22,6 +22,8 @@ namespace Artngame.SKYMASTER
 
         public bool StartGame;
         public bool turnonLava, turnonSnow;
+        public float growLavaSnow, onStartGrow;
+        public float meltLavaSnow;
 
         public bool NoGesture, Meditate, Happy, Sad, Unsure;       
         public bool noGHeld_Reached, mHeld_Reached, hHeld_Reached, sHeld_Reached, uHeld_Reached;
@@ -30,6 +32,10 @@ namespace Artngame.SKYMASTER
         void Start()
         {
             skyManager = this.GetComponent<SkyMasterManager>();
+            onStartGrow = 1.8f;
+            growLavaSnow = 0.008f;
+            meltLavaSnow = 0.004f;
+     
         }       
         // Update is called once per frame
         void Update()
@@ -66,8 +72,8 @@ namespace Artngame.SKYMASTER
                 weatherChoice = 4;
             }
 
-            //Meditate or Happy
-            if(Meditate || Happy && !Meditate) //Sunny
+            //Meditate Happy
+            if(Meditate && !StartGame||Happy && !StartGame ||Meditate && Happy && StartGame || Happy && !Meditate && StartGame) //Sunny
             {
                 weatherChoice = 0;
             }
@@ -77,21 +83,21 @@ namespace Artngame.SKYMASTER
             {
                 weatherChoice = 6;
             }
-            else if (Sad && StartGame && !sHeld_Reached) //Rain
+            else if (Sad && StartGame && !sHeld_Reached) //Rain (both !meditate/meditate)
             {
                 weatherChoice = 1;
             }
-            else if (Sad && StartGame && sHeld_Reached) //Heavy Rain
+            else if (Sad && StartGame && sHeld_Reached) //Heavy Rain (both !meditate/meditate)
             {
                 weatherChoice = 2;
             }
 
             //Unsure
-            if (Unsure && !uHeld_Reached) //Cloudy
+            if (Unsure && StartGame && !uHeld_Reached) //Cloudy (both !meditate/meditate)
             {
                 weatherChoice = 7;
             }
-            else if (Unsure && uHeld_Reached) //Heavy Cloud
+            else if (Unsure && StartGame && uHeld_Reached) //Heavy Cloud (both !meditate/meditate)
             {
                 weatherChoice = 8;
             }
@@ -100,16 +106,22 @@ namespace Artngame.SKYMASTER
 
         void snow_lava_SW()
         {
-            float rate = 0.1f;
-
-            //LAVA
+            
+            //Eruption No Gesture State LAVA
             if (NoGesture && noGHeld_Reached && StartGame || NoGesture && !StartGame)
             {
                 turnonSnow = false;
 
                 if (shaderOffset >= -1.0f && shaderOffset <= 1.8f)
                 {
-                    shaderOffset = shaderOffset + rate;
+                    if (!StartGame)
+                    {
+                        shaderOffset = onStartGrow;
+                    }
+                    else
+                    {
+                        shaderOffset = shaderOffset + growLavaSnow;
+                    }
                 }
 
                 SnowLavaMat.SetFloat("_LightIntensity", 4.0f);
@@ -117,14 +129,14 @@ namespace Artngame.SKYMASTER
                 SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
             }
 
-            //SNOW
+            //SNOW 
             if (Sad && !StartGame) ///Add Snow when sad  + higher level states start game 
             {
                 turnonLava = false;
 
                 if (shaderOffset >= -1.0f && shaderOffset <= 1.8f)
                 {
-                    shaderOffset = shaderOffset + rate;
+                    shaderOffset = shaderOffset + growLavaSnow;
                 }
                 SnowLavaMat.SetFloat("_LightIntensity", 1.0f);
                 SnowLavaMat.SetFloat("_isLava", 0);
@@ -132,14 +144,14 @@ namespace Artngame.SKYMASTER
             }
 
             //MELT LAVA/SNOW
-            if (Happy || Meditate || Unsure || Sad && StartGame)
+            if (Meditate|| Happy || Sad && StartGame || Unsure && !NoGesture)
             {
                 turnonLava = false;
                 turnonSnow = false;
 
                 if (shaderOffset >= 0.0f)
                 {
-                    shaderOffset = shaderOffset - rate;
+                    shaderOffset = shaderOffset - meltLavaSnow;
                 }
                 else if (shaderOffset <= 0.0f)
                 {

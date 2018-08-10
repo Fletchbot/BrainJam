@@ -11,9 +11,9 @@ namespace Artngame.SKYMASTER
         public float growSpeed, ungrowSpeed;
         private float grow, ungrow;
         private Vector3 grown, ungrown;
-        private bool NoGesture, Meditate, Happy, Sad, Unsure;
-        private bool noGHeld_Reached, mHeld_Reached, hHeld_Reached, sHeld_Reached, uHeld_Reached;
-        private bool noG_sw, M_sw, H_sw, S_sw, U_sw;
+        private bool NoGesture, Happy, Sad;
+        private bool noGHeld_Reached, hHeld_Reached, sHeld_Reached;
+        private bool noGHeldOff, noGHeld_Rsw, hHeldOff, hHeld_Rsw, sHeldOff, sHeld_Rsw;
         private bool StartGame;
 
         // Use this for initialization
@@ -24,7 +24,7 @@ namespace Artngame.SKYMASTER
             grown = new Vector3(28, 300, grow);
             ungrown = new Vector3(28, 300, ungrow);
             ungrowSpeed = 60.0f;
-            growSpeed = 10.0f;
+            growSpeed = 12.0f;
             transform.position = ungrown;
         }
 
@@ -34,36 +34,17 @@ namespace Artngame.SKYMASTER
             StartGame = gc.GetComponent<GestureController>().StartGame;
 
             NoGesture = gc.GetComponent<GestureController>().NoGesture;
-            Meditate = gc.GetComponent<GestureController>().Meditate;
             Happy = gc.GetComponent<GestureController>().Happy;
             Sad = gc.GetComponent<GestureController>().Sad;
-            Unsure = gc.GetComponent<GestureController>().Unsure;
 
-            noGHeld_Reached = gc.GetComponent<GestureController>().noGHeld_Reached;
-            mHeld_Reached = gc.GetComponent<GestureController>().mHeld_Reached;
-            hHeld_Reached = gc.GetComponent<GestureController>().hHeld_Reached;
-            sHeld_Reached = gc.GetComponent<GestureController>().sHeld_Reached;
+            HeldReachedSW();
+            GrassTrigger();
+        }
 
-
-            if (noGHeld_Reached)
-            {
-                noG_sw = true;
-            }
-            if (mHeld_Reached)
-            {
-                M_sw = true;
-            }
-            if (hHeld_Reached)
-            {
-                H_sw = true;
-            }
-            if (sHeld_Reached)
-            {
-                S_sw = true;
-            }
-
-            //UNGROW GRASS
-            if (NoGesture && !StartGame || NoGesture && StartGame && noG_sw || Sad && !StartGame || Sad && StartGame && S_sw)
+        void GrassTrigger()
+        {
+            //UNGROW GRASS when nogesture or sad test or sad and sadheld
+            if (NoGesture && !StartGame || NoGesture && StartGame && noGHeld_Rsw || Sad && !StartGame || Sad && StartGame && sHeld_Rsw)
             {
                 if (transform.position.z <= grow && transform.position.z >= ungrow)
                 {
@@ -72,13 +53,13 @@ namespace Artngame.SKYMASTER
                 }
                 else
                 {
-                    S_sw = false;
-                    noG_sw = false;
-                }              
+                    sHeld_Rsw = false;
+                    noGHeld_Rsw = false;
+                }
             }
 
-            //GROW GRASS
-            if (Happy && !StartGame || Happy && H_sw && StartGame || Meditate && StartGame && M_sw)
+            //GROW GRASS when happy test or happy and happyheld
+            if (Happy && !StartGame || Happy && hHeld_Rsw && StartGame)
             {
                 if (transform.position.z <= grow && transform.position.z >= ungrow)
                 {
@@ -87,10 +68,37 @@ namespace Artngame.SKYMASTER
                 }
                 else
                 {
-                    H_sw = false;
-                    M_sw = false;
+                    hHeld_Rsw = false;
                 }
             }
         }
+
+        void HeldReachedSW()
+        {
+            noGHeld_Reached = gc.GetComponent<GestureController>().noGHeld_Reached;
+            hHeld_Reached = gc.GetComponent<GestureController>().hHeld_Reached;
+            sHeld_Reached = gc.GetComponent<GestureController>().sHeld_Reached;
+
+            if (noGHeld_Reached && !noGHeldOff)
+            {
+                noGHeld_Rsw = true;
+
+                noGHeldOff = true;
+            }
+            if (hHeld_Reached && !hHeldOff)
+            {
+                hHeld_Rsw = true;
+
+                hHeldOff = true;
+            }
+            if (sHeld_Reached && !sHeldOff)
+            {
+                sHeld_Rsw = true;
+
+                sHeldOff = true;
+            }
+
+        }
+
     }
 }

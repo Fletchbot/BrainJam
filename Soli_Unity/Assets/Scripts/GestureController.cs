@@ -26,12 +26,13 @@ public class GestureController : MonoBehaviour
     public float m_HeldScore, h_HeldScore, s_HeldScore, u_HeldScore, noG_HeldScore;
     private float m_Held, h_Held, s_Held, noG_Held, u_Held, HeldPercentage;   
     private bool intro_sw, mTest_sw;
-
+    [Header("Game Settings")]
+    public float mTarget, fTarget, eTarget;
     [Header("Timer Section")]
     public float standaloneCountdown, standaloneCounter;
     public float noGestureCountdown, heldCountdown, meditateCountdown, focusCountdown;
     public float unsureCountdown, happyCountdown, sadCountdown;
-    private float sixtysecCounter, thirtysecCounter, tensecCounter, fivesecCounter, threesecCounter, twosecCounter, secCounter;
+    private float sixtysecCounter, thirtysecCounter, tensecCounter, fivesecCounter, foursecCounter, threesecCounter, twosecCounter, secCounter;
     public int state;
 
     private System.Random randomizer;
@@ -56,6 +57,7 @@ public class GestureController : MonoBehaviour
             thirtysecCounter = 30.0f;
             tensecCounter = 10.0f;
             fivesecCounter = 5.0f;
+            foursecCounter = 4.0f;
             threesecCounter = 3.0f;
             twosecCounter = 2.0f;
             secCounter = 1.0f;
@@ -67,13 +69,17 @@ public class GestureController : MonoBehaviour
             happyCountdown = twosecCounter;
             sadCountdown = twosecCounter;
 
-            heldCountdown = threesecCounter;
-            HeldPercentage = 1.7f;
+            heldCountdown = foursecCounter;
+            HeldPercentage = 2.2f;
             noG_Held = HeldPercentage;
             m_Held = HeldPercentage;
             h_Held = HeldPercentage;
             s_Held = HeldPercentage;
             u_Held = HeldPercentage;
+
+            mTarget = 5.0f;
+            fTarget = 2.5f;
+            eTarget = 3.0f;
         }
     }
     // Update is called once per frame
@@ -169,14 +175,14 @@ public class GestureController : MonoBehaviour
         {
             NoG_Enable();
 
-            Invoke("InvokeMeditateTest", 20.0f);
+            Invoke("InvokeMeditateTest", 10.0f);
             intro_sw = true;
             Debug.Log("IntroState");
         }
         //Meditate
-        if (StartGame && isMeditate && !M_sw && !heldTimeout || MeditateTest && isMeditate && !MeditationTested && !heldTimeout)
+        if (StartGame && isMeditate && !M_sw && !heldTimeout || MeditateTest && isMeditate && !MeditationTested)
         {
-            if (!mTest_sw) Invoke("InvokeEmotionTest", 20.0f);
+            if (!mTest_sw) Invoke("InvokeEmotionTest", 10.0f);
             if (!MeditationTested)
             {
                 noGestureCountdown = sixtysecCounter;
@@ -190,10 +196,10 @@ public class GestureController : MonoBehaviour
 
             M_Enable();
 
-            heldCountdown = threesecCounter;
+           // heldCountdown = foursecCounter;
             m_Held = HeldPercentage;
-            mindStateTimeOut = true;
-            heldTimeout = true;
+           // mindStateTimeOut = true;
+          //  heldTimeout = true;
 
             Debug.Log("MeditateState");
 
@@ -223,7 +229,7 @@ public class GestureController : MonoBehaviour
 
             H_Enable();
 
-            heldCountdown = threesecCounter;
+            heldCountdown = foursecCounter;
             h_Held = HeldPercentage;
             mindStateTimeOut = true;
             heldTimeout = true;
@@ -255,7 +261,7 @@ public class GestureController : MonoBehaviour
 
             S_Enable();
 
-            heldCountdown = threesecCounter;
+            heldCountdown = foursecCounter;
             s_Held = HeldPercentage;
             mindStateTimeOut = true;
             heldTimeout = true;
@@ -272,14 +278,12 @@ public class GestureController : MonoBehaviour
             hHeld_Reached = false;
             uHeld_Reached = false;
         }
-        //Unsure !Meditate
-        if (StartGame && isUnsure && !isMeditate && !U_sw && !heldTimeout)
-        {
-            noGestureCountdown = thirtysecCounter;
-          
+        //Unsure
+        if (StartGame && isUnsure && !U_sw && !heldTimeout)
+        {                  
             U_Enable();
 
-            heldCountdown = threesecCounter;
+            heldCountdown = foursecCounter;
             u_Held = HeldPercentage;
             mindStateTimeOut = true;
             heldTimeout = true;
@@ -305,7 +309,7 @@ public class GestureController : MonoBehaviour
             {
                 NoG_Enable();
 
-                heldCountdown = threesecCounter;
+                heldCountdown = foursecCounter;
                 noG_Held = HeldPercentage;
                 heldTimeout = true;
 
@@ -325,13 +329,13 @@ public class GestureController : MonoBehaviour
 
         if (isFocus)
         {
-            Debug.Log("Focused");
+          //  Debug.Log("Focused");
         }
     }
 
     public void HeldState()
     {
-        if (heldTimeout) //  3 secs in one state
+        if (heldTimeout) //  5 secs in one state
         {
             if (heldCountdown <= 0.0f)
             {
@@ -344,6 +348,22 @@ public class GestureController : MonoBehaviour
                 {
                     mHeld_Reached = true;
                     m_Held = HeldPercentage;
+                    
+                    if(u_Held <= 0.0f)
+                    {
+                        uHeld_Reached = true;
+                        u_Held = HeldPercentage;
+                    }
+                    if(h_Held <= 0.0f)
+                    {
+                        hHeld_Reached = true;
+                        h_Held = HeldPercentage;
+                    }
+                    if(s_Held <= 0.0f)
+                    {
+                        sHeld_Reached = true;
+                        s_Held = HeldPercentage;
+                    }
                     mindStateTimeOut = false;
                 }
                 else if (h_Held <= 0.0f)
@@ -372,11 +392,11 @@ public class GestureController : MonoBehaviour
                     heldTimeout = false;
                 }
 
-                heldCountdown = threesecCounter;
+                heldCountdown = foursecCounter;
             }
             else
             {
-                if (NoGesture && !isMeditate && !isHappy && !isSad && !isUnsure)
+                if (NoGesture && !isMeditate && !isHappy && !isSad)
                 {
                     noG_Held -= Time.deltaTime;
                     noG_HeldScore += Time.deltaTime;
@@ -386,17 +406,20 @@ public class GestureController : MonoBehaviour
                     m_Held -= Time.deltaTime;
                     m_HeldScore += Time.deltaTime;
                 }
-                else if (Happy && isHappy)
+
+                if (Happy && isHappy)
                 {
                     h_Held -= Time.deltaTime;
                     h_HeldScore += Time.deltaTime;
                 }
-                else if (Sad && isSad)
+
+                if (Sad && isSad)
                 {
                     s_Held -= Time.deltaTime;
                     s_HeldScore += Time.deltaTime;
                 }
-                else if (Unsure && isUnsure)
+
+                if (Unsure && isUnsure)
                 {
                     u_Held -= Time.deltaTime;
                     u_HeldScore += Time.deltaTime;
@@ -409,20 +432,19 @@ public class GestureController : MonoBehaviour
 
     public void MeditateStates()
     {
-        if (wek_mFloat <= 6.5f)
+        if (wek_mFloat <= mTarget)
         {
             if (meditateCountdown <= 0.0f)
             {
                 isMeditate = true;
                 meditateCountdown = threesecCounter;
-                Debug.Log("isMeditate");
             }
             else
             {
                 meditateCountdown -= Time.deltaTime;
             }
         }
-        else if (wek_mFloat >= 7.5f)
+        else if (wek_mFloat >= (mTarget + 1.0f))
         {
             if (meditateCountdown <= 1.0f)
             {
@@ -439,13 +461,12 @@ public class GestureController : MonoBehaviour
 
     public void FocusStates()
     {
-        if (wek_fFloat <= 2.5f)
+        if (wek_fFloat <= fTarget)
         {
             if (focusCountdown <= 0.0f)
             {
                 isFocus = true;
                 focusCountdown = secCounter;
-                Debug.Log("isFocus");
             }
             else
             {
@@ -462,50 +483,48 @@ public class GestureController : MonoBehaviour
     public void EmotionStates()
     {
         //HAPPY
-        if (wek_hFloat <= 2.5f && !isSad)
+        if (wek_hFloat <= eTarget && wek_sFloat >= eTarget)
         {
             if (happyCountdown <= 0.0f)
             {
                 isHappy = true;
                 happyCountdown = twosecCounter;
-                Debug.Log("isHappy");
             }
             else
             {
                 happyCountdown -= Time.deltaTime;
             }
         }
-        else if (wek_hFloat >= 3.5f && !isUnsure)
+        else if (wek_hFloat >= (eTarget + 1.0f))
         {
             happyCountdown = twosecCounter;
             isHappy = false;
         }
 
         //SAD
-        if (wek_sFloat <= 2.5f && !isHappy)
+        if (wek_sFloat <= eTarget && wek_hFloat >= eTarget)
         {
             if (sadCountdown <= 0.0f)
             {
                 isSad = true;
                 sadCountdown = twosecCounter;
-                Debug.Log("isSad");
             }
             else
             {
                 sadCountdown -= Time.deltaTime;
             }
         }
-        else if (wek_sFloat >= 3.5f && !isUnsure)
+        else if (wek_sFloat >= (eTarget + 1.0f))
         {
             sadCountdown = twosecCounter;
             isSad = false;
         }
 
         //UNSURE
-        if (!isHappy && !isSad && !isUnsure)
+        if (!isHappy && !isSad && !isUnsure || wek_hFloat >= (eTarget+0.1f) && wek_sFloat >= (eTarget + 0.1f) && wek_hFloat <= (eTarget + 0.6f) && wek_sFloat <= (eTarget + 0.6f))
         {
             isUnsure = true;
-        } else if (isHappy || isSad && isUnsure)
+        } else if (isHappy && isUnsure || isSad && isUnsure)
         {
             isUnsure = false;
         }
@@ -583,14 +602,11 @@ public class GestureController : MonoBehaviour
     {
         NoGesture = false;
         Meditate = true;
-        Happy = false;
-        Sad = false;
-        Unsure = false;
     }
     private void H_Enable()
     {
         NoGesture = false;
-        Meditate = false;
+       if(!isMeditate) Meditate = false;
         Happy = true;
         Sad = false;
         Unsure = false;
@@ -598,7 +614,7 @@ public class GestureController : MonoBehaviour
     private void S_Enable()
     {
         NoGesture = false;
-        Meditate = false;
+       if(!isMeditate) Meditate = false;
         Happy = false;
         Sad = true;
         Unsure = false;
@@ -606,7 +622,7 @@ public class GestureController : MonoBehaviour
     private void U_Enable()
     {
         NoGesture = false;
-        Meditate = false;
+       if(!Meditate) Meditate = false;
         Happy = false;
         Sad = false;
         Unsure = true;

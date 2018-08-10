@@ -36,7 +36,7 @@ public class Wekinator_Calibration : MonoBehaviour
         halfEpoch = 15.0f;
         fullEpoch = 30.0f;
         counter = waitEpoch;
-        sceneLoader = 3;
+        sceneLoader = 2;
     }
 
     public void Update()
@@ -192,7 +192,7 @@ public class Wekinator_Calibration : MonoBehaviour
         { 
             if (statechange)
             {
-                if (_MF || _FE || _All)
+                if (_MF || _All)
                 {
                     CalAudio[1].GetComponent<AudioSource>().Play();
                     CalAudio[16].GetComponent<AudioSource>().Play();
@@ -201,7 +201,7 @@ public class Wekinator_Calibration : MonoBehaviour
                     NarratorIconsSW();
 
                 }
-                else if (_F)
+                else if (_F || _FE)
                 {
                     CalAudio[1].GetComponent<AudioSource>().Play();
                     CalAudio[17].GetComponent<AudioSource>().Play();
@@ -210,50 +210,32 @@ public class Wekinator_Calibration : MonoBehaviour
                     NarratorIconsSW();
 
                 }
-                else if (_All)
-                {
-                    CalAudio[1].GetComponent<AudioSource>().Play();
-                    CalAudio[9].GetComponent<AudioSource>().Play();
-                    epochStart = 0;
-
-                    NarratorIconsSW();
-                }
             }
 
             if (isPaused == true && resume == false)
             {
-                if (_ME || _FE)
+                if (_MF || _All)
                 {
                     CalAudio[16].GetComponent<AudioSource>().Pause();
                     pauseIconSW();
                 }
-                else if (_F)
+                else if (_F || _FE)
                 {
                     CalAudio[17].GetComponent<AudioSource>().Pause();
-                    pauseIconSW();
-                }
-                else if (_All)
-                {
-                    CalAudio[9].GetComponent<AudioSource>().Pause();
                     pauseIconSW();
                 }
 
             }
             else if (resume == true && isPaused == true)
             {
-                if (_ME || _FE)
+                if (_MF || _All)
                 {
                     CalAudio[16].GetComponent<AudioSource>().Play();
                     resumeIconSW();
                 }
-                else if (_F)
+                else if (_F || _FE)
                 {
                     CalAudio[17].GetComponent<AudioSource>().Play();
-                    resumeIconSW();
-                }
-                else if (_All)
-                {
-                    CalAudio[9].GetComponent<AudioSource>().Play();
                     resumeIconSW();
                 }
             }

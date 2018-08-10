@@ -49,7 +49,7 @@ public class ParticleToggle : MonoBehaviour
         var S_em = Smoke.GetComponent<ParticleSystem>().emission.enabled;
         var P_em = PeekABooLava.GetComponent<ParticleSystem>().emission.enabled;
 
-        if (NoGesture || Unsure)
+        if (NoGesture)
         {
             if (!G_sw)
             {
@@ -78,6 +78,8 @@ public class ParticleToggle : MonoBehaviour
                     Eruption.GetComponent<ParticleSystem>().Play();
                     Lava.GetComponent<ParticleSystem>().Play();
                     BubblingLava.GetComponent<ParticleSystem>().Play();
+
+                    G_sw = true;
                 }
                 else if (!StartGame) //Test Eruption
                 {
@@ -88,10 +90,11 @@ public class ParticleToggle : MonoBehaviour
                     Eruption.GetComponent<ParticleSystem>().Play();
                     Lava.GetComponent<ParticleSystem>().Play();
                     BubblingLava.GetComponent<ParticleSystem>().Play();
+
+                    G_sw = true;
                 }
 
                 S_sw = false;
-                G_sw = true;
                 H_sw = false;
                 M_sw = false;
             }        
@@ -126,12 +129,13 @@ public class ParticleToggle : MonoBehaviour
                     PeekABooColor2.startColor = new ParticleSystem.MinMaxGradient(orange, Color.red);
 
                     PeekABooLava.GetComponent<ParticleSystem>().Play();
+
+                    M_sw = true;
                 }
 
                 S_sw = false;
                 G_sw = false;
                 H_sw = false;
-                M_sw = true;
             }
         }
 
@@ -165,9 +169,9 @@ public class ParticleToggle : MonoBehaviour
 
                     Smoke.GetComponent<ParticleSystem>().Stop();
                     PeekABooLava.GetComponent<ParticleSystem>().Play();
-                }
 
-                H_sw = true;
+                    H_sw = true;
+                }
                 S_sw = false;
                 G_sw = false;
                 M_sw = false;
@@ -204,9 +208,10 @@ public class ParticleToggle : MonoBehaviour
 
                     Smoke.GetComponent<ParticleSystem>().Stop();
                     PeekABooLava.GetComponent<ParticleSystem>().Play();
+
+                    S_sw = true;
                 }
 
-                S_sw = true;
                 G_sw = false;
                 H_sw = false;
                 M_sw = false;

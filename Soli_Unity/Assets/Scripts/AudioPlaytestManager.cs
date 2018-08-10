@@ -163,7 +163,7 @@ public class AudioPlaytestManager : MonoBehaviour
     }
     public void DroneEnable()
     {
-        DroneSynth.AllNotesOff();
+      /*  DroneSynth.AllNotesOff();
 
         for (int i = 0; i < chords.Length; i++)
         {
@@ -193,11 +193,11 @@ public class AudioPlaytestManager : MonoBehaviour
                         break;
                 }
             }
-        }
+        } */
     }
     public void BassEnable()
     {
-        BassSeq.Clear();
+    /*    BassSeq.Clear();
         for (int i = 0; i < chords.Length; i++)
         {
             if (chords[i])
@@ -249,8 +249,9 @@ public class AudioPlaytestManager : MonoBehaviour
                         break;
                 }
             }
-        }
+        }*/
     }
+    /*
     public void BassGameEnable()
     {  
      //   p1Destroyed = GC.GetComponent<GestureController>().p1Destroyed;
@@ -291,6 +292,7 @@ public class AudioPlaytestManager : MonoBehaviour
         }
  
     }
+    */
     public void DroneDisable()
     {
         DroneSynth.AllNotesOff();
@@ -494,7 +496,7 @@ public class AudioPlaytestManager : MonoBehaviour
                 sw_BassGameEnable = true;
             }
             
-            BassGameEnable();
+     //       BassGameEnable();
         }
     }
     public void NarratorUpdate()
@@ -520,13 +522,13 @@ public class AudioPlaytestManager : MonoBehaviour
             startPlaytest = false;
         }
 
-        if (N_EmotionComplete == 2)
+  /*      if (N_EmotionComplete == 2)
         {
             NarratorClips[2].GetComponent<AudioSource>().Play();
             NarratorClips[1].GetComponent<AudioSource>().Stop();
             N_EmotionComplete = 3;
             startPlaytest = false;
-        }
+        } */
     }
 
 }
