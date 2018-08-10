@@ -14,8 +14,9 @@ namespace UniOSC
     public class UniOSCWekOutputReceiver : UniOSCEventTarget
     {
         public string[] addressArray;
-        public float meditateFloat, focusFloat, emotions, instruments, happyFloat, sadFloat, unsureFloat, instr1Float, instr2Float, noInstrFloat;
-        public bool isMeditate, isFocus;
+        
+        public bool isMeditate, isFocus, isHappy, isSad;
+        public float meditateFloat, focusFloat, emotions, happyFloat, sadFloat, unsureFloat;
 
         public static UniOSCWekOutputReceiver main;
 
@@ -62,44 +63,49 @@ namespace UniOSC
 
             if (addressArray != null)
                 {
-                if (String.Equals(args.Address, addressArray[0]))
+                if (String.Equals(args.Address, addressArray[0])) //dtwMeditate
                     {
-                            meditateFloat = (float)msg.Data[0];
+                        meditateFloat = (float)msg.Data[0];
                     }
-                if (String.Equals(args.Address, addressArray[1]))
+                if (String.Equals(args.Address, addressArray[1])) //meditate bool
                     {
                         isMeditate = true;
                         Invoke("mSwitch", 0.3f);
                     }
 
-                if (String.Equals(args.Address, addressArray[2]))
+                if (String.Equals(args.Address, addressArray[2])) //dtwFocus
                 {
-
-                    emotions = (float)msg.Data[0];
-                    instruments = (float)msg.Data[1];
-
+                    focusFloat = (float)msg.Data[0];
                 }
-                if (String.Equals(args.Address, addressArray[3]))
+                if (String.Equals(args.Address, addressArray[3])) //focus bool
+                {
+                    isFocus = true;
+                    Invoke("fSwitch", 0.3f);
+                }
+                if (String.Equals(args.Address, addressArray[4])) //svm emotions
+                {
+                    emotions = (float)msg.Data[0];
+                }
+                if (String.Equals(args.Address, addressArray[5])) //svm_emotion floats
                 {
                     unsureFloat = (float)msg.Data[0];
                     happyFloat = (float)msg.Data[1];
                     sadFloat = (float)msg.Data[2];
-
                 }
-                if (String.Equals(args.Address, addressArray[4]))
+                if (String.Equals(args.Address, addressArray[6])) //dtw emotions
                 {
-                    noInstrFloat = (float)msg.Data[0];
-                    instr1Float = (float)msg.Data[1];
-                    instr2Float = (float)msg.Data[2];
+                    happyFloat = (float)msg.Data[0];
+                    sadFloat = (float)msg.Data[1];
                 }
-                if (String.Equals(args.Address, addressArray[5]))
+                if (String.Equals(args.Address, addressArray[7])) //dtw happy bool
                 {
-                    focusFloat = (float)msg.Data[0];
+                    isHappy = true;
+                    Invoke("hSwitch", 0.3f);
                 }
-                if (String.Equals(args.Address, addressArray[6]))
+                if (String.Equals(args.Address, addressArray[8])) //dtw sad bool
                 {
-                    isFocus = true;
-                    Invoke("fSwitch", 0.3f);
+                    isSad = true;
+                    Invoke("sSwitch", 0.3f);
                 }
 
             }
@@ -113,5 +119,17 @@ namespace UniOSC
         {
             if (isFocus == true) isFocus = false;
         }
+
+        void hSwitch()
+        {
+            if (isHappy == true) isHappy = false;
+
+        }
+        void sSwitch()
+        {
+            if (isSad == true) isSad = false;
+
+        }
+
     }
 }

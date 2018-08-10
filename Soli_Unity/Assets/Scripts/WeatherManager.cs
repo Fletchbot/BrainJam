@@ -14,35 +14,145 @@ namespace Artngame.SKYMASTER
 
         public bool affectFog = false;
         public bool affectFogParams = false;
+        public string currentWeather;//for debug purposes
+        public float cloudDensityChangeSpeed = 1;
+        int weatherChoice = -1;
 
-        public bool isLava;
         public float shaderOffset;
 
-        public bool NoGesture, Mediate, Happy, Sad; 
+        public bool StartGame;
+        public bool turnonLava, turnonSnow;
+
+        public bool NoGesture, Meditate, Happy, Sad, Unsure;       
+        public bool noGHeld_Reached, mHeld_Reached, hHeld_Reached, sHeld_Reached, uHeld_Reached;
+
         // Use this for initialization
         void Start()
         {
             skyManager = this.GetComponent<SkyMasterManager>();
-
-        }
-
-        public string currentWeather;//for debug purposes
-
-        public float cloudDensityChangeSpeed = 1;
-
-        int weatherChoice = -1;
-        
-
+        }       
         // Update is called once per frame
         void Update()
         {
+            StartGame = gestureController.GetComponent<GestureController>().StartGame;
+
             NoGesture = gestureController.GetComponent<GestureController>().NoGesture;
-            Mediate = gestureController.GetComponent<GestureController>().Mediate;
+            Meditate = gestureController.GetComponent<GestureController>().Meditate;
+
             Happy = gestureController.GetComponent<GestureController>().Happy;
             Sad = gestureController.GetComponent<GestureController>().Sad;
+            Unsure = gestureController.GetComponent<GestureController>().Unsure;
+            
+            noGHeld_Reached = gestureController.GetComponent<GestureController>().noGHeld_Reached;
+            mHeld_Reached = gestureController.GetComponent<GestureController>().mHeld_Reached;
+            hHeld_Reached = gestureController.GetComponent<GestureController>().hHeld_Reached;
+            sHeld_Reached = gestureController.GetComponent<GestureController>().sHeld_Reached;
+            uHeld_Reached = gestureController.GetComponent<GestureController>().uHeld_Reached;
 
+            SkymasterWeather();
             StateSwitch();
             snow_lava_SW();
+        }
+
+        void StateSwitch()
+        {
+            //No Gesture Timeout
+            if (NoGesture && StartGame && !noGHeld_Reached) //Storm
+            {
+                weatherChoice = 3;
+            }
+            else if (NoGesture && StartGame && noGHeld_Reached || NoGesture && !StartGame) // Heavy Storm
+            {
+                weatherChoice = 4;
+            }
+
+            //Meditate or Happy
+            if(Meditate || Happy && !Meditate) //Sunny
+            {
+                weatherChoice = 0;
+            }
+
+            //Sad
+            if (Sad && !StartGame) //Heavy Snow Storm
+            {
+                weatherChoice = 6;
+            }
+            else if (Sad && StartGame && !sHeld_Reached) //Rain
+            {
+                weatherChoice = 1;
+            }
+            else if (Sad && StartGame && sHeld_Reached) //Heavy Rain
+            {
+                weatherChoice = 2;
+            }
+
+            //Unsure
+            if (Unsure && !uHeld_Reached) //Cloudy
+            {
+                weatherChoice = 7;
+            }
+            else if (Unsure && uHeld_Reached) //Heavy Cloud
+            {
+                weatherChoice = 8;
+            }
+
+        }
+
+        void snow_lava_SW()
+        {
+            float rate = 0.1f;
+
+            //LAVA
+            if (NoGesture && noGHeld_Reached && StartGame || NoGesture && !StartGame)
+            {
+                turnonSnow = false;
+
+                if (shaderOffset >= -1.0f && shaderOffset <= 1.8f)
+                {
+                    shaderOffset = shaderOffset + rate;
+                }
+
+                SnowLavaMat.SetFloat("_LightIntensity", 4.0f);
+                SnowLavaMat.SetFloat("_isLava", 1);
+                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
+            }
+
+            //SNOW
+            if (Sad && !StartGame) ///Add Snow when sad  + higher level states start game 
+            {
+                turnonLava = false;
+
+                if (shaderOffset >= -1.0f && shaderOffset <= 1.8f)
+                {
+                    shaderOffset = shaderOffset + rate;
+                }
+                SnowLavaMat.SetFloat("_LightIntensity", 1.0f);
+                SnowLavaMat.SetFloat("_isLava", 0);
+                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
+            }
+
+            //MELT LAVA/SNOW
+            if (Happy || Meditate || Unsure || Sad && StartGame)
+            {
+                turnonLava = false;
+                turnonSnow = false;
+
+                if (shaderOffset >= 0.0f)
+                {
+                    shaderOffset = shaderOffset - rate;
+                }
+                else if (shaderOffset <= 0.0f)
+                {
+                    SnowLavaMat.SetFloat("_isLava", 0);
+                }
+
+                SnowLavaMat.SetFloat("_LightIntensity", 1.0f);
+                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
+            }
+        }
+
+        void SkymasterWeather()
+        {
             //NOTE removed +0.1 modifier in shader volume clouds script (v3.4.8) for slower changes in cloud coloration transitions
 
             float Speed1 = 0.1f;
@@ -70,12 +180,12 @@ namespace Artngame.SKYMASTER
                         terrainControl.VFogDistance = 12;
                     }
 
-                    if (weatherChoice == 0)
+                    if (weatherChoice == 0 || weatherChoice == 7)
                     {
                         terrainControl.fogDensity = Mathf.Lerp(terrainControl.fogDensity, 0.1f, Speed1 * Time.deltaTime); //for light rain, light snow
                         terrainControl.AddFogHeightOffset = Mathf.Lerp(terrainControl.AddFogHeightOffset, 700, Speed1 * Time.deltaTime);
                     }
-                    if (weatherChoice == 1 || weatherChoice == 5)
+                    if (weatherChoice == 1 || weatherChoice == 5 || weatherChoice == 8)
                     {
                         terrainControl.fogDensity = Mathf.Lerp(terrainControl.fogDensity, 0.5f, Speed1 * Time.deltaTime); //for  rain,  snow
                         terrainControl.AddFogHeightOffset = Mathf.Lerp(terrainControl.AddFogHeightOffset, 700, Speed1 * Time.deltaTime);
@@ -163,67 +273,29 @@ namespace Artngame.SKYMASTER
                 skyManager.WeatherSeverity = 10;
                 currentWeather = "Heavy Snow Storm";
             }
+            if (weatherChoice == 7)
+            {
+                skyManager.currentWeatherName = SkyMasterManager.Volume_Weather_types.FlatClouds;
+                if (skyManager.VolShaderCloudsH != null)
+                {
+                    skyManager.VolShaderCloudsH.ClearDayCoverage = Mathf.Lerp(skyManager.VolShaderCloudsH.ClearDayCoverage, -0.45f, speed); // -0.55f;
+                }
+                skyManager.WeatherSeverity = 4;
+                currentWeather = "Light Cloud";
+            }
+            if (weatherChoice == 8)
+            {
+                skyManager.currentWeatherName = SkyMasterManager.Volume_Weather_types.Cloudy;
+                if (skyManager.VolShaderCloudsH != null)
+                {
+                    skyManager.VolShaderCloudsH.ClearDayCoverage = Mathf.Lerp(skyManager.VolShaderCloudsH.ClearDayCoverage, -0.25f, speed * 2); // -0.55f;
+                }
+                skyManager.WeatherSeverity = 6;
+                currentWeather = "Heavy Cloud";
+            }
 
         }
 
-        void StateSwitch()
-        {
-            if (NoGesture) //Voclano Erupt
-            {
-                isLava = true;
-                weatherChoice = 4;
-            }
-            else if (Mediate) //Sunset
-            {
-                weatherChoice = 0;
-            }
-            else if (Happy) // Midday Sun
-            {
-                weatherChoice = 0;
 
-            }
-            else if (Sad) //Winter Night
-            {
-                isLava = false;
-                weatherChoice = 6;
-            }
-        }
-
-        void snow_lava_SW()
-        {
-            float rate = 0.006f;
-            if (NoGesture == true && isLava == true)
-            {
-                if (shaderOffset >= -1.0f && shaderOffset <= 1.8f)
-                {
-                    shaderOffset = shaderOffset + rate;
-                }
-                SnowLavaMat.SetFloat("_LightIntensity", 4.0f);
-                SnowLavaMat.SetFloat("_isLava", 1);
-                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
-            }
-            else if (Sad == true && isLava == false)
-            {
-                if (shaderOffset >= -1.0f && shaderOffset <= 1.8f)
-                {
-                    shaderOffset = shaderOffset + rate;
-                }
-                SnowLavaMat.SetFloat("_LightIntensity", 1.0f);
-                SnowLavaMat.SetFloat("_isLava", 0);
-                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
-
-            } else if (Happy || Mediate)
-            {
-                if (shaderOffset >= 0.0f)
-                {
-                    shaderOffset = shaderOffset - rate;
-                } else if (shaderOffset <= 0.0f)
-                {
-                    SnowLavaMat.SetFloat("_isLava", 0);
-                }
-                SnowLavaMat.SetFloat("_LightIntensity", 1.0f);
-                SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
-            }
-        }
     }
 }

@@ -27,6 +27,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1157129032226632
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4405785096732462}
+  - component: {fileID: 33742939840338428}
+  - component: {fileID: 65078642619837060}
+  - component: {fileID: 114661909790353744}
+  m_Layer: 0
+  m_Name: CenterBoxCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1181398330987554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4250467720259016}
+  - component: {fileID: 114209213469723894}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1194675384530878
 GameObject:
   m_ObjectHideFlags: 0
@@ -39,8 +73,6 @@ GameObject:
   - component: {fileID: 114671416138875238}
   - component: {fileID: 114912913648083306}
   - component: {fileID: 114895742605438436}
-  - component: {fileID: 114714480297679044}
-  - component: {fileID: 114412949770086342}
   m_Layer: 0
   m_Name: MuseMonitorOSCManager
   m_TagString: Untagged
@@ -61,6 +93,24 @@ GameObject:
   - component: {fileID: 114848100981161472}
   m_Layer: 0
   m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1372839408471898
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4727569946917474}
+  - component: {fileID: 33563123491724724}
+  - component: {fileID: 65125329280128754}
+  - component: {fileID: 114122709912732346}
+  m_Layer: 0
+  m_Name: RightBoxCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,6 +164,41 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1510699637347120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4272182917813384}
+  - component: {fileID: 114873585784237832}
+  - component: {fileID: 114100565651984664}
+  m_Layer: 0
+  m_Name: ScreenBoxCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!1 &1527849273635954
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4128014126472892}
+  - component: {fileID: 33730102102897608}
+  - component: {fileID: 65740951498921332}
+  - component: {fileID: 114755682194413382}
+  m_Layer: 0
+  m_Name: LeftBoxCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1680453562906662
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1895371918826178
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +247,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1901305228413820
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,13 +289,15 @@ Transform:
   m_LocalPosition: {x: 211, y: 169, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4634132116793054}
-  - {fileID: 4673461006791450}
   - {fileID: 4107097809280448}
-  - {fileID: 4216231371795394}
   - {fileID: 4439032464604826}
   - {fileID: 4347423904017722}
+  - {fileID: 4634132116793054}
+  - {fileID: 4250467720259016}
+  - {fileID: 4673461006791450}
   - {fileID: 4855641665633898}
+  - {fileID: 4272182917813384}
+  - {fileID: 4216231371795394}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -238,7 +325,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4001897702084742}
-  m_RootOrder: 2
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4128014126472892
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1527849273635954}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 17.3, y: -8.980255, z: 52.575}
+  m_LocalScale: {x: 30, y: 125, z: 125}
+  m_Children: []
+  m_Father: {fileID: 4272182917813384}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4216231371795394
 Transform:
@@ -251,7 +351,36 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4001897702084742}
-  m_RootOrder: 3
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4250467720259016
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1181398330987554}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4001897702084742}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4272182917813384
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1510699637347120}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -210.08086, y: 192.7, z: -78.875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4128014126472892}
+  - {fileID: 4405785096732462}
+  - {fileID: 4727569946917474}
+  m_Father: {fileID: 4001897702084742}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4347423904017722
 Transform:
@@ -264,7 +393,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4001897702084742}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4396145690015908
 Transform:
@@ -279,6 +408,19 @@ Transform:
   m_Father: {fileID: 4855641665633898}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 120, z: -45}
+--- !u!4 &4405785096732462
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1157129032226632}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 40.02, y: -8.980255, z: 52.575}
+  m_LocalScale: {x: 15, y: 125, z: 125}
+  m_Children: []
+  m_Father: {fileID: 4272182917813384}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4439032464604826
 Transform:
   m_ObjectHideFlags: 1
@@ -290,7 +432,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4001897702084742}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4634132116793054
 Transform:
@@ -303,7 +445,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4001897702084742}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4673461006791450
 Transform:
@@ -316,7 +458,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4001897702084742}
-  m_RootOrder: 1
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4727569946917474
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1372839408471898}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 62.6, y: -8.980255, z: 52.575}
+  m_LocalScale: {x: 30, y: 125, z: 125}
+  m_Children: []
+  m_Father: {fileID: 4272182917813384}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4855641665633898
 Transform:
@@ -341,32 +496,82 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1437403097001994}
   m_LocalRotation: {x: -0, y: 0.38429528, z: -0, w: 0.92321026}
-  m_LocalPosition: {x: 0.47961044, y: -10.279999, z: 15.400002}
+  m_LocalPosition: {x: -5.8, y: -10.279999, z: 15.400002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4855641665633898}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 45.2, z: 0}
+--- !u!33 &33563123491724724
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1372839408471898}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33730102102897608
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1527849273635954}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33742939840338428
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1157129032226632}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65078642619837060
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1157129032226632}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65125329280128754
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1372839408471898}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65740951498921332
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1527849273635954}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114036295668662638
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1916861992535814}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee68c3f7b94ff2143827b4f3ab90070e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _oscAddress: /
-  _oscAddresses:
-  - /dtwMeditateMulti
-  - /meditateMulti
-  - /svmEmotionMulti
-  - /emotionsMulti
-  - /instrumentsMulti
-  - /dtwFocusMulti
-  - /focusMulti
+  _oscAddresses: []
   _receiveAllAddresses: 0
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 0}
@@ -377,23 +582,94 @@ MonoBehaviour:
   addressArray:
   - /dtwMeditateMulti
   - /meditateMulti
-  - /svmEmotionMulti
-  - /emotionsMulti
-  - /instrumentsMulti
   - /dtwFocusMulti
   - /focusMulti
+  - /svmEmotionsMulti
+  - /emotionsMulti
+  - /dtwEmotionsMulti
+  - /happyMulti
+  - /sadMulti
+  isMeditate: 0
+  isFocus: 0
+  isHappy: 0
+  isSad: 0
   meditateFloat: 0
   focusFloat: 0
   emotions: 0
-  instruments: 0
   happyFloat: 0
   sadFloat: 0
   unsureFloat: 0
-  instr1Float: 0
-  instr2Float: 0
-  noInstrFloat: 0
-  isMeditate: 0
-  isFocus: 0
+--- !u!114 &114100565651984664
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1510699637347120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0aacfdc7dd64ff4cbaaa63e93ab3ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deactivateOnStart: 1
+--- !u!114 &114122709912732346
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1372839408471898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0aacfdc7dd64ff4cbaaa63e93ab3ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deactivateOnStart: 1
+--- !u!114 &114209213469723894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1181398330987554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55a5fe25bcb8afe4c9c679309c9dc4e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gestureController: {fileID: 1680453562906662}
+  p1Destroyed: 0
+  p2Destroyed: 0
+  pPoint: 0
+  sCombo: 0
+  sdCombo: 0
+  cStack: 0
+  p1combo: 0
+  p2combo: 0
+  superCombo: 0
+  superduperCombo: 0
+  comboStackTotal: 0
+  p1Total: 0
+  p2Total: 0
+  superTotal: 0
+  superduperTotal: 0
+  projectileCountdown: 0
+  comboCountdown: 0
+  m_HeldScore: 0
+  h_HeldScore: 0
+  s_HeldScore: 0
+  u_HeldScore: 0
+  noG_HeldScore: 0
+  HeldScoresTotal: 0
+  m_ScorePercent: 0
+  h_ScorePercent: 0
+  s_ScorePercent: 0
+  u_ScorePercent: 0
+  noG_ScorePercent: 0
+  sixtysecCounter: 0
+  thirtysecCounter: 0
+  tensecCounter: 0
+  fivesecCounter: 0
+  threesecCounter: 0
+  twosecCounter: 0
+  secCounter: 0
 --- !u!114 &114312724209154736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -421,11 +697,13 @@ MonoBehaviour:
   _oscAddresses:
   - /dtwMeditate
   - /meditate
-  - /svm
-  - /emotions
-  - /instruments
   - /dtwFocus
   - /focus
+  - /svmEmotions
+  - /emotions
+  - /dtwEmotions
+  - /happy
+  - /sad
   _receiveAllAddresses: 0
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 0}
@@ -436,43 +714,23 @@ MonoBehaviour:
   addressArray:
   - /dtwMeditate
   - /meditate
-  - /svm
-  - /emotions
-  - /instruments
   - /dtwFocus
   - /focus
+  - /svmEmotions
+  - /emotions
+  - /dtwEmotions
+  - /happy
+  - /sad
+  isMeditate: 0
+  isFocus: 0
+  isHappy: 0
+  isSad: 0
   meditateFloat: 0
   focusFloat: 0
   emotions: 0
-  instruments: 0
   happyFloat: 0
   sadFloat: 0
   unsureFloat: 0
-  instr1Float: 0
-  instr2Float: 0
-  noInstrFloat: 0
-  isMeditate: 0
-  isFocus: 0
---- !u!114 &114412949770086342
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1194675384530878}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sendInterval: 100
-  _oscOutAddress: /eeg
-  _oscOutIPAddress: 192.168.0.7
-  _oscOutPort: 6448
-  _useExplicitConnection: 1
-  _explicitConnection: {fileID: 0}
-  _drawDefaultInspector: 1
-  _myOSCConnections: []
-  MuseMonitor: {fileID: 1194675384530878}
 --- !u!114 &114461923321777720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -484,7 +742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4523c7fdabb34f9409d34ca7b912169e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerText: {fileID: 0}
   GC: {fileID: 1680453562906662}
   NarratorClips:
   - {fileID: 0}
@@ -500,6 +757,7 @@ MonoBehaviour:
   BassSeq: {fileID: 0}
   synthMixer: {fileID: 24100000, guid: 4737e585e1cc5cd4cb8af6cbf21295cf, type: 2}
   chords: 000000
+  noteSustain: 10
 --- !u!114 &114540276106397690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -670,6 +928,8 @@ MonoBehaviour:
   AllValues: 1
   ReceiveEEG: 0
   XYZ: 1
+  deltaWek: 0
+  Delta_Address: /muse/elements/delta_absolute
   Theta_Address: /muse/elements/theta_absolute
   Alpha_Address: /muse/elements/alpha_absolute
   Beta_Address: /muse/elements/beta_absolute
@@ -726,16 +986,18 @@ MonoBehaviour:
   theta_abs: 0
   beta_abs: 0
   gamma_abs: 0
-  theta_beta_abs: 0
-  alpha_theta_abs: 0
-  tb_abs0: 0
-  tb_abs1: 0
-  tb_abs2: 0
-  tb_abs3: 0
-  at_abs0: 0
-  at_abs1: 0
-  at_abs2: 0
-  at_abs3: 0
+--- !u!114 &114661909790353744
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1157129032226632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0aacfdc7dd64ff4cbaaa63e93ab3ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deactivateOnStart: 1
 --- !u!114 &114671416138875238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -749,7 +1011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sendInterval: 100
   _oscOutAddress: /eeg
-  _oscOutIPAddress: 127.0.0.1
+  _oscOutIPAddress: 192.168.0.7
   _oscOutPort: 6448
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 0}
@@ -757,26 +1019,18 @@ MonoBehaviour:
   _myOSCConnections:
   - {fileID: 0}
   MuseMonitor: {fileID: 1194675384530878}
---- !u!114 &114714480297679044
+--- !u!114 &114755682194413382
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1194675384530878}
-  m_Enabled: 0
+  m_GameObject: {fileID: 1527849273635954}
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: f0aacfdc7dd64ff4cbaaa63e93ab3ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sendInterval: 100
-  _oscOutAddress: /eeg
-  _oscOutIPAddress: 192.168.0.7
-  _oscOutPort: 6448
-  _useExplicitConnection: 1
-  _explicitConnection: {fileID: 0}
-  _drawDefaultInspector: 1
-  _myOSCConnections: []
-  MuseMonitor: {fileID: 1194675384530878}
+  deactivateOnStart: 1
 --- !u!114 &114803360827162258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -801,8 +1055,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileEmitter: {fileID: 1091216295899066}
-  projectile: {fileID: 1770446205373510, guid: cc7a69c0c31f77a4981543cf2805b517, type: 2}
+  projectile1: {fileID: 1154873532620606, guid: af5987735122bff40b5ed745b7cf0108,
+    type: 2}
+  projectile2: {fileID: 1289168362387954, guid: aed6de5c26f18e447b3a784a44116e37,
+    type: 2}
   emitterForce: {fileID: 1437403097001994}
+  gc: {fileID: 1680453562906662}
+  screenBoxColliders: {fileID: 1510699637347120}
 --- !u!114 &114848100981161472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -815,7 +1074,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 0}
+--- !u!114 &114873585784237832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1510699637347120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aad5066fdbf2c54180367a0482338de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftBoxCollider: {fileID: 1527849273635954}
+  centreBoxCollider: {fileID: 1157129032226632}
+  rightBoxCollider: {fileID: 1372839408471898}
+  aY: 0
+  leftMin: 0
+  rightMin: 0
 --- !u!114 &114895742605438436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1194675384530878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendInterval: 100
+  _oscOutAddress: /eeg
+  _oscOutIPAddress: 192.168.0.7
+  _oscOutPort: 6452
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 0}
+  _drawDefaultInspector: 1
+  _myOSCConnections:
+  - {fileID: 0}
+  MuseMonitor: {fileID: 1194675384530878}
+--- !u!114 &114912913648083306
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -836,27 +1133,6 @@ MonoBehaviour:
   _myOSCConnections:
   - {fileID: 0}
   MuseMonitor: {fileID: 1194675384530878}
---- !u!114 &114912913648083306
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1194675384530878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sendInterval: 100
-  _oscOutAddress: /eeg
-  _oscOutIPAddress: 127.0.0.1
-  _oscOutPort: 6449
-  _useExplicitConnection: 1
-  _explicitConnection: {fileID: 0}
-  _drawDefaultInspector: 1
-  _myOSCConnections:
-  - {fileID: 0}
-  MuseMonitor: {fileID: 1194675384530878}
 --- !u!114 &114946302216572054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -871,55 +1147,69 @@ MonoBehaviour:
   MuseSolo: 0
   MuseMulti: 0
   Standalone: 0
+  isWekRun: 0
   WekOSC_SoloReceiver: {fileID: 1412002271070686}
   WekOSC_MultiReceiver: {fileID: 1916861992535814}
-  meditateFloat: 0
-  focusFloat: 0
-  emotions: 0
-  instruments: 0
+  wek_mFloat: 0
+  wek_fFloat: 0
+  wek_hFloat: 0
+  wek_sFloat: 0
   isMeditate: 0
+  isFocus: 0
   isHappy: 0
   isSad: 0
   isUnsure: 0
-  isNoInstr: 0
-  isInstr1: 0
-  isInstr2: 0
-  isFocus: 0
-  WekSoloDTW_Run: {fileID: 0}
-  WekSoloSVM_Run: {fileID: 0}
-  WekMultiDTW_Run: {fileID: 0}
-  WekMultiSVM_Run: {fileID: 0}
+  WekMeditateDTW_Run: {fileID: 0}
+  WekFocusDTW_Run: {fileID: 0}
+  WekEmotionDTW_Run: {fileID: 0}
+  MeditateTest: 0
+  EmotionTest: 0
+  EndTest: 0
+  StartGame: 0
+  MeditationTested: 0
+  HappinessTested: 0
+  SadnessTested: 0
   NoGesture: 0
-  Mediate: 0
+  Meditate: 0
   Focus: 0
   Happy: 0
   Sad: 0
-  Instr1: 0
-  Instr2: 0
-  bothInstr: 0
+  Unsure: 0
   mindStateTimeOut: 0
-  Meditation: 0
-  Happiness: 0
-  Sadness: 0
-  Instr1Solo: 0
-  Instr2Solo: 0
-  countdown: 0
+  heldTimeout: 0
+  m_Held: 0
+  h_Held: 0
+  s_Held: 0
+  noG_Held: 0
+  u_Held: 0
+  HeldPercentage: 0
+  m_HeldScore: 0
+  h_HeldScore: 0
+  s_HeldScore: 0
+  u_HeldScore: 0
+  noG_HeldScore: 0
+  noGHeld_Reached: 0
+  mHeld_Reached: 0
+  hHeld_Reached: 0
+  sHeld_Reached: 0
+  uHeld_Reached: 0
+  standaloneCountdown: 0
+  standaloneCounter: 0
+  noGestureCountdown: 0
+  heldCountdown: 0
+  meditateCountdown: 0
+  focusCountdown: 0
   unsureCountdown: 0
   happyCountdown: 0
   sadCountdown: 0
-  noInstrCountdown: 0
-  instr1Countdown: 0
-  instr2Countdown: 0
-  meditateCountdown: 0
-  focusCountdown: 0
-  counter: 0
+  sixtysecCounter: 0
+  thirtysecCounter: 0
+  tensecCounter: 0
   fivesecCounter: 0
-  secCounter: 0
   threesecCounter: 0
-  speed: 1
+  twosecCounter: 0
+  secCounter: 0
   state: 0
-  Intro: 0
-  isWekRun: 0
 --- !u!114 &114972904796733420
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -9,7 +9,7 @@ public class ProjectileEmitter : MonoBehaviour
     public GameObject emitterForce;
 
     public GameObject gc;
-    public GameObject playercursor;
+    public GameObject screenBoxColliders;
 
     private GameObject Temp_Projectile_Handler;
 
@@ -21,7 +21,7 @@ public class ProjectileEmitter : MonoBehaviour
 
     private float randomProjectile;
 
-    private bool StartGame, enableCursor;
+    private bool StartGame, enableCursor, noGesture;
 
     // Use this for initialization
     void Start()
@@ -59,12 +59,13 @@ public class ProjectileEmitter : MonoBehaviour
     void Update()
     {
         StartGame = gc.GetComponent<GestureController>().StartGame;
+        noGesture = gc.GetComponent<GestureController>().NoGesture;
 
-        if (StartGame)
+        if (StartGame && !noGesture)
         {
             if (!enableCursor)
             {
-                playercursor.GetComponent<ActivateObjects>().SetActive(true);
+                screenBoxColliders.GetComponent<ActivateObjects>().SetActive(true);
                 enableCursor = true;
             }
 

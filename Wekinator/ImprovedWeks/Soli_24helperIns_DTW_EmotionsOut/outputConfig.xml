@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<OSCOutputGroup>
+  <oscMessage>/dtwEmotions</oscMessage>
+  <hostName>localhost</hostName>
+  <outputPort>12000</outputPort>
+  <outputs class="linked-list">
+    <wekimini.osc.OSCDtwOutput>
+      <name>dtwEmo</name>
+      <numGestures>2</numGestures>
+      <gestureNames>
+        <string>happy</string>
+        <string>sad</string>
+      </gestureNames>
+      <gestureOscMessages>
+        <string>/happy</string>
+        <string>/sad</string>
+      </gestureOscMessages>
+      <outputOscMessage>dtwEmo</outputOscMessage>
+    </wekimini.osc.OSCDtwOutput>
+  </outputs>
+</OSCOutputGroup>

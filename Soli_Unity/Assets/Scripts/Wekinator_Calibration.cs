@@ -8,30 +8,32 @@ public class Wekinator_Calibration : MonoBehaviour
 {
     public GameObject playtestButtonText;
 
-    public GameObject DTWSolo_Rec, SVMSolo_Rec, DTWSolo_Delete, SVMSolo_Delete, SVMSolo_Models;
-    public GameObject DTWMulti_Rec, DTWMulti_Delete;
+    public GameObject Meditate_Rec, Focus_Rec, Emotions_Rec;
     public GameObject StateManager;
     public GameObject[] Icons;
     public AudioSource[] CalAudio;
 
     public bool RunCalibration, isPaused, resume, statechange;
-    public bool recOn, stopRec, deleteExamples;
+    public bool recOn, stopRec;
 
-    //DTW REC
+    //DTW && SVM REC
     public float waitEpoch, fullEpoch, halfEpoch, counter;
-    public int gesture, models, epochStart;
-
+    public int gesture, epochStart;
+    
     // Calibration SEQ
     private int state, sceneLoader;
-    private Color MedCol, EmoCol, AuCol, recCol, finCol, waitCol;
-    private bool _M, _E, _A, _ME, _MA, _EA, _All;
-    private bool mRec, eRec, aRec, colorRec, mFin, eFin, aFin;
+    private Color MedCol, EmoCol, focusCol, recCol, finCol, waitCol;
+    private bool _M, _E, _F, _ME, _MF, _FE, _All;
+    private bool mRec, eRec, fRec, colorRec, mFin, eFin, fFin;
     private Vector3 Middle, Left, Right;
     private bool playtestButtonTxt;
+
+    private bool mDTW, fDTW, eDTW;
 
     public void Start()
     {
         waitEpoch = 1.0f;
+        halfEpoch = 15.0f;
         fullEpoch = 30.0f;
         counter = waitEpoch;
         sceneLoader = 3;
@@ -39,8 +41,12 @@ public class Wekinator_Calibration : MonoBehaviour
 
     public void Update()
     {
+        mDTW = StateManager.GetComponent<CalibrationStateManager>().mDTW;
+        fDTW = StateManager.GetComponent<CalibrationStateManager>().fDTW;
+        eDTW = StateManager.GetComponent<CalibrationStateManager>().eDTW;
+        
         RunCalibration = StateManager.GetComponent<CalibrationStateManager>().runCalibration;
-       
+
         if (RunCalibration)
         {
             PlaybackUpdate();
@@ -92,11 +98,11 @@ public class Wekinator_Calibration : MonoBehaviour
             }
 
         }
-        else if (state == 1) //Narrator NoGesture1
+        else if (state == 1) //Narrator Meditate closed
         {
             if (statechange)
             {
-                if (_M || _ME || _MA)
+                if (_M || _ME || _MF)
                 {
                     CalAudio[14].GetComponent<AudioSource>().Play();
                     epochStart = 0;
@@ -112,7 +118,7 @@ public class Wekinator_Calibration : MonoBehaviour
 
             if (isPaused == true && resume == false)
             {
-                if (_M || _ME || _MA)
+                if (_M || _ME || _MF)
                 {
                     CalAudio[14].GetComponent<AudioSource>().Pause();
                     pauseIconSW();
@@ -125,7 +131,7 @@ public class Wekinator_Calibration : MonoBehaviour
             }
             else if (resume == true && isPaused == true)
             {
-                if (_M || _ME || _MA)
+                if (_M || _ME || _MF)
                 {
                     CalAudio[14].GetComponent<AudioSource>().Play();
                     resumeIconSW();
@@ -137,28 +143,7 @@ public class Wekinator_Calibration : MonoBehaviour
                 }
             }
         }
-        else if (state == 2)//NoGestureClosed Wek
-        {
-            if (statechange)
-            {
-                counter = halfEpoch;
-                mRec = true;
-                epochStart = 1;
-
-                CalibrateIconsSW();
-
-                CalAudio[0].GetComponent<AudioSource>().Play();
-            }
-
-            if (stopRec == true)
-            {
-                deactivateRecIcons();
-                activateBackIcon();
-                mRec = false;
-                epochStart = 0;
-            }
-        }
-        else if (state == 3) //Narrator NoGesture open wek
+        else if (state == 3) //Narrator meditate open
         {
             if (statechange)
             {
@@ -181,17 +166,18 @@ public class Wekinator_Calibration : MonoBehaviour
                 resumeIconSW();
             }
         }
-        else if (state == 4)//NoGesture Open wek
+        else if (state == 2 || state == 4)//meditation eyes closed/open g1 port 6448
         {
             if (statechange)
             {
-                counter = halfEpoch;;
+                counter = waitEpoch;
+                gesture = 1;
                 mRec = true;
                 epochStart = 1;
 
-                CalAudio[0].GetComponent<AudioSource>().Play();
-
                 CalibrateIconsSW();
+
+                CalAudio[0].GetComponent<AudioSource>().Play();
             }
 
             if (stopRec == true)
@@ -202,81 +188,83 @@ public class Wekinator_Calibration : MonoBehaviour
                 epochStart = 0;
             }
         }
-        else if (state == 5) //Narrator Meditation1
-        {
+        else if (state == 5) //Narrator Focus closed
+        { 
             if (statechange)
             {
-
-                    CalAudio[14].GetComponent<AudioSource>().Play();
+                if (_MF || _FE || _All)
+                {
+                    CalAudio[1].GetComponent<AudioSource>().Play();
+                    CalAudio[16].GetComponent<AudioSource>().Play();
                     epochStart = 0;
 
                     NarratorIconsSW();
+
+                }
+                else if (_F)
+                {
+                    CalAudio[1].GetComponent<AudioSource>().Play();
+                    CalAudio[17].GetComponent<AudioSource>().Play();
+                    epochStart = 0;
+
+                    NarratorIconsSW();
+
+                }
+                else if (_All)
+                {
+                    CalAudio[1].GetComponent<AudioSource>().Play();
+                    CalAudio[9].GetComponent<AudioSource>().Play();
+                    epochStart = 0;
+
+                    NarratorIconsSW();
+                }
             }
 
             if (isPaused == true && resume == false)
             {
-                    CalAudio[14].GetComponent<AudioSource>().Pause();
+                if (_ME || _FE)
+                {
+                    CalAudio[16].GetComponent<AudioSource>().Pause();
                     pauseIconSW();
+                }
+                else if (_F)
+                {
+                    CalAudio[17].GetComponent<AudioSource>().Pause();
+                    pauseIconSW();
+                }
+                else if (_All)
+                {
+                    CalAudio[9].GetComponent<AudioSource>().Pause();
+                    pauseIconSW();
+                }
 
             }
             else if (resume == true && isPaused == true)
             {
-
-                    CalAudio[14].GetComponent<AudioSource>().Play();
+                if (_ME || _FE)
+                {
+                    CalAudio[16].GetComponent<AudioSource>().Play();
+                    resumeIconSW();
+                }
+                else if (_F)
+                {
+                    CalAudio[17].GetComponent<AudioSource>().Play();
+                    resumeIconSW();
+                }
+                else if (_All)
+                {
+                    CalAudio[9].GetComponent<AudioSource>().Play();
+                    resumeIconSW();
+                }
             }
         }
-        else if (state == 6)//breath meditation eyes closed g1
+        else if (state == 6) //focus wek
         {
             if (statechange)
             {
                 counter = waitEpoch;
                 gesture = 1;
-                mRec = true;
-                epochStart = 1;
-                
-                CalibrateIconsSW();
-          
-                CalAudio[0].GetComponent<AudioSource>().Play();
-            }
-
-            if (stopRec == true)
-            {
-                deactivateRecIcons();
-                activateBackIcon();
-                mRec = false;
-                epochStart = 0;
-            }
-        }
-        else if (state == 7) //Narrator Meditation2
-        {
-            if (statechange)
-            {
-                CalAudio[1].GetComponent<AudioSource>().Play();
-                CalAudio[4].GetComponent<AudioSource>().Play();
-
-                epochStart = 0;
-
-                NarratorIconsSW();
-            }
-
-            if (isPaused == true && resume == false)
-            {
-                CalAudio[4].GetComponent<AudioSource>().Pause();
-                pauseIconSW();
-            }
-            else if (resume == true && isPaused == true)
-            {
-                CalAudio[4].GetComponent<AudioSource>().Play();
-                resumeIconSW();
-            }
-        }
-        else if (state == 8)//breath meditation eyes open g2
-        {
-            if (statechange)
-            {
-                counter = waitEpoch;
-                gesture = 1;
-                mRec = true;
+                fRec = true;
                 epochStart = 1;
 
                 CalAudio[0].GetComponent<AudioSource>().Play();
@@ -288,15 +276,15 @@ public class Wekinator_Calibration : MonoBehaviour
             {
                 deactivateRecIcons();
                 activateBackIcon();
-                mRec = false;
+                fRec = false;
                 epochStart = 0;
             }
         }
-        else if (state == 9) //Narrator Emotion1
+        else if (state == 7) //Narrator Emotions Happy
         {
             if (statechange)
             {
-                if (_E || _EA)
+                if (_E || _FE)
                 {
                     CalAudio[1].GetComponent<AudioSource>().Play();
                     CalAudio[15].GetComponent<AudioSource>().Play();
@@ -315,7 +303,7 @@ public class Wekinator_Calibration : MonoBehaviour
 
             if (isPaused == true && resume == false)
             {
-                if (_E || _EA)
+                if (_E || _FE)
                 {
                     CalAudio[15].GetComponent<AudioSource>().Pause();
                     pauseIconSW();
@@ -328,7 +316,7 @@ public class Wekinator_Calibration : MonoBehaviour
             }
             else if (resume == true && isPaused == true)
             {
-                if (_E || _EA)
+                if (_E || _FE)
                 {
                     CalAudio[15].GetComponent<AudioSource>().Play();
                     resumeIconSW();
@@ -340,90 +328,13 @@ public class Wekinator_Calibration : MonoBehaviour
                 }
             }
         }
-        else if (state == 10) //Happy eyes closed g3
-        {
-            if (statechange)
-            {
-                counter = fullEpoch;
-                eRec = true;
-                gesture = 0;
-                epochStart = 1;
-
-                CalAudio[0].GetComponent<AudioSource>().Play();
-
-                AudioHelmCalibrationManager.main.chords[0] = true;
-                AudioHelmCalibrationManager.main.DroneEnable();
-                AudioHelmCalibrationManager.main.BassEnable();
-
-                CalibrateIconsSW();
-            }
-
-            if (stopRec == true)
-            {
-                deactivateRecIcons();
-                activateBackIcon();
-                eRec = false;
-                epochStart = 0;
-                AudioHelmCalibrationManager.main.DroneDisable();
-                AudioHelmCalibrationManager.main.BassDisable();
-            }
-        }
-        else if (state == 11) //Narrator Emotion2
-        {
-            if (statechange)
-            {
-                CalAudio[1].GetComponent<AudioSource>().Play();
-                CalAudio[6].GetComponent<AudioSource>().Play();
-                AudioHelmCalibrationManager.main.DroneDisable();
-                AudioHelmCalibrationManager.main.BassDisable();
-                epochStart = 0;
-
-                NarratorIconsSW();
-            }
-
-            if (isPaused == true && resume == false)
-            {
-                CalAudio[6].GetComponent<AudioSource>().Pause();
-                pauseIconSW();
-            }
-            else if (resume == true && isPaused == true)
-            {
-                CalAudio[6].GetComponent<AudioSource>().Play();
-                resumeIconSW();
-            }
-        }
-        else if (state == 12)//Happy eyes open g4
-        {
-            if (statechange)
-            {
-                counter = fullEpoch;
-                eRec = true;
-                epochStart = 1;
-
-                CalAudio[0].GetComponent<AudioSource>().Play();
-
-                AudioHelmCalibrationManager.main.DroneEnable();
-                AudioHelmCalibrationManager.main.BassEnable();
-
-                CalibrateIconsSW();
-            }
-
-            if (stopRec == true)
-            {
-                deactivateRecIcons();
-                activateBackIcon();
-                eRec = false;
-                epochStart = 0;
-                AudioHelmCalibrationManager.main.DroneDisable();
-                AudioHelmCalibrationManager.main.BassDisable();
-            }
-        }
-        else if (state == 13) //Narrator Emotion3
+        else if (state == 9) //Narrator Emotions Sad closed
         {
             if (statechange)
             {
                 CalAudio[1].GetComponent<AudioSource>().Play();
                 CalAudio[7].GetComponent<AudioSource>().Play();
+
                 AudioHelmCalibrationManager.main.DroneDisable();
                 AudioHelmCalibrationManager.main.BassDisable();
                 epochStart = 0;
@@ -442,66 +353,29 @@ public class Wekinator_Calibration : MonoBehaviour
                 resumeIconSW();
             }
         }
-        else if (state == 14)//Sad eyes closed g5
+        else if (state == 8 || state == 10) //Happy/Sad Closed  WEK
         {
             if (statechange)
             {
-                counter = fullEpoch;
+                if(state == 8) //Happy rec
+                {
+                    AudioHelmCalibrationManager.main.chords[0] = true;
+                    AudioHelmCalibrationManager.main.chords[1] = false;
+                    AudioHelmCalibrationManager.main.chords[2] = false;
+                    counter = waitEpoch;
+                    gesture = 1;
+                }
+                else if (state == 10) // Sad rec
+                {
+                    AudioHelmCalibrationManager.main.chords[0] = false;
+                    AudioHelmCalibrationManager.main.chords[1] = true;
+                    AudioHelmCalibrationManager.main.chords[2] = false;
+                    counter = waitEpoch;
+                    gesture = 2;
+                }
+
                 eRec = true;
                 epochStart = 1;
-
-                CalAudio[0].GetComponent<AudioSource>().Play();
-
-                AudioHelmCalibrationManager.main.chords[0] = false;
-                AudioHelmCalibrationManager.main.chords[1] = true;
-                AudioHelmCalibrationManager.main.DroneEnable();
-                AudioHelmCalibrationManager.main.BassEnable();
-
-                CalibrateIconsSW();
-            }
-
-            if (stopRec == true)
-            {
-                deactivateRecIcons();
-                activateBackIcon();
-                eRec = false;
-                epochStart = 0;
-                AudioHelmCalibrationManager.main.DroneDisable();
-                AudioHelmCalibrationManager.main.BassDisable();
-            }
-        }
-        else if (state == 15) //Narrator Emotion4
-        {
-            if (statechange)
-            {
-                CalAudio[1].GetComponent<AudioSource>().Play();
-                CalAudio[8].GetComponent<AudioSource>().Play();
-                AudioHelmCalibrationManager.main.DroneDisable();
-                AudioHelmCalibrationManager.main.BassDisable();
-                epochStart = 0;
-
-                NarratorIconsSW();
-            }
-
-            if (isPaused == true && resume == false)
-            {
-                CalAudio[8].GetComponent<AudioSource>().Pause();
-                pauseIconSW();
-            }
-            else if (resume == true && isPaused == true)
-            {
-                CalAudio[8].GetComponent<AudioSource>().Play();
-                resumeIconSW();
-            }
-        }
-        else if (state == 16)//Sad eyes open g6
-        {
-            if (statechange)
-            {
-                counter = waitEpoch;
-                eRec = true;
-                epochStart = 1;
-
                 CalAudio[0].GetComponent<AudioSource>().Play();
 
                 AudioHelmCalibrationManager.main.DroneEnable();
@@ -520,256 +394,11 @@ public class Wekinator_Calibration : MonoBehaviour
                 AudioHelmCalibrationManager.main.BassDisable();
             }
         }
-        else if (state == 17) //Narrator Instrument1 closed
-        {
-            if (statechange)
-            {
-                if (_MA || _EA)
-                {
-                    CalAudio[1].GetComponent<AudioSource>().Play();
-                    CalAudio[16].GetComponent<AudioSource>().Play();
-                    AudioHelmCalibrationManager.main.DroneDisable();
-                    AudioHelmCalibrationManager.main.BassDisable();
-                    epochStart = 0;
-
-                    NarratorIconsSW();
-
-                } else if (_A)
-                {
-                    CalAudio[1].GetComponent<AudioSource>().Play();
-                    CalAudio[17].GetComponent<AudioSource>().Play();
-                    AudioHelmCalibrationManager.main.DroneDisable();
-                    AudioHelmCalibrationManager.main.BassDisable();
-                    epochStart = 0;
-
-                    NarratorIconsSW();
-           
-                } else if (_All)
-                {
-                    CalAudio[1].GetComponent<AudioSource>().Play();
-                    CalAudio[9].GetComponent<AudioSource>().Play();
-                    AudioHelmCalibrationManager.main.DroneDisable();
-                    AudioHelmCalibrationManager.main.BassDisable();
-                    epochStart = 0;
-
-                    NarratorIconsSW();
-                }
-            }
-
-            if (isPaused == true && resume == false)
-            {
-                if (_MA || _EA)
-                {
-                    CalAudio[16].GetComponent<AudioSource>().Pause();
-                    pauseIconSW();
-                }
-                else if (_A)
-                {
-                    CalAudio[17].GetComponent<AudioSource>().Pause();
-                    pauseIconSW();
-                }
-                else if (_All)
-                {
-                    CalAudio[9].GetComponent<AudioSource>().Pause();
-                    pauseIconSW();
-                }
-
-            }
-            else if (resume == true && isPaused == true)
-            {
-                if (_MA || _EA)
-                {
-                    CalAudio[16].GetComponent<AudioSource>().Play();
-                    resumeIconSW();
-                }
-                else if (_A)
-                {
-                    CalAudio[17].GetComponent<AudioSource>().Play();
-                    resumeIconSW();
-                }
-                else if (_All)
-                {
-                    CalAudio[9].GetComponent<AudioSource>().Play();
-                    resumeIconSW();
-                }
-            }
-        }
-        else if (state == 18) //Instrument1 closed g7
-        {
-            if (statechange)
-            {
-                counter = waitEpoch;
-                aRec = true;
-                gesture = 0;
-                epochStart = 1;
-
-                CalibrateIconsSW();
-
-                CalAudio[0].GetComponent<AudioSource>().Play();
-
-                AudioHelmCalibrationManager.main.chords[1] = false;
-                AudioHelmCalibrationManager.main.chords[2] = true;
-                AudioHelmCalibrationManager.main.DroneEnable();
-            }
-
-            if (stopRec == true)
-            {
-                deactivateRecIcons();
-                activateBackIcon();
-                aRec = false;
-                epochStart = 0;
-
-                AudioHelmCalibrationManager.main.DroneDisable();
-            }
-        }
-        else if (state == 19) //Narrator Instrument1 open
+        else if (state == 11) //Narrator End (MENU)
         {
             if (statechange)
             {
                 AudioHelmCalibrationManager.main.DroneDisable();
-
-                CalAudio[1].GetComponent<AudioSource>().Play();
-                CalAudio[10].GetComponent<AudioSource>().Play();
-                epochStart = 0;
-
-                NarratorIconsSW();
-            }
-
-            if (isPaused == true && resume == false)
-            {
-                CalAudio[10].GetComponent<AudioSource>().Pause();
-                pauseIconSW();
-            }
-            else if (resume == true && isPaused == true)
-            {
-                CalAudio[10].GetComponent<AudioSource>().Play();
-                resumeIconSW();
-            }
-        }
-        else if (state == 20)//Instrument1 eyes open g8
-        {
-            if (statechange)
-            {
-                counter = waitEpoch;
-                aRec = true;
-                epochStart = 1;
-
-                CalibrateIconsSW();
-
-                CalAudio[0].GetComponent<AudioSource>().Play();
-                AudioHelmCalibrationManager.main.DroneEnable();
-            }
-
-            if (stopRec == true)
-            {
-                deactivateRecIcons();
-                activateBackIcon();
-                aRec = false;
-                epochStart = 0;
-
-                AudioHelmCalibrationManager.main.DroneDisable();
-            }
-        }
-        else if (state == 21) //Narrator Instrument2 closed
-        {
-            if (statechange)
-            {
-                AudioHelmCalibrationManager.main.DroneDisable();
-
-                CalAudio[1].GetComponent<AudioSource>().Play();
-                CalAudio[11].GetComponent<AudioSource>().Play();
-                epochStart = 0;
-
-                NarratorIconsSW();
-            }
-
-            if (isPaused == true && resume == false)
-            {
-                CalAudio[11].GetComponent<AudioSource>().Pause();
-                pauseIconSW();
-            }
-            else if (resume == true && isPaused == true)
-            {
-                CalAudio[11].GetComponent<AudioSource>().Play();
-                resumeIconSW();
-            }
-        }
-        else if (state == 22)//Instrument2 closed g9
-        {
-            if (statechange)
-            {
-                counter = waitEpoch;
-                aRec = true;
-                epochStart = 1;
-
-                CalibrateIconsSW();
-
-                CalAudio[0].GetComponent<AudioSource>().Play();
-                AudioHelmCalibrationManager.main.BassEnable();
-            }
-
-            if (stopRec == true)
-            {
-                deactivateRecIcons();
-                activateBackIcon();
-                aRec = false;
-                epochStart = 0;
-
-                AudioHelmCalibrationManager.main.BassDisable();
-            }
-        }
-        else if (state == 23) //Narrator Instrument2 open
-        {
-            if (statechange)
-            {
-                AudioHelmCalibrationManager.main.BassDisable();
-
-                CalAudio[1].GetComponent<AudioSource>().Play();
-                CalAudio[12].GetComponent<AudioSource>().Play();
-                epochStart = 0;
-
-                NarratorIconsSW();
-            }
-
-            if (isPaused == true && resume == false)
-            {
-                CalAudio[12].GetComponent<AudioSource>().Pause();
-                pauseIconSW();
-            }
-            else if (resume == true && isPaused == true)
-            {
-                CalAudio[12].GetComponent<AudioSource>().Play();
-                resumeIconSW();
-            }
-        }
-        else if (state == 24)//Instrument2 open g10
-        {
-            if (statechange)
-            {
-                counter = waitEpoch;
-                aRec = true;
-                epochStart = 1;
-
-                CalibrateIconsSW();
-
-                CalAudio[0].GetComponent<AudioSource>().Play();
-                AudioHelmCalibrationManager.main.BassEnable();
-            }
-
-            if (stopRec == true)
-            {
-                deactivateRecIcons();
-                activateBackIcon();
-                aRec = false;
-                epochStart = 0;
-
-                AudioHelmCalibrationManager.main.BassDisable();
-            }
-        }
-        else if (state == 25) //Narrator End (MENU)
-        {
-            if (statechange)
-            {
                 AudioHelmCalibrationManager.main.BassDisable();
 
                 CalAudio[13].GetComponent<AudioSource>().Play();
@@ -779,7 +408,7 @@ public class Wekinator_Calibration : MonoBehaviour
                 MenuIconsSW();
             }
         }
-        else if (state == 27) // skip menu
+        else if (state == 13) // skip menu
         {
             deactivateSkip();
             stopAllAudio();
@@ -797,62 +426,27 @@ public class Wekinator_Calibration : MonoBehaviour
 
     public void TriggerEpoch()
     {
-        if (state == 2 && epochStart == 1) // noGesture closed
+        if (state == 2 && epochStart == 1) // Meditation closed
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 4 && epochStart == 1) // noGesture open
+        else if (state == 4 && epochStart == 1) // Meditation open
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 6 && epochStart == 1) // Meditate closed
+        else if (state == 6 && epochStart == 1) // Focus closed
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 8 && epochStart == 1) // Meditate open
+        else if (state == 8 && epochStart == 1) //Happy closed
         {
             EpochRecorder();
             colorRec = true;
         }
-        else if (state == 10 && epochStart == 1) //Happy closed
-        {
-            EpochRecorder();
-            colorRec = true;
-        }
-        else if (state == 12 && epochStart == 1) //Happy open
-        {
-            EpochRecorder();
-            colorRec = true;
-        }
-        else if (state == 14 && epochStart == 1) // Sad closed
-        {
-            EpochRecorder();
-            colorRec = true;
-        }
-        else if (state == 16 && epochStart == 1) //Sad open
-        {
-            EpochRecorder();
-            colorRec = true;
-        }
-        else if (state == 18 && epochStart == 1) // Instr1 closed
-        {
-            EpochRecorder();
-            colorRec = true;
-        }
-        else if (state == 20 && epochStart == 1) //Instr1 open
-        {
-            EpochRecorder();
-            colorRec = true;
-        }
-        else if (state == 22 && epochStart == 1) //Instr2 closed
-        {
-            EpochRecorder();
-            colorRec = true;
-        }
-        else if (state == 24 && epochStart == 1) //Instr2 open
+        else if (state == 10 && epochStart == 1) //Sad open
         {
             EpochRecorder();
             colorRec = true;
@@ -862,10 +456,9 @@ public class Wekinator_Calibration : MonoBehaviour
             recOn = false;
             colorRec = false;
 
-            DTWSolo_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
-            SVMSolo_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
-
-            DTWMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            Meditate_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            Focus_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);          
+            Emotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
             epochStart = -1;
         }
@@ -873,30 +466,50 @@ public class Wekinator_Calibration : MonoBehaviour
    
     public void EpochRecorder() 
     {
-        if (counter == waitEpoch || counter == fullEpoch)
+        if (counter == waitEpoch || counter == fullEpoch || counter == halfEpoch)
         {
             recOn = true;
 
-            DTWSolo_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().Gesture(gesture);
-            DTWSolo_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            if (mDTW)
+            {
+                Meditate_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().Gesture(gesture);
+                Meditate_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            }
 
-            SVMSolo_Models.GetComponent<UniOSC.WekEventDispatcherButton>().Model(models);
-            SVMSolo_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            if (fDTW)
+            {
+                Focus_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().Gesture(gesture);
+                Focus_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            }
 
-            DTWMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().Gesture(gesture);
-            DTWMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            if (eDTW)
+            {
+                Emotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().Gesture(gesture);
+                Emotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            }
 
             counter -= Time.deltaTime;
         }
         else if (counter <= 0)
         {
             recOn = false;
-            DTWSolo_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
-            SVMSolo_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
-            DTWMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            if (mDTW)
+            {
+                Meditate_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+                counter = waitEpoch;
+            }
+            if (fDTW)
+            {
+                Focus_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+                counter = waitEpoch;
+            }
 
-            counter = waitEpoch;
+            if (eDTW)
+            {
+                Emotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+                counter = waitEpoch;
+            }
         }
         else
         {
@@ -968,13 +581,13 @@ public class Wekinator_Calibration : MonoBehaviour
             counter = 0;
 
             recOn = false;
-            DTWSolo_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
-            SVMSolo_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
-            DTWMulti_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            Meditate_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            Focus_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            Emotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
             stopAllAudio();
-        }
+        } 
     }
     private void Switch()
     {
@@ -983,7 +596,7 @@ public class Wekinator_Calibration : MonoBehaviour
 
     public void playtestButtonClick()
     {
-        if (mFin || eFin || aFin)
+        if (mFin || eFin || fFin)
         {
             Icons[14].GetComponent<LoadSceneOnClick>().LoadByIndex(sceneLoader);
         }
@@ -1072,8 +685,8 @@ public class Wekinator_Calibration : MonoBehaviour
         Right = new Vector3(200, -240, 0);
 
         Icons[7].GetComponent<RectTransform>().localPosition = Left;
-        Icons[8].GetComponent<RectTransform>().localPosition = Middle;
-        Icons[9].GetComponent<RectTransform>().localPosition = Right;
+        Icons[9].GetComponent<RectTransform>().localPosition = Middle;
+        Icons[8].GetComponent<RectTransform>().localPosition = Right;
 
         Icons[7].GetComponent<ActivateObjects>().SetActive(true);
         Icons[8].GetComponent<ActivateObjects>().SetActive(true);
@@ -1085,10 +698,10 @@ public class Wekinator_Calibration : MonoBehaviour
     {
         _M = StateManager.GetComponent<CalibrationStateManager>().Meditate;
         _E = StateManager.GetComponent<CalibrationStateManager>().Emotion;
-        _A = StateManager.GetComponent<CalibrationStateManager>().Audio;
+        _F = StateManager.GetComponent<CalibrationStateManager>().Focus;
         _ME = StateManager.GetComponent<CalibrationStateManager>().MeditateEmo;
-        _MA = StateManager.GetComponent<CalibrationStateManager>().MeditateAudio;
-        _EA = StateManager.GetComponent<CalibrationStateManager>().EmotionAudio;
+        _MF = StateManager.GetComponent<CalibrationStateManager>().MeditateFocus;
+        _FE = StateManager.GetComponent<CalibrationStateManager>().FocusEmo;
         _All = StateManager.GetComponent<CalibrationStateManager>().AllSelected;
 
         if (RunCalibration)
@@ -1096,11 +709,20 @@ public class Wekinator_Calibration : MonoBehaviour
             Middle = new Vector3(0, -280, 0);
             Left = new Vector3(-80, -280, 0);
             Right = new Vector3(80, -280, 0);
+
             if (_M)
             {
                 Icons[7].GetComponent<RectTransform>().localPosition = Middle;
                 Icons[8].GetComponent<ActivateObjects>().SetDeactive(true);
                 Icons[9].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
+                Icons[11].GetComponent<ActivateObjects>().SetActive(true);
+            }
+            else if (_MF)
+            {
+                Icons[7].GetComponent<RectTransform>().localPosition = Left;
+                Icons[9].GetComponent<RectTransform>().localPosition = Right;
+                Icons[8].GetComponent<ActivateObjects>().SetDeactive(true);
                 Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
                 Icons[11].GetComponent<ActivateObjects>().SetActive(true);
             }
@@ -1112,30 +734,23 @@ public class Wekinator_Calibration : MonoBehaviour
                 Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
                 Icons[11].GetComponent<ActivateObjects>().SetActive(true);
             }
-            else if (_MA)
-            {
-                Icons[7].GetComponent<RectTransform>().localPosition = Left;
-                Icons[9].GetComponent<RectTransform>().localPosition = Right;
-                Icons[8].GetComponent<ActivateObjects>().SetDeactive(true);
-                Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
-                Icons[11].GetComponent<ActivateObjects>().SetActive(true);
-            }
             else if (_E)
             {
+                Icons[8].GetComponent<RectTransform>().localPosition = Middle;
                 Icons[7].GetComponent<ActivateObjects>().SetDeactive(true);
                 Icons[9].GetComponent<ActivateObjects>().SetDeactive(true);
                 Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
                 Icons[11].GetComponent<ActivateObjects>().SetActive(true);
             }
-            else if (_EA)
+            else if (_FE)
             {
-                Icons[8].GetComponent<RectTransform>().localPosition = Left;
-                Icons[9].GetComponent<RectTransform>().localPosition = Right;
+                Icons[9].GetComponent<RectTransform>().localPosition = Left;
+                Icons[8].GetComponent<RectTransform>().localPosition = Right;
                 Icons[7].GetComponent<ActivateObjects>().SetDeactive(true);
                 Icons[12].GetComponent<ActivateObjects>().SetDeactive(true);
                 Icons[11].GetComponent<ActivateObjects>().SetActive(true);
             }
-            else if (_A)
+            else if (_F)
             {
                 Icons[9].GetComponent<RectTransform>().localPosition = Middle;
                 Icons[7].GetComponent<ActivateObjects>().SetDeactive(true);
@@ -1154,8 +769,8 @@ public class Wekinator_Calibration : MonoBehaviour
     public void changeIconColor()
     {
         mFin = StateManager.GetComponent<CalibrationStateManager>().mFin;
+        fFin = StateManager.GetComponent<CalibrationStateManager>().fFin;
         eFin = StateManager.GetComponent<CalibrationStateManager>().eFin;
-        aFin = StateManager.GetComponent<CalibrationStateManager>().aFin;
 
         recCol = StateManager.GetComponent<CalibrationStateManager>().recColor;
         finCol = StateManager.GetComponent<CalibrationStateManager>().finishColor;
@@ -1169,16 +784,26 @@ public class Wekinator_Calibration : MonoBehaviour
             }
             else if (mFin && statechange)
             {
-                if (mFin && eFin)
+                if (mFin && fFin)
                 {
                     MedCol = finCol;
-                    EmoCol = finCol;
+                    focusCol = finCol;
                 }
                 else
                 {
                     MedCol = finCol;
                 }
             }
+
+            if (!fFin)
+            {
+                focusCol = StateManager.GetComponent<CalibrationStateManager>().FCol;
+            }
+            else if (fFin && statechange)
+            {
+                focusCol = finCol;
+            }
+
             if (!eFin)
             {
                 EmoCol = StateManager.GetComponent<CalibrationStateManager>().ECol;
@@ -1187,14 +812,6 @@ public class Wekinator_Calibration : MonoBehaviour
             {
                 EmoCol = finCol;
             }
-            if (!aFin)
-            {
-                AuCol = StateManager.GetComponent<CalibrationStateManager>().ACol;
-            }
-            else if (aFin && statechange)
-            {
-                AuCol = finCol;
-            }
         }
         else if (colorRec)
         {
@@ -1202,44 +819,44 @@ public class Wekinator_Calibration : MonoBehaviour
             {
                 MedCol = recCol;
             }
+            if (fRec && !fFin)
+            {
+                focusCol = recCol;
+            } 
             if (eRec && !eFin)
             {
                 EmoCol = recCol;
             }
-            if (aRec && !aFin)
-            {
-                AuCol = recCol;
-            }
         }
         if (RunCalibration)
         {
+            if (_MF && !mFin)
+            {
+                focusCol = waitCol;
+            }
             if (_ME && !mFin)
             {
                 EmoCol = waitCol;
             }
-            if (_MA && !mFin)
+            if (_FE && !fFin)
             {
-                AuCol = waitCol;
-            }
-            if (_EA && !eFin)
-            {
-                AuCol = waitCol;
+                EmoCol = waitCol;
             }
 
             if (_All && !mFin)
             {
+                focusCol = waitCol;
                 EmoCol = waitCol;
-                AuCol = waitCol;
             }
-            else if (_All && mFin && !eFin)
+            else if (_All && mFin && !fFin)
             {
-                AuCol = waitCol;
+                EmoCol = waitCol;
             }
         }
 
         Icons[7].GetComponent<Image>().color = MedCol;
         Icons[8].GetComponent<Image>().color = EmoCol;
-        Icons[9].GetComponent<Image>().color = AuCol;
+        Icons[9].GetComponent<Image>().color = focusCol;
     }
 
     public void stopAllAudio()
@@ -1254,26 +871,24 @@ public class Wekinator_Calibration : MonoBehaviour
 
     public void isCompleted()
     {
-        if(mFin || eFin || aFin)
+        if(mFin || eFin || fFin)
         {
-            Icons[15].GetComponent<Image>().color = Color.green;       
+            Icons[15].GetComponent<Image>().color = Color.green;     
         }
         else
         {
             Icons[15].GetComponent<Image>().color = new Color32(219,39,32,255);
         }
     }
-
-
     //NOT BEING USED
-    public void DeleteExamples()
+ /*   public void DeleteExamples()
     {
         deleteExamples = true;
         DTWSolo_Delete.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(deleteExamples);
         DTWMulti_Delete.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(deleteExamples);
         SVMSolo_Delete.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(deleteExamples);
         deleteExamples = false;
-    }
+    }*/
 }
 
 

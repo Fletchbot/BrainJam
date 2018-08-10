@@ -30,7 +30,7 @@ public class DestroyProjectile : MonoBehaviour {
 
         focusShot = gc.GetComponent<GestureController>().isFocus;
 
-        if (damage <= 0)
+  /*      if (damage <= 0)
         {
             string tag = gameObject.tag;
 
@@ -45,7 +45,7 @@ public class DestroyProjectile : MonoBehaviour {
         else
         {
             gc.GetComponent<GestureController>().projectileDestroyed("");
-        }
+        }*/
     }
 
     void findGameObj()
@@ -55,6 +55,16 @@ public class DestroyProjectile : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
+        string tag = gameObject.tag;
+
+  //      gc.GetComponent<GestureController>().projectileDestroyed(tag);
+
+        //GameObject exposionClone = Instantiate(exposion, transform.position, transform.rotation);
+
+      //  Debug.Log("pTag" + tag);
+
+        Destroy(gameObject);
+
         if (focusShot)
         {
             damage--;

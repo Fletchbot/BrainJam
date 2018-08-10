@@ -23,12 +23,12 @@ namespace UniOSC
     [ExecuteInEditMode]
     public class WekEventDispatcherButton : UniOSCEventDispatcher
     {
-        public bool bundleMode, DTW_mode, SVM_models, IsWekRun, SVMTrainOnStart;
+        public bool bundleMode, DTW_mode, IsWekRun, SVMTrain, SVMclasses;
         public string oscOutAddress2;
         private List<UniOSCEventDispatcherCB> senderList = new List<UniOSCEventDispatcherCB>();
         public static WekEventDispatcherButton main;
         private int gesture;
-        private int model;
+        private float svmClass;
 
         public override void Awake()
         {
@@ -45,25 +45,15 @@ namespace UniOSC
                 SetBundleMode(true);
                 ClearData();
                 AppendData(new OscMessage(oscOutAddress, 0));
-              if(oscOutAddress2 != null) AppendData(new OscMessage(oscOutAddress2, 0));
+                if (oscOutAddress2 != null) AppendData(new OscMessage(oscOutAddress2, 0));
             }
             else
             {
                 ClearData();
-                UniOSCEventDispatcherCB oscSender = new UniOSCEventDispatcherCBSimple(oscOutAddress, explicitConnection);//OSCOutAddress,OSCConnection
-                oscSender.AppendData(0);
-                oscSender.Enable();
-                senderList.Add(oscSender);
-                if (oscOutAddress2 != null)
-                {
-                    UniOSCEventDispatcherCB oscSender2 = new UniOSCEventDispatcherCBSimple(oscOutAddress2, explicitConnection);//OSCOutAddress,OSCConnection
-                    oscSender2.AppendData(0);
-                    oscSender2.Enable();
-                    senderList.Add(oscSender2);
-                }              
+                AppendData(0f);             
             }
 
-            if (SVMTrainOnStart)
+            if (SVMTrain)
             {
                 ButtonClick(true);
             }
@@ -80,10 +70,14 @@ namespace UniOSC
             }
             senderList.Clear();
         }
-
-        public void Update()
+        void FixedUpdate()
         {
-            if (!DTW_mode && !SVM_models && !SVMTrainOnStart)
+            _Update();
+        }
+        void Update()
+        {
+            
+            if (!DTW_mode && !SVMTrain && !SVMclasses)
             {
                 if (IsWekRun)
                 {
@@ -101,11 +95,11 @@ namespace UniOSC
         /// </summary>
         public void SendOSCMessageDown()
         {
-  
+            OscMessage msg = null;
             if (_OSCeArg.Packet is OscMessage)
             {
-              //  ((OscMessage)_OSCeArg.Packet).UpdateDataAt(0, 0);
-              //  ((OscMessage)_OSCeArg.Packet).Address = oscOutAddress;
+                msg = ((OscMessage)_OSCeArg.Packet);
+             if(SVMclasses) msg.UpdateDataAt(0, svmClass);
             }
             else if (_OSCeArg.Packet is OscBundle)
             {
@@ -116,9 +110,10 @@ namespace UniOSC
                     {
                         m.UpdateDataAt(0, gesture);
                     }
-                    else if (SVM_models)
+                    else if (SVMclasses)
                     {
-                     //   m.UpdateDataAt(0, model);
+                      
+                      m.UpdateDataAt(0, svmClass);
                     }
                     else
                     {
@@ -149,15 +144,8 @@ namespace UniOSC
                 foreach (OscMessage m2 in ((OscBundle)_OSCeArg.Packet).Messages)
                 {
                     m2.Address = oscOutAddress2;
-                    if (SVM_models)
-                    {
-                      //  m2.UpdateDataAt(0,model);
-                    } 
-                    else
-                    {
-                        m2.UpdateDataAt(0, 0);
-                    }   
 
+                        m2.UpdateDataAt(0, 0);
                 }
             }
 
@@ -172,7 +160,7 @@ namespace UniOSC
         public void ButtonClick(bool isOn)
         {
 
-            if (DTW_mode || SVM_models || SVMTrainOnStart)
+            if (DTW_mode || SVMTrain)
             {
                 if (isOn == true)
                 {
@@ -183,7 +171,7 @@ namespace UniOSC
                     SendOSCMessageUp();
                 }
             }
-            else if (!DTW_mode && !SVM_models)
+            else if (!DTW_mode && !SVMclasses)
             {
                 if (isOn == true)
                 {
@@ -194,15 +182,19 @@ namespace UniOSC
                     IsWekRun = false;
                 }
             }
+            else if (SVMclasses)
+            {
+                SendOSCMessageDown();
+            }
 
         }
         public void Gesture(int val)
         {
             gesture = val;
         }
-        public void Model(int val)
+        public void svm_Class (float c)
         {
-            model = val;
+            svmClass = c;
         }
     }
 }

@@ -23,8 +23,6 @@ GameObject:
   - component: {fileID: 114171824301920036}
   - component: {fileID: 114872705113728946}
   - component: {fileID: 114265757359875736}
-  - component: {fileID: 114476586963681492}
-  - component: {fileID: 114624619086093948}
   m_Layer: 0
   m_Name: MuseMonitorOSCManager
   m_TagString: Untagged
@@ -58,11 +56,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _oscAddress: /
   _oscAddresses:
-  - /muse/elements/delta_absolute
   - /muse/elements/theta_absolute
   - /muse/elements/alpha_absolute
   - /muse/elements/beta_absolute
   - /muse/elements/gamma_absolute
+  - /muse/gyro
+  - /muse/acc
   - /muse/elements/blink
   - /muse/elements/jaw_clench
   - /muse/elements/touching_forehead
@@ -71,13 +70,14 @@ MonoBehaviour:
   _receiveAllAddresses: 0
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 0}
-  _oscPort: 5002
+  _oscPort: 5001
   _receiveAllPorts: 0
   _redrawFlag: 0
   _foldoutList: []
   AllValues: 1
   ReceiveEEG: 0
-  XYZ: 0
+  XYZ: 1
+  deltaWek: 0
   Delta_Address: /muse/elements/delta_absolute
   Theta_Address: /muse/elements/theta_absolute
   Alpha_Address: /muse/elements/alpha_absolute
@@ -91,6 +91,25 @@ MonoBehaviour:
   Horseshoe_Address: /muse/elements/horseshoe
   Batt_Address: /muse/batt
   eeg_Address: /muse/eeg
+  eeg0: 0
+  eeg1: 0
+  eeg2: 0
+  eeg3: 0
+  eeg4: 0
+  gyroX: 0
+  gyroY: 0
+  gyroZ: 0
+  accX: 0
+  accY: 0
+  accZ: 0
+  blink: 0
+  jc: 0
+  touchingforehead: 0
+  batt: 0
+  hs0: 0
+  hs1: 0
+  hs2: 0
+  hs3: 0
   d0: 0
   d1: 0
   d2: 0
@@ -111,75 +130,11 @@ MonoBehaviour:
   g1: 0
   g2: 0
   g3: 0
-  eeg0: 0
-  eeg1: 0
-  eeg2: 0
-  eeg3: 0
-  eeg4: 0
-  gyroX: 0
-  gyroY: 0
-  gyroZ: 0
-  accX: 0
-  accY: 0
-  accZ: 0
-  blink: 0
-  jc: 0
-  touchingforehead: 0
-  batt: 0
-  hs0: 0
-  hs1: 0
-  hs2: 0
-  hs3: 0
-  a_r0: 0
-  a_r1: 0
-  a_r2: 0
-  a_r3: 0
-  b_r0: 0
-  b_r1: 0
-  b_r2: 0
-  b_r3: 0
-  g_r0: 0
-  g_r1: 0
-  g_r2: 0
-  g_r3: 0
-  t_r0: 0
-  t_r1: 0
-  t_r2: 0
-  t_r3: 0
-  d_r0: 0
-  d_r1: 0
-  d_r2: 0
-  d_r3: 0
-  delta_relative: 0
-  alpha_relative: 0
-  theta_relative: 0
-  beta_relative: 0
-  gamma_relative: 0
   delta_abs: 0
   alpha_abs: 0
   theta_abs: 0
   beta_abs: 0
   gamma_abs: 0
-  theta_beta_abs: 0
-  theta_beta_r: 0
-  alpha_theta_abs: 0
-  alpha_theta_r: 0
-  tb_abs0: 0
-  tb_abs1: 0
-  tb_abs2: 0
-  tb_abs3: 0
-  tb_r0: 0
-  tb_r1: 0
-  tb_r2: 0
-  tb_r3: 0
-  at_abs0: 0
-  at_abs1: 0
-  at_abs2: 0
-  at_abs3: 0
-  at_r0: 0
-  at_r1: 0
-  at_r2: 0
-  at_r3: 0
 --- !u!114 &114171824301920036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -193,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sendInterval: 100
   _oscOutAddress: /eeg
-  _oscOutIPAddress: 192.168.0.7
+  _oscOutIPAddress: 10.100.52.13
   _oscOutPort: 6448
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 0}
@@ -213,53 +168,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sendInterval: 100
-  _oscOutAddress: /egg
-  _oscOutIPAddress: 192.168.0.7
-  _oscOutPort: 5001
-  _useExplicitConnection: 1
-  _explicitConnection: {fileID: 0}
-  _drawDefaultInspector: 1
-  _myOSCConnections: []
-  MuseMonitor: {fileID: 1555254614706258}
---- !u!114 &114476586963681492
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1555254614706258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sendInterval: 100
   _oscOutAddress: /eeg
-  _oscOutIPAddress: 192.168.0.7
-  _oscOutPort: 6448
+  _oscOutIPAddress: 10.100.52.13
+  _oscOutPort: 6452
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 0}
   _drawDefaultInspector: 1
-  _myOSCConnections: []
-  MuseMonitor: {fileID: 1555254614706258}
---- !u!114 &114624619086093948
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1555254614706258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sendInterval: 100
-  _oscOutAddress: /eeg
-  _oscOutIPAddress: 192.168.0.7
-  _oscOutPort: 6448
-  _useExplicitConnection: 1
-  _explicitConnection: {fileID: 0}
-  _drawDefaultInspector: 1
-  _myOSCConnections: []
+  _myOSCConnections:
+  - {fileID: 0}
   MuseMonitor: {fileID: 1555254614706258}
 --- !u!114 &114872705113728946
 MonoBehaviour:
@@ -274,8 +190,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sendInterval: 100
   _oscOutAddress: /eeg
-  _oscOutIPAddress: 192.168.0.7
-  _oscOutPort: 6449
+  _oscOutIPAddress: 10.100.52.13
+  _oscOutPort: 6450
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 0}
   _drawDefaultInspector: 1

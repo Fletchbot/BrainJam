@@ -24,7 +24,7 @@ public class AudioPlaytestManager : MonoBehaviour
     public float noteSustain;
 
 
-    private bool NoGesture, Mediate, Happy, Sad;
+    private bool NoGesture, Meditate, Happy, Sad;
     private bool G_sw, M_sw, H_sw, S_sw;
     private int N_Intro, N_MeditateComplete, N_EmotionComplete;
     private float sfxlvl, dronelvl, basslvl;
@@ -253,8 +253,8 @@ public class AudioPlaytestManager : MonoBehaviour
     }
     public void BassGameEnable()
     {  
-        p1Destroyed = GC.GetComponent<GestureController>().p1Destroyed;
-        p2Destroyed = GC.GetComponent<GestureController>().p2Destroyed;
+     //   p1Destroyed = GC.GetComponent<GestureController>().p1Destroyed;
+     //   p2Destroyed = GC.GetComponent<GestureController>().p2Destroyed;
 
         if(p1Destroyed || p2Destroyed)
         {
@@ -370,7 +370,7 @@ public class AudioPlaytestManager : MonoBehaviour
     public void AudioGestureControl()
     {
         NoGesture = GC.GetComponent<GestureController>().NoGesture;
-        Mediate = GC.GetComponent<GestureController>().Mediate;
+        Meditate = GC.GetComponent<GestureController>().Meditate;
         Happy = GC.GetComponent<GestureController>().Happy;
         Sad = GC.GetComponent<GestureController>().Sad;
 
@@ -404,7 +404,7 @@ public class AudioPlaytestManager : MonoBehaviour
 
             NarratorUpdate();
         }
-        else if (Mediate && !M_sw)
+        else if (Meditate && !M_sw)
         {
             chords[0] = false;
             chords[1] = false;
@@ -499,7 +499,7 @@ public class AudioPlaytestManager : MonoBehaviour
     }
     public void NarratorUpdate()
     {
-        if (Mediate || Happy || Sad)
+        if (Meditate || Happy || Sad)
         {
             NarratorClips[0].GetComponent<AudioSource>().Stop();
             NarratorClips[1].GetComponent<AudioSource>().Stop();

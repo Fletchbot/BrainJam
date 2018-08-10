@@ -37,6 +37,8 @@ namespace UniOSC{
         public GameObject GUIpanel;
 		public bool ShowInEditMode;
 		public bool traceMessages;
+        public float conScale;
+        
 		#endregion
 
 		#region Start
@@ -52,6 +54,8 @@ namespace UniOSC{
         }
 
 		void OnEnable(){
+            conScale = 0.5f;
+
 			_IPAddress = UniOSCUtils.GetLocalIPAddress();
 			foreach(var con in UniOSCConnection.Instances){
 				con.OSCMessageReceived+=OnOSCMessageReceived;
@@ -82,19 +86,19 @@ namespace UniOSC{
 
 			GUIScaler.Begin();
 			GUILayout.BeginVertical(GUILayout.Width(Screen.width/GUIScaler.GuiScale.x),GUILayout.Height(Screen.height/(GUIScaler.GuiScale.y)));//
-			GUILayout.Space(10f);
+			GUILayout.Space(1f);
 
             GUIpanel.GetComponent<ActivateObjects>().SetActive(true);
 
 			#region IPAddress
 				GUILayout.BeginHorizontal();
-					GUILayout.Space(10f);
+					GUILayout.Space(5f);
 					UniOSCUtils.DrawTexture(tex_logo);
 					GUILayout.FlexibleSpace();
-					GUILayout.Label(_IPAddress,GUILayout.Height(30f));
+					GUILayout.Label(_IPAddress,GUILayout.Height(15f));
 					GUILayout.FlexibleSpace();
 					_showGUI = GUILayout.Toggle(_showGUI,new GUIContent(_showGUI? "Hide GUI":"Show GUI"),GUI.skin.button,GUILayout.Height(30),GUILayout.Width(130));
-					GUILayout.Space(10f);
+					GUILayout.Space(5f);
 				GUILayout.EndHorizontal();
 			#endregion IPAddress
 
@@ -105,28 +109,44 @@ namespace UniOSC{
                 return;
 			}
 
-			GUILayout.Space(10f);
+			GUILayout.Space(1f);
 
 			GUILayout.BeginHorizontal();
 
 			GUILayout.FlexibleSpace();
 
-			#region OSCConnections
+			#region OSCConnectionsL
 			GUILayout.BeginVertical();
 
-				foreach(var con in UniOSCConnection.Instances){
-					if(con.gameObject.activeInHierarchy && con.enabled){
-						con.RenderGUI();
-						GUILayout.Space(5f);
-                        con.oscOutIPAddress = _IPAddress;
-                }//if
-				}//for
+            UniOSCConnection.Instances[0].RenderGUI();
+            UniOSCConnection.Instances[1].RenderGUI();
+            UniOSCConnection.Instances[2].RenderGUI();
+            GUILayout.Space(0.1f);
+            UniOSCConnection.Instances[0].oscOutIPAddress = _IPAddress;
+            UniOSCConnection.Instances[1].oscOutIPAddress = _IPAddress;
+            UniOSCConnection.Instances[2].oscOutIPAddress = _IPAddress;
 
-			GUILayout.EndVertical();
-			#endregion OSCConnections
+            GUILayout.EndVertical();
+            #endregion OSCConnectionsL
 
 			GUILayout.FlexibleSpace();
 
+            #region OSCConnectionsR
+            GUILayout.BeginVertical();
+
+            UniOSCConnection.Instances[3].RenderGUI();
+            UniOSCConnection.Instances[4].RenderGUI();
+            UniOSCConnection.Instances[5].RenderGUI();
+            GUILayout.Space(0.1f);
+            UniOSCConnection.Instances[3].oscOutIPAddress = _IPAddress;
+            UniOSCConnection.Instances[4].oscOutIPAddress = _IPAddress;
+            UniOSCConnection.Instances[5].oscOutIPAddress = _IPAddress;
+
+            GUILayout.EndVertical();
+            #endregion OSCConnectionsR
+
+           // GUILayout.FlexibleSpace();
+/*
 			#region trace
 			if(gs_textArea == null){
 			gs_textArea = new GUIStyle(GUI.skin.textArea);
@@ -147,7 +167,8 @@ namespace UniOSC{
 
 			GUILayout.EndVertical();
 			#endregion trace
-				GUILayout.Space(10f);
+            */
+				GUILayout.Space(5f);
 			GUILayout.EndHorizontal();
 
 			GUILayout.EndVertical();

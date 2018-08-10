@@ -216,14 +216,18 @@ MonoBehaviour:
   Mediate: 0
   Happy: 0
   Sad: 0
-  Instr1: 0
-  Instr2: 0
+  noG_Reached: 0
+  M_Reached: 0
+  H_Reached: 0
+  S_Reached: 0
   G_sw: 0
   M_sw: 0
   H_sw: 0
   S_sw: 0
-  I1_sw: 0
-  I2_sw: 0
+  noG_Rsw: 0
+  m_Rsw: 0
+  h_Rsw: 0
+  s_Rsw: 0
 --- !u!198 &198295957012446446
 ParticleSystem:
   m_ObjectHideFlags: 1

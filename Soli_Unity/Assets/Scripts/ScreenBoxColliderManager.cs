@@ -16,7 +16,7 @@ namespace UniOSC
         {
             ratio = 100;
             leftMin = 7.5f;
-            rightMin = 10.5f;
+            rightMin = 9.5f;
         }
 
         // Update is called once per frame

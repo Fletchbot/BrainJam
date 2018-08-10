@@ -981,7 +981,7 @@ namespace UniOSC{
 			GUILayout.BeginHorizontal(_gs2);
 			GUILayout.Label(new GUIContent("Port:"),_gs2);
 			gc= new GUIContent("65535");
-			Rect areaPort = GUILayoutUtility.GetRect(gc,_gs,GUILayout.MinWidth(20f));
+			Rect areaPort = GUILayoutUtility.GetRect(gc,_gs,GUILayout.MinWidth(10f));
 			oscPort =Mathf.Min(UniOSCUtils.MAXPORT, Convert.ToInt32( GUI.TextField(areaPort,oscPort.ToString())) );
 			GUILayout.EndHorizontal();
 
@@ -1003,7 +1003,7 @@ namespace UniOSC{
             GUILayout.BeginHorizontal(_gs2);
             GUILayout.Label(new GUIContent("IP:"), _gs);
             gc = new GUIContent("255.255.255.255");
-            Rect areaIpIn = GUILayoutUtility.GetRect(gc, _gs, GUILayout.MinWidth(100f));
+            Rect areaIpIn = GUILayoutUtility.GetRect(gc, _gs, GUILayout.MinWidth(50f));
             _tfgs = (transmissionTypeIn == OSCsharp.Net.TransmissionType.Unicast) ? new GUIStyle(GUI.skin.label): new GUIStyle(GUI.skin.textField);
 
             if (!hasValidOscIPAddress)
@@ -1064,7 +1064,7 @@ namespace UniOSC{
 			GUILayout.BeginHorizontal(_gs3);
 			GUILayout.Label(new GUIContent("Port:"),_gs3);
 			gc= new GUIContent("65536");
-			Rect areaPort3 = GUILayoutUtility.GetRect(gc,_gs,GUILayout.MinWidth(20f));
+			Rect areaPort3 = GUILayoutUtility.GetRect(gc,_gs,GUILayout.MinWidth(10f));
 			oscOutPort = Mathf.Min(UniOSCUtils.MAXPORT, Convert.ToInt32( GUI.TextField(areaPort3,oscOutPort.ToString())) );
 			GUILayout.EndHorizontal();
 
@@ -1084,7 +1084,7 @@ namespace UniOSC{
 			GUILayout.BeginHorizontal(_gs3);
 			GUILayout.Label(new GUIContent("IP:"),_gs);
 			gc= new GUIContent("255.255.255.255");
-			Rect areaIpOut = GUILayoutUtility.GetRect(gc,_gs,GUILayout.MinWidth(100f));		          
+			Rect areaIpOut = GUILayoutUtility.GetRect(gc,_gs,GUILayout.MinWidth(50f));		          
             _tfgs = ((int)transmissionTypeOut >= (int)OSCsharp.Net.TransmissionType.Broadcast) ? new GUIStyle(GUI.skin.label) : new GUIStyle(GUI.skin.textField);
 
             if (!hasValidOscOutIPAddress)
