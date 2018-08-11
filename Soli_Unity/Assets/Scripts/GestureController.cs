@@ -11,13 +11,14 @@ public class GestureController : MonoBehaviour
 
     [Header("Wekinator Receiver")]
     public GameObject WekOSC_SoloReceiver, WekOSC_MultiReceiver;
+    [Header("Wekinator Run Dispatcher")]
+    public GameObject WekMeditateDTW_Run, WekFocusDTW_Run, WekEmotionDTW_Run;
+    [Header("Meters")]
+    public GameObject MeditateMeter, FocusMeter, EmotionMeter;
 
     public float wek_mFloat, wek_fFloat, wek_hFloat, wek_sFloat;
     public bool isMeditate, isFocus, isHappy, isSad, isUnsure;
     private bool M_sw, H_sw, S_sw, U_sw;
-
-    [Header("Wekinator Run Dispatcher")]
-    public GameObject WekMeditateDTW_Run, WekFocusDTW_Run, WekEmotionDTW_Run;
 
     [Header("Game Gestures")]
     public bool MeditateTest, EmotionTest, EndTest, StartGame, MeditationTested, HappinessTested, SadnessTested;
@@ -80,6 +81,18 @@ public class GestureController : MonoBehaviour
             mTarget = 5.0f;
             fTarget = 2.5f;
             eTarget = 3.0f;
+
+            MeditateMeter.GetComponent<SimpleBars>().MinValue = 20.0f;
+            MeditateMeter.GetComponent<SimpleBars>().MaxValue = mTarget;
+
+            FocusMeter.GetComponent<SimpleBars>().MinValue = 10.0f;
+            FocusMeter.GetComponent<SimpleBars>().MaxValue = fTarget;
+
+            EmotionMeter.GetComponent<EmotionMeter>().MinValuec1 = 13.0f;
+            EmotionMeter.GetComponent<EmotionMeter>().MinValuec2 = 13.0f;
+            EmotionMeter.GetComponent<EmotionMeter>().MaxValuec1 = eTarget;
+            EmotionMeter.GetComponent<EmotionMeter>().MaxValuec2 = eTarget;
+
         }
     }
     // Update is called once per frame
@@ -95,6 +108,8 @@ public class GestureController : MonoBehaviour
 
             GestureStates();
             HeldState();
+
+            MetersUpdate();
 
             if (MuseSolo)
             {
@@ -444,7 +459,7 @@ public class GestureController : MonoBehaviour
                 meditateCountdown -= Time.deltaTime;
             }
         }
-        else if (wek_mFloat >= (mTarget + 1.0f))
+        else if (wek_mFloat >= (mTarget + 2.0f))
         {
             if (meditateCountdown <= 1.0f)
             {
@@ -626,6 +641,16 @@ public class GestureController : MonoBehaviour
         Happy = false;
         Sad = false;
         Unsure = true;
+    }
+
+    private void MetersUpdate()
+    {
+        MeditateMeter.GetComponent<SimpleBars>().Value = wek_mFloat;
+        FocusMeter.GetComponent<SimpleBars>().Value = wek_fFloat;
+
+        //Find a way to have unsure...
+        EmotionMeter.GetComponent<EmotionMeter>().Valuec1 = wek_hFloat;
+        EmotionMeter.GetComponent<EmotionMeter>().Valuec2 = wek_sFloat;        
     }
 
     public void StandaloneMode(bool standalone)
