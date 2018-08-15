@@ -118,6 +118,33 @@ AudioSource:
   m_PrefabParentObject: {fileID: 82159045316960220, guid: c9d043fdd9a438c499390f45e20d076f,
     type: 2}
   m_PrefabInternal: {fileID: 903403902}
+--- !u!83 &11456595
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!4 &17237087 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4962213727069530, guid: 02e906b22ba251b469bb7937a98e9df7,
@@ -885,33 +912,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c90d896c848dd9447a0a0e38450d9ae7, type: 2}
   m_IsPrefabParent: 0
---- !u!83 &697485781
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!82 &717991642 stripped
 AudioSource:
   m_PrefabParentObject: {fileID: 82131318539390516, guid: c9d043fdd9a438c499390f45e20d076f,
@@ -1070,33 +1070,6 @@ AudioSource:
   m_PrefabParentObject: {fileID: 82412648508453332, guid: c9d043fdd9a438c499390f45e20d076f,
     type: 2}
   m_PrefabInternal: {fileID: 903403902}
---- !u!83 &1009073058
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!114 &1027386959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1176,6 +1149,33 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1545023584}
   m_Script: {fileID: 11500000, guid: eaad75f03bc9d2942a2a4dd8e734324f, type: 3}
+--- !u!83 &1200124394
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!82 &1209395650 stripped
 AudioSource:
   m_PrefabParentObject: {fileID: 82566061579424902, guid: c9d043fdd9a438c499390f45e20d076f,
@@ -1235,6 +1235,16 @@ Prefab:
     - target: {fileID: 4543424176675650, guid: de701ed5793258e43b81271f73a2052e, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114338870672482494, guid: de701ed5793258e43b81271f73a2052e,
+        type: 2}
+      propertyPath: autoConnectOSCIn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114338870672482494, guid: de701ed5793258e43b81271f73a2052e,
+        type: 2}
+      propertyPath: _oscPort
+      value: 5000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de701ed5793258e43b81271f73a2052e, type: 2}

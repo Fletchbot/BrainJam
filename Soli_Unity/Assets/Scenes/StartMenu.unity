@@ -559,6 +559,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114338870672482494, guid: de701ed5793258e43b81271f73a2052e,
+        type: 2}
+      propertyPath: _oscPort
+      value: 5000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de701ed5793258e43b81271f73a2052e, type: 2}
   m_IsPrefabParent: 0
