@@ -118,33 +118,6 @@ AudioSource:
   m_PrefabParentObject: {fileID: 82159045316960220, guid: c9d043fdd9a438c499390f45e20d076f,
     type: 2}
   m_PrefabInternal: {fileID: 903403902}
---- !u!83 &11456595
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!4 &17237087 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4962213727069530, guid: 02e906b22ba251b469bb7937a98e9df7,
@@ -204,7 +177,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4798745507069770, guid: 0a8e9350d5449d846b3743f847a4c13a, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114889151899839092, guid: 0a8e9350d5449d846b3743f847a4c13a,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0a8e9350d5449d846b3743f847a4c13a, type: 2}
@@ -303,6 +281,11 @@ Prefab:
     - target: {fileID: 1175065084950408, guid: 75a40a6382c771041ad73d7e64dfa8af, type: 2}
       propertyPath: m_Name
       value: WekIN_WekDTWEmotionOUT
+      objectReference: {fileID: 0}
+    - target: {fileID: 114433024030130764, guid: 75a40a6382c771041ad73d7e64dfa8af,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 75a40a6382c771041ad73d7e64dfa8af, type: 2}
@@ -593,6 +576,33 @@ Transform:
   m_Father: {fileID: 1096886346}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!83 &269323098
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &312255125
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,6 +661,77 @@ GameObject:
   m_PrefabParentObject: {fileID: 1561607134093182, guid: 8bd2d423646ae604ba5b6453243ecf66,
     type: 2}
   m_PrefabInternal: {fileID: 251781216}
+--- !u!1001 &365452796
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2135649725}
+    m_Modifications:
+    - target: {fileID: 4878486239940634, guid: 08d01b2196e99b54fa7364cfb00a5d27, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878486239940634, guid: 08d01b2196e99b54fa7364cfb00a5d27, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878486239940634, guid: 08d01b2196e99b54fa7364cfb00a5d27, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878486239940634, guid: 08d01b2196e99b54fa7364cfb00a5d27, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878486239940634, guid: 08d01b2196e99b54fa7364cfb00a5d27, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878486239940634, guid: 08d01b2196e99b54fa7364cfb00a5d27, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878486239940634, guid: 08d01b2196e99b54fa7364cfb00a5d27, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878486239940634, guid: 08d01b2196e99b54fa7364cfb00a5d27, type: 2}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 114568761337509368, guid: 08d01b2196e99b54fa7364cfb00a5d27,
+        type: 2}
+      propertyPath: _explicitConnection
+      value: 
+      objectReference: {fileID: 1905746997}
+    - target: {fileID: 114568761337509368, guid: 08d01b2196e99b54fa7364cfb00a5d27,
+        type: 2}
+      propertyPath: _myOSCConnections.Array.data[0]
+      value: 
+      objectReference: {fileID: 1905746997}
+    - target: {fileID: 1382632680292192, guid: 08d01b2196e99b54fa7364cfb00a5d27, type: 2}
+      propertyPath: m_Name
+      value: SVMEmotions_Rec
+      objectReference: {fileID: 0}
+    - target: {fileID: 114568761337509368, guid: 08d01b2196e99b54fa7364cfb00a5d27,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 08d01b2196e99b54fa7364cfb00a5d27, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &365452797 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4878486239940634, guid: 08d01b2196e99b54fa7364cfb00a5d27,
+    type: 2}
+  m_PrefabInternal: {fileID: 365452796}
+--- !u!1 &365452798 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1382632680292192, guid: 08d01b2196e99b54fa7364cfb00a5d27,
+    type: 2}
+  m_PrefabInternal: {fileID: 365452796}
 --- !u!1 &395169601 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1708822012180486, guid: 8bd2d423646ae604ba5b6453243ecf66,
@@ -774,7 +855,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4917900646606740, guid: 47404d45ac15dac4d9be3272abf6639b, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 114784082794955134, guid: 47404d45ac15dac4d9be3272abf6639b,
         type: 2}
@@ -786,6 +867,11 @@ Prefab:
       propertyPath: _myOSCConnections.Array.data[0]
       value: 
       objectReference: {fileID: 552133116}
+    - target: {fileID: 114784082794955134, guid: 47404d45ac15dac4d9be3272abf6639b,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47404d45ac15dac4d9be3272abf6639b, type: 2}
   m_IsPrefabParent: 0
@@ -831,7 +917,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4374582325954416, guid: a92c7be10f9579844887dd530c51cf78, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114307878455145912, guid: a92c7be10f9579844887dd530c51cf78,
         type: 2}
@@ -852,6 +938,11 @@ Prefab:
       propertyPath: _myOSCConnections.Array.data[0]
       value: 
       objectReference: {fileID: 17237088}
+    - target: {fileID: 114307878455145912, guid: a92c7be10f9579844887dd530c51cf78,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a92c7be10f9579844887dd530c51cf78, type: 2}
   m_IsPrefabParent: 0
@@ -897,7 +988,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4757459230047688, guid: c90d896c848dd9447a0a0e38450d9ae7, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 114128750594562946, guid: c90d896c848dd9447a0a0e38450d9ae7,
         type: 2}
@@ -909,6 +1000,11 @@ Prefab:
       propertyPath: _myOSCConnections.Array.data[0]
       value: 
       objectReference: {fileID: 1184951280}
+    - target: {fileID: 114128750594562946, guid: c90d896c848dd9447a0a0e38450d9ae7,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c90d896c848dd9447a0a0e38450d9ae7, type: 2}
   m_IsPrefabParent: 0
@@ -1093,6 +1189,7 @@ MonoBehaviour:
   mDTW: 0
   fDTW: 0
   eDTW: 0
+  eSVM: 0
   Meditate: 0
   Emotion: 0
   Focus: 0
@@ -1149,7 +1246,23 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1545023584}
   m_Script: {fileID: 11500000, guid: eaad75f03bc9d2942a2a4dd8e734324f, type: 3}
---- !u!83 &1200124394
+--- !u!82 &1209395650 stripped
+AudioSource:
+  m_PrefabParentObject: {fileID: 82566061579424902, guid: c9d043fdd9a438c499390f45e20d076f,
+    type: 2}
+  m_PrefabInternal: {fileID: 903403902}
+--- !u!82 &1224375195 stripped
+AudioSource:
+  m_PrefabParentObject: {fileID: 82253005820213934, guid: c9d043fdd9a438c499390f45e20d076f,
+    type: 2}
+  m_PrefabInternal: {fileID: 903403902}
+--- !u!114 &1231457592 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114063265501505450, guid: 39cebc38bca64ce4ba86d3094a131198,
+    type: 2}
+  m_PrefabInternal: {fileID: 74082246}
+  m_Script: {fileID: 11500000, guid: 1e4430ff3452e4a85ac2530e457beb05, type: 3}
+--- !u!83 &1284142154
 AudioClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1176,22 +1289,6 @@ AudioClip:
     m_Offset: 0
     m_Size: 0
   m_EditorCompressionFormat: 0
---- !u!82 &1209395650 stripped
-AudioSource:
-  m_PrefabParentObject: {fileID: 82566061579424902, guid: c9d043fdd9a438c499390f45e20d076f,
-    type: 2}
-  m_PrefabInternal: {fileID: 903403902}
---- !u!82 &1224375195 stripped
-AudioSource:
-  m_PrefabParentObject: {fileID: 82253005820213934, guid: c9d043fdd9a438c499390f45e20d076f,
-    type: 2}
-  m_PrefabInternal: {fileID: 903403902}
---- !u!114 &1231457592 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114063265501505450, guid: 39cebc38bca64ce4ba86d3094a131198,
-    type: 2}
-  m_PrefabInternal: {fileID: 74082246}
-  m_Script: {fileID: 11500000, guid: 1e4430ff3452e4a85ac2530e457beb05, type: 3}
 --- !u!82 &1315561550 stripped
 AudioSource:
   m_PrefabParentObject: {fileID: 82449044074135588, guid: c9d043fdd9a438c499390f45e20d076f,
@@ -1246,6 +1343,11 @@ Prefab:
       propertyPath: _oscPort
       value: 5000
       objectReference: {fileID: 0}
+    - target: {fileID: 114338870672482494, guid: de701ed5793258e43b81271f73a2052e,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de701ed5793258e43b81271f73a2052e, type: 2}
   m_IsPrefabParent: 0
@@ -1259,6 +1361,78 @@ GameObject:
   m_PrefabParentObject: {fileID: 1965823458099206, guid: a92c7be10f9579844887dd530c51cf78,
     type: 2}
   m_PrefabInternal: {fileID: 591059624}
+--- !u!1001 &1462445416
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2135649725}
+    m_Modifications:
+    - target: {fileID: 114871946986808946, guid: 12832ddccf1598d4c96c0ed5d616ca12,
+        type: 2}
+      propertyPath: _myOSCConnections.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689441659360926, guid: 12832ddccf1598d4c96c0ed5d616ca12, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689441659360926, guid: 12832ddccf1598d4c96c0ed5d616ca12, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689441659360926, guid: 12832ddccf1598d4c96c0ed5d616ca12, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689441659360926, guid: 12832ddccf1598d4c96c0ed5d616ca12, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689441659360926, guid: 12832ddccf1598d4c96c0ed5d616ca12, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689441659360926, guid: 12832ddccf1598d4c96c0ed5d616ca12, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689441659360926, guid: 12832ddccf1598d4c96c0ed5d616ca12, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689441659360926, guid: 12832ddccf1598d4c96c0ed5d616ca12, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114871946986808946, guid: 12832ddccf1598d4c96c0ed5d616ca12,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
+      objectReference: {fileID: 0}
+    - target: {fileID: 114871946986808946, guid: 12832ddccf1598d4c96c0ed5d616ca12,
+        type: 2}
+      propertyPath: _oscOutPort
+      value: 6455
+      objectReference: {fileID: 0}
+    - target: {fileID: 114871946986808946, guid: 12832ddccf1598d4c96c0ed5d616ca12,
+        type: 2}
+      propertyPath: _explicitConnection
+      value: 
+      objectReference: {fileID: 1905746997}
+    - target: {fileID: 114871946986808946, guid: 12832ddccf1598d4c96c0ed5d616ca12,
+        type: 2}
+      propertyPath: _myOSCConnections.Array.data[0]
+      value: 
+      objectReference: {fileID: 1905746997}
+    - target: {fileID: 114871946986808946, guid: 12832ddccf1598d4c96c0ed5d616ca12,
+        type: 2}
+      propertyPath: bundleMode
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 12832ddccf1598d4c96c0ed5d616ca12, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1504075751 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1836362512238472, guid: 8bd2d423646ae604ba5b6453243ecf66,
@@ -1313,6 +1487,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114921547207166114, guid: 1e6019b514d65f14db4028320bab58c8,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e6019b514d65f14db4028320bab58c8, type: 2}
   m_IsPrefabParent: 0
@@ -1353,7 +1532,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4099203177901100, guid: dd55e55cdb089334e9ea49ccc1b3fda6, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114866040937819452, guid: dd55e55cdb089334e9ea49ccc1b3fda6,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dd55e55cdb089334e9ea49ccc1b3fda6, type: 2}
@@ -1405,7 +1589,9 @@ MonoBehaviour:
   playtestButtonText: {fileID: 2004218021}
   Meditate_Rec: {fileID: 727150424}
   Focus_Rec: {fileID: 832931083}
-  Emotions_Rec: {fileID: 1447464921}
+  dtwEmotions_Rec: {fileID: 1447464921}
+  svmEmotions_Rec: {fileID: 365452798}
+  svmEmotions_class: {fileID: 1894925453}
   StateManager: {fileID: 268316377}
   Icons:
   - {fileID: 1549308751}
@@ -1453,6 +1639,7 @@ MonoBehaviour:
   fullEpoch: 0
   halfEpoch: 0
   counter: 0
+  svmClass: 0
   gesture: 0
   epochStart: 0
 --- !u!1 &1759545496 stripped
@@ -1535,16 +1722,93 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4962213727069530, guid: 02e906b22ba251b469bb7937a98e9df7, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1600216335530490, guid: 02e906b22ba251b469bb7937a98e9df7, type: 2}
+      propertyPath: m_Name
+      value: WekDTWEmotionRecOUT
+      objectReference: {fileID: 0}
+    - target: {fileID: 114901555563133190, guid: 02e906b22ba251b469bb7937a98e9df7,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 02e906b22ba251b469bb7937a98e9df7, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1894925453 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1738763344431904, guid: 12832ddccf1598d4c96c0ed5d616ca12,
+    type: 2}
+  m_PrefabInternal: {fileID: 1462445416}
+--- !u!4 &1894925454 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4689441659360926, guid: 12832ddccf1598d4c96c0ed5d616ca12,
+    type: 2}
+  m_PrefabInternal: {fileID: 1462445416}
 --- !u!1 &1904732038 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1309626319846584, guid: 8bd2d423646ae604ba5b6453243ecf66,
     type: 2}
   m_PrefabInternal: {fileID: 251781216}
+--- !u!1001 &1905746995
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2135649725}
+    m_Modifications:
+    - target: {fileID: 4488703480565114, guid: 1c5e87fcce4482f4f9330d9f856f439c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488703480565114, guid: 1c5e87fcce4482f4f9330d9f856f439c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488703480565114, guid: 1c5e87fcce4482f4f9330d9f856f439c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488703480565114, guid: 1c5e87fcce4482f4f9330d9f856f439c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488703480565114, guid: 1c5e87fcce4482f4f9330d9f856f439c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488703480565114, guid: 1c5e87fcce4482f4f9330d9f856f439c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488703480565114, guid: 1c5e87fcce4482f4f9330d9f856f439c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488703480565114, guid: 1c5e87fcce4482f4f9330d9f856f439c, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114603180018592574, guid: 1c5e87fcce4482f4f9330d9f856f439c,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 1c5e87fcce4482f4f9330d9f856f439c, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &1905746996 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4488703480565114, guid: 1c5e87fcce4482f4f9330d9f856f439c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1905746995}
+--- !u!114 &1905746997 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114603180018592574, guid: 1c5e87fcce4482f4f9330d9f856f439c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1905746995}
+  m_Script: {fileID: 11500000, guid: eaad75f03bc9d2942a2a4dd8e734324f, type: 3}
 --- !u!82 &1919991324 stripped
 AudioSource:
   m_PrefabParentObject: {fileID: 82446361487546646, guid: c9d043fdd9a438c499390f45e20d076f,
@@ -1644,9 +1908,50 @@ Prefab:
       propertyPath: _oscPort
       value: 5000
       objectReference: {fileID: 0}
+    - target: {fileID: 114171824301920036, guid: 217b3869288a4334c89f1c60376e6cd0,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
+      objectReference: {fileID: 0}
+    - target: {fileID: 114872705113728946, guid: 217b3869288a4334c89f1c60376e6cd0,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
+      objectReference: {fileID: 0}
+    - target: {fileID: 114265757359875736, guid: 217b3869288a4334c89f1c60376e6cd0,
+        type: 2}
+      propertyPath: _oscOutIPAddress
+      value: 10.100.52.248
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 217b3869288a4334c89f1c60376e6cd0, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1920433013 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1555254614706258, guid: 217b3869288a4334c89f1c60376e6cd0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1920433012}
+--- !u!114 &1920433014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1920433013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1b927d66c56514c8c5ec595fd34fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendInterval: 100
+  _oscOutAddress: /eeg
+  _oscOutIPAddress: 10.100.52.248
+  _oscOutPort: 6454
+  _useExplicitConnection: 1
+  _explicitConnection: {fileID: 2017227828}
+  _drawDefaultInspector: 1
+  _myOSCConnections:
+  - {fileID: 2017227828}
+  MuseMonitor: {fileID: 1920433013}
 --- !u!1 &1963738003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,6 +2064,69 @@ AudioSource:
   m_PrefabParentObject: {fileID: 82956142148124064, guid: c9d043fdd9a438c499390f45e20d076f,
     type: 2}
   m_PrefabInternal: {fileID: 903403902}
+--- !u!1001 &2017227826
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2135649725}
+    m_Modifications:
+    - target: {fileID: 4335427022493310, guid: 76a1f19485140474a9c31c0f47873c3d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335427022493310, guid: 76a1f19485140474a9c31c0f47873c3d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335427022493310, guid: 76a1f19485140474a9c31c0f47873c3d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335427022493310, guid: 76a1f19485140474a9c31c0f47873c3d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335427022493310, guid: 76a1f19485140474a9c31c0f47873c3d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335427022493310, guid: 76a1f19485140474a9c31c0f47873c3d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335427022493310, guid: 76a1f19485140474a9c31c0f47873c3d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335427022493310, guid: 76a1f19485140474a9c31c0f47873c3d, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114290574013253752, guid: 76a1f19485140474a9c31c0f47873c3d,
+        type: 2}
+      propertyPath: autoConnectOSCIn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114290574013253752, guid: 76a1f19485140474a9c31c0f47873c3d,
+        type: 2}
+      propertyPath: _oscPort
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 76a1f19485140474a9c31c0f47873c3d, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &2017227827 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4335427022493310, guid: 76a1f19485140474a9c31c0f47873c3d,
+    type: 2}
+  m_PrefabInternal: {fileID: 2017227826}
+--- !u!114 &2017227828 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114290574013253752, guid: 76a1f19485140474a9c31c0f47873c3d,
+    type: 2}
+  m_PrefabInternal: {fileID: 2017227826}
+  m_Script: {fileID: 11500000, guid: eaad75f03bc9d2942a2a4dd8e734324f, type: 3}
 --- !u!1 &2070599316 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1053022441731550, guid: 8bd2d423646ae604ba5b6453243ecf66,
@@ -1799,12 +2167,16 @@ Transform:
   - {fileID: 33082029}
   - {fileID: 1841515365}
   - {fileID: 1633920548}
+  - {fileID: 2017227827}
   - {fileID: 1184951279}
   - {fileID: 552133115}
   - {fileID: 17237087}
+  - {fileID: 1905746996}
   - {fileID: 727150425}
   - {fileID: 832931084}
   - {fileID: 536519308}
+  - {fileID: 365452797}
+  - {fileID: 1894925454}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

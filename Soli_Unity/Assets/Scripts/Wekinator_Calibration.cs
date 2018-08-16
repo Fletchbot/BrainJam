@@ -8,7 +8,7 @@ public class Wekinator_Calibration : MonoBehaviour
 {
     public GameObject playtestButtonText;
 
-    public GameObject Meditate_Rec, Focus_Rec, Emotions_Rec;
+    public GameObject Meditate_Rec, Focus_Rec, dtwEmotions_Rec, svmEmotions_Rec, svmEmotions_class;
     public GameObject StateManager;
     public GameObject[] Icons;
     public AudioSource[] CalAudio;
@@ -17,7 +17,7 @@ public class Wekinator_Calibration : MonoBehaviour
     public bool recOn, stopRec;
 
     //DTW && SVM REC
-    public float waitEpoch, fullEpoch, halfEpoch, counter;
+    public float waitEpoch, fullEpoch, halfEpoch, counter, svmClass;
     public int gesture, epochStart;
     
     // Calibration SEQ
@@ -28,7 +28,7 @@ public class Wekinator_Calibration : MonoBehaviour
     private Vector3 Middle, Left, Right;
     private bool playtestButtonTxt;
 
-    private bool mDTW, fDTW, eDTW;
+    private bool mDTW, fDTW, eDTW, eSVM;
 
     public void Start()
     {
@@ -44,7 +44,8 @@ public class Wekinator_Calibration : MonoBehaviour
         mDTW = StateManager.GetComponent<CalibrationStateManager>().mDTW;
         fDTW = StateManager.GetComponent<CalibrationStateManager>().fDTW;
         eDTW = StateManager.GetComponent<CalibrationStateManager>().eDTW;
-        
+        eSVM = StateManager.GetComponent<CalibrationStateManager>().eSVM;
+
         RunCalibration = StateManager.GetComponent<CalibrationStateManager>().runCalibration;
 
         if (RunCalibration)
@@ -171,6 +172,7 @@ public class Wekinator_Calibration : MonoBehaviour
             if (statechange)
             {
                 counter = waitEpoch;
+                svmClass = 1.0f;
                 gesture = 1;
                 mRec = true;
                 epochStart = 1;
@@ -245,6 +247,7 @@ public class Wekinator_Calibration : MonoBehaviour
             if (statechange)
             {
                 counter = waitEpoch;
+                svmClass = 1.0f;
                 gesture = 1;
                 fRec = true;
                 epochStart = 1;
@@ -345,6 +348,7 @@ public class Wekinator_Calibration : MonoBehaviour
                     AudioHelmCalibrationManager.main.chords[1] = false;
                     AudioHelmCalibrationManager.main.chords[2] = false;
                     counter = waitEpoch;
+                    svmClass = 2.0f;
                     gesture = 1;
                 }
                 else if (state == 10) // Sad rec
@@ -353,6 +357,7 @@ public class Wekinator_Calibration : MonoBehaviour
                     AudioHelmCalibrationManager.main.chords[1] = true;
                     AudioHelmCalibrationManager.main.chords[2] = false;
                     counter = waitEpoch;
+                    svmClass = 3.0f;
                     gesture = 2;
                 }
 
@@ -440,7 +445,8 @@ public class Wekinator_Calibration : MonoBehaviour
 
             Meditate_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
             Focus_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);          
-            Emotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            dtwEmotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            svmEmotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
             epochStart = -1;
         }
@@ -466,8 +472,15 @@ public class Wekinator_Calibration : MonoBehaviour
 
             if (eDTW)
             {
-                Emotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().Gesture(gesture);
-                Emotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+                dtwEmotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().Gesture(gesture);
+                dtwEmotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            }
+
+            if (eSVM)
+            {
+                svmEmotions_class.GetComponent<UniOSC.WekEventDispatcherButton>().svm_Class(svmClass);
+                svmEmotions_class.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+                svmEmotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
             }
 
             counter -= Time.deltaTime;
@@ -489,8 +502,12 @@ public class Wekinator_Calibration : MonoBehaviour
 
             if (eDTW)
             {
-                Emotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+                dtwEmotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
                 counter = waitEpoch;
+            }
+            if (eSVM)
+            {
+                svmEmotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
             }
         }
         else
@@ -566,7 +583,8 @@ public class Wekinator_Calibration : MonoBehaviour
 
             Meditate_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
             Focus_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
-            Emotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            dtwEmotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
+            svmEmotions_Rec.GetComponent<UniOSC.WekEventDispatcherButton>().ButtonClick(recOn);
 
             stopAllAudio();
         } 

@@ -53,14 +53,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sendInterval: 100
   _oscOutAddress: /wekinator/control/outputs
-  _oscOutIPAddress: 192.168.0.7
-  _oscOutPort: 6453
+  _oscOutIPAddress: 10.100.52.248
+  _oscOutPort: 6455
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 0}
   _drawDefaultInspector: 1
   _myOSCConnections:
   - {fileID: 0}
-  bundleMode: 0
+  bundleMode: 1
   DTW_mode: 0
   IsWekRun: 0
   SVMTrain: 0

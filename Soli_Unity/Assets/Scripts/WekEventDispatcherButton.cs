@@ -50,7 +50,8 @@ namespace UniOSC
             else
             {
                 ClearData();
-                AppendData(0f);             
+                AppendData(0f);
+                AppendData(0f);
             }
 
             if (SVMTrain)
@@ -99,7 +100,11 @@ namespace UniOSC
             if (_OSCeArg.Packet is OscMessage)
             {
                 msg = ((OscMessage)_OSCeArg.Packet);
-             if(SVMclasses) msg.UpdateDataAt(0, svmClass);
+                if (SVMclasses)
+                {
+                    msg.UpdateDataAt(0, svmClass);
+                    msg.UpdateDataAt(1, svmClass);
+                }
             }
             else if (_OSCeArg.Packet is OscBundle)
             {

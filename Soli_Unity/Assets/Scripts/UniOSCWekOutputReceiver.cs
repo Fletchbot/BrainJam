@@ -16,7 +16,7 @@ namespace UniOSC
         public string[] addressArray;
         
         public bool isMeditate, isFocus, isHappy, isSad;
-        public float meditateFloat, focusFloat, emotions, happyFloat, sadFloat, unsureFloat;
+        public float meditateFloat, focusFloat, mood, facialExpression ,happyFloat, sadFloat, unsureFloat;
 
         public static UniOSCWekOutputReceiver main;
 
@@ -84,25 +84,20 @@ namespace UniOSC
                 }
                 if (String.Equals(args.Address, addressArray[4])) //svm emotions
                 {
-                    emotions = (float)msg.Data[0];
+                    mood = (float)msg.Data[0];
+                    facialExpression = (float)msg.Data[1];
                 }
-                if (String.Equals(args.Address, addressArray[5])) //svm_emotion floats
-                {
-                    unsureFloat = (float)msg.Data[0];
-                    happyFloat = (float)msg.Data[1];
-                    sadFloat = (float)msg.Data[2];
-                }
-                if (String.Equals(args.Address, addressArray[6])) //dtw emotions
+                if (String.Equals(args.Address, addressArray[5])) //dtw emotions
                 {
                     happyFloat = (float)msg.Data[0];
                     sadFloat = (float)msg.Data[1];
                 }
-                if (String.Equals(args.Address, addressArray[7])) //dtw happy bool
+                if (String.Equals(args.Address, addressArray[6])) //dtw happy bool
                 {
                     isHappy = true;
                     Invoke("hSwitch", 0.3f);
                 }
-                if (String.Equals(args.Address, addressArray[8])) //dtw sad bool
+                if (String.Equals(args.Address, addressArray[7])) //dtw sad bool
                 {
                     isSad = true;
                     Invoke("sSwitch", 0.3f);

@@ -1,0 +1,25 @@
+@relation dataset
+
+@attribute ID numeric
+@attribute Time date 'yyyy/MM/dd HH:mm:ss:SSS'
+@attribute 'Training round' numeric
+@attribute t0_avg numeric
+@attribute t1_avg numeric
+@attribute t2_avg numeric
+@attribute t3_avg numeric
+@attribute a0_avg numeric
+@attribute a1_avg numeric
+@attribute a2_avg numeric
+@attribute a3_avg numeric
+@attribute b0_avg numeric
+@attribute b1_avg numeric
+@attribute b2_avg numeric
+@attribute b3_avg numeric
+@attribute g0_avg numeric
+@attribute g1_avg numeric
+@attribute g2_avg numeric
+@attribute g3_avg numeric
+@attribute mood {0,1,2,3}
+@attribute facialExpression {0,1,2,3}
+
+@data

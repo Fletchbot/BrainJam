@@ -12,11 +12,11 @@ public class GestureController : MonoBehaviour
     [Header("Wekinator Receiver")]
     public GameObject WekOSC_SoloReceiver, WekOSC_MultiReceiver;
     [Header("Wekinator Run Dispatcher")]
-    public GameObject WekMeditateDTW_Run, WekFocusDTW_Run, WekEmotionDTW_Run;
+    public GameObject WekMeditateDTW_Run, WekFocusDTW_Run, WekEmotionDTW_Run, wekEmotionSVM_Run;
     [Header("Meters")]
     public GameObject MeditateMeter, FocusMeter, EmotionMeter;
 
-    public float wek_mFloat, wek_fFloat, wek_hFloat, wek_sFloat;
+    public float wek_mFloat, wek_fFloat, wek_hFloat, wek_sFloat, wek_mood, wek_facialExpression;
     public bool isMeditate, isFocus, isHappy, isSad, isUnsure;
     private bool M_sw, H_sw, S_sw, U_sw;
 
@@ -116,6 +116,8 @@ public class GestureController : MonoBehaviour
                 WekMeditateDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
                 WekFocusDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
                 WekEmotionDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+                wekEmotionSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+       
             }
             else if (MuseMulti)
             {
@@ -165,6 +167,8 @@ public class GestureController : MonoBehaviour
             wek_fFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().focusFloat;
             wek_hFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().happyFloat;
             wek_sFloat = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().sadFloat;
+            wek_mood = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().mood;
+            wek_facialExpression = WekOSC_SoloReceiver.GetComponent<UniOSCWekOutputReceiver>().facialExpression;
         }
         else if (MuseMulti)
         {
@@ -172,6 +176,8 @@ public class GestureController : MonoBehaviour
             wek_fFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().focusFloat;
             wek_hFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().happyFloat;
             wek_sFloat = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().sadFloat;
+            wek_mood = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().mood;
+            wek_facialExpression = WekOSC_MultiReceiver.GetComponent<UniOSCWekOutputReceiver>().facialExpression;
         }
     }
     private void InvokeMeditateTest()

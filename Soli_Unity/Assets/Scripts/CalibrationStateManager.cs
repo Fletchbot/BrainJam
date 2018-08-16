@@ -13,7 +13,7 @@ public class CalibrationStateManager : MonoBehaviour
     public float speed = 1;
     [Header("Calibration Section")]
     public int state;
-    public bool runCalibration, paused, statechange, mDTW, fDTW, eDTW;
+    public bool runCalibration, paused, statechange, mDTW, fDTW, eDTW, eSVM;
     [Header("Calibration Seq Section")]
     public bool Meditate, Emotion, Focus, MeditateFocus, MeditateEmo, FocusEmo, AllSelected;
     public Color32 MCol, ECol, FCol, recColor, finishColor;
@@ -102,6 +102,7 @@ public class CalibrationStateManager : MonoBehaviour
             mDTW = false;
             fDTW = false;
             eDTW = false;
+            eSVM = false;
 
             text.text = "";
             }
@@ -156,6 +157,7 @@ public class CalibrationStateManager : MonoBehaviour
                 mDTW = true;
                 fDTW = false;
                 eDTW = false;
+                eSVM = true;
 
                 state++;
                 counter = thirtySecTimer;
@@ -207,6 +209,7 @@ public class CalibrationStateManager : MonoBehaviour
                 mDTW = false;
                 fDTW = true;
                 eDTW = false;
+                eSVM = true;    
 
                 state++;
                 counter = fifteenSecTimer;
@@ -249,6 +252,7 @@ public class CalibrationStateManager : MonoBehaviour
                 mDTW = false;
                 fDTW = false;
                 eDTW = true;
+                eSVM = true;
 
                 state++;
                 counter = thirtySecTimer;
