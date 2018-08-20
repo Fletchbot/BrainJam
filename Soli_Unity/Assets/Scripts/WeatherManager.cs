@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 //using Artngame.SKYMASTER;
+using SoliGameController;
 
 namespace Artngame.SKYMASTER
 {
@@ -10,7 +11,7 @@ namespace Artngame.SKYMASTER
         WaterHandlerSM waterManager;
         public Material SnowLavaMat;
 
-        public GameObject gestureController;
+        public GameController gc;
 
         public bool affectFog = false;
         public bool affectFogParams = false;
@@ -20,13 +21,14 @@ namespace Artngame.SKYMASTER
 
         public float shaderOffset;
 
-        public bool StartGame;
         public bool turnonLava, turnonSnow;
         public float growLavaSnow, onStartGrow;
         public float meltLavaSnow;
 
         public bool NoGesture, Meditate, Happy, Sad, Unsure;       
         public bool noGHeld_Reached, mHeld_Reached, hHeld_Reached, sHeld_Reached, uHeld_Reached;
+
+        public int state;
 
         // Use this for initialization
         void Start()
@@ -40,20 +42,20 @@ namespace Artngame.SKYMASTER
         // Update is called once per frame
         void Update()
         {
-            StartGame = gestureController.GetComponent<GestureController>().StartGame;
+            state = gc.state;
 
-            NoGesture = gestureController.GetComponent<GestureController>().NoGesture;
-            Meditate = gestureController.GetComponent<GestureController>().Meditate;
+            NoGesture = gc.NoGesture;
+            Meditate = gc.Meditate;
 
-            Happy = gestureController.GetComponent<GestureController>().Happy;
-            Sad = gestureController.GetComponent<GestureController>().Sad;
-            Unsure = gestureController.GetComponent<GestureController>().Unsure;
+            Happy = gc.Happy;
+            Sad = gc.Sad;
+            Unsure = gc.Unsure;
             
-            noGHeld_Reached = gestureController.GetComponent<GestureController>().noGHeld_Reached;
-            mHeld_Reached = gestureController.GetComponent<GestureController>().mHeld_Reached;
-            hHeld_Reached = gestureController.GetComponent<GestureController>().hHeld_Reached;
-            sHeld_Reached = gestureController.GetComponent<GestureController>().sHeld_Reached;
-            uHeld_Reached = gestureController.GetComponent<GestureController>().uHeld_Reached;
+            noGHeld_Reached = gc.noGHeld_Reached;
+            mHeld_Reached = gc.mHeld_Reached;
+            hHeld_Reached = gc.hHeld_Reached;
+            sHeld_Reached = gc.sHeld_Reached;
+            uHeld_Reached = gc.uHeld_Reached;
 
             SkymasterWeather();
             StateSwitch();
@@ -63,41 +65,41 @@ namespace Artngame.SKYMASTER
         void StateSwitch()
         {
             //No Gesture Timeout
-            if (NoGesture && StartGame && !noGHeld_Reached) //Storm
+            if (NoGesture && state == -1 && !noGHeld_Reached) //Storm
             {
                 weatherChoice = 3;
             }
-            else if (NoGesture && StartGame && noGHeld_Reached || NoGesture && !StartGame) // Heavy Storm
+            else if (NoGesture && state == -1 && noGHeld_Reached || NoGesture && state >= 0) // Heavy Storm
             {
                 weatherChoice = 4;
             }
 
             //Meditate Happy
-            if(Meditate && !StartGame||Happy && !StartGame ||Meditate && Happy && StartGame || Happy && !Meditate && StartGame) //Sunny
+            if(Meditate && state >= 0||Happy && state >= 0 ||Meditate && Happy && state == -1 || Happy && !Meditate && state == -1) //Sunny
             {
                 weatherChoice = 0;
             }
 
             //Sad
-            if (Sad && !StartGame) //Heavy Snow Storm
+            if (Sad && state >= 0) //Heavy Snow Storm
             {
                 weatherChoice = 6;
             }
-            else if (Sad && StartGame && !sHeld_Reached) //Rain (both !meditate/meditate)
+            else if (Sad && state == -1 && !sHeld_Reached) //Rain (both !meditate/meditate)
             {
                 weatherChoice = 1;
             }
-            else if (Sad && StartGame && sHeld_Reached) //Heavy Rain (both !meditate/meditate)
+            else if (Sad && state == -1 && sHeld_Reached) //Heavy Rain (both !meditate/meditate)
             {
                 weatherChoice = 2;
             }
 
             //Unsure
-            if (Unsure && StartGame && !uHeld_Reached) //Cloudy (both !meditate/meditate)
+            if (Unsure && state == -1 && !uHeld_Reached) //Cloudy (both !meditate/meditate)
             {
                 weatherChoice = 7;
             }
-            else if (Unsure && StartGame && uHeld_Reached) //Heavy Cloud (both !meditate/meditate)
+            else if (Unsure && state == -1 && uHeld_Reached) //Heavy Cloud (both !meditate/meditate)
             {
                 weatherChoice = 8;
             }
@@ -108,13 +110,13 @@ namespace Artngame.SKYMASTER
         {
             
             //Eruption No Gesture State LAVA
-            if (NoGesture && noGHeld_Reached && StartGame || NoGesture && !StartGame)
+            if (NoGesture && noGHeld_Reached && state == -1 || NoGesture && state >= 0)
             {
                 turnonSnow = false;
 
                 if (shaderOffset >= -1.0f && shaderOffset <= 1.8f)
                 {
-                    if (!StartGame)
+                    if (state >= 0)
                     {
                         shaderOffset = onStartGrow;
                     }
@@ -130,7 +132,7 @@ namespace Artngame.SKYMASTER
             }
 
             //SNOW 
-            if (Sad && !StartGame) ///Add Snow when sad  + higher level states start game 
+            if (Sad && state >= 0) ///Add Snow when sad  + higher level states start game 
             {
                 turnonLava = false;
 
@@ -144,7 +146,7 @@ namespace Artngame.SKYMASTER
             }
 
             //MELT LAVA/SNOW
-            if (Meditate|| Happy || Sad && StartGame || Unsure && !NoGesture)
+            if (Meditate|| Happy || Sad && state == -1 || Unsure && !NoGesture)
             {
                 turnonLava = false;
                 turnonSnow = false;

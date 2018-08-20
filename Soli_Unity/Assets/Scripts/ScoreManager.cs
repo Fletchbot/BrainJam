@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SoliGameController;
 
 public class ScoreManager : MonoBehaviour {
 
-    public GameObject gestureController;
+    public GameController gc;
     public bool p1Destroyed, p2Destroyed, pPoint, sCombo, sdCombo, cStack;
     public int p1combo, p2combo, superCombo, superduperCombo, comboStackTotal;
     public int p1Total, p2Total, superTotal, superduperTotal;
@@ -38,11 +39,11 @@ public class ScoreManager : MonoBehaviour {
 
     void HeldScorePercentages()
     {
-        noG_HeldScore = gestureController.GetComponent<GestureController>().noG_HeldScore;
-   //     m_HeldScore = gestureController.GetComponent<GestureController>().m_HeldScore;
-        h_HeldScore = gestureController.GetComponent<GestureController>().h_HeldScore;
-        s_HeldScore = gestureController.GetComponent<GestureController>().s_HeldScore;
-        u_HeldScore = gestureController.GetComponent<GestureController>().u_HeldScore;
+        noG_HeldScore = gc.noG_HeldScore;
+   //     m_HeldScore = gc.m_HeldScore;
+        h_HeldScore = gc.h_HeldScore;
+        s_HeldScore = gc.s_HeldScore;
+        u_HeldScore = gc.u_HeldScore;
 
         ScoresTotal = noG_HeldScore + h_HeldScore + s_HeldScore + u_HeldScore;
 

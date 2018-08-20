@@ -17,13 +17,13 @@ namespace Artngame.SKYMASTER
         public float speed;
         public float speedUp, acc, maxAcc, highAcc, lowAcc;
         private float normSpeed;
-        private bool StartGame;
+
         private bool NoGesture, Meditate, Happy, Sad, Unsure;
         private bool G_sw, M_sw, H_sw, S_sw, U_sw;
         private bool noGHeldOff, noGHeld_Rsw, mHeldOff, mHeld_Rsw, hHeldOff, hHeld_Rsw, sHeldOff, sHeld_Rsw;
         private bool noGHeld_Reached, mHeld_Reached, hHeld_Reached, sHeld_Reached, uHeld_Reached;
         private float h_ScorePercent, s_ScorePercent, u_ScorePercent, noG_ScorePercent, percentMax, percentMin;
-
+        private int state;
         // Use this for initialization
         void Start()
         {
@@ -42,7 +42,7 @@ namespace Artngame.SKYMASTER
         // Update is called once per frame
         void Update()
         {
-            StartGame = weatherManager.StartGame;
+            state = weatherManager.state;
 
             NoGesture = weatherManager.NoGesture;
             Meditate = weatherManager.Meditate;
@@ -67,7 +67,7 @@ namespace Artngame.SKYMASTER
             skyManager.SPEED = speed;
 
             HeldReachedSW();
-          if(StartGame) SpeedUpController();
+          if(state == -1) SpeedUpController();
             StateSwitch();
         }
 
@@ -174,32 +174,32 @@ namespace Artngame.SKYMASTER
 
         void StateSwitch()
         {
-            if(!StartGame) speedUp = 16 * 4.0f;
+            if(state >= 0) speedUp = 16 * 4.0f;
 
             if (NoGesture) //Volcano Erupt Night
             {
                 CurrMonth = 10;
                 CurrDay = 10;
 
-                if (!StartGame && CurrHour >= 23.75f && CurrHour <= 23.9f || StartGame && noGHeld_Rsw && CurrHour >= 23.75f && CurrHour <= 23.9f)
+                if (state >= 0 && CurrHour >= 23.75f && CurrHour <= 23.9f || state == -1 && noGHeld_Rsw && CurrHour >= 23.75f && CurrHour <= 23.9f)
                 {
                     speed = 0.0f;
                     noGHeld_Rsw = false;
                 }
-                else if (!StartGame && !G_sw || StartGame && noGHeld_Rsw && G_sw)
+                else if (state >= 0 && !G_sw || state == -1 && noGHeld_Rsw && G_sw)
                 {
                     speed = speedUp;
 
-                    if (StartGame)
+                    if (state == -1)
                     {
                         G_sw = false;
                     }
-                    else if (!StartGame)
+                    else if (state >= 0)
                     {
                         G_sw = true;
                     }
                 }
-                else if (StartGame && !G_sw && !noGHeld_Rsw)
+                else if (state == -1 && !G_sw && !noGHeld_Rsw)
                 {
                     speed = normSpeed * highAcc;
                     G_sw = true;
@@ -209,30 +209,30 @@ namespace Artngame.SKYMASTER
                 H_sw = false;
                 S_sw = false;
             }
-            else if (Meditate && StartGame|| Meditate && !StartGame && !Happy ) //Sunset
+            else if (Meditate && state == -1|| Meditate && state >= 0 && !Happy ) //Sunset
             {
                 CurrMonth = 5;
                 CurrDay = 5;
 
-                if (!StartGame && CurrHour <= 20.2f && CurrHour >= 20.0f || StartGame && mHeld_Rsw && CurrHour <= 20.2f && CurrHour >= 20.0f)
+                if (state >= 0 && CurrHour <= 20.2f && CurrHour >= 20.0f || state == -1 && mHeld_Rsw && CurrHour <= 20.2f && CurrHour >= 20.0f)
                 {
                     speed = 0.0f;
                     mHeld_Rsw = false;
                 }
-                else if (!StartGame && !M_sw || StartGame && mHeld_Rsw && M_sw)
+                else if (state >= 0 && !M_sw || state == -1 && mHeld_Rsw && M_sw)
                 {
                     speed = speedUp;
 
-                    if (StartGame)
+                    if (state == -1)
                     {
                         M_sw = false;
                     }
-                    else if (!StartGame)
+                    else if (state >= 0)
                     {
                         M_sw = true;
                     }                   
                 }
-                else if (StartGame && !M_sw && !mHeld_Rsw)
+                else if (state == -1 && !M_sw && !mHeld_Rsw)
                 {
                     speed = normSpeed * highAcc;
                     M_sw = true;
@@ -242,30 +242,30 @@ namespace Artngame.SKYMASTER
                 H_sw = false;
                 S_sw = false;
             }
-            else if (Happy && !Meditate || Happy && !StartGame) //Midday Sun
+            else if (Happy && !Meditate || Happy && state >= 0) //Midday Sun
             {
                 CurrMonth = 6;
                 CurrDay = 20;
 
-                if (!StartGame && CurrHour > 13.4f && CurrHour < 13.6f || StartGame && hHeld_Rsw && CurrHour > 13.4f && CurrHour < 13.6f)
+                if (state >= 0 && CurrHour > 13.4f && CurrHour < 13.6f || state == -1 && hHeld_Rsw && CurrHour > 13.4f && CurrHour < 13.6f)
                 {
                     speed = 0.0f;
                     hHeld_Rsw = false;
                 }
-                else if (!StartGame && !H_sw || StartGame && hHeld_Rsw && H_sw)
+                else if (state >= 0 && !H_sw || state == -1 && hHeld_Rsw && H_sw)
                 {
                     speed = speedUp;
 
-                    if (StartGame)
+                    if (state == -1)
                     {
                         H_sw = false;
                     } 
-                    else if (!StartGame)
+                    else if (state >= 0)
                     {
                         H_sw = true;
                     }
                 }
-                else if (StartGame && !H_sw && !hHeld_Rsw)
+                else if (state == -1 && !H_sw && !hHeld_Rsw)
                 {
                     speed = normSpeed * highAcc;
                     H_sw = true;
@@ -275,30 +275,30 @@ namespace Artngame.SKYMASTER
                 M_sw = false;
                 S_sw = false;
             }
-            else if (Sad && !Meditate || Sad && !StartGame) //Early Morning
+            else if (Sad && !Meditate || Sad && state >= 0) //Early Morning
             {
                 CurrMonth = 1;
                 CurrDay = 1;
 
-                if (!StartGame && CurrHour > 8.95f && CurrHour < 9.0f || StartGame && sHeld_Rsw && CurrHour > 8.95f && CurrHour < 9.0f)
+                if (state >= 0 && CurrHour > 8.95f && CurrHour < 9.0f || state == -1 && sHeld_Rsw && CurrHour > 8.95f && CurrHour < 9.0f)
                 {
                     speed = 0.0f;
                     sHeld_Rsw = false;
                 }
-                else if (!StartGame && !S_sw || StartGame && sHeld_Rsw && S_sw)
+                else if (state >= 0 && !S_sw || state == -1 && sHeld_Rsw && S_sw)
                 {
                     speed = speedUp;
 
-                    if (StartGame)
+                    if (state == -1)
                     {
                         S_sw = false;
                     }
-                    else if (!StartGame)
+                    else if (state >= 0)
                     {
                         S_sw = true;
                     }
                 }
-                else if (StartGame && !S_sw && !sHeld_Rsw)
+                else if (state == -1 && !S_sw && !sHeld_Rsw)
                 {
                     speed = normSpeed * highAcc;
                     S_sw = true;

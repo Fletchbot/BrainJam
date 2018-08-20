@@ -1,24 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SoliGameController;
 
 namespace Artngame.SKYMASTER
 {
     public class GrassGrower : MonoBehaviour
     {
-        public GameObject gc;
-
+        public GameController gc;
         public float growSpeed, ungrowSpeed;
         private float grow, ungrow;
         private Vector3 grown, ungrown;
         private bool NoGesture, Happy, Sad;
         private bool noGHeld_Reached, hHeld_Reached, sHeld_Reached;
         private bool noGHeldOff, noGHeld_Rsw, hHeldOff, hHeld_Rsw, sHeldOff, sHeld_Rsw;
-        private bool StartGame;
 
         // Use this for initialization
         void OnEnable()
         {
+         
             grow = -200;
             ungrow = -400;
             grown = new Vector3(28, 300, grow);
@@ -31,11 +31,9 @@ namespace Artngame.SKYMASTER
         // Update is called once per frame
         void Update()
         {
-            StartGame = gc.GetComponent<GestureController>().StartGame;
-
-            NoGesture = gc.GetComponent<GestureController>().NoGesture;
-            Happy = gc.GetComponent<GestureController>().Happy;
-            Sad = gc.GetComponent<GestureController>().Sad;
+            NoGesture = gc.NoGesture;
+            Happy = gc.Happy;
+            Sad = gc.Sad;
 
             HeldReachedSW();
             GrassTrigger();
@@ -44,7 +42,7 @@ namespace Artngame.SKYMASTER
         void GrassTrigger()
         {
             //UNGROW GRASS when nogesture or sad test or sad and sadheld
-            if (NoGesture && !StartGame || NoGesture && StartGame && noGHeld_Rsw || Sad && !StartGame || Sad && StartGame && sHeld_Rsw)
+            if (NoGesture && gc.state >= 0 || NoGesture && gc.state == -1 && noGHeld_Rsw || Sad && gc.state >= 0 || Sad && gc.state == -1 && sHeld_Rsw)
             {
                 if (transform.position.z <= grow && transform.position.z >= ungrow)
                 {
@@ -59,7 +57,7 @@ namespace Artngame.SKYMASTER
             }
 
             //GROW GRASS when happy test or happy and happyheld
-            if (Happy && !StartGame || Happy && hHeld_Rsw && StartGame)
+            if (Happy && gc.state >= 0 || Happy && hHeld_Rsw && gc.state == -1)
             {
                 if (transform.position.z <= grow && transform.position.z >= ungrow)
                 {
@@ -75,9 +73,9 @@ namespace Artngame.SKYMASTER
 
         void HeldReachedSW()
         {
-            noGHeld_Reached = gc.GetComponent<GestureController>().noGHeld_Reached;
-            hHeld_Reached = gc.GetComponent<GestureController>().hHeld_Reached;
-            sHeld_Reached = gc.GetComponent<GestureController>().sHeld_Reached;
+            noGHeld_Reached = gc.noGHeld_Reached;
+            hHeld_Reached = gc.hHeld_Reached;
+            sHeld_Reached = gc.sHeld_Reached;
 
             if (noGHeld_Reached && !noGHeldOff)
             {

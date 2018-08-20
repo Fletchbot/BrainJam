@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SoliGameController;
 
 public class ProjectileEmitter : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class ProjectileEmitter : MonoBehaviour
     public GameObject projectile1, projectile2;
     public GameObject emitterForce;
 
-    public GameObject gc;
+    public GameController gc;
     public GameObject screenBoxColliders;
 
     private GameObject Temp_Projectile_Handler;
@@ -21,7 +22,7 @@ public class ProjectileEmitter : MonoBehaviour
 
     private float randomProjectile;
 
-    private bool StartGame, enableCursor, noGesture;
+    private bool enableCursor, noGesture;
 
     // Use this for initialization
     void Start()
@@ -58,10 +59,9 @@ public class ProjectileEmitter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartGame = gc.GetComponent<GestureController>().StartGame;
-        noGesture = gc.GetComponent<GestureController>().NoGesture;
+        noGesture = gc.NoGesture;
 
-        if (StartGame && !noGesture)
+        if (gc.state == -1 && !noGesture)
         {
             if (!enableCursor)
             {

@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Artngame.SKYMASTER;
+using SoliGameController;
 
 public class ParticleToggle : MonoBehaviour
 {
-    public GameObject gc;
+    public GameController gc;
     public ParticleSystem Eruption, Lava, BubblingLava, Smoke, PeekABooLava;
     public bool NoGesture, Meditate, Happy, Sad, Unsure;
     public bool noGHeld_Reached, mHeld_Reached, hHeld_Reached, sHeld_Reached;
     public bool G_sw, M_sw, H_sw, S_sw, U_sw;
     private Color32 orange;
-    private bool StartGame;
 
     // Use this for initialization
     void OnEnable()
@@ -29,18 +29,16 @@ public class ParticleToggle : MonoBehaviour
 
     void ParticleEmissionController()
     {
-        NoGesture = gc.GetComponent<GestureController>().NoGesture;
-        Meditate = gc.GetComponent<GestureController>().Meditate;
-        Happy = gc.GetComponent<GestureController>().Happy;
-        Sad = gc.GetComponent<GestureController>().Sad;
-        Unsure = gc.GetComponent<GestureController>().Unsure;
+        NoGesture = gc.NoGesture;
+        Meditate = gc.Meditate;
+        Happy = gc.Happy;
+        Sad = gc.Sad;
+        Unsure = gc.Unsure;
 
-        noGHeld_Reached = gc.GetComponent<GestureController>().noGHeld_Reached;
-        mHeld_Reached = gc.GetComponent<GestureController>().mHeld_Reached;
-        hHeld_Reached = gc.GetComponent<GestureController>().hHeld_Reached;
-        sHeld_Reached = gc.GetComponent<GestureController>().sHeld_Reached;
-
-        StartGame = gc.GetComponent<GestureController>().StartGame;
+        noGHeld_Reached = gc.noGHeld_Reached;
+        mHeld_Reached = gc.mHeld_Reached;
+        hHeld_Reached = gc.hHeld_Reached;
+        sHeld_Reached = gc.sHeld_Reached;
 
         var E_em = Eruption.GetComponent<ParticleSystem>().emission.enabled;
         var L_em = Lava.GetComponent<ParticleSystem>().emission.enabled;
@@ -59,7 +57,7 @@ public class ParticleToggle : MonoBehaviour
                 Smoke.GetComponent<ParticleSystem>().Stop();
                 PeekABooLava.GetComponent<ParticleSystem>().Stop();
 
-                if (StartGame && !noGHeld_Reached) //ALL OFF
+                if (gc.state == -1 && !noGHeld_Reached) //ALL OFF
                 {
                     E_em = false;
                     L_em = false;
@@ -69,7 +67,7 @@ public class ParticleToggle : MonoBehaviour
                     Lava.GetComponent<ParticleSystem>().Stop();
                     BubblingLava.GetComponent<ParticleSystem>().Stop();
                 }
-                else if (StartGame && noGHeld_Reached) //ERUPTION
+                else if (gc.state == -1 && noGHeld_Reached) //ERUPTION
                 {
                     E_em = true;
                     L_em = true;
@@ -81,7 +79,7 @@ public class ParticleToggle : MonoBehaviour
 
                     G_sw = true;
                 }
-                else if (!StartGame) //Test Eruption
+                else if (gc.state >= 0) //Test Eruption
                 {
                     E_em = true;
                     L_em = true;
@@ -117,13 +115,13 @@ public class ParticleToggle : MonoBehaviour
                 BubblingLava.GetComponent<ParticleSystem>().Stop();
                 Smoke.GetComponent<ParticleSystem>().Stop();
 
-                if (StartGame && !mHeld_Reached) // orangy yellow peekaboo
+                if (gc.state == -1 && !mHeld_Reached) // orangy yellow peekaboo
                 {
                     ParticleSystem.MainModule PeekABooColor1 = PeekABooLava.GetComponent<ParticleSystem>().main;
                     PeekABooColor1.startColor = new ParticleSystem.MinMaxGradient(Color.yellow, orange);
                     PeekABooLava.GetComponent<ParticleSystem>().Play();
                 }
-                else if (StartGame && mHeld_Reached || !StartGame) //redish peekaboo
+                else if (gc.state == -1 && mHeld_Reached || gc.state >= 0) //redish peekaboo
                 {
                     ParticleSystem.MainModule PeekABooColor2 = PeekABooLava.GetComponent<ParticleSystem>().main;
                     PeekABooColor2.startColor = new ParticleSystem.MinMaxGradient(orange, Color.red);
@@ -151,7 +149,7 @@ public class ParticleToggle : MonoBehaviour
                 Lava.GetComponent<ParticleSystem>().Stop();
                 BubblingLava.GetComponent<ParticleSystem>().Stop();
 
-                if (StartGame && !hHeld_Reached) //Smoke
+                if (gc.state == -1 && !hHeld_Reached) //Smoke
                 {
                     S_em = true;
                     P_em = false;
@@ -159,7 +157,7 @@ public class ParticleToggle : MonoBehaviour
                     Smoke.GetComponent<ParticleSystem>().Play();
                     PeekABooLava.GetComponent<ParticleSystem>().Stop();
                 }
-                else if (StartGame && hHeld_Reached || !StartGame) //stop smoke blueish greenish peekaboo
+                else if (gc.state == -1 && hHeld_Reached || gc.state >= 0) //stop smoke blueish greenish peekaboo
                 {
                     P_em = true;
                     S_em = false;
@@ -190,7 +188,7 @@ public class ParticleToggle : MonoBehaviour
                 Lava.GetComponent<ParticleSystem>().Stop();
                 BubblingLava.GetComponent<ParticleSystem>().Stop();
 
-                if (StartGame && !sHeld_Reached) //Smoke
+                if (gc.state == -1 && !sHeld_Reached) //Smoke
                 {
                     S_em = true;
                     P_em = false;
@@ -198,7 +196,7 @@ public class ParticleToggle : MonoBehaviour
                     Smoke.GetComponent<ParticleSystem>().Play();
                     PeekABooLava.GetComponent<ParticleSystem>().Stop();
                 }
-                else if (StartGame && sHeld_Reached || !StartGame) // stop smoke purple blueish peekaboo
+                else if (gc.state == -1 && sHeld_Reached || gc.state >= 0) // stop smoke purple blueish peekaboo
                 {
                     S_em = false;
                     P_em = true;

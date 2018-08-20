@@ -28,7 +28,7 @@ public class DestroyProjectile : MonoBehaviour {
             noGC = true;
         }
 
-        focusShot = gc.GetComponent<GestureController>().isFocus;
+   //     focusShot = gc.GetComponent<GestureController>().isFocus;
 
   /*      if (damage <= 0)
         {
