@@ -99,6 +99,7 @@ namespace SoliGameController
             {
                 if (N_Intro == 4)
                 {
+                    if(NarratorClips[1].GetComponent<AudioSource>().isPlaying) NarratorClips[1].GetComponent<AudioSource>().Stop();
                     sfxFadeup = true;
                     NarratorClips[2].GetComponent<AudioSource>().Play();
                     N_Intro = 5;
@@ -113,6 +114,7 @@ namespace SoliGameController
             {
                 if (N_Intro == 6)
                 {
+                    if (NarratorClips[2].GetComponent<AudioSource>().isPlaying) NarratorClips[2].GetComponent<AudioSource>().Stop();
                     NarratorClips[3].GetComponent<AudioSource>().Play();
                     N_Intro = 7;
                 }

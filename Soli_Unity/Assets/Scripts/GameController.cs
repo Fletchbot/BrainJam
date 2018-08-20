@@ -20,7 +20,7 @@ namespace SoliGameController
         [Header("GameStates")]
         public bool NoGesture, Meditate, Focus, Happy, Sad, Unsure;
         public bool MeditationTested, HappinessTested, SadnessTested, FocusTested;
-        private bool M_sw, H_sw, S_sw, U_sw;
+        private bool M_sw, H_sw, S_sw, U_sw, F_sw;
         [Header("HeldStates")]
         public bool mindStateTimeOut, heldTimeout, noGHeld_Reached, mHeld_Reached, hHeld_Reached, sHeld_Reached, uHeld_Reached;
         public float  m_HeldScore, h_HeldScore, s_HeldScore, u_HeldScore, noG_HeldScore;
@@ -137,6 +137,7 @@ namespace SoliGameController
                 if (au.N_Intro == 3 && focusSkipCountdown <= 0.0f)
                 {
                     state++;
+                    au.N_Intro = 4;
                     focusSkipCountdown = threesecCounter;
                     Debug.Log("MeditateIntroSkip");
                 }
@@ -155,6 +156,7 @@ namespace SoliGameController
                 if (au.N_Intro == 5 && focusSkipCountdown <= 0.0f)
                 {
                     state++;
+                    au.N_Intro = 6;
                     focusSkipCountdown = threesecCounter;
                     Debug.Log("EmotionIntroSkip");
                 }
@@ -302,9 +304,22 @@ namespace SoliGameController
                 sHeld_Reached = false;
             }
 
-            if (state == 6 && gestureController.isFocus)
+            if (state == 6 && gestureController.isFocus && !FocusTested || state == -1 && gestureController.isFocus && !F_sw)
             {
-                //  Debug.Log("Focused");
+                if (!FocusTested && gestureController.wek_fFloat >= gestureController.fOut)
+                {
+                    FocusTested = true;
+                    state = -1;
+                    Debug.Log("FocusPassed");
+                }
+
+                Focus = true;
+                F_sw = true;
+            }
+            else
+            {
+                F_sw = false;
+                Focus = false;
             }
 
             //No Gesture TimeOut
@@ -327,8 +342,11 @@ namespace SoliGameController
 
         private void MetersUpdate()
         {
-            MeditateMeter.GetComponent<SimpleBars>().Value = gestureController.wek_mFloat;
-            FocusMeter.GetComponent<SimpleBars>().Value = gestureController.wek_fFloat;
+            MeditateMeter.GetComponent<PieMeter>().Valuec1 = gestureController.wek_mFloat;
+            MeditateMeter.GetComponent<PieMeter>().Valuec2 = gestureController.wek_mFloat;
+
+            FocusMeter.GetComponent<PieMeter>().Valuec1 = gestureController.wek_fFloat;
+            FocusMeter.GetComponent<PieMeter>().Valuec2 = gestureController.wek_fFloat;
 
             //Find a way to have unsure...
             EmotionMeter.GetComponent<PieMeter>().Valuec1 = gestureController.h_guiVal;
@@ -337,11 +355,15 @@ namespace SoliGameController
 
         public void GestureDifficultyUpdate()
         {
-            MeditateMeter.GetComponent<SimpleBars>().MinValue = gestureController.mOut;
-            MeditateMeter.GetComponent<SimpleBars>().MaxValue = gestureController.mTarget;
+            MeditateMeter.GetComponent<PieMeter>().MinValuec1 = gestureController.mOut;
+            MeditateMeter.GetComponent<PieMeter>().MinValuec2 = gestureController.mOut;
+            MeditateMeter.GetComponent<PieMeter>().MaxValuec1 = gestureController.mTarget;
+            MeditateMeter.GetComponent<PieMeter>().MaxValuec2 = gestureController.mTarget;
 
-            FocusMeter.GetComponent<SimpleBars>().MinValue = gestureController.fOut;
-            FocusMeter.GetComponent<SimpleBars>().MaxValue = gestureController.fTarget;
+            FocusMeter.GetComponent<PieMeter>().MinValuec1 = gestureController.fOut;
+            FocusMeter.GetComponent<PieMeter>().MinValuec2 = gestureController.fOut;
+            FocusMeter.GetComponent<PieMeter>().MaxValuec1 = gestureController.fTarget;
+            FocusMeter.GetComponent<PieMeter>().MaxValuec2 = gestureController.fTarget;
 
             //Focus calibrate difficulty
             if (state == 0 && gestureThresholdTimer <= 0.0f)

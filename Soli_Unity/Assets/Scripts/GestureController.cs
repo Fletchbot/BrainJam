@@ -13,6 +13,7 @@ namespace SoliGameController
         public bool isMeditate, isFocus, isHappy, isSad, isUnsure;
         [Header("Gesture Parameters")]
         public float mTarget, mOut, fTarget, fOut, hTarget, sTarget, h_guiVal, s_guiVal;
+        public float fprevFloat, fcurrFloat, fVelocity, f_NoteVelocity;
         [Header("Timer Section")]
         public float meditateCountdown, focusCountdown;
         public float unsureCountdown, happyCountdown, sadCountdown;
@@ -96,23 +97,34 @@ namespace SoliGameController
 
         public void FocusStates()
         {
+            if (focusCountdown == 1.0f)
+            {
+                fprevFloat = wek_fFloat;
+            }
+
             if (wek_fFloat <= fTarget)
             {
                 if (focusCountdown <= 0.0f)
                 {
-                    isFocus = true;
-                    focusCountdown = secCounter;
+                    if (!isFocus)
+                    {
+                        fcurrFloat = wek_fFloat;
+                        isFocus = true;
+                    }
                 }
-                else if (wek_fFloat >= fOut)
+                else
                 {
                     focusCountdown -= Time.deltaTime;
                 }
             }
-            else
+            else if (wek_fFloat >= fOut)
             {
                 isFocus = false;
                 focusCountdown = secCounter;
             }
+
+            fVelocity = fprevFloat - fcurrFloat;
+            f_NoteVelocity = CalculateVelocity(fVelocity, 0, 5, 0, 1);
         }
 
         public void EmotionStates()
@@ -278,5 +290,11 @@ namespace SoliGameController
                }
            }
        */
+
+        //Will return a value between 0.0f and 1.0f, which will then be used to set the focusVelocity amount.
+        private float CalculateVelocity(float Value, float inMin, float inMax, float outMin, float outMax)
+        {
+            return ((outMax - outMin) * (Value - inMin)) / ((inMax - inMin) + outMin);
+        }
     }
 }
