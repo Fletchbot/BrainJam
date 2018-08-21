@@ -12,12 +12,15 @@ namespace SoliSoundScape
         SoliSoundscapeLvl1 lvl1;
         SoliSoundscapeLvl2 lvl2;
 
-        public bool Happy, Sad, Unsure, isHappy, isSad;
+        public bool Happy, Sad, Unsure, isHappy, isSad, pickKey;
         public int startKey, gameState, lvl1State, lvl2State;
         // Use this for initialization
         void Start()
         {
+            cp = this.GetComponent<ChordProgressions>();
             lvl1 = this.GetComponent<SoliSoundscapeLvl1>();
+            lvl2 = this.GetComponent<SoliSoundscapeLvl2>();
+
             lvl1State = lvl1.lvl1State;
             lvl2State = lvl2.lvl2State;
         }
@@ -35,11 +38,12 @@ namespace SoliSoundScape
             randomKey();
 
             lvl1.Lvl1ChordStates();
+            lvl2.Lvl2ChordStates();
         }
 
         void randomKey()
         {
-            if (gameState == 0) // KEY
+            if (gameState == 0 && !pickKey) // KEY
             {
                 startKey = Random.Range(1, 12);
 
@@ -55,6 +59,8 @@ namespace SoliSoundScape
                 if (startKey == 10) cp.Key = "A";
                 if (startKey == 11) cp.Key = "Bb";
                 if (startKey == 12) cp.Key = "B";
+
+                pickKey = true;
             }
         }
     }

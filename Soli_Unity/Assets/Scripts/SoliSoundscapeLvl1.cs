@@ -8,9 +8,11 @@ namespace SoliSoundScape
     {
         ChordProgressions cp;
         ChordSelector cs;
+        SoliSoundscapeLvl2 lvl2;
 
-        public bool Happy, Sad, Unsure, prevH, currH, prevS, currS, prevU, currU, h_trainSW, s_trainSW;
         public int lvl1State, unsureRandom;
+        private int lvl2State;
+        private bool Happy, Sad, Unsure, prevH, currH, prevS, currS, prevU, currU, h_trainSW, s_trainSW;
         private string[] lvl1Array = new string[3];
 
         // Use this for initialization
@@ -18,6 +20,7 @@ namespace SoliSoundScape
         {
             cp = this.GetComponent<ChordProgressions>();
             cs = this.GetComponent<ChordSelector>();
+            lvl2 = this.GetComponent<SoliSoundscapeLvl2>();
 
             lvl1State = 0;
 
@@ -29,6 +32,13 @@ namespace SoliSoundScape
             Happy = cs.Happy;
             Sad = cs.Sad;
             Unsure = cs.Unsure;
+            lvl2State = lvl2.lvl2State;
+
+            if (lvl2State == -1 && lvl2.changeInstrument)
+            {
+                lvl1State = 0;
+                lvl2.changeInstrument = false;
+            }
         }
 
         public void Lvl1ChordStates()

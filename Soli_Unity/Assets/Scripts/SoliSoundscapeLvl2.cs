@@ -10,8 +10,10 @@ namespace SoliSoundScape
         ChordSelector cs;
         SoliSoundscapeLvl1 lvl1;
 
-        public bool Happy, Sad, Unsure, prevH, currH, prevS, currS, prevU, currU, h_trainSW, s_trainSW;
-        public int lvl1State, lvl2State, unsureRandom;
+        public int lvl2State;
+        public bool changeInstrument;
+        private bool Happy, Sad, Unsure, prevH, currH, prevS, currS, prevU, currU, h_trainSW, s_trainSW;
+        private int lvl1State;
         private string[] lvl2Array = new string[3];
 
         // Use this for initialization
@@ -20,8 +22,6 @@ namespace SoliSoundScape
             cp = this.GetComponent<ChordProgressions>();
             cs = this.GetComponent<ChordSelector>();
             lvl1 = this.GetComponent<SoliSoundscapeLvl1>();
-
-
         }
 
         // Update is called once per frame
@@ -33,11 +33,7 @@ namespace SoliSoundScape
             Sad = cs.Sad;
             Unsure = cs.Unsure;
 
-            if (lvl1State >= 0)
-            {
-                lvl2State = -1;
-            }
-            else if (lvl1State == -1 && lvl2State == -1)
+            if (lvl1State == -1 && lvl2State == -1)
             {
                 lvl2State = 0;
             }          
@@ -308,20 +304,26 @@ namespace SoliSoundScape
 
                         if (prevS && cp.KeyType == "Major")
                         {
-
+                            cp.chords[2] = true;
                         }
                         else if (prevS && cp.KeyType == "NaturalMinor")
                         {
-
+                            cp.KeyType = "Major";
+                            cp.ChordType = "NonDiatonic";
+                            cp.chords[5] = true;
+                            Invoke("NaturalMinorSW", 1.0f);
+                            Invoke("DiatonicSW", 1.0f);
                         }
 
                         if (prevU && cp.KeyType == "Major")
                         {
-
+                            cp.chords[2] = true;
                         }
                         else if (prevU && cp.KeyType == "NaturalMinor")
                         {
-
+                            cp.ChordType = "NonDiatonic";
+                            cp.chords[6] = true;
+                            Invoke("DiatonicSW", 1.0f);
                         }
 
                         currS = true;
@@ -335,29 +337,41 @@ namespace SoliSoundScape
                     {
                         if (prevH && cp.KeyType == "Major")
                         {
-
+                            cp.ChordType = "NonDiatonic";
+                            cp.chords[2] = true;
+                            Invoke("DiatonicSW", 1.0f);
                         }
                         else if (prevH && cp.KeyType == "NaturalMinor")
                         {
-
+                            cp.KeyType = "Major";
+                            cp.ChordType = "";
+                            cp.chords[5] = true;
+                            Invoke("NaturalMinorSW", 1.0f);
+                            Invoke("DiatonicSW", 1.0f);
                         }
 
                         if (prevS && cp.KeyType == "Major")
                         {
-
+                            cp.chords[5] = true;
                         }
                         else if (prevS && cp.KeyType == "NaturalMinor")
                         {
-
+                            cp.ChordType = "NonDiatonic";
+                            cp.chords[6] = true;
+                            Invoke("DiatonicSW", 1.0f);
                         }
 
                         if (prevU && cp.KeyType == "Major")
                         {
-
+                            cp.KeyType = "NaturalMinor";
+                            cp.ChordType = "NonDiatonic";
+                            cp.chords[3] = true;
+                            Invoke("MajorSW", 1.0f);
+                            Invoke("DiatonicSW", 1.0f);
                         }
                         else if (prevU && cp.KeyType == "NaturalMinor")
                         {
-
+                            cp.chords[6] = true;
                         }
 
                         currU = true;
@@ -390,29 +404,44 @@ namespace SoliSoundScape
                     {
                         if (prevH && cp.KeyType == "Major")
                         {
+                            cp.ChordType = "NonDiatonic";
                             cp.chords[5] = true;
+                            Invoke("DiatonicSW", 1.0f);
                         }
                         else if (prevH && cp.KeyType == "NaturalMinor")
                         {
-                            cp.chords[6] = true;
+                            cp.KeyType = "Major";
+                            cp.chords[5] = true;
+                            Invoke("NaturalMinorSW", 1.0f);
+                            Invoke("DiatonicSW", 1.0f);
                         }
 
                         if (prevS && cp.KeyType == "Major")
                         {
-                            cp.chords[5] = true;
+                            cp.KeyType = "NaturalMinor";
+                            cp.chords[3] = true;
+                            Invoke("MajorSW", 1.0f);
                         }
                         else if (prevS && cp.KeyType == "NaturalMinor")
                         {
-                            cp.chords[7] = true;
+                            cp.KeyType = "Major";
+                            cp.chords[5] = true;
+                            Invoke("NaturalMinorSW", 1.0f);
+                            Invoke("DiatonicSW", 1.0f);
                         }
 
                         if (prevU && cp.KeyType == "Major")
                         {
-                            cp.chords[1] = true;
+                            cp.ChordType = "NonDiatonic";
+                            cp.chords[2] = true;
+                            Invoke("DiatonicSW", 1.0f);
                         }
                         else if (prevU && cp.KeyType == "NaturalMinor")
                         {
-                            cp.chords[7] = true;
+                            cp.KeyType = "Major";
+                            cp.chords[5] = true;
+                            Invoke("NaturalMinorSW", 1.0f);
+                            Invoke("DiatonicSW", 1.0f);
                         }
 
                         currH = true;
@@ -426,30 +455,31 @@ namespace SoliSoundScape
                     {
                         if (prevH && cp.KeyType == "Major")
                         {
-                            cp.chords[6] = true;
+                            cp.KeyType = "NaturalMinor";
+                            cp.chords[5] = true;
+                            Invoke("MajorSW", 1.0f);
                         }
                         else if (prevH && cp.KeyType == "NaturalMinor")
                         {
-                            cp.chords[4] = true;
+                            cp.chords[1] = true;
                         }
 
                         if (prevS && cp.KeyType == "Major")
                         {
-                            cp.chords[7] = true;
+                            cp.chords[6] = true;
                         }
                         else if (prevS && cp.KeyType == "NaturalMinor")
                         {
-                            cp.chords[5] = true;
+                            cp.chords[1] = true;
                         }
 
                         if (prevU && cp.KeyType == "Major")
                         {
-                            cp.chords[6] = true;
+                            cp.chords[2] = true;
                         }
                         else if (prevU && cp.KeyType == "NaturalMinor")
                         {
-                            cp.chords[4] = true;
-
+                            cp.chords[1] = true;
                         }
 
                         currS = true;
@@ -463,31 +493,36 @@ namespace SoliSoundScape
                     {
                         if (prevH && cp.KeyType == "Major")
                         {
-                            cp.chords[5] = true;
+                            cp.KeyType = "NaturalMinor";
+                            cp.chords[3] = true;
+                            Invoke("MajorSW", 1.0f);
                         }
                         else if (prevH && cp.KeyType == "NaturalMinor")
                         {
-                            cp.chords[3] = true;
+                            cp.chords[4] = true;
                         }
 
                         if (prevS && cp.KeyType == "Major")
                         {
-                            cp.chords[4] = true;
+                            cp.KeyType = "NaturalMinor";
+                            cp.chords[5] = true;
+                            Invoke("MajorSW", 1.0f);
                         }
                         else if (prevS && cp.KeyType == "NaturalMinor")
                         {
-                            cp.chords[1] = true;
+                            cp.chords[4] = true;
                         }
 
                         if (prevU && cp.KeyType == "Major")
                         {
-                            cp.chords[4] = true;
+                            cp.ChordType = "NonDiatonic";
+                            cp.chords[5] = true;
+                            Invoke("DiatonicSW", 1.0f);
                         }
                         else if (prevU && cp.KeyType == "NaturalMinor")
                         {
-                            cp.chords[1] = true;
+                            cp.chords[4] = true;
                         }
-
 
                         currU = true;
                         prevU = true;
@@ -515,69 +550,9 @@ namespace SoliSoundScape
                 }
                 else if (lvl2State == 4) //LVL 2.4
                 {
-
-                    if (cp.KeyType == "Major")
-                    {
-                        //Return back to LEVEL1
-                        if (lvl2Array[0] == "H" && lvl2Array[1] == "U" && lvl2Array[2] == "H" || lvl2Array[0] == "H" && lvl2Array[1] == "U" && lvl2Array[2] == "U")
-                        {
-                            lvl1State = 0;
-                        }
-                        else if (lvl2Array[0] == "S" && lvl2Array[1] == "U" && lvl2Array[2] == "H" || lvl2Array[0] == "S" && lvl2Array[1] == "U" && lvl2Array[2] == "U")
-                        {
-                            lvl1State = 0;
-                        }
-                        else if (lvl2Array[0] == "U" && lvl2Array[1] == "U" && lvl2Array[2] == "U" || lvl2Array[0] == "U" && lvl2Array[1] == "U" && lvl2Array[2] == "H")
-                        {
-                            lvl1State = 0;
-                        }
-                        //If sad go to minor i
-                        else if (lvl2Array[0] == "S" && lvl2Array[1] == "S" && lvl2Array[2] == "S" && Sad || lvl2Array[0] == "H" && lvl2Array[1] == "S" && lvl2Array[2] == "S" && Sad || lvl2Array[0] == "S" && lvl2Array[1] == "H" && lvl2Array[2] == "S" && Sad || lvl2Array[0] == "S" && lvl2Array[1] == "S" && lvl2Array[2] == "H" && Sad)
-                        {
-                            cp.KeyType = "NaturalMinor";
-                            lvl1State = -1;
-                        }
-                        else if (lvl2Array[0] == "U" && lvl2Array[1] == "S" && lvl2Array[2] == "S" && Sad || lvl2Array[0] == "S" && lvl2Array[1] == "U" && lvl2Array[2] == "S" && Sad || lvl2Array[0] == "S" && lvl2Array[1] == "S" && lvl2Array[2] == "U" && Sad)
-                        {
-                            cp.KeyType = "NaturalMinor";
-                            lvl1State = -1;
-                        }
-                        else
-                        {
-                            lvl1State = -1;
-                        }
-                    }
-                    else if (cp.KeyType == "NaturalMinor")
-                    {
-                        //Return back to LEVEL1
-                        if (lvl2Array[0] == "H" && lvl2Array[1] == "H" && lvl2Array[2] == "U" || lvl2Array[0] == "H" && lvl2Array[1] == "S" && lvl2Array[2] == "U")
-                        {
-                            lvl1State = 0;
-                        }
-                        else if (lvl2Array[0] == "S" && lvl2Array[1] == "H" && lvl2Array[2] == "U" || lvl2Array[0] == "S" && lvl2Array[1] == "S" && lvl2Array[2] == "U")
-                        {
-                            lvl1State = 0;
-                        }
-                        else if (lvl2Array[0] == "U" && lvl2Array[1] == "H" && lvl2Array[2] == "U" || lvl2Array[0] == "U" && lvl2Array[1] == "S" && lvl2Array[2] == "U")
-                        {
-                            lvl1State = 0;
-                        }
-                        //If Happy go to major I
-                        else if (lvl2Array[0] == "H" && lvl2Array[1] == "H" && lvl2Array[2] == "H" && Happy || lvl2Array[0] == "S" && lvl2Array[1] == "H" && lvl2Array[2] == "H" && Happy || lvl2Array[0] == "H" && lvl2Array[1] == "S" && lvl2Array[2] == "H" && Happy || lvl2Array[0] == "H" && lvl2Array[1] == "H" && lvl2Array[2] == "S" && Happy)
-                        {
-                            cp.KeyType = "Major";
-                            lvl1State = -1;
-                        }
-                        else if (lvl2Array[0] == "U" && lvl2Array[1] == "H" && lvl2Array[2] == "H" && Happy || lvl2Array[0] == "H" && lvl2Array[1] == "U" && lvl2Array[2] == "H" && Happy || lvl2Array[0] == "H" && lvl2Array[1] == "H" && lvl2Array[2] == "U" && Happy)
-                        {
-                            cp.KeyType = "Major";
-                            lvl1State = -1;
-                        }
-                        else
-                        {
-                            lvl1State = -1;
-                        }
-                    }
+                    cp.chords[1] = true;
+                    lvl2State = -1;
+                    changeInstrument = true;
                 }
             }
         }

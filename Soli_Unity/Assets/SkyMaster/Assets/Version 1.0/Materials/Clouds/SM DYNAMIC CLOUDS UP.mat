@@ -97,7 +97,7 @@ Material:
     - _Scale: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.7352941, g: 0.4509083, b: 0.06845843, a: 0.078431375}
     - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
-    - _TintColor: {r: 1.3e-44, g: 1.3e-44, b: 1.3e-44, a: 0.10000001}
+    - _TintColor: {r: 2.9413536e-27, g: 2.9413536e-27, b: 2.9413536e-27, a: 0.10000001}
     - _TranslucencyColor: {r: 0.73, g: 0.85, b: 0.41, a: 1}
 --- !u!1002 &2100001
 EditorExtensionImpl:
