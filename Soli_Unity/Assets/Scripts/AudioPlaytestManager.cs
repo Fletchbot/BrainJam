@@ -68,7 +68,7 @@ namespace SoliGameController
 
         public void TrainingAudio()
         {
-            if (gameController.state == 0 && N_Intro == 0) // INTRO FOCUS TO SKIP TO NEXT STATE
+            if (gameController.state == 0 ) // NARRATOR MEDITATE TRAINING
             {
                 if (N_Intro == 0)
                 {
@@ -82,7 +82,7 @@ namespace SoliGameController
                     N_Intro = 2;
                 }
             }
-            if (gameController.state == 1 && N_Intro == 2) //MEDIATE TRAINING INTRO
+            if (gameController.state == 2) //NARRATOR EMOTIONS TRAINING
             {
                 if (N_Intro == 2)
                 {
@@ -95,7 +95,7 @@ namespace SoliGameController
                     N_Intro = 4;
                 }
             }
-            if (gameController.state == 3 && N_Intro == 4) //EMOTIONS TRAINING INTRO
+            if (gameController.state == 4) //NARRATOR FOCUS TRAINING
             {
                 if (N_Intro == 4)
                 {
@@ -108,20 +108,6 @@ namespace SoliGameController
                 if (!NarratorClips[2].GetComponent<AudioSource>().isPlaying && N_Intro == 5)
                 {
                     N_Intro = 6;
-                }
-            }
-            if (gameController.state == 5 && N_Intro == 6) //FOCUS TRAINING INTRO
-            {
-                if (N_Intro == 6)
-                {
-                    if (NarratorClips[2].GetComponent<AudioSource>().isPlaying) NarratorClips[2].GetComponent<AudioSource>().Stop();
-                    NarratorClips[3].GetComponent<AudioSource>().Play();
-                    N_Intro = 7;
-                }
-
-                if (!NarratorClips[3].GetComponent<AudioSource>().isPlaying && N_Intro == 7)
-                {
-                    N_Intro = 8;
                 }
             }
         }

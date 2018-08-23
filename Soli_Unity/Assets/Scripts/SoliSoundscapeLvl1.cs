@@ -490,7 +490,7 @@ namespace SoliSoundScape
                         }
                     }
                 }
-                else if (cs.gameState == 4)
+                else if (cs.gameState == 2 && cs.gameState == 3)
                 {
                     if (Happy && !h_trainSW)
                     {
