@@ -32,7 +32,7 @@ Material:
     - Horizon_adj: 9.960291
     - SunBlend: 66
     - White_cutoff: 6.2
-    - _Coloration: -0.25
+    - _Coloration: -0.027000003
     - fCameraHeight: 0
     - fCameraHeight2: 0
     - fExposure: 0.69848096

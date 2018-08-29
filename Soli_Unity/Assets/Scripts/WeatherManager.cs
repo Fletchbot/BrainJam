@@ -12,6 +12,7 @@ namespace Artngame.SKYMASTER
         public Material SnowLavaMat;
 
         public GameController gc;
+        public AudioPlaytestManager au;
 
         public bool affectFog = false;
         public bool affectFogParams = false;
@@ -27,8 +28,9 @@ namespace Artngame.SKYMASTER
 
         public bool NoGesture, Meditate, Happy, Sad, Unsure;       
         public bool noGHeld_Reached, mHeld_Reached, hHeld_Reached, sHeld_Reached, uHeld_Reached;
+        public bool MeditationTested, HappinessTested, SadnessTested, FocusTested;
 
-        public int state;
+        public int state, n_Intro;
 
         // Use this for initialization
         void Start()
@@ -43,6 +45,7 @@ namespace Artngame.SKYMASTER
         void Update()
         {
             state = gc.state;
+            n_Intro = au.N_Intro;
 
             NoGesture = gc.NoGesture;
             Meditate = gc.Meditate;
@@ -57,6 +60,11 @@ namespace Artngame.SKYMASTER
             sHeld_Reached = gc.sHeld_Reached;
             uHeld_Reached = gc.uHeld_Reached;
 
+            MeditationTested = gc.MeditationTested;
+            HappinessTested = gc.HappinessTested;
+            SadnessTested = gc.SadnessTested;
+            FocusTested = gc.FocusTested;
+
             SkymasterWeather();
             StateSwitch();
             snow_lava_SW();
@@ -69,19 +77,19 @@ namespace Artngame.SKYMASTER
             {
                 weatherChoice = 3;
             }
-            else if (NoGesture && state == -1 && noGHeld_Reached || NoGesture && state >= 0) // Heavy Storm
+            else if (NoGesture && state == -1 && noGHeld_Reached || NoGesture && state == 0) // Heavy Storm
             {
                 weatherChoice = 4;
             }
 
             //Meditate Happy
-            if(Meditate && state >= 0||Happy && state >= 0 ||Meditate && Happy && state == -1 || Happy && !Meditate && state == -1) //Sunny
+            if(Meditate && state <=2||Happy && state >=3 ||Meditate && Happy && state == -1 || Happy && !Meditate && state == -1) //Sunny
             {
                 weatherChoice = 0;
             }
 
             //Sad
-            if (Sad && state >= 0) //Heavy Snow Storm
+            if (Sad && state == 2 && SadnessTested) //Heavy Snow Storm
             {
                 weatherChoice = 6;
             }
@@ -110,7 +118,7 @@ namespace Artngame.SKYMASTER
         {
             
             //Eruption No Gesture State LAVA
-            if (NoGesture && noGHeld_Reached && state == -1 || NoGesture && state >= 0)
+            if (NoGesture && noGHeld_Reached && state == -1 || NoGesture && state == 0)
             {
                 turnonSnow = false;
 
@@ -132,7 +140,7 @@ namespace Artngame.SKYMASTER
             }
 
             //SNOW 
-            if (Sad && state >= 0) ///Add Snow when sad  + higher level states start game 
+            if (Sad && state == 2 && n_Intro == 4) ///Add Snow when sad  + higher level states start game 
             {
                 turnonLava = false;
 
@@ -144,9 +152,8 @@ namespace Artngame.SKYMASTER
                 SnowLavaMat.SetFloat("_isLava", 0);
                 SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
             }
-
             //MELT LAVA/SNOW
-            if (Meditate|| Happy || Sad && state == -1 || Unsure && !NoGesture)
+            else if (Meditate && state == -1 || Happy && state == -1 || Sad && state == -1 || Unsure && !NoGesture || Meditate && state == 2 || Happy && state >= 3)
             {
                 turnonLava = false;
                 turnonSnow = false;
@@ -220,7 +227,7 @@ namespace Artngame.SKYMASTER
                 {
                     skyManager.VolShaderCloudsH.ClearDayCoverage = Mathf.Lerp(skyManager.VolShaderCloudsH.ClearDayCoverage, -0.85f, speed); // -0.55f;
                 }
-                skyManager.WeatherSeverity = 0;
+                skyManager.WeatherSeverity = 1;
                 currentWeather = "Sunny";
             }
             if (weatherChoice == 1)
@@ -240,7 +247,7 @@ namespace Artngame.SKYMASTER
                 {
                     skyManager.VolShaderCloudsH.ClearDayCoverage = Mathf.Lerp(skyManager.VolShaderCloudsH.ClearDayCoverage, -0.20f, speed * 4.5f); //-0.20f;
                 }
-                skyManager.WeatherSeverity = 10;
+                skyManager.WeatherSeverity = 9;
                 currentWeather = "Heavy Rain";
             }
             if (weatherChoice == 3)

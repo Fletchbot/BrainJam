@@ -8,7 +8,7 @@ namespace Artngame.SKYMASTER
     {
 
         SkyMasterManager skyManager;
-        WeatherManager weatherManager;
+        WeatherManager wm;
         public GameObject scoreManager;
 
         public int CurrMonth;
@@ -24,11 +24,12 @@ namespace Artngame.SKYMASTER
         private bool noGHeld_Reached, mHeld_Reached, hHeld_Reached, sHeld_Reached, uHeld_Reached;
         private float h_ScorePercent, s_ScorePercent, u_ScorePercent, noG_ScorePercent, percentMax, percentMin;
         private int state;
+ 
         // Use this for initialization
         void Start()
         {
             skyManager = this.GetComponent<SkyMasterManager>();
-            weatherManager = this.GetComponent<WeatherManager>();
+            wm = this.GetComponent<WeatherManager>();
             normSpeed = 1.0f;
             maxAcc = 64.0f;
             acc = normSpeed;
@@ -42,19 +43,19 @@ namespace Artngame.SKYMASTER
         // Update is called once per frame
         void Update()
         {
-            state = weatherManager.state;
+            state = wm.state;
 
-            NoGesture = weatherManager.NoGesture;
-            Meditate = weatherManager.Meditate;
-            Happy = weatherManager.Happy;
-            Sad = weatherManager.Sad;
-            Unsure = weatherManager.Unsure;
+            NoGesture = wm.NoGesture;
+            Meditate = wm.Meditate;
+            Happy = wm.Happy;
+            Sad = wm.Sad;
+            Unsure = wm.Unsure;
 
-            noGHeld_Reached = weatherManager.noGHeld_Reached;
-            mHeld_Reached = weatherManager.mHeld_Reached;
-            hHeld_Reached = weatherManager.hHeld_Reached;
-            sHeld_Reached = weatherManager.sHeld_Reached;
-            uHeld_Reached = weatherManager.uHeld_Reached;
+            noGHeld_Reached = wm.noGHeld_Reached;
+            mHeld_Reached = wm.mHeld_Reached;
+            hHeld_Reached = wm.hHeld_Reached;
+            sHeld_Reached = wm.sHeld_Reached;
+            uHeld_Reached = wm.uHeld_Reached;
 
             h_ScorePercent = scoreManager.GetComponent<ScoreManager>().h_ScorePercent;
             s_ScorePercent = scoreManager.GetComponent<ScoreManager>().s_ScorePercent;
@@ -174,19 +175,19 @@ namespace Artngame.SKYMASTER
 
         void StateSwitch()
         {
-            if(state >= 0) speedUp = 16 * 4.0f;
+            if(state >= 0) speedUp = 16 * 5.0f;
 
             if (NoGesture) //Volcano Erupt Night
             {
                 CurrMonth = 10;
                 CurrDay = 10;
 
-                if (state >= 0 && CurrHour >= 23.75f && CurrHour <= 23.9f || state == -1 && noGHeld_Rsw && CurrHour >= 23.75f && CurrHour <= 23.9f)
+                if (state == 0 && CurrHour >= 23.75f && CurrHour <= 23.9f || state == -1 && noGHeld_Rsw && CurrHour >= 23.75f && CurrHour <= 23.9f)
                 {
                     speed = 0.0f;
                     noGHeld_Rsw = false;
                 }
-                else if (state >= 0 && !G_sw || state == -1 && noGHeld_Rsw && G_sw)
+                else if (state == 0 && !G_sw || state == -1 && noGHeld_Rsw && G_sw)
                 {
                     speed = speedUp;
 
@@ -209,17 +210,17 @@ namespace Artngame.SKYMASTER
                 H_sw = false;
                 S_sw = false;
             }
-            else if (Meditate && state == -1|| Meditate && state >= 0 && !Happy ) //Sunset
+            else if (Meditate && state == -1|| Meditate && state == 2 && wm.n_Intro <= 4 && !wm.Sad) //Sunset
             {
                 CurrMonth = 5;
                 CurrDay = 5;
 
-                if (state >= 0 && CurrHour <= 20.2f && CurrHour >= 20.0f || state == -1 && mHeld_Rsw && CurrHour <= 20.2f && CurrHour >= 20.0f)
+                if (state ==2 && CurrHour <= 20.2f && CurrHour >= 20.0f || state == -1 && mHeld_Rsw && CurrHour <= 20.2f && CurrHour >= 20.0f)
                 {
                     speed = 0.0f;
                     mHeld_Rsw = false;
                 }
-                else if (state >= 0 && !M_sw || state == -1 && mHeld_Rsw && M_sw)
+                else if (state ==2 && !M_sw || state == -1 && mHeld_Rsw && M_sw)
                 {
                     speed = speedUp;
 
@@ -227,7 +228,7 @@ namespace Artngame.SKYMASTER
                     {
                         M_sw = false;
                     }
-                    else if (state >= 0)
+                    else if (state == 2)
                     {
                         M_sw = true;
                     }                   
@@ -242,17 +243,17 @@ namespace Artngame.SKYMASTER
                 H_sw = false;
                 S_sw = false;
             }
-            else if (Happy && !Meditate || Happy && state >= 0) //Midday Sun
+            else if (Happy && !Meditate || Happy && state >= 3) //Midday Sun
             {
                 CurrMonth = 6;
                 CurrDay = 20;
 
-                if (state >= 0 && CurrHour > 13.4f && CurrHour < 13.6f || state == -1 && hHeld_Rsw && CurrHour > 13.4f && CurrHour < 13.6f)
+                if (state >= 3 && CurrHour > 13.4f && CurrHour < 13.6f || state == -1 && hHeld_Rsw && CurrHour > 13.4f && CurrHour < 13.6f)
                 {
                     speed = 0.0f;
                     hHeld_Rsw = false;
                 }
-                else if (state >= 0 && !H_sw || state == -1 && hHeld_Rsw && H_sw)
+                else if (state  >=3 && !H_sw || state == -1 && hHeld_Rsw && H_sw)
                 {
                     speed = speedUp;
 
@@ -260,7 +261,7 @@ namespace Artngame.SKYMASTER
                     {
                         H_sw = false;
                     } 
-                    else if (state >= 0)
+                    else if (state >= 3)
                     {
                         H_sw = true;
                     }
@@ -275,17 +276,17 @@ namespace Artngame.SKYMASTER
                 M_sw = false;
                 S_sw = false;
             }
-            else if (Sad && !Meditate || Sad && state >= 0) //Early Morning
+            else if (Sad && !Meditate || Sad && state == 2 && wm.SadnessTested) //Early Morning
             {
                 CurrMonth = 1;
                 CurrDay = 1;
 
-                if (state >= 0 && CurrHour > 8.95f && CurrHour < 9.0f || state == -1 && sHeld_Rsw && CurrHour > 8.95f && CurrHour < 9.0f)
+                if (state == 2 && CurrHour > 8.95f && CurrHour < 9.0f || state == -1 && sHeld_Rsw && CurrHour > 8.95f && CurrHour < 9.0f)
                 {
                     speed = 0.0f;
                     sHeld_Rsw = false;
                 }
-                else if (state >= 0 && !S_sw || state == -1 && sHeld_Rsw && S_sw)
+                else if (state == 2 && !S_sw || state == -1 && sHeld_Rsw && S_sw)
                 {
                     speed = speedUp;
 
@@ -293,7 +294,7 @@ namespace Artngame.SKYMASTER
                     {
                         S_sw = false;
                     }
-                    else if (state >= 0)
+                    else if (state == 2)
                     {
                         S_sw = true;
                     }

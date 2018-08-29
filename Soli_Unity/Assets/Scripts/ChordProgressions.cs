@@ -21,7 +21,7 @@ namespace SoliSoundScape
         public string Key, KeyType, ChordVoicing, ChordType;
         public bool[] chords = new bool[8];
         [Header("Level Picker")]
-        public bool Run, Level1, Level2, Level3;
+        public bool Run;
         [Header("NoteParameters")]
         public float f_noteVelocity;
 
@@ -43,15 +43,14 @@ namespace SoliSoundScape
 
             if (chords[1] || chords[2] || chords[3] || chords[4] || chords[5] || chords[6] || chords[7])
             {
+                DroneSynth.AllNotesOff();
+                DroneSeq.Clear();
                 DroneEnable();                
             }
         }
 
         public void DroneEnable()
-        {
-            DroneSynth.AllNotesOff();
-            DroneSeq.Clear();
-        
+        {        
             for (int i = 0; i < chords.Length; i++)
             {
                 if (chords[i])
@@ -375,9 +374,8 @@ namespace SoliSoundScape
                             }
                             break;
                     }
-
-                    chords[i] = false;
                 }
+                chords[i] = false;
             }
         }
 

@@ -10,14 +10,14 @@ namespace SoliGameController
         [Header("Wekinator")]
         public GameObject WekOSC_Receiver;
         public float wek_mFloat, wek_fFloat, wek_hFloat, wek_sFloat, wek_mood, wek_facialExpression, happyDiff, sadDiff;
-        public bool isMeditate, isFocus, isHappy, isSad, isUnsure;
+        public bool isMeditate, isFocus, isHappy, isSad, isUnsure, wekisFocus;
         [Header("Gesture Parameters")]
         public float mTarget, mOut, fTarget, fOut, hTarget, sTarget, h_guiVal, s_guiVal;
         public float fprevFloat, fcurrFloat, fVelocity, f_NoteVelocity;
         [Header("Timer Section")]
         public float meditateCountdown, focusCountdown;
         public float unsureCountdown, happyCountdown, sadCountdown;
-        private float sixtysecCounter, thirtysecCounter, tensecCounter, fivesecCounter, foursecCounter, threesecCounter, twosecCounter, secCounter;
+        private float sixtysecCounter, thirtysecCounter, tensecCounter, fivesecCounter, foursecCounter, threesecCounter, twosecCounter, secCounter, halfsecCounter;
 
         // Use this for initialization
         public void OnEnable()
@@ -32,9 +32,10 @@ namespace SoliGameController
             threesecCounter = 3.0f;
             twosecCounter = 2.0f;
             secCounter = 1.0f;
+            halfsecCounter = 0.2f;
 
-            meditateCountdown = threesecCounter;
-            focusCountdown = secCounter;
+            meditateCountdown = twosecCounter;
+            focusCountdown = halfsecCounter;
 
             unsureCountdown = twosecCounter;
             happyCountdown = twosecCounter;
@@ -42,10 +43,10 @@ namespace SoliGameController
 
             mTarget = 4.0f;
             mOut = 7.0f;
-            fTarget = 1.5f;
+            fTarget = 2.0f;
             fOut = 2.5f;
             hTarget = 0.8f;
-            sTarget = 1.0f;
+            sTarget = 1.5f;
         }
         // Update is called once per frame
         public void Update()
@@ -55,12 +56,14 @@ namespace SoliGameController
             MeditateStates();
             EmotionStates();
             FocusStates();
+
         }
 
         public void UpdateMuseHeadset()
         {
             wek_mFloat = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().meditateFloat;
             wek_fFloat = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().focusFloat;
+            wekisFocus = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isFocus;
             wek_hFloat = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().happyFloat;
             wek_sFloat = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().sadFloat;
             wek_mood = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().mood;
@@ -74,7 +77,7 @@ namespace SoliGameController
                 if (meditateCountdown <= 0.0f)
                 {
                     isMeditate = true;
-                    meditateCountdown = threesecCounter;
+                    meditateCountdown = twosecCounter;
                 }
                 else
                 {
@@ -86,7 +89,7 @@ namespace SoliGameController
                 if (meditateCountdown <= 0.0f)
                 {
                     isMeditate = false;
-                    meditateCountdown = threesecCounter;
+                    meditateCountdown = twosecCounter;
                 }
                 else
                 {
@@ -97,14 +100,14 @@ namespace SoliGameController
 
         public void FocusStates()
         {
-            if (focusCountdown == 1.0f)
+            if (focusCountdown == halfsecCounter)
             {
                 fprevFloat = wek_fFloat;
             }
 
-            if (wek_fFloat <= fTarget)
+            if (wek_fFloat <= fTarget || wekisFocus)
             {
-                if (focusCountdown <= 0.0f)
+                if (focusCountdown <= 0.0f && wek_fFloat <=fTarget)
                 {
                     if (!isFocus)
                     {
@@ -112,15 +115,19 @@ namespace SoliGameController
                         isFocus = true;
                     }
                 }
-                else
+                else if (focusCountdown >= 0.0f && wek_fFloat <= fTarget)
                 {
                     focusCountdown -= Time.deltaTime;
                 }
+                else if (wekisFocus && wek_fFloat <= fTarget + 1.0f)
+                {
+                    isFocus = true;
+                }
             }
-            else if (wek_fFloat >= fOut)
+            else if (wek_fFloat >= fOut || !wekisFocus && wek_fFloat >= fOut + 1.0f)
             {
                 isFocus = false;
-                focusCountdown = secCounter;
+                focusCountdown = halfsecCounter;
             }
 
             fVelocity = fprevFloat - fcurrFloat;
@@ -145,9 +152,9 @@ namespace SoliGameController
             {
                 isHappy = true;
                 isSad = false;
+                happyCountdown = twosecCounter;
                 h_guiVal = 2.5f;
                 s_guiVal = 0.0f;
-
             }
             else if (happyDiff <= 0.2f && happyCountdown <= 0.0f || wek_hFloat >= 5.5f)
             {
@@ -155,13 +162,13 @@ namespace SoliGameController
                 isHappy = false;
                 h_guiVal = 0.0f;
             }
-            else if (happyDiff >= hTarget || happyDiff <= 0.2f)
+            else if (happyDiff >= hTarget || happyDiff <= 0.3f)
             {
                 if (happyDiff >= hTarget)
                 {
                     h_guiVal += Time.deltaTime;
                 }
-                else if (happyDiff <= 0.2f)
+                else if (happyDiff <= 0.3f)
                 {
                     h_guiVal -= Time.deltaTime;
                 }
@@ -182,6 +189,7 @@ namespace SoliGameController
             {
                 isSad = true;
                 isHappy = false;
+                sadCountdown = twosecCounter;
                 s_guiVal = 2.5f;
                 h_guiVal = 0.0f;
             }
@@ -191,13 +199,13 @@ namespace SoliGameController
                 isSad = false;
                 h_guiVal = 0.0f;
             }
-            else if (sadDiff >= sTarget || sadDiff <= 0.2f)
+            else if (sadDiff >= sTarget || sadDiff <= 0.4f)
             {
                 if (sadDiff >= sTarget)
                 {
                     s_guiVal += Time.deltaTime;
                 }
-                else if (sadDiff <= 0.2f)
+                else if (sadDiff <= 0.4f)
                 {
                     s_guiVal -= Time.deltaTime;
                 }
