@@ -11,9 +11,6 @@ namespace SoliGameController
         GestureController gestureController;
         AudioPlaytestManager au;
 
-        [Header("Timer Section")]
-        public GameObject timerText;
-        Text text;
         public float gestureCountdown, f_sustainRestDiff;
         public int focusNotesPlayed;
         public bool gestureOn, h_On, s_On, train_sw, happy, sad;
@@ -25,8 +22,7 @@ namespace SoliGameController
             gestureController = this.GetComponent<GestureController>();
             au = this.GetComponent<AudioPlaytestManager>();
 
-            gestureCountdown = gc.threesecCounter;
-            text = timerText.GetComponent<Text>();
+            gestureCountdown = gc.twosecCounter;
 
             focusNotesPlayed = 0;
             f_sustainRestDiff = gc.fivesecCounter;
@@ -56,33 +52,28 @@ namespace SoliGameController
                     gc.TrainingMeterManager();
                     train_sw = true;
                 }
-                //after Narrator and meditate lasts 3 secs go to emotions training
+                //after Narrator and meditate lasts 2 secs go to emotions training
                 if (au.N_Intro == 2 && gestureCountdown <= 0.0f)
                 {
                     train_sw = false;
                     gestureOn = false;
-                    gestureCountdown = gc.threesecCounter;
-                    timerText.GetComponent<ActivateObjects>().SetDeactive(true);
+                    gestureCountdown = gc.twosecCounter;
                     gc.state++;
                 }
-                //after Narrator and ismeditate countdown for 3 secs with text
+                //after Narrator and ismeditate countdown for 2 secs with text
                 else if (au.N_Intro == 2 && gestureController.isMeditate)
                 {
                     if (!gestureOn)
                     {
-                        timerText.GetComponent<ActivateObjects>().SetActive(true);
                         gestureOn = true;
                     }
 
-                    string seconds = (gestureCountdown % 60).ToString("0");
-                    text.text = seconds;
                     gestureCountdown -= Time.deltaTime;
                 }
                 else
                 {
                     gestureOn = false;
-                    timerText.GetComponent<ActivateObjects>().SetDeactive(true);
-                    gestureCountdown = gc.threesecCounter;
+                    gestureCountdown = gc.twosecCounter;
                 }
 
                 if (au.N_Intro == 2)
@@ -101,12 +92,9 @@ namespace SoliGameController
                     train_sw = true;
                 }
 
-                // after Narrator and emotions lasts 3 secs go to focus training
+                // after Narrator and emotions lasts 2 secs go to focus training
                 if (au.N_Intro == 4 && gestureCountdown <= 0.0f || au.N_Intro == 6 && gestureCountdown <= 0.0f)
                 {
-                    timerText.GetComponent<ActivateObjects>().SetDeactive(true);
-                    gestureCountdown = gc.threesecCounter;
-
                     if (h_On) happy = true;
                     if (s_On) sad = true;
                     if (happy && sad)
@@ -114,31 +102,26 @@ namespace SoliGameController
                         train_sw = false;
                         gc.state++;
                     }
+                    gestureCountdown = gc.twosecCounter;
                 }
-                // after Narrator and ishappy/issad countdown for 3 secs with text
+                // after Narrator and ishappy/issad countdown for 2 secs with text
                 else if (au.N_Intro == 6 && gestureController.isHappy || au.N_Intro == 4 && gestureController.isSad)
                 {
                     if (gestureController.isHappy && !h_On && sad)
                     {
-                        timerText.GetComponent<ActivateObjects>().SetActive(true);
                         h_On = true;
                     }
                     else if (gestureController.isSad && !s_On && !sad)
                     {
-                        timerText.GetComponent<ActivateObjects>().SetActive(true);
                         s_On = true;
                     }
-
-                    string seconds = (gestureCountdown % 60).ToString("0");
-                    text.text = seconds;
                     gestureCountdown -= Time.deltaTime;
                 }
                 else
                 {
                     h_On = false;
                     s_On = false;
-                    gestureCountdown = gc.threesecCounter;
-                    timerText.GetComponent<ActivateObjects>().SetDeactive(true);
+                    gestureCountdown = gc.twosecCounter;
                 }
             }
         }
@@ -157,20 +140,16 @@ namespace SoliGameController
                 {
                     train_sw = false;
                     gestureOn = false;
-                    timerText.GetComponent<ActivateObjects>().SetDeactive(true);
                     gc.state++;
                 }
                 // after Narrator and isfocus plays note with text
-                else if (au.N_Intro == 8 && gestureController.isFocus)
+                if (au.N_Intro == 8 && gestureController.isFocus)
                 {
                     if (!gestureOn)
                     {
-                        timerText.GetComponent<ActivateObjects>().SetActive(true);
                         focusNotesPlayed++;
                         gestureOn = true;
                     }
-                    string notesplayed = focusNotesPlayed.ToString("0");
-                    text.text = notesplayed;
                 }
                 // if !isfocus deactivate timertext
                 else if (au.N_Intro == 8 && !gestureController.isFocus)
@@ -178,7 +157,6 @@ namespace SoliGameController
                     if (gestureOn)
                     {
                         gestureOn = false;
-                        timerText.GetComponent<ActivateObjects>().SetDeactive(true);
                     }
                 }
 

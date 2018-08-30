@@ -142,19 +142,19 @@ namespace SoliGameController
 
             if (happyDiff >= hTarget && wek_hFloat <= 5.0f && happyCountdown <= 0.0f)
             {
-                isHappy = true;
                 isSad = false;
+                isHappy = true;
                 happyCountdown = twosecCounter;
                 h_guiVal = 2.5f;
                 s_guiVal = 0.0f;
             }
             else if (happyDiff >= (hTarget - 0.3f) && wek_mood == 2 && wek_facialExpression == 2 || happyDiff >= (hTarget - 0.3f) && wek_mood == 2 || happyDiff >= (hTarget - 0.3f) && wek_facialExpression == 2)
             {
-                isHappy = true;
                 isSad = false;
+                isHappy = true;
                 happyCountdown = twosecCounter;
-                h_guiVal = 2.5f;
                 s_guiVal = 0.0f;
+                h_guiVal = 2.5f;
             }
             else if (happyDiff <= 0.2f && happyCountdown <= 0.0f || wek_hFloat >= 5.5f)
             {
@@ -179,19 +179,19 @@ namespace SoliGameController
             //SAD
             if (sadDiff >= sTarget && wek_sFloat <= 5.0f && sadCountdown <= 0.0f)
             {
-                isSad = true;
                 isHappy = false;
+                isSad = true;
                 sadCountdown = twosecCounter;
-                s_guiVal = 2.5f;
                 h_guiVal = 0.0f;
+                s_guiVal = 2.5f;
             }
             else if (sadDiff >= (sTarget - 0.3f) && wek_mood == 3 && wek_facialExpression == 3 || sadDiff >= (sTarget - 0.3f) && wek_mood == 3 || sadDiff >= (sTarget - 0.3f) && wek_facialExpression == 3)
             {
-                isSad = true;
                 isHappy = false;
+                isSad = true;
                 sadCountdown = twosecCounter;
-                s_guiVal = 2.5f;
                 h_guiVal = 0.0f;
+                s_guiVal = 2.5f;
             }
             else if (sadDiff <= 0.3f && sadCountdown <= 0.0f || wek_sFloat >= 5.5f)
             {
@@ -233,8 +233,8 @@ namespace SoliGameController
             else if (isHappy && isUnsure || isSad && isUnsure)
             {
                 isUnsure = false;
-                isHappy = false;
-                isSad = false;
+                if(isSad) isHappy = false;
+                if(isHappy) isSad = false;
                 unsureCountdown = twosecCounter;
             }
         }

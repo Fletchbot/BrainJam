@@ -67,7 +67,7 @@ Material:
     - _Color: {r: 0.7244898, g: 0.6836735, b: 0.67346936, a: 1}
     - _Direction: {r: 0, g: 1, b: 0, a: 1}
     - _HeightControlPoints: {r: 0.2, g: 0.3, b: 0.4, a: 0.96}
-    - _InteractPos: {r: 28, g: 300, b: -400, a: 0}
+    - _InteractPos: {r: 28, g: 300, b: -341.8117, a: 0}
     - _OceanCenter: {r: 0, g: 0, b: 0, a: 0}
     - _Power: {r: 0.5, g: 0.5, b: 1, a: 1}
     - _TimeControl1: {r: 2, g: 0, b: 0.75, a: 0}

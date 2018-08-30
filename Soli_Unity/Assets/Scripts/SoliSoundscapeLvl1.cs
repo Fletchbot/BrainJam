@@ -49,8 +49,12 @@ namespace SoliSoundScape
 
             e_states();
             Lvl1ChordStates();
-            e_off();
-            e_sw();
+            if (lvl1State <= 4)
+            {
+                e_off();
+                e_sw();
+            }
+
         }
 
         void randomKey()
@@ -130,6 +134,9 @@ namespace SoliSoundScape
                             cp.KeyType = "NaturalMinor";
                         }
                     }
+                    cp.ChordVoicing = "";
+                    cp.ChordType = "";
+                    cp.chords[1] = true;
 
                     if (curisHappy && !Happy)
                     {
@@ -146,9 +153,6 @@ namespace SoliSoundScape
                         curisUnsure = false;
                         lvl1State++;
                     }
-                    cp.ChordVoicing = "";
-                    cp.ChordType = "";
-                    cp.chords[1] = true;
 
                 }
                 else if (lvl1State == 1) // LVL 1.1 
