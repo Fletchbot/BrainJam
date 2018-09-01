@@ -21,6 +21,7 @@ namespace SoliSoundScape
         [Header("Key,Scale & Chord Picker")]
         public string Key, KeyType, ChordVoicing, ChordType;
         public bool[] chords = new bool[8];
+        public int currChord;
 
         [Header("Level Picker")]
         public bool Run;
@@ -40,6 +41,7 @@ namespace SoliSoundScape
 
             if (chords[1] || chords[2] || chords[3] || chords[4] || chords[5] || chords[6] || chords[7])
             {
+                currentchord();
                 DroneSynth.AllNotesOff();
                 DroneSeq.Clear();
                 DroneEnable();
@@ -375,6 +377,18 @@ namespace SoliSoundScape
                 }
                 chords[i] = false;
             }
+        }
+
+        public void currentchord()
+        {
+            if (chords[0]) currChord = 0;
+            if (chords[1]) currChord = 1;
+            if (chords[2]) currChord = 2;
+            if (chords[3]) currChord = 3;
+            if (chords[4]) currChord = 4;
+            if (chords[5]) currChord = 5;
+            if (chords[6]) currChord = 6;
+            if (chords[7]) currChord = 7;
         }
     }
 }

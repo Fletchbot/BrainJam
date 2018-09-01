@@ -31,11 +31,7 @@ namespace SoliSoundScape
         void Update()
         {            
             isFocus = cp.gesture_c.isFocus;
-
-            if (cp.chords[1] || cp.chords[2] || cp.chords[3] || cp.chords[4] || cp.chords[5] || cp.chords[6] || cp.chords[7])
-            {
-                currentchord();
-            }
+            currChord = cp.currChord;
 
             TrumpetEnable();
             SaxophoneEnable();
@@ -1281,18 +1277,6 @@ namespace SoliSoundScape
             }
         }
 
-        public void currentchord()
-        {
-            if (cp.chords[0]) currChord = 0;
-            if (cp.chords[1]) currChord = 1;
-            if (cp.chords[2]) currChord = 2;
-            if (cp.chords[3]) currChord = 3;
-            if (cp.chords[4]) currChord = 4;
-            if (cp.chords[5]) currChord = 5;
-            if (cp.chords[6]) currChord = 6;
-            if (cp.chords[7]) currChord = 7;
-        }
-
         private void tptRange()
         {
             if (prevTpt_Range == 0)
@@ -1314,22 +1298,19 @@ namespace SoliSoundScape
         }
         private void saxRange()
         {
-            if (prevSax_Range == 0)
+            if (trumpetRange == 1)
             {
-                saxophoneRange = Random.Range(1, 4);
+                saxophoneRange = 1;
             }
-            else if (prevSax_Range == 1)
+            else if (trumpetRange == 2)
             {
-                saxophoneRange = Random.Range(1, 3);
+                saxophoneRange = 1;
             }
-            else if (prevSax_Range == 2)
+            else if (trumpetRange == 3)
             {
-                saxophoneRange = Random.Range(1, 4);
+                saxophoneRange = 2;
             }
-            else if (prevSax_Range == 3)
-            {
-                saxophoneRange = Random.Range(2, 4);
-            }
+
         }
 
         private void chord1NoteShift()
@@ -1648,15 +1629,35 @@ namespace SoliSoundScape
             Debug.Log("TRUMPETNOTE " + trumpetNote);
         }
 
-        private void MajDom_SNoteSelector()
+        private void MajDom_SNoteSelector() //235671
         {
-            var noteSelector = Random.Range(0, MajDomnoteSelector.Length);
-            if (noteSelector == 0) saxNote = MajDomnoteSelector[0];
-            if (noteSelector == 1) saxNote = MajDomnoteSelector[1];
-            if (noteSelector == 2) saxNote = MajDomnoteSelector[2];
-            if (noteSelector == 3) saxNote = MajDomnoteSelector[3];
-            if (noteSelector == 4) saxNote = MajDomnoteSelector[4];
-            if (noteSelector == 5) saxNote = MajDomnoteSelector[5];
+            var noteSelector = Random.Range(0, 5);
+         //find harmony note oct/unison,3rds,4ths,6ths, 5ths
+          
+            if (noteSelector == 0 && trumpetNote == MajDomnoteSelector[0] || noteSelector == 1 && trumpetNote == MajDomnoteSelector[0] || noteSelector == 0 && trumpetNote == MajDomnoteSelector[2] || noteSelector == 0 && trumpetNote == MajDomnoteSelector[3] || noteSelector == 0 && trumpetNote == MajDomnoteSelector[4])
+            {
+                saxNote = MajDomnoteSelector[0];//2
+            }
+            if (noteSelector == 0 && trumpetNote == MajDomnoteSelector[1] || noteSelector == 1 && trumpetNote == MajDomnoteSelector[2] || noteSelector == 1 && trumpetNote == MajDomnoteSelector[3] || noteSelector == 2 && trumpetNote == MajDomnoteSelector[3] || noteSelector == 1 && trumpetNote == MajDomnoteSelector[4] || noteSelector == 0 && trumpetNote == MajDomnoteSelector[5])
+            {
+                saxNote = MajDomnoteSelector[1]; //3
+            }
+            if (noteSelector == 2 && trumpetNote == MajDomnoteSelector[0] || noteSelector == 1 && trumpetNote == MajDomnoteSelector[1] || noteSelector == 2 && trumpetNote == MajDomnoteSelector[2] || noteSelector == 2 && trumpetNote == MajDomnoteSelector[4] || noteSelector == 1 && trumpetNote == MajDomnoteSelector[5])
+            {
+                saxNote = MajDomnoteSelector[2]; //5
+            }
+            if (noteSelector == 3 && trumpetNote == MajDomnoteSelector[0] || noteSelector == 2 && trumpetNote == MajDomnoteSelector[1] || noteSelector == 3 && trumpetNote == MajDomnoteSelector[3] || noteSelector == 2 && trumpetNote == MajDomnoteSelector[5])
+            {
+                saxNote = MajDomnoteSelector[3]; //6
+            }
+            if (noteSelector == 4 && trumpetNote == MajDomnoteSelector[0] || noteSelector == 3 && trumpetNote == MajDomnoteSelector[1] || noteSelector == 3 && trumpetNote == MajDomnoteSelector[2] || noteSelector == 3 && trumpetNote == MajDomnoteSelector[4] || noteSelector == 4 && trumpetNote == MajDomnoteSelector[4])
+            {
+                saxNote = MajDomnoteSelector[4]; //7
+            }
+            if (noteSelector == 4 && trumpetNote == MajDomnoteSelector[1] || noteSelector == 4 && trumpetNote == MajDomnoteSelector[2] || noteSelector == 4 && trumpetNote == MajDomnoteSelector[3] || noteSelector == 3 && trumpetNote == MajDomnoteSelector[5] || noteSelector == 4 && trumpetNote == MajDomnoteSelector[5])
+            {
+                saxNote = MajDomnoteSelector[5]; //1
+            }
             Debug.Log("SAXNOTE " + saxNote);
         }
         private void Min_SNoteSelector()
