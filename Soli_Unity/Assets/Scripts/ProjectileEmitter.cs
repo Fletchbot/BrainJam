@@ -8,21 +8,20 @@ public class ProjectileEmitter : MonoBehaviour
     public GameObject projectileEmitter;
     public GameObject projectile1, projectile2;
     public GameObject emitterForce;
-
     public GameController gc;
-    public GameObject screenBoxColliders;
+    public GestureController gestC;
 
     private GameObject Temp_Projectile_Handler;
 
     private float leftEdge, rightEdge, topEdge, bottomEdge, backEdge, frontEdge;
 
     private float moveX, moveY, moveZ, velocityMax, emitterbaseSpeed;
-    private float emissionRate, emitMax, emitMin;
     private float forceY, forceZ, forceRot, forceRotVelocity, forceRotSpeed, f_x, f_y, f_z, f_w;
+    private float emitTimer;
+    public bool p1_sw, p2_sw;
+    public int emitHeld;
 
-    private float randomProjectile;
-
-    private bool enableCursor, noGesture;
+    private bool noGesture;
 
     // Use this for initialization
     void Start()
@@ -38,8 +37,6 @@ public class ProjectileEmitter : MonoBehaviour
         forceRot = 360.0f;
 
         velocityMax = 1.0f;
-        emitMin = 0.5f;
-        emitMax = 3.0f;
         forceRotVelocity = 10.0f;
 
         moveX = Random.Range(-velocityMax, velocityMax);
@@ -48,11 +45,10 @@ public class ProjectileEmitter : MonoBehaviour
 
         forceY = Random.Range(-forceRotVelocity, forceRotVelocity);
         forceZ = Random.Range(-forceRotVelocity, forceRotVelocity);
+        emitTimer = 1.0f;
 
-        emissionRate = Random.Range(emitMin, emitMax);
-
-        randomProjectile = Random.Range(-1.0f, 1.0f);
-
+        p1_sw = false;
+        p2_sw = true;
 
     }
 
@@ -61,18 +57,13 @@ public class ProjectileEmitter : MonoBehaviour
     {
         noGesture = gc.NoGesture;
 
-        if (gc.state == -1 && !noGesture)
+        if (gc.state == -1 && !noGesture || gc.state >= 4)
         {
-            if (!enableCursor)
-            {
-                screenBoxColliders.GetComponent<ActivateObjects>().SetActive(true);
-                enableCursor = true;
-            }
 
-            randomMovement();
-            randomEmitter();
-            forceRotate();
         }
+        randomMovement();
+        P_Emitter();
+        forceRotate();
 
     }
 
@@ -166,24 +157,72 @@ public class ProjectileEmitter : MonoBehaviour
 
     }
 
-    void randomEmitter()
+    void P_Emitter()
     {
-        emissionRate -= Time.deltaTime;
-
-        if (emissionRate <= 0.0f)
+        if (Input.GetButton("Vertical"))
         {
-            if(randomProjectile >= 0.0f)
+       //     if (gestC.isFocus)
+      //  {
+
+            if(emitTimer <= 0.0f)
             {
-                Temp_Projectile_Handler = Instantiate(projectile1, projectileEmitter.transform.position, projectileEmitter.transform.rotation) as GameObject;
-                randomProjectile = Random.Range(-1, 1);
+                emitHeld++;
+
+                if(p1_sw)
+                {
+                    Temp_Projectile_Handler = Instantiate(projectile1, projectileEmitter.transform.position, projectileEmitter.transform.rotation) as GameObject;
+                }
+                else if (p2_sw)
+                {
+                    Temp_Projectile_Handler = Instantiate(projectile2, projectileEmitter.transform.position, projectileEmitter.transform.rotation) as GameObject;
+                }
+
+                emitTimer = 1.0f;
+            }
+            else if (emitTimer == 1.0f)
+            {
+                if (emitHeld == 0)
+                {
+                    if (p1_sw)
+                    {
+                        p1_sw = false;
+                    }
+                    else if (!p1_sw)
+                    {
+                        p1_sw = true;
+                    }
+
+                    if (p2_sw)
+                    {
+                        p2_sw = false;
+                    }
+                    else if (!p2_sw)
+                    {
+                        p2_sw = true;
+                    }
+                }
+
+                if (p1_sw)
+                {
+                    Temp_Projectile_Handler = Instantiate(projectile1, projectileEmitter.transform.position, projectileEmitter.transform.rotation) as GameObject;
+                }
+                else if (p2_sw)
+                {
+                    Temp_Projectile_Handler = Instantiate(projectile2, projectileEmitter.transform.position, projectileEmitter.transform.rotation) as GameObject;
+                }
+
+                emitTimer -= Time.deltaTime;
             }
             else
             {
-                Temp_Projectile_Handler = Instantiate(projectile2, projectileEmitter.transform.position, projectileEmitter.transform.rotation) as GameObject;
-                randomProjectile = Random.Range(-1, 1);
+                emitTimer -= Time.deltaTime;
             }
-
-            emissionRate = Random.Range(emitMin, emitMax);
+          
+        }
+        else
+        {
+            emitHeld = 0;
+            emitTimer = 1.0f;
         }
             Destroy(Temp_Projectile_Handler, 7.0f);
     }

@@ -39,7 +39,9 @@ namespace SoliSoundScape
 
         public void TrumpetEnable()
         {
-            if (Input.GetButton("Vertical"))
+         //   if (isFocus)
+        //    {
+                if (Input.GetButton("Vertical"))
             {
                 switch (currChord)
                 {
@@ -659,7 +661,9 @@ namespace SoliSoundScape
 
         public void SaxophoneEnable()
         {
-            if (Input.GetButton("Vertical"))
+       //     if (isFocus)
+       //     {
+                if (Input.GetButton("Vertical"))
             {
                 switch (currChord)
                 {
@@ -1595,7 +1599,7 @@ namespace SoliSoundScape
             if (noteSelector == 5) trumpetNote = MinnoteSelector[5];
             Debug.Log("TRUMPETNOTE " + trumpetNote);
         }
-        private void Locrian_TNoteSelector()
+        private void Locrian_TNoteSelector() 
         {
             var noteSelector = Random.Range(0, LocriannoteSelector.Length);
             if (noteSelector == 0) trumpetNote = LocriannoteSelector[0];
@@ -1660,48 +1664,131 @@ namespace SoliSoundScape
             }
             Debug.Log("SAXNOTE " + saxNote);
         }
-        private void Min_SNoteSelector()
+        private void Min_SNoteSelector() //234571
         {
-            var noteSelector = Random.Range(0, MinnoteSelector.Length);
-            if (noteSelector == 0) saxNote = MinnoteSelector[0];
-            if (noteSelector == 1) saxNote = MinnoteSelector[1];
-            if (noteSelector == 2) saxNote = MinnoteSelector[2];
-            if (noteSelector == 3) saxNote = MinnoteSelector[3];
-            if (noteSelector == 4) saxNote = MinnoteSelector[4];
-            if (noteSelector == 5) saxNote = MinnoteSelector[5];
+            var noteSelector = Random.Range(0, 5);
+            //find harmony note oct/unison,3rds,4ths,6ths, 5ths
+
+            if (noteSelector == 0 && trumpetNote == MinnoteSelector[0] || noteSelector == 1 && trumpetNote == MinnoteSelector[0] || noteSelector == 0 && trumpetNote == MinnoteSelector[2] || noteSelector == 0 && trumpetNote == MinnoteSelector[3] || noteSelector == 0 && trumpetNote == MinnoteSelector[4])
+            {
+                saxNote = MinnoteSelector[0];//2
+            }
+            if (noteSelector == 0 && trumpetNote == MinnoteSelector[1] || noteSelector == 1 && trumpetNote == MinnoteSelector[1] || noteSelector == 1 && trumpetNote == MinnoteSelector[3]  || noteSelector == 1 && trumpetNote == MinnoteSelector[4] || noteSelector == 0 && trumpetNote == MinnoteSelector[5])
+            {
+                saxNote = MinnoteSelector[1];//3
+            }
+            if (noteSelector == 2 && trumpetNote == MinnoteSelector[0] || noteSelector == 1 && trumpetNote == MinnoteSelector[2] || noteSelector == 2 && trumpetNote == MinnoteSelector[2] || noteSelector == 2 && trumpetNote == MinnoteSelector[4] || noteSelector == 1 && trumpetNote == MinnoteSelector[5])
+            {
+                saxNote = MinnoteSelector[2];//4
+            }
+            if (noteSelector == 3 && trumpetNote == MinnoteSelector[0] || noteSelector == 2 && trumpetNote == MinnoteSelector[1] || noteSelector == 2 && trumpetNote == MinnoteSelector[3] || noteSelector == 3 && trumpetNote == MinnoteSelector[4] || noteSelector == 2 && trumpetNote == MinnoteSelector[5])
+            {
+                saxNote = MinnoteSelector[3];//5
+            }
+            if (noteSelector == 4 && trumpetNote == MinnoteSelector[0] || noteSelector == 3 && trumpetNote == MinnoteSelector[1] || noteSelector == 3 && trumpetNote == MinnoteSelector[2] || noteSelector == 3 && trumpetNote == MinnoteSelector[3] || noteSelector == 4 && trumpetNote == MinnoteSelector[4])
+            {
+                saxNote = MinnoteSelector[4];//7
+            }
+            if (noteSelector == 4 && trumpetNote == MinnoteSelector[1] || noteSelector == 4 && trumpetNote == MinnoteSelector[2] || noteSelector == 4 && trumpetNote == MinnoteSelector[3] || noteSelector == 3 && trumpetNote == MinnoteSelector[5] || noteSelector == 4 && trumpetNote == MinnoteSelector[5])
+            {
+                saxNote = MinnoteSelector[5];//1
+            }
+
             Debug.Log("SAXNOTE " + saxNote);
         }
-        private void Locrian_SNoteSelector()
+        private void Locrian_SNoteSelector() //345671
         {
-            var noteSelector = Random.Range(0, LocriannoteSelector.Length);
-            if (noteSelector == 0) saxNote = LocriannoteSelector[0];
-            if (noteSelector == 1) saxNote = LocriannoteSelector[1];
-            if (noteSelector == 2) saxNote = LocriannoteSelector[2];
-            if (noteSelector == 3) saxNote = LocriannoteSelector[3];
-            if (noteSelector == 4) saxNote = LocriannoteSelector[4];
-            if (noteSelector == 5) saxNote = LocriannoteSelector[5];
+            var noteSelector = Random.Range(0, 5);
+            //find harmony note oct/unison,3rds,4ths,6ths, 5ths
+
+            if (noteSelector == 0 && trumpetNote == LocriannoteSelector[0] || noteSelector == 0 && trumpetNote == LocriannoteSelector[2] || noteSelector == 0 && trumpetNote == LocriannoteSelector[3] || noteSelector == 0 && trumpetNote == LocriannoteSelector[4] || noteSelector == 0 && trumpetNote == LocriannoteSelector[5])
+            {
+                saxNote = LocriannoteSelector[0];//3
+            }
+            if (noteSelector == 0 && trumpetNote == LocriannoteSelector[1] || noteSelector == 1 && trumpetNote == LocriannoteSelector[1] || noteSelector == 1 && trumpetNote == LocriannoteSelector[3] || noteSelector == 1 && trumpetNote == LocriannoteSelector[4] || noteSelector == 1 && trumpetNote == LocriannoteSelector[5])
+            {
+                saxNote = LocriannoteSelector[1];//4
+            }
+            if (noteSelector == 1 && trumpetNote == LocriannoteSelector[0] || noteSelector == 1 && trumpetNote == LocriannoteSelector[2] || noteSelector == 2 && trumpetNote == LocriannoteSelector[2] || noteSelector == 2 && trumpetNote == LocriannoteSelector[4] || noteSelector == 2 && trumpetNote == LocriannoteSelector[5])
+            {
+                saxNote = LocriannoteSelector[2];//5
+            }
+            if (noteSelector == 2 && trumpetNote == LocriannoteSelector[0] || noteSelector == 2 && trumpetNote == LocriannoteSelector[1] || noteSelector == 2 && trumpetNote == LocriannoteSelector[3] || noteSelector == 3 && trumpetNote == LocriannoteSelector[3] || noteSelector == 3 && trumpetNote == LocriannoteSelector[5])
+            {
+                saxNote = LocriannoteSelector[3];//6
+            }
+            if (noteSelector == 3 && trumpetNote == LocriannoteSelector[0] || noteSelector == 3 && trumpetNote == LocriannoteSelector[1] || noteSelector == 3 && trumpetNote == LocriannoteSelector[2] || noteSelector == 3 && trumpetNote == LocriannoteSelector[4] || noteSelector == 4 && trumpetNote == LocriannoteSelector[4])
+            {
+                saxNote = LocriannoteSelector[4];//7
+            }
+            if (noteSelector == 4 && trumpetNote == LocriannoteSelector[0] || noteSelector == 4 && trumpetNote == LocriannoteSelector[1] || noteSelector == 4 && trumpetNote == LocriannoteSelector[2] || noteSelector == 4 && trumpetNote == LocriannoteSelector[3] || noteSelector == 4 && trumpetNote == LocriannoteSelector[5])
+            {
+                saxNote = LocriannoteSelector[5];//1
+            }
+
             Debug.Log("SAXNOTE " + saxNote);
         }
-        private void Phygian_SNoteSelector()
+        private void Phygian_SNoteSelector() //34571
         {
-            var noteSelector = Random.Range(0, PhygiannoteSelector.Length);
-            if (noteSelector == 0) saxNote = PhygiannoteSelector[0];
-            if (noteSelector == 1) saxNote = PhygiannoteSelector[1];
-            if (noteSelector == 2) saxNote = PhygiannoteSelector[2];
-            if (noteSelector == 3) saxNote = PhygiannoteSelector[3];
-            if (noteSelector == 4) saxNote = PhygiannoteSelector[4];
+            var noteSelector = Random.Range(0, 5);
+            //find harmony note oct/unison,3rds,4ths,6ths, 5ths
+
+            if (noteSelector == 0 && trumpetNote == PhygiannoteSelector[0] || noteSelector == 0 && trumpetNote == PhygiannoteSelector[2] || noteSelector == 0 && trumpetNote == PhygiannoteSelector[3] || noteSelector == 0 && trumpetNote == PhygiannoteSelector[4])
+            {
+                saxNote = PhygiannoteSelector[0];//3
+            }
+            if (noteSelector == 0 && trumpetNote == PhygiannoteSelector[1] || noteSelector == 1 && trumpetNote == PhygiannoteSelector[1] || noteSelector == 1 && trumpetNote == PhygiannoteSelector[3] || noteSelector == 1 && trumpetNote == PhygiannoteSelector[4])
+            {
+                saxNote = PhygiannoteSelector[1];//4
+            }
+            if (noteSelector == 1 && trumpetNote == PhygiannoteSelector[0] || noteSelector == 1 && trumpetNote == PhygiannoteSelector[2] || noteSelector == 2 && trumpetNote == PhygiannoteSelector[2] || noteSelector == 2 && trumpetNote == PhygiannoteSelector[3] || noteSelector == 2 && trumpetNote == PhygiannoteSelector[4])
+            {
+                saxNote = PhygiannoteSelector[2];//5
+            }
+            if (noteSelector == 3 && trumpetNote == PhygiannoteSelector[0] || noteSelector == 3 && trumpetNote == PhygiannoteSelector[1] || noteSelector == 3 && trumpetNote == PhygiannoteSelector[2] || noteSelector == 3 && trumpetNote == PhygiannoteSelector[3] || noteSelector == 4 && trumpetNote == PhygiannoteSelector[3])
+            {
+                saxNote = PhygiannoteSelector[3];//7
+            }
+            if (noteSelector == 4 && trumpetNote == PhygiannoteSelector[0] || noteSelector == 4 && trumpetNote == PhygiannoteSelector[1] || noteSelector == 4 && trumpetNote == PhygiannoteSelector[2] || noteSelector == 4 && trumpetNote == PhygiannoteSelector[4] || noteSelector == 4 && trumpetNote == PhygiannoteSelector[4])
+            {
+                saxNote = PhygiannoteSelector[4];//1
+            }
+
             Debug.Log("SAXNOTE " + saxNote);
         }
-        private void Lydian_SNoteSelector()
+        private void Lydian_SNoteSelector() //2345671
         {
-            var noteSelector = Random.Range(0, LydiannoteSelector.Length);
-            if (noteSelector == 0) saxNote = LydiannoteSelector[0];
-            if (noteSelector == 1) saxNote = LydiannoteSelector[1];
-            if (noteSelector == 2) saxNote = LydiannoteSelector[2];
-            if (noteSelector == 3) saxNote = LydiannoteSelector[3];
-            if (noteSelector == 4) saxNote = LydiannoteSelector[4];
-            if (noteSelector == 5) saxNote = LydiannoteSelector[5];
-            if (noteSelector == 6) saxNote = LydiannoteSelector[6];
+            var noteSelector = Random.Range(0, 5);
+            //find harmony note oct/unison,3rds,4ths,6ths, 5ths
+
+            if (noteSelector == 0 && trumpetNote == LydiannoteSelector[0] || noteSelector == 0 && trumpetNote == LydiannoteSelector[2] || noteSelector == 0 && trumpetNote == LydiannoteSelector[3] || noteSelector == 0 && trumpetNote == LydiannoteSelector[4] || noteSelector == 0 && trumpetNote == LydiannoteSelector[5])
+            {
+                saxNote = LydiannoteSelector[0];//2
+            }
+            if (noteSelector == 0 && trumpetNote == LydiannoteSelector[1] || noteSelector == 1 && trumpetNote == LydiannoteSelector[3] || noteSelector == 1 && trumpetNote == LydiannoteSelector[4] || noteSelector == 1 && trumpetNote == LydiannoteSelector[5] || noteSelector == 0 && trumpetNote == LydiannoteSelector[6])
+            {
+                saxNote = LydiannoteSelector[1]; //3
+            }
+            if (noteSelector == 1 && trumpetNote == LydiannoteSelector[0] || noteSelector == 1 && trumpetNote == LydiannoteSelector[2] || noteSelector == 2 && trumpetNote == LydiannoteSelector[4] || noteSelector == 2 && trumpetNote == LydiannoteSelector[5] || noteSelector == 1 && trumpetNote == LydiannoteSelector[6])
+            {
+                saxNote = LydiannoteSelector[2]; //4
+            }
+            if (noteSelector == 2 && trumpetNote == LydiannoteSelector[0] || noteSelector == 1 && trumpetNote == LydiannoteSelector[1] || noteSelector == 2 && trumpetNote == LydiannoteSelector[3] || noteSelector == 3 && trumpetNote == LydiannoteSelector[5] || noteSelector == 2 && trumpetNote == LydiannoteSelector[6])
+            {
+                saxNote = LydiannoteSelector[3]; //5
+            }
+            if (noteSelector == 3 && trumpetNote == LydiannoteSelector[0] || noteSelector == 2 && trumpetNote == LydiannoteSelector[1] || noteSelector == 2 && trumpetNote == LydiannoteSelector[2] || noteSelector == 3 && trumpetNote == LydiannoteSelector[4] || noteSelector == 3 && trumpetNote == LydiannoteSelector[6])
+            {
+                saxNote = LydiannoteSelector[4]; //6
+            }
+            if (noteSelector == 4 && trumpetNote == LydiannoteSelector[0] || noteSelector == 3 && trumpetNote == LydiannoteSelector[1] || noteSelector == 3 && trumpetNote == LydiannoteSelector[2] || noteSelector == 3 && trumpetNote == LydiannoteSelector[3] || noteSelector == 4 && trumpetNote == LydiannoteSelector[5])
+            {
+                saxNote = LydiannoteSelector[5]; //7
+            }
+            if (noteSelector == 4 && trumpetNote == LydiannoteSelector[1] || noteSelector == 4 && trumpetNote == LydiannoteSelector[2] || noteSelector == 4 && trumpetNote == LydiannoteSelector[3] || noteSelector == 4 && trumpetNote == LydiannoteSelector[4] || noteSelector == 4 && trumpetNote == LydiannoteSelector[6])
+            {
+                saxNote = LydiannoteSelector[6]; //1
+            }
             Debug.Log("SAXNOTE " + saxNote);
         }
     }
