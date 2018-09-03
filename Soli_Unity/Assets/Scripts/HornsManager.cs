@@ -70,6 +70,11 @@ namespace SoliSoundScape
                                     Trumpet.NoteOn(diatonicScales.Major_Scale3[trumpetNote], 1.0f);
                                     prevTpt_Range = 3;
                                 }
+                                else if (trumpetRange == 4)
+                                {
+                                    Trumpet.NoteOn(diatonicScales.Major_Scale4[trumpetNote], 1.0f);
+                                    prevTpt_Range = 4;
+                                }
                                 tpt_f_sw = true;
                             }
                         }
@@ -94,6 +99,11 @@ namespace SoliSoundScape
                                 {
                                     Trumpet.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], 1.0f);
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], 1.0f);
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
@@ -1285,11 +1295,11 @@ namespace SoliSoundScape
         {
             if (prevTpt_Range == 0)
             {
-                trumpetRange = Random.Range(1, 4);
+                trumpetRange = Random.Range(1, 5);
             }
             else if (prevTpt_Range == 1)
             {
-                trumpetRange = Random.Range(1, 3);
+                trumpetRange = Random.Range(1, 4);
             }
             else if (prevTpt_Range == 2)
             {
@@ -1297,7 +1307,11 @@ namespace SoliSoundScape
             }
             else if (prevTpt_Range == 3)
             {
-                trumpetRange = Random.Range(2, 4);
+                trumpetRange = Random.Range(2, 5);
+            }
+            else if (prevTpt_Range == 4)
+            {
+                trumpetRange = Random.Range(3, 5);
             }
         }
         private void saxRange()

@@ -6,6 +6,19 @@ namespace SoliSoundScape
 {
     public class DiatonicScales : MonoBehaviour
     {
+        private int C1 = 36;
+        private int Db1 = 37;
+        private int D1 = 38;
+        private int Eb1 = 39;
+        private int E1 = 40;
+        private int F1 = 41;
+        private int Gb1 = 42;
+        private int G1 = 43;
+        private int Ab1 = 44;
+        private int A1 = 45;
+        private int Bb1 = 46;
+        private int B1 = 47;
+
         private int C2 = 48;
         private int Db2 = 49;
         private int D2 = 50;
