@@ -9,10 +9,12 @@ namespace SoliSoundScape
     {
         ChordProgressions cp;
         DiatonicScales diatonicScales;
-        public AudioHelm.Sampler Trumpet;
-        public AudioHelm.Sampler Saxophone;
-        public int currChord, trumpetNote, saxNote, trumpetRange, saxophoneRange, prevTpt_Range, prevSax_Range;
+        public GameController gc;
+        public AudioHelm.Sampler TrumpetSoft, TrumpetHard;
+        public AudioHelm.Sampler SaxophoneSoft, SaxophoneHard;
+        public int prevChord,currChord, trumpetNote, saxNote, trumpetRange, saxophoneRange, prevTpt_Range;
         public bool isFocus, tpt_f_sw, sax_f_sw;
+        public float fVelocity, noteVelocity;
 
         private int[] MajDomnoteSelector = new int[6];
         private int[] MinnoteSelector = new int[6];
@@ -30,19 +32,40 @@ namespace SoliSoundScape
         // Update is called once per frame
         void Update()
         {            
-            isFocus = cp.gesture_c.isFocus;
-            currChord = cp.currChord;
 
-            TrumpetEnable();
-            SaxophoneEnable();
+            if (cp.gesture_c.isFocus)
+            {
+                isFocus = true;
+            }
+            else if (!cp.gesture_c.isFocus && prevChord == currChord)
+            {
+                isFocus = false;
+            }
+
+            currChord = cp.currChord;
+            fVelocity = cp.gesture_c.fVelocity;
+
+
+            if(gc.state == -1 || gc.state >= 4)
+            {
+                TrumpetEnable();
+                SaxophoneEnable();
+            }
+
         }
 
         public void TrumpetEnable()
         {
-         //   if (isFocus)
-        //    {
-                if (Input.GetButton("Vertical"))
+            if (isFocus)
             {
+                //       if (Input.GetButton("Vertical"))
+                //    {
+
+                if (!tpt_f_sw)
+                {
+                    prevChord = currChord;
+                }
+
                 switch (currChord)
                 {
                     case 1: //CHORD I 
@@ -57,22 +80,60 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale1[trumpetNote], 1.0f);
+                                    if(fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 1;
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale2[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                    }
                                     prevTpt_Range = 2;
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale3[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 3;
                                 }
                                 else if (trumpetRange == 4)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale4[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                    }
                                     prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
@@ -87,22 +148,60 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 1;
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
+                                    }
                                     prevTpt_Range = 2;
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 3;
                                 }
                                 else if (trumpetRange == 4)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
+                                    }
                                     prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
@@ -131,7 +230,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 4) //II7
                                     {
-                                        Trumpet.NoteOn((diatonicScales.Major_Scale1[trumpetNote] + 1), 1.0f); //3
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.Major_Scale1[trumpetNote] + 1), noteVelocity); //3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.Major_Scale1[trumpetNote] + 1), noteVelocity); //3
+                                        }
+
                                         var tNote = (diatonicScales.Major_Scale1[trumpetNote] + 1);
                                         var oldtnote = diatonicScales.Major_Scale1[trumpetNote];
                                         Debug.Log("minthird" + oldtnote);
@@ -139,7 +248,17 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.Major_Scale1[trumpetNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                        }
+
                                     }
                                     prevTpt_Range = 1;
                                 }
@@ -147,7 +266,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 4) //II7
                                     {
-                                        Trumpet.NoteOn((diatonicScales.Major_Scale2[trumpetNote] + 1), 1.0f); //3
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.Major_Scale2[trumpetNote] + 1), noteVelocity); //3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.Major_Scale2[trumpetNote] + 1), noteVelocity); //3
+                                        }
+
                                         var tNote = (diatonicScales.Major_Scale2[trumpetNote] + 1);
                                         var oldtnote = diatonicScales.Major_Scale2[trumpetNote];
                                         Debug.Log("minthird" + oldtnote);
@@ -155,7 +284,17 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.Major_Scale2[trumpetNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                        }
+
                                     }
                                     prevTpt_Range = 2;
                                 }
@@ -163,7 +302,16 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 4) //II7
                                     {
-                                        Trumpet.NoteOn((diatonicScales.Major_Scale3[trumpetNote] + 1), 1.0f); //3
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.Major_Scale3[trumpetNote] + 1), noteVelocity); //3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.Major_Scale3[trumpetNote] + 1), noteVelocity); //3
+                                        }
                                         var tNote = (diatonicScales.Major_Scale3[trumpetNote] + 1);
                                         var oldtnote = diatonicScales.Major_Scale3[trumpetNote];
                                         Debug.Log("minthird" + oldtnote);
@@ -171,9 +319,52 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.Major_Scale3[trumpetNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                        }
                                     }
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    if (cp.ChordType == "NonDiatonic" && trumpetNote == 4) //II7
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.Major_Scale4[trumpetNote] + 1), noteVelocity); //3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.Major_Scale4[trumpetNote] + 1), noteVelocity); //3
+                                        }
+                                        var tNote = (diatonicScales.Major_Scale4[trumpetNote] + 1);
+                                        var oldtnote = diatonicScales.Major_Scale4[trumpetNote];
+                                        Debug.Log("minthird" + oldtnote);
+                                        Debug.Log("domthird" + tNote);
+                                    }
+                                    else
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                        }
+                                    }
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
@@ -188,18 +379,63 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 1;
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 2;
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
+                                    }
+
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
@@ -217,18 +453,63 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale1[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 1;
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale2[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 2;
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale3[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                    }
+
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
@@ -245,7 +526,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //7
                                     {
-                                        Trumpet.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), 1.0f); //b7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+
                                         var tNote = (diatonicScales.NatMinor_Scale1[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.NatMinor_Scale1[trumpetNote];
                                         Debug.Log("majseven" + oldtnote);
@@ -253,7 +544,17 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], 1.0f); //7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity); //7
+                                        }
+
                                     }
                                     prevTpt_Range = 1;
                                 }
@@ -261,7 +562,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //7
                                     {
-                                        Trumpet.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), 1.0f); //b7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+
                                         var tNote = (diatonicScales.NatMinor_Scale2[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.NatMinor_Scale2[trumpetNote];
                                         Debug.Log("majseven" + oldtnote);
@@ -269,7 +580,17 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], 1.0f); //7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity); //7
+                                        }
+
                                     }
                                     prevTpt_Range = 2;
                                 }
@@ -277,7 +598,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //7
                                     {
-                                        Trumpet.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), 1.0f); //b7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+
                                         var tNote = (diatonicScales.NatMinor_Scale3[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.NatMinor_Scale3[trumpetNote];
                                         Debug.Log("majseven" + oldtnote);
@@ -285,9 +616,55 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], 1.0f); //7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity); //7
+                                        }
+
                                     }
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //7
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale4[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale4[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+
+                                        var tNote = (diatonicScales.NatMinor_Scale4[trumpetNote] - 1);
+                                        var oldtnote = diatonicScales.NatMinor_Scale4[trumpetNote];
+                                        Debug.Log("majseven" + oldtnote);
+                                        Debug.Log("domseven" + tNote);
+                                    }
+                                    else
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity); //7
+                                        }
+
+                                    }
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
@@ -305,18 +682,63 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale1[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 1;
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale2[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 2;
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale3[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                    }
+
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
@@ -331,18 +753,63 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 1;
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 2;
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
+                                    }
+
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
@@ -362,7 +829,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2 || cp.ChordType == "NonDiatonic" && trumpetNote == 6) //alt7 
                                     {
-                                        Trumpet.NoteOn((diatonicScales.Major_Scale1[trumpetNote] - 1), 1.0f); //b5, b9
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.Major_Scale1[trumpetNote] - 1), noteVelocity); //b5, b9
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.Major_Scale1[trumpetNote] - 1), noteVelocity); //b5, b9
+                                        }
+
                                         var tNote = (diatonicScales.Major_Scale1[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.Major_Scale1[trumpetNote];
                                         Debug.Log("dom" + oldtnote);
@@ -370,7 +847,17 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.Major_Scale1[trumpetNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                        }
+
                                     }
                                     prevTpt_Range = 1;
                                 }
@@ -378,7 +865,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2 || cp.ChordType == "NonDiatonic" && trumpetNote == 6) //alt7 
                                     {
-                                        Trumpet.NoteOn((diatonicScales.Major_Scale2[trumpetNote] - 1), 1.0f); //b5, b9
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.Major_Scale2[trumpetNote] - 1), noteVelocity); //b5, b9
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.Major_Scale2[trumpetNote] - 1), noteVelocity); //b5, b9
+                                        }
+
                                         var tNote = (diatonicScales.Major_Scale2[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.Major_Scale2[trumpetNote];
                                         Debug.Log("dom" + oldtnote);
@@ -386,7 +883,17 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.Major_Scale2[trumpetNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                        }
+
                                     }
                                     prevTpt_Range = 2;
                                 }
@@ -394,7 +901,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2 || cp.ChordType == "NonDiatonic" && trumpetNote == 6) //alt7 
                                     {
-                                        Trumpet.NoteOn((diatonicScales.Major_Scale3[trumpetNote] - 1), 1.0f); //b5, b9
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.Major_Scale3[trumpetNote] - 1), noteVelocity); //b5, b9
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.Major_Scale3[trumpetNote] - 1), noteVelocity); //b5, b9
+                                        }
+
                                         var tNote = (diatonicScales.Major_Scale3[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.Major_Scale3[trumpetNote];
                                         Debug.Log("dom" + oldtnote);
@@ -402,9 +919,55 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.Major_Scale3[trumpetNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                        }
+
                                     }
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    if (cp.ChordType == "NonDiatonic" && trumpetNote == 2 || cp.ChordType == "NonDiatonic" && trumpetNote == 6) //alt7 
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.Major_Scale4[trumpetNote] - 1), noteVelocity); //b5, b9
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.Major_Scale4[trumpetNote] - 1), noteVelocity); //b5, b9
+                                        }
+
+                                        var tNote = (diatonicScales.Major_Scale4[trumpetNote] - 1);
+                                        var oldtnote = diatonicScales.Major_Scale4[trumpetNote];
+                                        Debug.Log("dom" + oldtnote);
+                                        Debug.Log("alt" + tNote);
+                                    }
+                                    else
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                        }
+
+                                    }
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
@@ -415,22 +978,67 @@ namespace SoliSoundScape
                             {
                                 chord5NoteShift();
                                 Phygian_TNoteSelector();
-                                tptRange();
+                                saxRange();
 
                                 if (trumpetRange == 1)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 1;
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 2;
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
+                                    }
+
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
@@ -445,22 +1053,67 @@ namespace SoliSoundScape
                             {
                                 chord6NoteShift();
                                 Min_TNoteSelector();
-                                tptRange();
+                                saxRange();
 
                                 if (trumpetRange == 1)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale1[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 1;
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale2[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 2;
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    Trumpet.NoteOn(diatonicScales.Major_Scale3[trumpetNote], 1.0f);
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                    }
+
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                        TrumpetHard.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+                                        noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                        TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                    }
+
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
@@ -478,13 +1131,23 @@ namespace SoliSoundScape
                                 {
                                     Lydian_TNoteSelector();
                                 }
-                                tptRange();
+                                saxRange();
 
                                 if (trumpetRange == 1)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 5) //7
                                     {
-                                        Trumpet.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), 1.0f); //b7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+
                                         var tNote = (diatonicScales.NatMinor_Scale1[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.NatMinor_Scale1[trumpetNote];
                                         Debug.Log("majseven" + oldtnote);
@@ -492,7 +1155,17 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], 1.0f); //7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity); //7
+                                        }
+
                                     }
                                     prevTpt_Range = 1;
                                 }
@@ -500,7 +1173,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 5) //7
                                     {
-                                        Trumpet.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), 1.0f); //b7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+
                                         var tNote = (diatonicScales.NatMinor_Scale2[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.NatMinor_Scale2[trumpetNote];
                                         Debug.Log("majseven" + oldtnote);
@@ -508,7 +1191,17 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], 1.0f); //7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity); //7
+                                        }
+
                                     }
                                     prevTpt_Range = 2;
                                 }
@@ -516,7 +1209,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 5) //7
                                     {
-                                        Trumpet.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), 1.0f); //b7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+
                                         var tNote = (diatonicScales.NatMinor_Scale3[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.NatMinor_Scale3[trumpetNote];
                                         Debug.Log("majseven" + oldtnote);
@@ -524,9 +1227,55 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], 1.0f); //7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity); //7
+                                        }
+
                                     }
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    if (cp.ChordType == "NonDiatonic" && trumpetNote == 5) //7
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale4[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale4[trumpetNote] - 1), noteVelocity); //b7
+                                        }
+
+                                        var tNote = (diatonicScales.NatMinor_Scale4[trumpetNote] - 1);
+                                        var oldtnote = diatonicScales.NatMinor_Scale4[trumpetNote];
+                                        Debug.Log("majseven" + oldtnote);
+                                        Debug.Log("domseven" + tNote);
+                                    }
+                                    else
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity); //7
+                                        }
+
+                                    }
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
@@ -540,13 +1289,23 @@ namespace SoliSoundScape
                             {
                                 chord7NoteShift();
                                 Locrian_TNoteSelector();
-                                tptRange();
+                                saxRange();
 
                                 if (trumpetRange == 1)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 6) //VIIO
                                     {
-                                        Trumpet.NoteOn((diatonicScales.Major_Scale1[trumpetNote] - 1), 1.0f); //bb7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.Major_Scale1[trumpetNote] - 1), noteVelocity); //bb7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.Major_Scale1[trumpetNote] - 1), noteVelocity); //bb7
+                                        }
+
                                         var tNote = (diatonicScales.Major_Scale1[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.Major_Scale1[trumpetNote];
                                         Debug.Log("dom" + oldtnote);
@@ -554,7 +1313,17 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.Major_Scale1[trumpetNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
+                                        }
+
                                     }
                                     prevTpt_Range = 1;
                                 }
@@ -562,7 +1331,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 6)
                                     {
-                                        Trumpet.NoteOn((diatonicScales.Major_Scale2[trumpetNote] - 1), 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.Major_Scale2[trumpetNote] - 1), noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.Major_Scale2[trumpetNote] - 1), noteVelocity);
+                                        }
+
                                         var tNote = (diatonicScales.Major_Scale2[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.Major_Scale2[trumpetNote];
                                         Debug.Log("dom" + oldtnote);
@@ -570,7 +1349,17 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.Major_Scale2[trumpetNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
+                                        }
+
                                     }
                                     prevTpt_Range = 2;
                                 }
@@ -578,7 +1367,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 6)
                                     {
-                                        Trumpet.NoteOn((diatonicScales.Major_Scale3[trumpetNote] - 1), 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.Major_Scale3[trumpetNote] - 1), noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.Major_Scale3[trumpetNote] - 1), noteVelocity);
+                                        }
+
                                         var tNote = (diatonicScales.Major_Scale3[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.Major_Scale3[trumpetNote];
                                         Debug.Log("dom" + oldtnote);
@@ -586,9 +1385,55 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.Major_Scale3[trumpetNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
+                                        }
+
                                     }
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    if (cp.ChordType == "NonDiatonic" && trumpetNote == 6)
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.Major_Scale4[trumpetNote] - 1), noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.Major_Scale4[trumpetNote] - 1), noteVelocity);
+                                        }
+
+                                        var tNote = (diatonicScales.Major_Scale4[trumpetNote] - 1);
+                                        var oldtnote = diatonicScales.Major_Scale4[trumpetNote];
+                                        Debug.Log("dom" + oldtnote);
+                                        Debug.Log("bbseven" + tNote);
+                                    }
+                                    else
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
+                                        }
+
+                                    }
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
@@ -606,13 +1451,23 @@ namespace SoliSoundScape
                                 {
                                     MajDom_TNoteSelector();
                                 }
-                                tptRange();
+                                saxRange();
 
                                 if (trumpetRange == 1)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //min7
                                     {
-                                        Trumpet.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), 1.0f); //b3
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), noteVelocity); //b3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), noteVelocity); //b3
+                                        }
+
                                         var tNote = (diatonicScales.NatMinor_Scale1[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.NatMinor_Scale1[trumpetNote];
                                         Debug.Log("majthird" + oldtnote);
@@ -620,7 +1475,16 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
+                                        }
                                     }
                                     prevTpt_Range = 1;
                                 }
@@ -628,7 +1492,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //min7
                                     {
-                                        Trumpet.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), 1.0f); //b3
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), noteVelocity); //b3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), noteVelocity); //b3
+                                        }
+
                                         var tNote = (diatonicScales.NatMinor_Scale2[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.NatMinor_Scale2[trumpetNote];
                                         Debug.Log("majthird" + oldtnote);
@@ -636,7 +1510,17 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
+                                        }
+
                                     }
                                     prevTpt_Range = 2;
                                 }
@@ -644,7 +1528,17 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //min7
                                     {
-                                        Trumpet.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), 1.0f); //b3
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), noteVelocity); //b3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), noteVelocity); //b3
+                                        }
+
                                         var tNote = (diatonicScales.NatMinor_Scale3[trumpetNote] - 1);
                                         var oldtnote = diatonicScales.NatMinor_Scale3[trumpetNote];
                                         Debug.Log("majthird" + oldtnote);
@@ -652,29 +1546,84 @@ namespace SoliSoundScape
                                     }
                                     else
                                     {
-                                        Trumpet.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
+                                        }
+
                                     }
                                     prevTpt_Range = 3;
+                                }
+                                else if (trumpetRange == 4)
+                                {
+                                    if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //min7
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale4[trumpetNote] - 1), noteVelocity); //b3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale4[trumpetNote] - 1), noteVelocity); //b3
+                                        }
+
+                                        var tNote = (diatonicScales.NatMinor_Scale4[trumpetNote] - 1);
+                                        var oldtnote = diatonicScales.NatMinor_Scale4[trumpetNote];
+                                        Debug.Log("majthird" + oldtnote);
+                                        Debug.Log("minthird" + tNote);
+                                    }
+                                    else
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, 3, 8, 0, 1);
+                                            TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+                                            noteVelocity = CalculateVelocity(fVelocity, -2, 4, 0, 1);
+                                            TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
+                                        }
+
+                                    }
+                                    prevTpt_Range = 4;
                                 }
                                 tpt_f_sw = true;
                             }
                         }
                         break;
                 }
+
+                if (currChord < prevChord || currChord > prevChord)
+                {
+                    tpt_f_sw = false;
+                    TrumpetSoft.AllNotesOff();
+                    TrumpetHard.AllNotesOff();
+                }
             }
             else
             {
-                tpt_f_sw = false;
-                Trumpet.AllNotesOff();
+                if (tpt_f_sw) tpt_f_sw = false;
+
+                TrumpetSoft.AllNotesOff();
+                TrumpetHard.AllNotesOff();
             }
         }
 
         public void SaxophoneEnable()
         {
-       //     if (isFocus)
-       //     {
-                if (Input.GetButton("Vertical"))
+            if (isFocus)
             {
+                //       if (Input.GetButton("Vertical"))
+                //    {
                 switch (currChord)
                 {
                     case 1: //CHORD I 
@@ -689,18 +1638,61 @@ namespace SoliSoundScape
 
                                 if (saxophoneRange == 1)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.Major_Scale1[saxNote], 1.0f);
-                                    prevSax_Range = 1;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.Major_Scale2[saxNote], 1.0f);
-                                    prevSax_Range = 2;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                    }
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.Major_Scale3[saxNote], 1.0f);
-                                    prevSax_Range = 3;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                    }
+
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                    }
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -709,23 +1701,66 @@ namespace SoliSoundScape
                         {
                             if (!sax_f_sw)
                             {
-                                Min_SNoteSelector();
+                                Min_TNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], 1.0f);
-                                    prevSax_Range = 1;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], 1.0f);
-                                    prevSax_Range = 2;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
+                                    }
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], 1.0f);
-                                    prevSax_Range = 3;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
+                                    }
+
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
+                                    }
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -745,7 +1780,7 @@ namespace SoliSoundScape
                                 }
                                 else
                                 {
-                                    Min_SNoteSelector();
+                                    Min_TNoteSelector();
                                 }
                                 saxRange();
 
@@ -753,49 +1788,141 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 4) //II7
                                     {
-                                        Saxophone.NoteOn((diatonicScales.Major_Scale1[saxNote] + 1), 1.0f); //3
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.Major_Scale1[saxNote] + 1), noteVelocity); //3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.Major_Scale1[saxNote] + 1), noteVelocity); //3
+                                        }
+
                                         var sNote = (diatonicScales.Major_Scale1[saxNote] + 1);
-                                        var oldsNote = diatonicScales.Major_Scale1[saxNote];
-                                        Debug.Log("minthird" + oldsNote);
+                                        var oldsnote = diatonicScales.Major_Scale1[saxNote];
+                                        Debug.Log("minthird" + oldsnote);
                                         Debug.Log("domthird" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.Major_Scale1[saxNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                        }
+
                                     }
-                                    prevSax_Range = 1;
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 4) //II7
                                     {
-                                        Saxophone.NoteOn((diatonicScales.Major_Scale2[saxNote] + 1), 1.0f); //3
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.Major_Scale2[saxNote] + 1), noteVelocity); //3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.Major_Scale2[saxNote] + 1), noteVelocity); //3
+                                        }
+
                                         var sNote = (diatonicScales.Major_Scale2[saxNote] + 1);
-                                        var oldsNote = diatonicScales.Major_Scale2[saxNote];
-                                        Debug.Log("minthird" + oldsNote);
+                                        var oldsnote = diatonicScales.Major_Scale2[saxNote];
+                                        Debug.Log("minthird" + oldsnote);
                                         Debug.Log("domthird" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.Major_Scale2[saxNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                        }
+
                                     }
-                                    prevSax_Range = 2;
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 4) //II7
                                     {
-                                        Saxophone.NoteOn((diatonicScales.Major_Scale3[saxNote] + 1), 1.0f); //3
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.Major_Scale3[saxNote] + 1), noteVelocity); //3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.Major_Scale3[saxNote] + 1), noteVelocity); //3
+                                        }
                                         var sNote = (diatonicScales.Major_Scale3[saxNote] + 1);
-                                        var oldsNote = diatonicScales.Major_Scale3[saxNote];
-                                        Debug.Log("minthird" + oldsNote);
+                                        var oldsnote = diatonicScales.Major_Scale3[saxNote];
+                                        Debug.Log("minthird" + oldsnote);
                                         Debug.Log("domthird" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.Major_Scale3[saxNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                        }
                                     }
-                                    prevSax_Range = 3;
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (cp.ChordType == "NonDiatonic" && saxNote == 4) //II7
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.Major_Scale4[saxNote] + 1), noteVelocity); //3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.Major_Scale4[saxNote] + 1), noteVelocity); //3
+                                        }
+                                        var sNote = (diatonicScales.Major_Scale4[saxNote] + 1);
+                                        var oldsnote = diatonicScales.Major_Scale4[saxNote];
+                                        Debug.Log("minthird" + oldsnote);
+                                        Debug.Log("domthird" + sNote);
+                                    }
+                                    else
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                        }
+                                    }
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -805,23 +1932,68 @@ namespace SoliSoundScape
                             if (!sax_f_sw)
                             {
                                 chord2NoteShift();
-                                Locrian_SNoteSelector();
+                                Locrian_TNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], 1.0f);
-                                    prevSax_Range = 1;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], 1.0f);
-                                    prevSax_Range = 2;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], 1.0f);
-                                    prevSax_Range = 3;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
+                                    }
+
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -834,23 +2006,68 @@ namespace SoliSoundScape
                             if (!sax_f_sw)
                             {
                                 chord3NoteShift();
-                                Phygian_SNoteSelector();
+                                Phygian_TNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.Major_Scale1[saxNote], 1.0f);
-                                    prevSax_Range = 1;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.Major_Scale2[saxNote], 1.0f);
-                                    prevSax_Range = 2;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.Major_Scale3[saxNote], 1.0f);
-                                    prevSax_Range = 3;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                    }
+
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -867,49 +2084,145 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //7
                                     {
-                                        Saxophone.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), 1.0f); //b7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), noteVelocity); //b7
+                                        }
+
                                         var sNote = (diatonicScales.NatMinor_Scale1[saxNote] - 1);
-                                        var oldsNote = diatonicScales.NatMinor_Scale1[saxNote];
-                                        Debug.Log("majseven" + oldsNote);
+                                        var oldsnote = diatonicScales.NatMinor_Scale1[saxNote];
+                                        Debug.Log("majseven" + oldsnote);
                                         Debug.Log("domseven" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], 1.0f); //7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity); //7
+                                        }
+
                                     }
-                                    prevSax_Range = 1;
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //7
                                     {
-                                        Saxophone.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), 1.0f); //b7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), noteVelocity); //b7
+                                        }
+
                                         var sNote = (diatonicScales.NatMinor_Scale2[saxNote] - 1);
-                                        var oldsNote = diatonicScales.NatMinor_Scale2[saxNote];
-                                        Debug.Log("majseven" + oldsNote);
+                                        var oldsnote = diatonicScales.NatMinor_Scale2[saxNote];
+                                        Debug.Log("majseven" + oldsnote);
                                         Debug.Log("domseven" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], 1.0f); //7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity); //7
+                                        }
+
                                     }
-                                    prevSax_Range = 2;
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //7
                                     {
-                                        Saxophone.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), 1.0f); //b7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), noteVelocity); //b7
+                                        }
+
                                         var sNote = (diatonicScales.NatMinor_Scale3[saxNote] - 1);
-                                        var oldsNote = diatonicScales.NatMinor_Scale3[saxNote];
-                                        Debug.Log("majseven" + oldsNote);
+                                        var oldsnote = diatonicScales.NatMinor_Scale3[saxNote];
+                                        Debug.Log("majseven" + oldsnote);
                                         Debug.Log("domseven" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], 1.0f); //7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity); //7
+                                        }
+
                                     }
-                                    prevSax_Range = 3;
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (cp.ChordType == "NonDiatonic" && saxNote == 2) //7
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale4[saxNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale4[saxNote] - 1), noteVelocity); //b7
+                                        }
+
+                                        var sNote = (diatonicScales.NatMinor_Scale4[saxNote] - 1);
+                                        var oldsnote = diatonicScales.NatMinor_Scale4[saxNote];
+                                        Debug.Log("majseven" + oldsnote);
+                                        Debug.Log("domseven" + sNote);
+                                    }
+                                    else
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity); //7
+                                        }
+
+                                    }
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -922,23 +2235,68 @@ namespace SoliSoundScape
                             if (!sax_f_sw)
                             {
                                 chord4NoteShift();
-                                Lydian_SNoteSelector();
+                                Lydian_TNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.Major_Scale1[saxNote], 1.0f);
-                                    prevSax_Range = 1;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.Major_Scale2[saxNote], 1.0f);
-                                    prevSax_Range = 2;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.Major_Scale3[saxNote], 1.0f);
-                                    prevSax_Range = 3;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                    }
+
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -948,23 +2306,68 @@ namespace SoliSoundScape
                             if (!sax_f_sw)
                             {
                                 chord4NoteShift();
-                                Min_SNoteSelector();
+                                Min_TNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], 1.0f);
-                                    prevSax_Range = 1;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], 1.0f);
-                                    prevSax_Range = 2;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], 1.0f);
-                                    prevSax_Range = 3;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
+                                    }
+
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -984,49 +2387,145 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2 || cp.ChordType == "NonDiatonic" && saxNote == 6) //alt7 
                                     {
-                                        Saxophone.NoteOn((diatonicScales.Major_Scale1[saxNote] - 1), 1.0f); //b5, b9
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.Major_Scale1[saxNote] - 1), noteVelocity); //b5, b9
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.Major_Scale1[saxNote] - 1), noteVelocity); //b5, b9
+                                        }
+
                                         var sNote = (diatonicScales.Major_Scale1[saxNote] - 1);
-                                        var oldsNote = diatonicScales.Major_Scale1[saxNote];
-                                        Debug.Log("dom" + oldsNote);
+                                        var oldsnote = diatonicScales.Major_Scale1[saxNote];
+                                        Debug.Log("dom" + oldsnote);
                                         Debug.Log("alt" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.Major_Scale1[saxNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                        }
+
                                     }
-                                    prevSax_Range = 1;
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2 || cp.ChordType == "NonDiatonic" && saxNote == 6) //alt7 
                                     {
-                                        Saxophone.NoteOn((diatonicScales.Major_Scale2[saxNote] - 1), 1.0f); //b5, b9
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.Major_Scale2[saxNote] - 1), noteVelocity); //b5, b9
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.Major_Scale2[saxNote] - 1), noteVelocity); //b5, b9
+                                        }
+
                                         var sNote = (diatonicScales.Major_Scale2[saxNote] - 1);
-                                        var oldsNote = diatonicScales.Major_Scale2[saxNote];
-                                        Debug.Log("dom" + oldsNote);
+                                        var oldsnote = diatonicScales.Major_Scale2[saxNote];
+                                        Debug.Log("dom" + oldsnote);
                                         Debug.Log("alt" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.Major_Scale2[saxNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                        }
+
                                     }
-                                    prevSax_Range = 2;
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2 || cp.ChordType == "NonDiatonic" && saxNote == 6) //alt7 
                                     {
-                                        Saxophone.NoteOn((diatonicScales.Major_Scale3[saxNote] - 1), 1.0f); //b5, b9
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.Major_Scale3[saxNote] - 1), noteVelocity); //b5, b9
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.Major_Scale3[saxNote] - 1), noteVelocity); //b5, b9
+                                        }
+
                                         var sNote = (diatonicScales.Major_Scale3[saxNote] - 1);
-                                        var oldsNote = diatonicScales.Major_Scale3[saxNote];
-                                        Debug.Log("dom" + oldsNote);
+                                        var oldsnote = diatonicScales.Major_Scale3[saxNote];
+                                        Debug.Log("dom" + oldsnote);
                                         Debug.Log("alt" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.Major_Scale3[saxNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                        }
+
                                     }
-                                    prevSax_Range = 3;
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (cp.ChordType == "NonDiatonic" && saxNote == 2 || cp.ChordType == "NonDiatonic" && saxNote == 6) //alt7 
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.Major_Scale4[saxNote] - 1), noteVelocity); //b5, b9
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.Major_Scale4[saxNote] - 1), noteVelocity); //b5, b9
+                                        }
+
+                                        var sNote = (diatonicScales.Major_Scale4[saxNote] - 1);
+                                        var oldsnote = diatonicScales.Major_Scale4[saxNote];
+                                        Debug.Log("dom" + oldsnote);
+                                        Debug.Log("alt" + sNote);
+                                    }
+                                    else
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                        }
+
+                                    }
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -1036,23 +2535,68 @@ namespace SoliSoundScape
                             if (!sax_f_sw)
                             {
                                 chord5NoteShift();
-                                Phygian_SNoteSelector();
+                                Phygian_TNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], 1.0f);
-                                    prevSax_Range = 1;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], 1.0f);
-                                    prevSax_Range = 2;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], 1.0f);
-                                    prevSax_Range = 3;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
+                                    }
+
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -1066,23 +2610,68 @@ namespace SoliSoundScape
                             if (!sax_f_sw)
                             {
                                 chord6NoteShift();
-                                Min_SNoteSelector();
+                                Min_TNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.Major_Scale1[saxNote], 1.0f);
-                                    prevSax_Range = 1;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.Major_Scale2[saxNote], 1.0f);
-                                    prevSax_Range = 2;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    Saxophone.NoteOn(diatonicScales.Major_Scale3[saxNote], 1.0f);
-                                    prevSax_Range = 3;
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                    }
+
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (fVelocity >= 4.01f)
+                                    {
+                                        
+                                        SaxophoneHard.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                    }
+                                    else if (fVelocity <= 4.0f)
+                                    {
+
+                                        SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                    }
+
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -1098,7 +2687,7 @@ namespace SoliSoundScape
                                 }
                                 else
                                 {
-                                    Lydian_SNoteSelector();
+                                    Lydian_TNoteSelector();
                                 }
                                 saxRange();
 
@@ -1106,49 +2695,145 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 5) //7
                                     {
-                                        Saxophone.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), 1.0f); //b7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), noteVelocity); //b7
+                                        }
+
                                         var sNote = (diatonicScales.NatMinor_Scale1[saxNote] - 1);
-                                        var oldsNote = diatonicScales.NatMinor_Scale1[saxNote];
-                                        Debug.Log("majseven" + oldsNote);
+                                        var oldsnote = diatonicScales.NatMinor_Scale1[saxNote];
+                                        Debug.Log("majseven" + oldsnote);
                                         Debug.Log("domseven" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], 1.0f); //7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity); //7
+                                        }
+
                                     }
-                                    prevSax_Range = 1;
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 5) //7
                                     {
-                                        Saxophone.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), 1.0f); //b7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), noteVelocity); //b7
+                                        }
+
                                         var sNote = (diatonicScales.NatMinor_Scale2[saxNote] - 1);
-                                        var oldsNote = diatonicScales.NatMinor_Scale2[saxNote];
-                                        Debug.Log("majseven" + oldsNote);
+                                        var oldsnote = diatonicScales.NatMinor_Scale2[saxNote];
+                                        Debug.Log("majseven" + oldsnote);
                                         Debug.Log("domseven" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], 1.0f); //7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity); //7
+                                        }
+
                                     }
-                                    prevSax_Range = 2;
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 5) //7
                                     {
-                                        Saxophone.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), 1.0f); //b7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), noteVelocity); //b7
+                                        }
+
                                         var sNote = (diatonicScales.NatMinor_Scale3[saxNote] - 1);
-                                        var oldsNote = diatonicScales.NatMinor_Scale3[saxNote];
-                                        Debug.Log("majseven" + oldsNote);
+                                        var oldsnote = diatonicScales.NatMinor_Scale3[saxNote];
+                                        Debug.Log("majseven" + oldsnote);
                                         Debug.Log("domseven" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], 1.0f); //7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity); //7
+                                        }
+
                                     }
-                                    prevSax_Range = 3;
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (cp.ChordType == "NonDiatonic" && saxNote == 5) //7
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale4[saxNote] - 1), noteVelocity); //b7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale4[saxNote] - 1), noteVelocity); //b7
+                                        }
+
+                                        var sNote = (diatonicScales.NatMinor_Scale4[saxNote] - 1);
+                                        var oldsnote = diatonicScales.NatMinor_Scale4[saxNote];
+                                        Debug.Log("majseven" + oldsnote);
+                                        Debug.Log("domseven" + sNote);
+                                    }
+                                    else
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity); //7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity); //7
+                                        }
+
+                                    }
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -1161,56 +2846,152 @@ namespace SoliSoundScape
                             if (!sax_f_sw)
                             {
                                 chord7NoteShift();
-                                Locrian_SNoteSelector();
+                                Locrian_TNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 6) //VIIO
                                     {
-                                        Saxophone.NoteOn((diatonicScales.Major_Scale1[saxNote] - 1), 1.0f); //bb7
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.Major_Scale1[saxNote] - 1), noteVelocity); //bb7
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.Major_Scale1[saxNote] - 1), noteVelocity); //bb7
+                                        }
+
                                         var sNote = (diatonicScales.Major_Scale1[saxNote] - 1);
-                                        var oldsNote = diatonicScales.Major_Scale1[saxNote];
-                                        Debug.Log("dom" + oldsNote);
+                                        var oldsnote = diatonicScales.Major_Scale1[saxNote];
+                                        Debug.Log("dom" + oldsnote);
                                         Debug.Log("bbseven" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.Major_Scale1[saxNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
+                                        }
+
                                     }
-                                    prevSax_Range = 1;
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 6)
                                     {
-                                        Saxophone.NoteOn((diatonicScales.Major_Scale2[saxNote] - 1), 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.Major_Scale2[saxNote] - 1), noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.Major_Scale2[saxNote] - 1), noteVelocity);
+                                        }
+
                                         var sNote = (diatonicScales.Major_Scale2[saxNote] - 1);
-                                        var oldsNote = diatonicScales.Major_Scale2[saxNote];
-                                        Debug.Log("dom" + oldsNote);
+                                        var oldsnote = diatonicScales.Major_Scale2[saxNote];
+                                        Debug.Log("dom" + oldsnote);
                                         Debug.Log("bbseven" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.Major_Scale2[saxNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
+                                        }
+
                                     }
-                                    prevSax_Range = 2;
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 6)
                                     {
-                                        Saxophone.NoteOn((diatonicScales.Major_Scale3[saxNote] - 1), 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.Major_Scale3[saxNote] - 1), noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.Major_Scale3[saxNote] - 1), noteVelocity);
+                                        }
+
                                         var sNote = (diatonicScales.Major_Scale3[saxNote] - 1);
-                                        var oldsNote = diatonicScales.Major_Scale3[saxNote];
-                                        Debug.Log("dom" + oldsNote);
+                                        var oldsnote = diatonicScales.Major_Scale3[saxNote];
+                                        Debug.Log("dom" + oldsnote);
                                         Debug.Log("bbseven" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.Major_Scale3[saxNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
+                                        }
+
                                     }
-                                    prevSax_Range = 3;
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (cp.ChordType == "NonDiatonic" && saxNote == 6)
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.Major_Scale4[saxNote] - 1), noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.Major_Scale4[saxNote] - 1), noteVelocity);
+                                        }
+
+                                        var sNote = (diatonicScales.Major_Scale4[saxNote] - 1);
+                                        var oldsnote = diatonicScales.Major_Scale4[saxNote];
+                                        Debug.Log("dom" + oldsnote);
+                                        Debug.Log("bbseven" + sNote);
+                                    }
+                                    else
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
+                                        }
+
+                                    }
+                                    
                                 }
                                 sax_f_sw = true;
                             }
@@ -1222,7 +3003,7 @@ namespace SoliSoundScape
                                 chord7NoteShift();
                                 if (cp.ChordType == "NonDiatonic")
                                 {
-                                    Min_SNoteSelector();
+                                    Min_TNoteSelector();
                                 }
                                 else
                                 {
@@ -1234,62 +3015,166 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //min7
                                     {
-                                        Saxophone.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), 1.0f); //b3
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), noteVelocity); //b3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), noteVelocity); //b3
+                                        }
+
                                         var sNote = (diatonicScales.NatMinor_Scale1[saxNote] - 1);
-                                        var oldsNote = diatonicScales.NatMinor_Scale1[saxNote];
-                                        Debug.Log("majthird" + oldsNote);
+                                        var oldsnote = diatonicScales.NatMinor_Scale1[saxNote];
+                                        Debug.Log("majthird" + oldsnote);
                                         Debug.Log("minthird" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
+                                        }
                                     }
-                                    prevSax_Range = 1;
+                                    
                                 }
                                 else if (saxophoneRange == 2)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //min7
                                     {
-                                        Saxophone.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), 1.0f); //b3
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), noteVelocity); //b3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), noteVelocity); //b3
+                                        }
+
                                         var sNote = (diatonicScales.NatMinor_Scale2[saxNote] - 1);
-                                        var oldsNote = diatonicScales.NatMinor_Scale2[saxNote];
-                                        Debug.Log("majthird" + oldsNote);
+                                        var oldsnote = diatonicScales.NatMinor_Scale2[saxNote];
+                                        Debug.Log("majthird" + oldsnote);
                                         Debug.Log("minthird" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
+                                        }
+
                                     }
-                                    prevSax_Range = 2;
+                                    
                                 }
                                 else if (saxophoneRange == 3)
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //min7
                                     {
-                                        Saxophone.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), 1.0f); //b3
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), noteVelocity); //b3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), noteVelocity); //b3
+                                        }
+
                                         var sNote = (diatonicScales.NatMinor_Scale3[saxNote] - 1);
-                                        var oldsNote = diatonicScales.NatMinor_Scale3[saxNote];
-                                        Debug.Log("majthird" + oldsNote);
+                                        var oldsnote = diatonicScales.NatMinor_Scale3[saxNote];
+                                        Debug.Log("majthird" + oldsnote);
                                         Debug.Log("minthird" + sNote);
                                     }
                                     else
                                     {
-                                        Saxophone.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], 1.0f);
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
+                                        }
+
                                     }
-                                    prevSax_Range = 3;
+                                    
+                                }
+                                else if (saxophoneRange == 4)
+                                {
+                                    if (cp.ChordType == "NonDiatonic" && saxNote == 2) //min7
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale4[saxNote] - 1), noteVelocity); //b3
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale4[saxNote] - 1), noteVelocity); //b3
+                                        }
+
+                                        var sNote = (diatonicScales.NatMinor_Scale4[saxNote] - 1);
+                                        var oldsnote = diatonicScales.NatMinor_Scale4[saxNote];
+                                        Debug.Log("majthird" + oldsnote);
+                                        Debug.Log("minthird" + sNote);
+                                    }
+                                    else
+                                    {
+                                        if (fVelocity >= 4.01f)
+                                        {
+                                            
+                                            SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
+                                        }
+                                        else if (fVelocity <= 4.0f)
+                                        {
+    
+                                            SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
+                                        }
+
+                                    }
+                                    
                                 }
                                 sax_f_sw = true;
                             }
                         }
                         break;
                 }
+
+                if (currChord < prevChord || currChord > prevChord)
+                {
+                    sax_f_sw = false;
+                    SaxophoneSoft.AllNotesOff();
+                    SaxophoneHard.AllNotesOff();
+                }
             }
             else
             {
-                sax_f_sw = false;
-                Saxophone.AllNotesOff();
+                if(sax_f_sw) sax_f_sw = false;
+                SaxophoneSoft.AllNotesOff();
+                SaxophoneHard.AllNotesOff();
             }
         }
+
 
         private void tptRange()
         {
@@ -1299,7 +3184,7 @@ namespace SoliSoundScape
             }
             else if (prevTpt_Range == 1)
             {
-                trumpetRange = Random.Range(1, 4);
+                trumpetRange = Random.Range(1, 3);
             }
             else if (prevTpt_Range == 2)
             {
@@ -1307,7 +3192,7 @@ namespace SoliSoundScape
             }
             else if (prevTpt_Range == 3)
             {
-                trumpetRange = Random.Range(2, 5);
+                trumpetRange = Random.Range(3, 5);
             }
             else if (prevTpt_Range == 4)
             {
@@ -1327,6 +3212,10 @@ namespace SoliSoundScape
             else if (trumpetRange == 3)
             {
                 saxophoneRange = 2;
+            }
+            else if (trumpetRange == 4)
+            {
+                saxophoneRange = 3;
             }
 
         }
@@ -1591,59 +3480,59 @@ namespace SoliSoundScape
             LocriannoteSelector[5] = 7;
         }
 
-        private void MajDom_TNoteSelector()
+        private void MajDom_TNoteSelector() //235671
         {
             var noteSelector = Random.Range(0, MajDomnoteSelector.Length);
             if (noteSelector == 0) trumpetNote = MajDomnoteSelector[0];
             if (noteSelector == 1) trumpetNote = MajDomnoteSelector[1];
             if (noteSelector == 2) trumpetNote = MajDomnoteSelector[2];
             if (noteSelector == 3) trumpetNote = MajDomnoteSelector[3];
-            if (noteSelector == 4) trumpetNote = MajDomnoteSelector[4];
-            if (noteSelector == 5) trumpetNote = MajDomnoteSelector[5];
+            if (noteSelector == 4 && cp.ChordVoicing == "Extended") trumpetNote = MajDomnoteSelector[4];
+            if (noteSelector == 5 || noteSelector == 4 && cp.ChordVoicing == "") trumpetNote = MajDomnoteSelector[5];
             Debug.Log("TRUMPETNOTE " + trumpetNote);
         }
-        private void Min_TNoteSelector()
+        private void Min_TNoteSelector() //234571
         {
             var noteSelector = Random.Range(0, MinnoteSelector.Length);
             if (noteSelector == 0) trumpetNote = MinnoteSelector[0];
             if (noteSelector == 1) trumpetNote = MinnoteSelector[1];
             if (noteSelector == 2) trumpetNote = MinnoteSelector[2];
             if (noteSelector == 3) trumpetNote = MinnoteSelector[3];
-            if (noteSelector == 4) trumpetNote = MinnoteSelector[4];
-            if (noteSelector == 5) trumpetNote = MinnoteSelector[5];
+            if (noteSelector == 4 && cp.ChordVoicing == "Extended") trumpetNote = MinnoteSelector[4];
+            if (noteSelector == 5 || noteSelector == 4 && cp.ChordVoicing == "") trumpetNote = MinnoteSelector[5];
             Debug.Log("TRUMPETNOTE " + trumpetNote);
         }
-        private void Locrian_TNoteSelector() 
+        private void Locrian_TNoteSelector() //34571
         {
             var noteSelector = Random.Range(0, LocriannoteSelector.Length);
             if (noteSelector == 0) trumpetNote = LocriannoteSelector[0];
             if (noteSelector == 1) trumpetNote = LocriannoteSelector[1];
             if (noteSelector == 2) trumpetNote = LocriannoteSelector[2];
             if (noteSelector == 3) trumpetNote = LocriannoteSelector[3];
-            if (noteSelector == 4) trumpetNote = LocriannoteSelector[4];
-            if (noteSelector == 5) trumpetNote = LocriannoteSelector[5];
+            if (noteSelector == 4 && cp.ChordVoicing == "Extended") trumpetNote = LocriannoteSelector[4];
+            if (noteSelector == 5 || noteSelector == 4 && cp.ChordVoicing == "") trumpetNote = LocriannoteSelector[5];
             Debug.Log("TRUMPETNOTE " + trumpetNote);
         }
-        private void Phygian_TNoteSelector()
+        private void Phygian_TNoteSelector() //34571
         {
             var noteSelector = Random.Range(0, PhygiannoteSelector.Length);
             if (noteSelector == 0) trumpetNote = PhygiannoteSelector[0];
             if (noteSelector == 1) trumpetNote = PhygiannoteSelector[1];
             if (noteSelector == 2) trumpetNote = PhygiannoteSelector[2];
-            if (noteSelector == 3) trumpetNote = PhygiannoteSelector[3];
-            if (noteSelector == 4) trumpetNote = PhygiannoteSelector[4];
+            if (noteSelector == 3 && cp.ChordVoicing == "Extended") trumpetNote = PhygiannoteSelector[3];
+            if (noteSelector == 4 || noteSelector == 3 && cp.ChordVoicing == "") trumpetNote = PhygiannoteSelector[4];
             Debug.Log("TRUMPETNOTE " + trumpetNote);
         }
-        private void Lydian_TNoteSelector()
+        private void Lydian_TNoteSelector() //2345671
         {
             var noteSelector = Random.Range(0, LydiannoteSelector.Length);
             if (noteSelector == 0) trumpetNote = LydiannoteSelector[0];
-            if (noteSelector == 1) trumpetNote = LydiannoteSelector[1];
-            if (noteSelector == 2) trumpetNote = LydiannoteSelector[2];
+            if (noteSelector == 1 || noteSelector == 5 && cp.ChordVoicing == "") trumpetNote = LydiannoteSelector[1];
+            if (noteSelector == 2 && cp.ChordVoicing == "Extended") trumpetNote = LydiannoteSelector[2];
             if (noteSelector == 3) trumpetNote = LydiannoteSelector[3];
-            if (noteSelector == 4) trumpetNote = LydiannoteSelector[4];
-            if (noteSelector == 5) trumpetNote = LydiannoteSelector[5];
-            if (noteSelector == 6) trumpetNote = LydiannoteSelector[6];
+            if (noteSelector == 4 ) trumpetNote = LydiannoteSelector[4];
+            if (noteSelector == 5 && cp.ChordVoicing == "Extended") trumpetNote = LydiannoteSelector[5];
+            if (noteSelector == 6 || noteSelector == 2 && cp.ChordVoicing == "") trumpetNote = LydiannoteSelector[6];
             Debug.Log("TRUMPETNOTE " + trumpetNote);
         }
 
@@ -1804,6 +3693,12 @@ namespace SoliSoundScape
                 saxNote = LydiannoteSelector[6]; //1
             }
             Debug.Log("SAXNOTE " + saxNote);
+        }
+
+        //Will return a value between 0.0f and 1.0f, which will then be used to set the focusVelocity amount.
+        private float CalculateVelocity(float Value, float inMin, float inMax, float outMin, float outMax)
+        {
+            return ((outMax - outMin) * (Value - inMin)) / ((inMax - inMin) + outMin);
         }
     }
 }

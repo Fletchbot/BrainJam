@@ -25,14 +25,14 @@ namespace SoliGameController
             gestureCountdown = gc.twosecCounter;
 
             focusNotesPlayed = 0;
-            f_sustainRestDiff = gc.fivesecCounter;
+            f_sustainRestDiff = 7.0f;
         }
 
         public void Update()
         {
             if (gc.state == 4 && gc.f_trainSW)
             {
-                FocusTrainResetDiff();
+             //   FocusTrainResetDiff();
             }
         }
 
@@ -185,9 +185,9 @@ namespace SoliGameController
             {
                 if (f_sustainRestDiff <= 0.0f)
                 {
-                    gestureController.fTarget -= 2.0f;
-                    gestureController.fOut -= 2.0f;
-                    f_sustainRestDiff = gc.fivesecCounter;
+                    gestureController.fTarget -= 0.5f;
+                    gestureController.fOut -= 0.5f;
+                    f_sustainRestDiff = 7.0f;
                 }
                 else
                 {

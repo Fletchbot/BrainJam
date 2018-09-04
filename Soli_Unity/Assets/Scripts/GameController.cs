@@ -225,23 +225,6 @@ namespace SoliGameController
                 sHeld_Reached = false;
             }
 
-  /*          if (state == 5 && gest_c.isFocus && !FocusTested || state == -1 && gest_c.isFocus && !F_sw)
-            {
-                if (!FocusTested && gest_c.wek_fFloat >= gest_c.fOut)
-                {
-                    FocusTested = true;
-                    state = -1;
-                    Debug.Log("FocusPassed");
-                }
-
-                Focus = true;
-                F_sw = true;
-            }
-            else
-            {
-                F_sw = false;
-                Focus = false;
-            }*/
 
             //No Gesture TimeOut
             if (mindStateTimeOut && state == -1) // no state change within 30sec/test60sec goto no gesture(lava erupting)
@@ -320,28 +303,28 @@ namespace SoliGameController
 
                 if (mean_Focus >= 7.51f)
                 {
-                    gest_c.fTarget = 7.5f;
-                    gest_c.fOut = 8.0f;
+                    gest_c.fTarget = 8.0f;
+                    gest_c.fOut = 8.5f;
                 }
                 else if (mean_Focus >= 6.51f && mean_Focus <= 7.5f)
                 {
-                    gest_c.fTarget = 6.5f;
-                    gest_c.fOut = 7.0f;
+                    gest_c.fTarget = 7.0f;
+                    gest_c.fOut = 7.5f;
                 }
                 else if (mean_Focus >= 5.51f && mean_Focus <= 6.5f)
                 {
-                    gest_c.fTarget = 5.5f;
-                    gest_c.fOut = 6.0f;
+                    gest_c.fTarget = 6.0f;
+                    gest_c.fOut = 6.5f;
                 }
                 else if (mean_Focus >= 4.51f && mean_Focus <= 5.5f)
                 {
-                    gest_c.fTarget = 4.5f;
-                    gest_c.fOut = 5.0f;
+                    gest_c.fTarget = 5.0f;
+                    gest_c.fOut = 5.5f;
                 }
                 else if (mean_Focus >= 3.5f && mean_Focus <= 4.5f)
                 {
-                    gest_c.fTarget = 3.5f;
-                    gest_c.fOut = 4.0f;
+                    gest_c.fTarget = 4.0f;
+                    gest_c.fOut = 4.5f;
                 }
                 FocusMeter.GetComponent<PieMeter>().MinValuec1 = gest_c.fOut;
                 FocusMeter.GetComponent<PieMeter>().MinValuec2 = gest_c.fOut;

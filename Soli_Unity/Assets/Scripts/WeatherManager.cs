@@ -91,7 +91,7 @@ namespace Artngame.SKYMASTER
             //Sad
             if (Sad && state == 2 && SadnessTested) //Heavy Snow Storm
             {
-                weatherChoice = 6;
+                weatherChoice = 2;
             }
             else if (Sad && state == -1 && !sHeld_Reached) //Rain (both !meditate/meditate)
             {
@@ -140,7 +140,7 @@ namespace Artngame.SKYMASTER
             }
 
             //SNOW 
-            if (Sad && state == 2 && n_Intro == 4) ///Add Snow when sad  + higher level states start game 
+     /*       if (Sad && state == 2 && n_Intro == 4) ///Add Snow when sad  + higher level states start game 
             {
                 turnonLava = false;
 
@@ -151,9 +151,9 @@ namespace Artngame.SKYMASTER
                 SnowLavaMat.SetFloat("_LightIntensity", 1.0f);
                 SnowLavaMat.SetFloat("_isLava", 0);
                 SnowLavaMat.SetFloat("Snow_Cover_offset", shaderOffset);
-            }
+            }*/
             //MELT LAVA/SNOW
-            else if (Meditate && state == -1 || Happy && state == -1 || Sad && state == -1 || Unsure && !NoGesture || Meditate && state == 2 || Happy && state >= 3)
+            if (Meditate && state == -1 || Happy && state == -1 || Sad && state == -1 || Unsure && !NoGesture || Meditate && state == 2 || Happy && state >= 3)
             {
                 turnonLava = false;
                 turnonSnow = false;

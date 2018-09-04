@@ -57,13 +57,13 @@ public class ProjectileEmitter : MonoBehaviour
     {
         noGesture = gc.NoGesture;
 
-        if (gc.state == -1 && !noGesture || gc.state >= 4)
+        if (gc.state == -1 || gc.state >= 4)
         {
-
+            randomMovement();
+            P_Emitter();
+            forceRotate();
         }
-        randomMovement();
-        P_Emitter();
-        forceRotate();
+
 
     }
 
@@ -159,10 +159,10 @@ public class ProjectileEmitter : MonoBehaviour
 
     void P_Emitter()
     {
-        if (Input.GetButton("Vertical"))
+      //  if (Input.GetButton("Vertical"))
+    //    {
+            if (gestC.isFocus)
         {
-       //     if (gestC.isFocus)
-      //  {
 
             if(emitTimer <= 0.0f)
             {

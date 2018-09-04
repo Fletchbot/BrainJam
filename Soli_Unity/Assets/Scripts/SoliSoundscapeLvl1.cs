@@ -49,10 +49,12 @@ namespace SoliSoundScape
 
             e_states();
             Lvl1ChordStates();
-            if (lvl1State <= 4)
+            e_off();
+            e_sw();
+
+            if (lvl1State <= 3)
             {
-                e_off();
-                e_sw();
+
             }
 
         }
@@ -105,6 +107,9 @@ namespace SoliSoundScape
         {
             if (gameState == -1)
             {
+                cp.ChordVoicing = "";
+                cp.ChordType = "";
+
                 if (lvl1State == 0) // START LEVEL 1 MAJOR OR MINOR
                 {
                     if (Happy && !curisHappy)
@@ -112,12 +117,14 @@ namespace SoliSoundScape
                         cp.KeyType = "Major";
                         curisHappy = true;
                         prevH = true;
+                        cp.chords[1] = true;
                     }
                     else if (Sad && !curisSad)
                     {
                         cp.KeyType = "NaturalMinor";
                         curisSad = true;
                         prevS = true;
+                        cp.chords[1] = true;
                     }
                     else if (Unsure && !curisUnsure) //if unsure either major or minor
                     {
@@ -128,15 +135,14 @@ namespace SoliSoundScape
                         if (unsureRandom == 0)
                         {
                             cp.KeyType = "Major";
+                            cp.chords[1] = true;
                         }
                         else
                         {
                             cp.KeyType = "NaturalMinor";
+                            cp.chords[1] = true;
                         }
                     }
-                    cp.ChordVoicing = "";
-                    cp.ChordType = "";
-                    cp.chords[1] = true;
 
                     if (curisHappy && !Happy)
                     {
