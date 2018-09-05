@@ -19,6 +19,7 @@ namespace SoliGameController
 
         private bool G_sw, M_sw, H_sw, S_sw, f_sw, eruptAu, n_t2;
         private float sfxlvl;
+        private int headsetOn;
         private bool sfxPlaying, sfxFadedown, sfxFadeup;
 
         // Use this for initialization
@@ -32,9 +33,15 @@ namespace SoliGameController
         // Update is called once per frame
         void Update()
         {
-            SetSFXLvl();
-            TrainingAudio();
+            headsetOn = gameController.HeadsetOn;
+
             PlayEruption();
+
+            if (headsetOn == 1)
+            {
+                SetSFXLvl();
+                TrainingAudio();
+            }
         }
 
         public void SetSFXLvl()
@@ -70,7 +77,7 @@ namespace SoliGameController
 
         public void TrainingAudio()
         {
-            if (gameController.state == 0 ) // NARRATOR MEDITATE TRAINING
+            if (gameController.state == 0) // NARRATOR MEDITATE TRAINING
             {
                 if (N_Intro == 0)
                 {

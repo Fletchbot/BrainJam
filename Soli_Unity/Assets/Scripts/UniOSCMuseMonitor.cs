@@ -35,7 +35,8 @@ namespace UniOSC
 
         public float eeg0, eeg1, eeg2, eeg3, eeg4;
         public float gyroX, gyroY, gyroZ, accX, accY, accZ;
-        public float blink, jc, touchingforehead, batt, hs0, hs1, hs2, hs3;
+        public float blink, jc, batt, hs0, hs1, hs2, hs3;
+        public int touchingforehead;
 
         public float d0, d1, d2, d3, t0, t1, t2, t3, a0, a1, a2, a3, b0, b1, b2, b3, g0, g1, g2, g3;
         public float delta_abs, alpha_abs, theta_abs, beta_abs, gamma_abs;

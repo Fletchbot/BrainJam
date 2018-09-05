@@ -13,9 +13,10 @@ namespace SoliGameController
 
         [Header("Wekinator Run Dispatcher")]
         public GameObject WekMeditateDTW_Run, WekFocusDTW_Run, WekEmotionDTW_Run, wekEmotionSVM_Run;
+        public GameObject MuseMonitor;
         [Header("Mode")]
-        public bool Muse, Standalone;
         public bool isWekRun, f_trainSW, m_trainSW;
+        public int HeadsetOn;
         [Header("Meters")]
         public GameObject MeditateMeter, FocusMeter, EmotionMeter;
         public float prevT_Focus, currT_Focus, mean_Focus, prevT_Meditate, currT_Meditate, mean_Meditate;
@@ -30,7 +31,7 @@ namespace SoliGameController
         public float  m_HeldScore, h_HeldScore, s_HeldScore, u_HeldScore, noG_HeldScore;
         private float m_Held, h_Held, s_Held, noG_Held, u_Held, HeldPercentage;
         [Header("Timer Section")]
-        public float noGestureCountdown, heldCountdown, gestureThresholdTimer, standaloneCountdown, standaloneCounter, focusSkipCountdown;
+        public float noGestureCountdown, heldCountdown, gestureThresholdTimer, focusSkipCountdown;
         public int state;
         public float sixtysecCounter, thirtysecCounter, tensecCounter, fivesecCounter, foursecCounter, threesecCounter, twosecCounter, secCounter;
 
@@ -40,14 +41,9 @@ namespace SoliGameController
             ts = this.GetComponent<TrainingStates>();
             gest_c = this.GetComponent<GestureController>();
 
-            counterOnEnable();
-            MetersOnEnable();
-
-            state = 0;
-
-            focusGamePos = new Vector3(-60,-60,0);
-            meditateGamePos = new Vector3(-240,-60,0);
-            emotionsGamePos = new Vector3(-150,-60,0);
+            focusGamePos = new Vector3(-60, -60, 0);
+            meditateGamePos = new Vector3(-240, -60, 0);
+            emotionsGamePos = new Vector3(-150, -60, 0);
 
             middleAnchorMin = new Vector2(0.5f, 0.5f);
             middleAnchorMax = new Vector2(0.5f, 0.5f);
@@ -55,58 +51,76 @@ namespace SoliGameController
             topRightAnchorMin = new Vector2(1f, 1f);
             topRightAnchorMax = new Vector2(1f, 1f);
 
+            HeadsetOn = MuseMonitor.GetComponent<UniOSCMuseMonitor>().touchingforehead;
 
-            if (Standalone)
-            {
-                NoG_Enable(); //VolcanoErupt
-                standaloneCountdown = 45.0f;
-                standaloneCounter = standaloneCountdown;
-            }
-            else
+            counterOnEnable();
+            MetersOnEnable();
+
+            NoG_Enable();
+
+            state = 0;
+
+            if (HeadsetOn == 1)
             {
                 isWekRun = true;
             }
+
         }
         // Update is called once per frame
         public void Update()
         {
-            if (Standalone)
-            {
+            HeadsetOn = MuseMonitor.GetComponent<UniOSCMuseMonitor>().touchingforehead;
 
-            }
-            else if (Muse)
-            {
-                WekRun();
-            }
             //Training
-            if (state >= 0)
+            if (state >= 0 && HeadsetOn == 1)
             {
                 ts.MeditateTraining();
                 ts.EmotionsTraining();
                 ts.FocusTraining();
             }
-            //Game
-            GestureStates();
-            //Meters/HoldGesture
-            MetersUpdate();
-            HeldState();
+
+            if(HeadsetOn == 1)
+            {
+                if (!isWekRun) isWekRun = true;
+                //Game
+                WekRun();
+                GestureStates();
+
+                //Meters/HoldGesture
+                MetersUpdate();
+                HeldState();
+            } 
+            else if (HeadsetOn == 0 && isWekRun)
+            {
+                ResetGame();
+            }
+
         }
 
-        public void MuseMode(bool muse)
+        public void ResetGame()
         {
-            if (muse)
+            counterOnEnable();
+            MetersOnEnable();
+
+            state = 0;
+
+            MeditateMeter.GetComponent<ActivateObjects>().SetDeactive(true);
+            EmotionMeter.GetComponent<ActivateObjects>().SetDeactive(true);
+            FocusMeter.GetComponent<ActivateObjects>().SetDeactive(true);
+
+            NoG_Enable();
+
+            if (isWekRun)
             {
-                Muse = true;
-                Standalone = false;
+                isWekRun = false;
+                WekRun();
             }
-            else if (!muse)
-            {
-                Muse = false;
-            }
+
         }
 
         public void GestureStates() //state 0 = narratorMTraining, state 1 = meditatetraining complete, state 2 = NarratoremoTraining state 3 = Happy/Sad training complete, state 4 = NarratorfTraining state 5 = focustraining complete
         {
+
             if (state == 1 && gest_c.isMeditate && !MeditationTested || state == -1 && gest_c.isMeditate && !M_sw && !heldTimeout)
             {
                 if (!MeditationTested)
@@ -435,19 +449,6 @@ namespace SoliGameController
                 }
 
                 heldCountdown -= Time.deltaTime;
-            }
-        }
-
-        public void StandaloneMode(bool standalone)
-        {
-            if (standalone)
-            {
-                Muse = false;
-                Standalone = true;
-            }
-            else if (!standalone)
-            {
-                Standalone = false;
             }
         }
 

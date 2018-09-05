@@ -30,10 +30,10 @@ namespace SoliGameController
 
         public void Update()
         {
-            if (gc.state == 4 && gc.f_trainSW)
+           /* if (gc.state == 4 && gc.f_trainSW)
             {
-             //   FocusTrainResetDiff();
-            }
+               FocusTrainResetDiff();
+            }*/
         }
 
         private void invokeGestureDifficultyUpdate()
@@ -179,7 +179,8 @@ namespace SoliGameController
                 }
             }
         }
-        public void FocusTrainResetDiff()
+
+   /*     public void FocusTrainResetDiff()
         {
             if (gestureController.isFocus)
             {
@@ -194,6 +195,6 @@ namespace SoliGameController
                     f_sustainRestDiff -= Time.deltaTime;
                 }
             }
-        }
+        }*/
     }
 }

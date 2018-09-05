@@ -18,7 +18,7 @@ namespace SoliSoundScape
         public bool h_sw, s_sw, u_sw;
         public string[] lvl1Array = new string[3];
         public bool isHappy, isSad, isUnsure, pickKey;
-        public int startKey, gameState;
+        public int startKey, gameState, headsetOn;
         // Use this for initialization
         void Start()
         {
@@ -26,6 +26,7 @@ namespace SoliSoundScape
             lvl2 = this.GetComponent<SoliSoundscapeLvl2>();
 
             lvl1State = 0;
+            randomKey();
         }
 
         // Update is called once per frame
@@ -35,28 +36,32 @@ namespace SoliSoundScape
             isSad = game_c.Sad;
             isUnsure = game_c.uHeld_Reached;
             gameState = game_c.state;
-
-            randomKey();
-
             lvl2State = lvl2.lvl2State;
+            headsetOn = game_c.HeadsetOn;
+
+            if (headsetOn == 1)
+            {
+                e_states();
+                Lvl1ChordStates();
+                e_off();
+                e_sw();
+            }
+            else if (headsetOn == 0 && pickKey)
+            {
+                randomKey();
+                lvl1State = 0;
+                lvl2State = -1;
+                lvl2.lvl2State = lvl2State;
+                pickKey = false;
+            }
 
             if (lvl2State == -1 && lvl2.changeInstrument)
             {
                 lvl1State = 0;
-                lvl2.changeInstrument = false;
                 lvl2State = -1;
+                lvl2.lvl2State = lvl2State;
+                lvl2.changeInstrument = false;
             }
-
-            e_states();
-            Lvl1ChordStates();
-            e_off();
-            e_sw();
-
-            if (lvl1State <= 3)
-            {
-
-            }
-
         }
 
         void randomKey()

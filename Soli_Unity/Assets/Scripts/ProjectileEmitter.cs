@@ -26,7 +26,11 @@ public class ProjectileEmitter : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        resetValues();
+    }
 
+    void resetValues()
+    {
         leftEdge = 32.0f;
         rightEdge = 50.0f;
         topEdge = 357.0f;
@@ -49,7 +53,6 @@ public class ProjectileEmitter : MonoBehaviour
 
         p1_sw = false;
         p2_sw = true;
-
     }
 
     // Update is called once per frame
@@ -64,6 +67,10 @@ public class ProjectileEmitter : MonoBehaviour
             forceRotate();
         }
 
+        if(gc.HeadsetOn == 0 && gc.isWekRun)
+        {
+            resetValues();
+        }
 
     }
 

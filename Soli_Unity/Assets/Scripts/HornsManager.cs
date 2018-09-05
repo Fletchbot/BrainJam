@@ -26,31 +26,32 @@ namespace SoliSoundScape
         {
             cp = this.GetComponent<ChordProgressions>();
             diatonicScales = this.GetComponent<DiatonicScales>();
-            chord1NoteShift();
         }
 
         // Update is called once per frame
         void Update()
-        {            
-
-            if (cp.gesture_c.isFocus)
+        {     
+            if (gc.HeadsetOn == 1)
             {
-                isFocus = true;
-            }
-            else if (!cp.gesture_c.isFocus && prevChord == currChord)
-            {
-                isFocus = false;
-            }
+                if (cp.gesture_c.isFocus)
+                {
+                    isFocus = true;
+                }
+                else if (!cp.gesture_c.isFocus && prevChord == currChord)
+                {
+                    isFocus = false;
+                }
 
-            currChord = cp.currChord;
-            fVelocity = cp.gesture_c.fVelocity;
+                currChord = cp.currChord;
+                fVelocity = cp.gesture_c.fVelocity;
 
 
-            if(gc.state == -1 || gc.state >= 4)
-            {
-                TrumpetEnable();
-                SaxophoneEnable();
-            }
+                if (gc.state == -1 || gc.state >= 4)
+                {
+                    TrumpetEnable();
+                    SaxophoneEnable();
+                }
+            }       
 
         }
 
@@ -143,6 +144,7 @@ namespace SoliSoundScape
                         {
                             if (!tpt_f_sw)
                             {
+                                chord1NoteShift();
                                 Min_TNoteSelector();
                                 tptRange();
 

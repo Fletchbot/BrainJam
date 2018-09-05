@@ -35,13 +35,17 @@ namespace SoliSoundScape
             if (lvl1State == -1 && lvl2State == -1)
             {
                 lvl2State = 0;
+                lvl1.lvl1State = lvl1State;
                 lvl1State = -1;
             }
 
-            e_states();
-            Lvl2ChordStates();
-            e_off();
-            e_sw();
+            if (lvl1.headsetOn == 1)
+            {
+                e_states();
+                Lvl2ChordStates();
+                e_off();
+                e_sw();
+            }
         }
 
         public void e_states()

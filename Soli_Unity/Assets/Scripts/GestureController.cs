@@ -34,6 +34,28 @@ namespace SoliGameController
             secCounter = 1.0f;
             halfsecCounter = 0.2f;
 
+            resetValues();
+
+        }
+        // Update is called once per frame
+        public void Update()
+        {
+            if (gc.HeadsetOn == 1)
+            {
+                UpdateMuseHeadset();
+                MeditateStates();
+                EmotionStates();
+                FocusStates();
+            }
+            else if (gc.HeadsetOn == 0 && gc.isWekRun)
+            {
+                resetValues();
+            }
+
+        }
+
+        public void resetValues()
+        {
             meditateCountdown = twosecCounter;
             focusCountdown = secCounter;
 
@@ -47,16 +69,6 @@ namespace SoliGameController
             fOut = 3.5f;
             hTarget = 0.8f;
             sTarget = 1.5f;
-        }
-        // Update is called once per frame
-        public void Update()
-        {
-
-            if(gc.Muse) UpdateMuseHeadset();
-            MeditateStates();
-            EmotionStates();
-            FocusStates();
-
         }
 
         public void UpdateMuseHeadset()
