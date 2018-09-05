@@ -18,7 +18,7 @@ public class ProjectileEmitter : MonoBehaviour
     private float moveX, moveY, moveZ, velocityMax, emitterbaseSpeed;
     private float forceY, forceZ, forceRot, forceRotVelocity, forceRotSpeed, f_x, f_y, f_z, f_w;
     private float emitTimer;
-    public bool p1_sw, p2_sw;
+    public bool p1_sw, p2_sw, reset;
     public int emitHeld;
 
     private bool noGesture;
@@ -67,9 +67,14 @@ public class ProjectileEmitter : MonoBehaviour
             forceRotate();
         }
 
-        if(gc.HeadsetOn == 0 && gc.isWekRun)
+        if(gc.HeadsetOn == 0 && !reset)
         {
             resetValues();
+            reset = true;
+        }
+        else if (gc.HeadsetOn == 1 && reset)
+        {
+            reset = false;
         }
 
     }

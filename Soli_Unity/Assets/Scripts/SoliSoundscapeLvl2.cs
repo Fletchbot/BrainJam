@@ -11,7 +11,7 @@ namespace SoliSoundScape
 
         public int lvl2State;
         public bool changeInstrument;
-        private bool Happy, Sad, Unsure, prevH, curisHappy, prevS, curisSad, prevU, curisUnsure, h_trainSW, s_trainSW;
+        private bool Happy, Sad, Unsure, prevH, curisHappy, prevS, curisSad, prevU, curisUnsure;
         private bool isHappy, isSad, isUnsure;
         private bool h_sw, s_sw, u_sw;
         private int lvl1State;
@@ -46,6 +46,7 @@ namespace SoliSoundScape
                 e_off();
                 e_sw();
             }
+
         }
 
         public void e_states()

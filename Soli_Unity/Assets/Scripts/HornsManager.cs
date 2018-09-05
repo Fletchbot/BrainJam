@@ -51,6 +51,10 @@ namespace SoliSoundScape
                     TrumpetEnable();
                     SaxophoneEnable();
                 }
+            }
+            else if (gc.HeadsetOn == 0 && prevTpt_Range > 0)
+            {
+                prevTpt_Range = 0;
             }       
 
         }

@@ -17,17 +17,18 @@ namespace SoliGameController
         [Header("AudioMixer Section")]
         public AudioMixer synthMixer;
 
-        private bool G_sw, M_sw, H_sw, S_sw, f_sw, eruptAu, n_t2;
+        private bool eruptAu;
         private float sfxlvl;
         private int headsetOn;
-        private bool sfxPlaying, sfxFadedown, sfxFadeup;
+        private bool sfxPlaying, sfxFadedown, sfxFadeup, reset;
 
         // Use this for initialization
         void Start()
         {
-            sfxlvl = 0.0f;
             gameController = this.GetComponent<GameController>();
             ts = this.GetComponent<TrainingStates>();
+
+            resetValues();
         }
 
         // Update is called once per frame
@@ -41,6 +42,12 @@ namespace SoliGameController
             {
                 SetSFXLvl();
                 TrainingAudio();
+                if (reset) reset = false;
+            }
+            else if (headsetOn == 0 && !reset)
+            {
+                resetValues();
+                reset = true;
             }
         }
 
@@ -154,6 +161,15 @@ namespace SoliGameController
                 LavaAU.GetComponent<AudioSource>().Stop();
             }
 
+        }
+
+        public void resetValues()
+        {
+            sfxlvl = 0.0f;
+            N_Intro = 0;
+            eruptAu = false;
+            sfxFadeup = false;
+            sfxFadedown = false;
         }
     }
 }

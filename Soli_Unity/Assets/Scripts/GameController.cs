@@ -31,7 +31,7 @@ namespace SoliGameController
         public float  m_HeldScore, h_HeldScore, s_HeldScore, u_HeldScore, noG_HeldScore;
         private float m_Held, h_Held, s_Held, noG_Held, u_Held, HeldPercentage;
         [Header("Timer Section")]
-        public float noGestureCountdown, heldCountdown, gestureThresholdTimer, focusSkipCountdown;
+        public float noGestureCountdown, heldCountdown, gestureThresholdTimer;
         public int state;
         public float sixtysecCounter, thirtysecCounter, tensecCounter, fivesecCounter, foursecCounter, threesecCounter, twosecCounter, secCounter;
 
@@ -51,14 +51,21 @@ namespace SoliGameController
             topRightAnchorMin = new Vector2(1f, 1f);
             topRightAnchorMax = new Vector2(1f, 1f);
 
+            sixtysecCounter = 60.0f;
+            thirtysecCounter = 30.0f;
+            tensecCounter = 10.0f;
+            fivesecCounter = 5.0f;
+            foursecCounter = 4.0f;
+            threesecCounter = 3.0f;
+            twosecCounter = 2.0f;
+            secCounter = 1.0f;
+
             HeadsetOn = MuseMonitor.GetComponent<UniOSCMuseMonitor>().touchingforehead;
 
-            counterOnEnable();
+            ResetValues();
             MetersOnEnable();
 
             NoG_Enable();
-
-            state = 0;
 
             if (HeadsetOn == 1)
             {
@@ -99,10 +106,8 @@ namespace SoliGameController
 
         public void ResetGame()
         {
-            counterOnEnable();
+            ResetValues();
             MetersOnEnable();
-
-            state = 0;
 
             MeditateMeter.GetComponent<ActivateObjects>().SetDeactive(true);
             EmotionMeter.GetComponent<ActivateObjects>().SetDeactive(true);
@@ -543,16 +548,14 @@ namespace SoliGameController
             }
         }
 
-        private void counterOnEnable()
+        private void ResetValues()
         {
-            sixtysecCounter = 60.0f;
-            thirtysecCounter = 30.0f;
-            tensecCounter = 10.0f;
-            fivesecCounter = 5.0f;
-            foursecCounter = 4.0f;
-            threesecCounter = 3.0f;
-            twosecCounter = 2.0f;
-            secCounter = 1.0f;
+            heldTimeout = false;
+            noGHeld_Reached = false;
+            mHeld_Reached = false;
+            hHeld_Reached = false;
+            sHeld_Reached = false;
+            uHeld_Reached = false;
 
             heldCountdown = threesecCounter;
             HeldPercentage = 1.7f;
@@ -561,9 +564,26 @@ namespace SoliGameController
             h_Held = HeldPercentage;
             s_Held = HeldPercentage;
             u_Held = HeldPercentage;
+            m_HeldScore = 0;
+            noG_HeldScore = 0;
+            u_HeldScore = 0;
+            s_HeldScore = 0;
+            h_HeldScore = 0;
 
             gestureThresholdTimer = threesecCounter;
-        }
+
+            f_trainSW = false;
+            m_trainSW = false;
+
+            MeditationTested = false;
+            HappinessTested = false;
+            SadnessTested = false;
+            FocusTested = false;
+
+            mindStateTimeOut = false;
+
+            state = 0;
+    }
         private void MetersOnEnable()
         {
             EmotionMeter.GetComponent<PieMeter>().MinValuec1 = 0.0f;

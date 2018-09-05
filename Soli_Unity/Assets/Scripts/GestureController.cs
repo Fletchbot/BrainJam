@@ -10,7 +10,7 @@ namespace SoliGameController
         [Header("Wekinator")]
         public GameObject WekOSC_Receiver;
         public float wek_mFloat, wek_fFloat, wek_hFloat, wek_sFloat, wek_mood, wek_facialExpression, happyDiff, sadDiff;
-        public bool isMeditate, isFocus, isHappy, isSad, isUnsure, wekisFocus;
+        public bool isMeditate, isFocus, isHappy, isSad, isUnsure, wekisFocus, reset;
         [Header("Gesture Parameters")]
         public float mTarget, mOut, fTarget, fOut, hTarget, sTarget, h_guiVal, s_guiVal;
         public float fprevFloat, fcurrFloat, fVelocity;
@@ -46,11 +46,15 @@ namespace SoliGameController
                 MeditateStates();
                 EmotionStates();
                 FocusStates();
+
+                if (reset) reset = false;
             }
-            else if (gc.HeadsetOn == 0 && gc.isWekRun)
+            else if (gc.HeadsetOn == 0 && !reset)
             {
                 resetValues();
+                reset = true;
             }
+            
 
         }
 
@@ -58,7 +62,6 @@ namespace SoliGameController
         {
             meditateCountdown = twosecCounter;
             focusCountdown = secCounter;
-
             unsureCountdown = twosecCounter;
             happyCountdown = twosecCounter;
             sadCountdown = twosecCounter;

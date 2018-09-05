@@ -13,7 +13,7 @@ namespace SoliGameController
 
         public float gestureCountdown, f_sustainRestDiff;
         public int focusNotesPlayed;
-        public bool gestureOn, h_On, s_On, train_sw, happy, sad;
+        public bool gestureOn, h_On, s_On, train_sw, happy, sad, reset;
 
         // Use this for initialization
         public void OnEnable()
@@ -22,14 +22,21 @@ namespace SoliGameController
             gestureController = this.GetComponent<GestureController>();
             au = this.GetComponent<AudioPlaytestManager>();
 
-            gestureCountdown = gc.twosecCounter;
-
-            focusNotesPlayed = 0;
-            f_sustainRestDiff = 7.0f;
+            resetValues();
         }
 
         public void Update()
         {
+            if(gc.HeadsetOn == 0 && !reset)
+            {
+                resetValues();
+                reset = true;
+            }
+            else if (gc.HeadsetOn == 1 && reset)
+            {
+                reset = false;
+            }
+
            /* if (gc.state == 4 && gc.f_trainSW)
             {
                FocusTrainResetDiff();
@@ -196,5 +203,20 @@ namespace SoliGameController
                 }
             }
         }*/
+
+        public void resetValues()
+        {
+            gestureCountdown = gc.twosecCounter;
+
+            focusNotesPlayed = 0;
+            f_sustainRestDiff = 7.0f;
+
+            train_sw = false;
+            gestureOn = false;
+            h_On = false;
+            s_On = false;
+            happy = false;
+            sad = false;
+        }
     }
 }

@@ -41,6 +41,8 @@ namespace SoliSoundScape
 
             if (headsetOn == 1)
             {
+                randomKey();
+
                 e_states();
                 Lvl1ChordStates();
                 e_off();
@@ -48,11 +50,13 @@ namespace SoliSoundScape
             }
             else if (headsetOn == 0 && pickKey)
             {
-                randomKey();
+                h_trainSW = false;
+                s_trainSW = false;
+                pickKey = false;
+
                 lvl1State = 0;
                 lvl2State = -1;
                 lvl2.lvl2State = lvl2State;
-                pickKey = false;
             }
 
             if (lvl2State == -1 && lvl2.changeInstrument)
