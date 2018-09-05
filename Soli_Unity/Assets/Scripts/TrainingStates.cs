@@ -112,13 +112,13 @@ namespace SoliGameController
                     gestureCountdown = gc.twosecCounter;
                 }
                 // after Narrator and ishappy/issad countdown for 2 secs with text
-                else if (au.N_Intro == 6 && gestureController.isHappy || au.N_Intro == 4 && gestureController.isSad)
+                else if (au.N_Intro == 4 && gestureController.isHappy || au.N_Intro == 6 && gestureController.isSad)
                 {
-                    if (gestureController.isHappy && !h_On && sad)
+                    if (gestureController.isHappy && !h_On && !happy)
                     {
                         h_On = true;
                     }
-                    else if (gestureController.isSad && !s_On && !sad)
+                    else if (gestureController.isSad && !s_On && happy)
                     {
                         s_On = true;
                     }

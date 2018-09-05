@@ -243,17 +243,17 @@ namespace Artngame.SKYMASTER
                 H_sw = false;
                 S_sw = false;
             }
-            else if (Happy && !Meditate || Happy && state >= 3) //Midday Sun
+            else if (Happy && !Meditate || Happy && state == 2 && wm.HappinessTested) //Midday Sun
             {
                 CurrMonth = 6;
                 CurrDay = 20;
 
-                if (state >= 3 && CurrHour > 13.4f && CurrHour < 13.6f || state == -1 && hHeld_Rsw && CurrHour > 13.4f && CurrHour < 13.6f)
+                if (state == 2 && CurrHour > 13.4f && CurrHour < 13.6f || state == -1 && hHeld_Rsw && CurrHour > 13.4f && CurrHour < 13.6f)
                 {
                     speed = 0.0f;
                     hHeld_Rsw = false;
                 }
-                else if (state  >=3 && !H_sw || state == -1 && hHeld_Rsw && H_sw)
+                else if (state == 2 && !H_sw || state == -1 && hHeld_Rsw && H_sw)
                 {
                     speed = speedUp;
 
@@ -261,7 +261,7 @@ namespace Artngame.SKYMASTER
                     {
                         H_sw = false;
                     } 
-                    else if (state >= 3)
+                    else if (state == 2)
                     {
                         H_sw = true;
                     }
@@ -276,17 +276,17 @@ namespace Artngame.SKYMASTER
                 M_sw = false;
                 S_sw = false;
             }
-            else if (Sad && !Meditate || Sad && state == 2 && wm.SadnessTested) //Early Morning
+            else if (Sad && !Meditate || Sad && state >= 3) //Early Morning
             {
                 CurrMonth = 1;
                 CurrDay = 1;
 
-                if (state == 2 && CurrHour > 8.95f && CurrHour < 9.0f || state == -1 && sHeld_Rsw && CurrHour > 8.95f && CurrHour < 9.0f)
+                if (state >= 3 && CurrHour > 8.95f && CurrHour < 9.0f || state == -1 && sHeld_Rsw && CurrHour > 8.95f && CurrHour < 9.0f)
                 {
                     speed = 0.0f;
                     sHeld_Rsw = false;
                 }
-                else if (state == 2 && !S_sw || state == -1 && sHeld_Rsw && S_sw)
+                else if (state >= 3 && !S_sw || state == -1 && sHeld_Rsw && S_sw)
                 {
                     speed = speedUp;
 
@@ -294,7 +294,7 @@ namespace Artngame.SKYMASTER
                     {
                         S_sw = false;
                     }
-                    else if (state == 2)
+                    else if (state >= 3)
                     {
                         S_sw = true;
                     }

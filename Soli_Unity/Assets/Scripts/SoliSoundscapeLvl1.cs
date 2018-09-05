@@ -72,7 +72,7 @@ namespace SoliSoundScape
         {
             if (gameState == 0 && !pickKey) // KEY
             {
-                startKey = Random.Range(1, 12);
+                startKey = Random.Range(1, 13);
 
                 if (startKey == 1) cp.Key = "C";
                 if (startKey == 2) cp.Key = "Db";
@@ -137,7 +137,7 @@ namespace SoliSoundScape
                     }
                     else if (Unsure && !curisUnsure) //if unsure either major or minor
                     {
-                        unsureRandom = Random.Range(0, 1);
+                        unsureRandom = Random.Range(0, 2);
                         curisUnsure = true;
                         prevU = true;
 
@@ -261,7 +261,7 @@ namespace SoliSoundScape
                         }
                         else if (prevS && cp.KeyType == "NaturalMinor")
                         {
-                            int c = Random.Range(0, 1);
+                            int c = Random.Range(0, 2);
                             if (c == 0) cp.chords[7] = true;
                             if (c == 1) cp.chords[5] = true;
                         }
@@ -286,7 +286,7 @@ namespace SoliSoundScape
                     {
                         if (prevH && cp.KeyType == "Major")
                         {
-                            int c = Random.Range(0, 1);
+                            int c = Random.Range(0, 2);
                             if (c == 0) cp.chords[6] = true;
                             if (c == 1) cp.chords[2] = true;
                         }
@@ -303,7 +303,7 @@ namespace SoliSoundScape
                         }
                         else if (prevU && cp.KeyType == "NaturalMinor")
                         {
-                            int c = Random.Range(0, 1);
+                            int c = Random.Range(0, 2);
                             if (c == 0) cp.chords[4] = true;
                             if (c == 1) cp.chords[2] = true;
                         }

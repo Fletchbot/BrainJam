@@ -83,13 +83,13 @@ namespace Artngame.SKYMASTER
             }
 
             //Meditate Happy
-            if(Meditate && state <=2||Happy && state >=3 ||Meditate && Happy && state == -1 || Happy && !Meditate && state == -1) //Sunny
+            if(Meditate && state <=2||Happy && state == 2 ||Meditate && Happy && state == -1 || Happy && !Meditate && state == -1) //Sunny
             {
                 weatherChoice = 0;
             }
 
             //Sad
-            if (Sad && state == 2 && SadnessTested) //Heavy Snow Storm
+            if (Sad && state >= 3 && SadnessTested) //Heavy Snow Storm
             {
                 weatherChoice = 2;
             }

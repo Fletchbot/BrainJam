@@ -3488,7 +3488,7 @@ namespace SoliSoundScape
 
         private void MajDom_TNoteSelector() //235671
         {
-            var noteSelector = Random.Range(0, MajDomnoteSelector.Length);
+            var noteSelector = Random.Range(0, 6);
             if (noteSelector == 0) trumpetNote = MajDomnoteSelector[0];
             if (noteSelector == 1) trumpetNote = MajDomnoteSelector[1];
             if (noteSelector == 2) trumpetNote = MajDomnoteSelector[2];
@@ -3499,7 +3499,7 @@ namespace SoliSoundScape
         }
         private void Min_TNoteSelector() //234571
         {
-            var noteSelector = Random.Range(0, MinnoteSelector.Length);
+            var noteSelector = Random.Range(0, 6);
             if (noteSelector == 0) trumpetNote = MinnoteSelector[0];
             if (noteSelector == 1) trumpetNote = MinnoteSelector[1];
             if (noteSelector == 2) trumpetNote = MinnoteSelector[2];
@@ -3510,7 +3510,7 @@ namespace SoliSoundScape
         }
         private void Locrian_TNoteSelector() //345671
         {
-            var noteSelector = Random.Range(0, LocriannoteSelector.Length);
+            var noteSelector = Random.Range(0, 6);
             if (noteSelector == 0) trumpetNote = LocriannoteSelector[0];
             if (noteSelector == 1) trumpetNote = LocriannoteSelector[1];
             if (noteSelector == 2) trumpetNote = LocriannoteSelector[2];
@@ -3521,7 +3521,7 @@ namespace SoliSoundScape
         }
         private void Phygian_TNoteSelector() //34571
         {
-            var noteSelector = Random.Range(0, PhygiannoteSelector.Length);
+            var noteSelector = Random.Range(0, 5);
             if (noteSelector == 0) trumpetNote = PhygiannoteSelector[0];
             if (noteSelector == 1) trumpetNote = PhygiannoteSelector[1];
             if (noteSelector == 2) trumpetNote = PhygiannoteSelector[2];
@@ -3531,7 +3531,7 @@ namespace SoliSoundScape
         }
         private void Lydian_TNoteSelector() //2345671
         {
-            var noteSelector = Random.Range(0, LydiannoteSelector.Length);
+            var noteSelector = Random.Range(0, 7);
             if (noteSelector == 0) trumpetNote = LydiannoteSelector[0];
             if (noteSelector == 1 || noteSelector == 5 && cp.ChordVoicing == "") trumpetNote = LydiannoteSelector[1];
             if (noteSelector == 2 && cp.ChordVoicing == "Extended") trumpetNote = LydiannoteSelector[2];

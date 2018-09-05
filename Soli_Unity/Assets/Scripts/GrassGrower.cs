@@ -17,8 +17,7 @@ namespace Artngame.SKYMASTER
 
         // Use this for initialization
         void OnEnable()
-        {
-         
+        {        
             grow = -200;
             ungrow = -400;
             grown = new Vector3(28, 300, grow);
@@ -30,7 +29,7 @@ namespace Artngame.SKYMASTER
             }
             else
             {
-                growSpeed = 2.0f;
+                growSpeed = 4.0f;
             }
             transform.position = ungrown;
         }
@@ -48,8 +47,8 @@ namespace Artngame.SKYMASTER
 
         void GrassTrigger()
         {
-            //UNGROW GRASS when nogesture or sad test or sad and sadheld
-            if (NoGesture && gc.state == 0 || NoGesture && gc.state == -1 && noGHeld_Rsw || Sad && gc.state == 2 || Sad && gc.state == -1 && sHeld_Rsw)
+            //UNGROW GRASS when nogesture or sad and sadheld
+            if (NoGesture && gc.state == 0 || NoGesture && gc.state == -1 && noGHeld_Rsw || Sad && gc.state == -1 && sHeld_Rsw)
             {
                 if (transform.position.z <= grow && transform.position.z >= ungrow)
                 {
@@ -64,7 +63,7 @@ namespace Artngame.SKYMASTER
             }
 
             //GROW GRASS when happy test or happy and happyheld
-            if (Happy && gc.state == 4 || Happy && hHeld_Rsw && gc.state == -1)
+            if (Happy && gc.state >= 2 || Happy && hHeld_Rsw && gc.state == -1)
             {
                 if (transform.position.z <= grow && transform.position.z >= ungrow)
                 {

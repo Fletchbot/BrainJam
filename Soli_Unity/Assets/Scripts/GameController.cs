@@ -154,7 +154,7 @@ namespace SoliGameController
             }
                        
             //Happy
-             if (state == 3 && !HappinessTested && gest_c.isHappy && !heldTimeout || state == -1 && gest_c.isHappy && !H_sw && !heldTimeout)
+             if (state == 2 && !HappinessTested && gest_c.isHappy && !heldTimeout && ts.happy|| state == -1 && gest_c.isHappy && !H_sw && !heldTimeout)
             {
                 if (!HappinessTested)
                 {
@@ -188,7 +188,7 @@ namespace SoliGameController
                 uHeld_Reached = false;
             }
             //Sad
-            if (state == 2 && !SadnessTested && gest_c.isSad && !heldTimeout && !heldTimeout && ts.sad || state == -1 && gest_c.isSad && !S_sw && !heldTimeout)
+            if (state == 3 && !SadnessTested && gest_c.isSad && !heldTimeout && !heldTimeout || state == -1 && gest_c.isSad && !S_sw && !heldTimeout)
             {
                 if (!SadnessTested)
                 {
