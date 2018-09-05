@@ -1634,7 +1634,7 @@ namespace SoliSoundScape
                         {
                             if (!sax_f_sw)
                             {
-                                chord1NoteShift();
+                                
                                 MajDom_SNoteSelector();
                                 saxRange();
 
@@ -1703,7 +1703,7 @@ namespace SoliSoundScape
                         {
                             if (!sax_f_sw)
                             {
-                                Min_TNoteSelector();
+                                Min_SNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
@@ -1775,14 +1775,14 @@ namespace SoliSoundScape
                         {
                             if (!sax_f_sw)
                             {
-                                chord2NoteShift();
+                                
                                 if (cp.ChordType == "NonDiatonic")
                                 {
                                     MajDom_SNoteSelector();
                                 }
                                 else
                                 {
-                                    Min_TNoteSelector();
+                                    Min_SNoteSelector();
                                 }
                                 saxRange();
 
@@ -1933,8 +1933,8 @@ namespace SoliSoundScape
                         {
                             if (!sax_f_sw)
                             {
-                                chord2NoteShift();
-                                Locrian_TNoteSelector();
+                                
+                                Locrian_SNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
@@ -2007,8 +2007,8 @@ namespace SoliSoundScape
                         {
                             if (!sax_f_sw)
                             {
-                                chord3NoteShift();
-                                Phygian_TNoteSelector();
+                               
+                                Phygian_SNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
@@ -2078,7 +2078,7 @@ namespace SoliSoundScape
                         {
                             if (!sax_f_sw)
                             {
-                                chord3NoteShift();
+                               
                                 MajDom_SNoteSelector();
                                 saxRange();
 
@@ -2236,8 +2236,8 @@ namespace SoliSoundScape
                         {
                             if (!sax_f_sw)
                             {
-                                chord4NoteShift();
-                                Lydian_TNoteSelector();
+                                
+                                Lydian_SNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
@@ -2307,8 +2307,8 @@ namespace SoliSoundScape
                         {
                             if (!sax_f_sw)
                             {
-                                chord4NoteShift();
-                                Min_TNoteSelector();
+                                
+                                Min_SNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
@@ -2381,7 +2381,7 @@ namespace SoliSoundScape
                         {
                             if (!sax_f_sw)
                             {
-                                chord5NoteShift();
+                                
                                 MajDom_SNoteSelector();
                                 saxRange();
 
@@ -2536,8 +2536,8 @@ namespace SoliSoundScape
                         {
                             if (!sax_f_sw)
                             {
-                                chord5NoteShift();
-                                Phygian_TNoteSelector();
+                                
+                                Phygian_SNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
@@ -2611,8 +2611,8 @@ namespace SoliSoundScape
                         {
                             if (!sax_f_sw)
                             {
-                                chord6NoteShift();
-                                Min_TNoteSelector();
+                                
+                                Min_SNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
@@ -2689,7 +2689,7 @@ namespace SoliSoundScape
                                 }
                                 else
                                 {
-                                    Lydian_TNoteSelector();
+                                    Lydian_SNoteSelector();
                                 }
                                 saxRange();
 
@@ -2848,7 +2848,7 @@ namespace SoliSoundScape
                             if (!sax_f_sw)
                             {
                                 chord7NoteShift();
-                                Locrian_TNoteSelector();
+                                Locrian_SNoteSelector();
                                 saxRange();
 
                                 if (saxophoneRange == 1)
@@ -3005,7 +3005,7 @@ namespace SoliSoundScape
                                 chord7NoteShift();
                                 if (cp.ChordType == "NonDiatonic")
                                 {
-                                    Min_TNoteSelector();
+                                    Min_SNoteSelector();
                                 }
                                 else
                                 {
@@ -3504,7 +3504,7 @@ namespace SoliSoundScape
             if (noteSelector == 5 || noteSelector == 4 && cp.ChordVoicing == "") trumpetNote = MinnoteSelector[5];
             Debug.Log("TRUMPETNOTE " + trumpetNote);
         }
-        private void Locrian_TNoteSelector() //34571
+        private void Locrian_TNoteSelector() //345671
         {
             var noteSelector = Random.Range(0, LocriannoteSelector.Length);
             if (noteSelector == 0) trumpetNote = LocriannoteSelector[0];
@@ -3561,7 +3561,14 @@ namespace SoliSoundScape
             }
             if (noteSelector == 4 && trumpetNote == MajDomnoteSelector[0] || noteSelector == 3 && trumpetNote == MajDomnoteSelector[1] || noteSelector == 3 && trumpetNote == MajDomnoteSelector[2] || noteSelector == 3 && trumpetNote == MajDomnoteSelector[4] || noteSelector == 4 && trumpetNote == MajDomnoteSelector[4])
             {
-                saxNote = MajDomnoteSelector[4]; //7
+                if (cp.ChordVoicing == "Extended")
+                {
+                    saxNote = MajDomnoteSelector[4]; //7
+                }
+                else
+                {
+                    saxNote = MajDomnoteSelector[2]; //5
+                }
             }
             if (noteSelector == 4 && trumpetNote == MajDomnoteSelector[1] || noteSelector == 4 && trumpetNote == MajDomnoteSelector[2] || noteSelector == 4 && trumpetNote == MajDomnoteSelector[3] || noteSelector == 3 && trumpetNote == MajDomnoteSelector[5] || noteSelector == 4 && trumpetNote == MajDomnoteSelector[5])
             {
@@ -3592,7 +3599,23 @@ namespace SoliSoundScape
             }
             if (noteSelector == 4 && trumpetNote == MinnoteSelector[0] || noteSelector == 3 && trumpetNote == MinnoteSelector[1] || noteSelector == 3 && trumpetNote == MinnoteSelector[2] || noteSelector == 3 && trumpetNote == MinnoteSelector[3] || noteSelector == 4 && trumpetNote == MinnoteSelector[4])
             {
-                saxNote = MinnoteSelector[4];//7
+                if (cp.ChordVoicing == "Extended")
+                {
+                    saxNote = MinnoteSelector[4];//7
+                }
+                else
+                {
+                    if (noteSelector == 3 && trumpetNote == MinnoteSelector[2])
+                    {
+                        saxNote = MinnoteSelector[2];//4
+                    }
+                    else
+                    {
+                        saxNote = MinnoteSelector[3];//5
+                    }
+
+                }
+
             }
             if (noteSelector == 4 && trumpetNote == MinnoteSelector[1] || noteSelector == 4 && trumpetNote == MinnoteSelector[2] || noteSelector == 4 && trumpetNote == MinnoteSelector[3] || noteSelector == 3 && trumpetNote == MinnoteSelector[5] || noteSelector == 4 && trumpetNote == MinnoteSelector[5])
             {
@@ -3624,7 +3647,22 @@ namespace SoliSoundScape
             }
             if (noteSelector == 3 && trumpetNote == LocriannoteSelector[0] || noteSelector == 3 && trumpetNote == LocriannoteSelector[1] || noteSelector == 3 && trumpetNote == LocriannoteSelector[2] || noteSelector == 3 && trumpetNote == LocriannoteSelector[4] || noteSelector == 4 && trumpetNote == LocriannoteSelector[4])
             {
-                saxNote = LocriannoteSelector[4];//7
+                if (cp.ChordVoicing == "Extended")
+                {
+                    saxNote = LocriannoteSelector[4];//7
+                }
+                else
+                {
+                    if (noteSelector == 3 && trumpetNote == LocriannoteSelector[1])
+                    {
+                        saxNote = LocriannoteSelector[1];//4
+                    }
+                    else
+                    {
+                        saxNote = LocriannoteSelector[2];//5
+                    }
+                }
+
             }
             if (noteSelector == 4 && trumpetNote == LocriannoteSelector[0] || noteSelector == 4 && trumpetNote == LocriannoteSelector[1] || noteSelector == 4 && trumpetNote == LocriannoteSelector[2] || noteSelector == 4 && trumpetNote == LocriannoteSelector[3] || noteSelector == 4 && trumpetNote == LocriannoteSelector[5])
             {
@@ -3652,7 +3690,22 @@ namespace SoliSoundScape
             }
             if (noteSelector == 3 && trumpetNote == PhygiannoteSelector[0] || noteSelector == 3 && trumpetNote == PhygiannoteSelector[1] || noteSelector == 3 && trumpetNote == PhygiannoteSelector[2] || noteSelector == 3 && trumpetNote == PhygiannoteSelector[3] || noteSelector == 4 && trumpetNote == PhygiannoteSelector[3])
             {
-                saxNote = PhygiannoteSelector[3];//7
+                if (cp.ChordVoicing == "Extended")
+                {
+                    saxNote = PhygiannoteSelector[3];//7
+                }
+                else
+                {
+                    if (noteSelector == 3 && trumpetNote == PhygiannoteSelector[1])
+                    {
+                        saxNote = PhygiannoteSelector[1];//4
+                    }
+                    else
+                    {
+                        saxNote = PhygiannoteSelector[2];//5
+                    }
+                }
+
             }
             if (noteSelector == 4 && trumpetNote == PhygiannoteSelector[0] || noteSelector == 4 && trumpetNote == PhygiannoteSelector[1] || noteSelector == 4 && trumpetNote == PhygiannoteSelector[2] || noteSelector == 4 && trumpetNote == PhygiannoteSelector[4] || noteSelector == 4 && trumpetNote == PhygiannoteSelector[4])
             {
@@ -3676,7 +3729,22 @@ namespace SoliSoundScape
             }
             if (noteSelector == 1 && trumpetNote == LydiannoteSelector[0] || noteSelector == 1 && trumpetNote == LydiannoteSelector[2] || noteSelector == 2 && trumpetNote == LydiannoteSelector[4] || noteSelector == 2 && trumpetNote == LydiannoteSelector[5] || noteSelector == 1 && trumpetNote == LydiannoteSelector[6])
             {
-                saxNote = LydiannoteSelector[2]; //4
+                if (cp.ChordVoicing == "Extended")
+                {
+                    saxNote = LydiannoteSelector[2]; //4
+                }
+                else
+                {
+                    if (noteSelector == 1 && trumpetNote == LydiannoteSelector[6])
+                    {
+                        saxNote = LydiannoteSelector[6]; //1
+                    }
+                    else
+                    {
+                        saxNote = LydiannoteSelector[0];//2
+                    }
+                }
+
             }
             if (noteSelector == 2 && trumpetNote == LydiannoteSelector[0] || noteSelector == 1 && trumpetNote == LydiannoteSelector[1] || noteSelector == 2 && trumpetNote == LydiannoteSelector[3] || noteSelector == 3 && trumpetNote == LydiannoteSelector[5] || noteSelector == 2 && trumpetNote == LydiannoteSelector[6])
             {
@@ -3688,7 +3756,22 @@ namespace SoliSoundScape
             }
             if (noteSelector == 4 && trumpetNote == LydiannoteSelector[0] || noteSelector == 3 && trumpetNote == LydiannoteSelector[1] || noteSelector == 3 && trumpetNote == LydiannoteSelector[2] || noteSelector == 3 && trumpetNote == LydiannoteSelector[3] || noteSelector == 4 && trumpetNote == LydiannoteSelector[5])
             {
-                saxNote = LydiannoteSelector[5]; //7
+                if (cp.ChordVoicing == "Extended")
+                {
+                    saxNote = LydiannoteSelector[5]; //7
+                }
+                else
+                {
+                    if (noteSelector == 3 && trumpetNote == LydiannoteSelector[2])
+                    {
+                        saxNote = LydiannoteSelector[0];//2
+                    }
+                    else
+                    {
+                        saxNote = LydiannoteSelector[3]; //5
+                    }
+                }
+
             }
             if (noteSelector == 4 && trumpetNote == LydiannoteSelector[1] || noteSelector == 4 && trumpetNote == LydiannoteSelector[2] || noteSelector == 4 && trumpetNote == LydiannoteSelector[3] || noteSelector == 4 && trumpetNote == LydiannoteSelector[4] || noteSelector == 4 && trumpetNote == LydiannoteSelector[6])
             {

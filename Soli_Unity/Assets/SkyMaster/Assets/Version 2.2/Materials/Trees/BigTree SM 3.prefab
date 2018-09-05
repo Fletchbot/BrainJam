@@ -146,7 +146,7 @@ Material:
     - _SquashAmount: 1
     - _TranslucencyViewDependency: 0.7
     m_Colors:
-    - _Color: {r: 0.59733117, g: 0.80957186, b: 0.38760847, a: 0.9999998}
+    - _Color: {r: 0.72012544, g: 0.8676431, b: 0.574358, a: 0.9999998}
     - _Direction: {r: 0, g: 1, b: 0, a: 1}
     - _Power: {r: 0.5, g: 0.5, b: 1, a: 1}
     - _Scale: {r: 1, g: 1, b: 1, a: 1}
