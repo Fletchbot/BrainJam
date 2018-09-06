@@ -111,7 +111,7 @@ namespace SoliGameController
                     N_Intro = 4;
                 }
 
-                if (ts.sad && N_Intro == 4)
+                if (ts.happy && N_Intro == 4)
                 {
                     NarratorClips[2].GetComponent<AudioSource>().Play();
                     N_Intro = 5;
@@ -170,6 +170,12 @@ namespace SoliGameController
             eruptAu = false;
             sfxFadeup = false;
             sfxFadedown = false;
+
+            for(int n = 0; n < NarratorClips.Length; n++)
+            {
+                NarratorClips[n].GetComponent<AudioSource>().Stop();
+            }
+
         }
     }
 }

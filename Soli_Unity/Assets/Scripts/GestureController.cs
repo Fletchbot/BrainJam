@@ -68,8 +68,8 @@ namespace SoliGameController
 
             mTarget = 4.0f;
             mOut = 7.0f;
-            fTarget = 3.0f;
-            fOut = 3.5f;
+            fTarget = 4.0f;
+            fOut = 4.8f;
             hTarget = 0.8f;
             sTarget = 1.5f;
         }
@@ -139,12 +139,12 @@ namespace SoliGameController
                         isFocus = true;
                     }
              }
-             else if (wekisFocus && wek_fFloat <= fTarget + 2.0f)
+             else if (wekisFocus && wek_fFloat <= fTarget + 5.0f)
              {
                     isFocus = true;
 
             }
-            else if (wek_fFloat >= fOut || !wekisFocus)
+            else if (wek_fFloat >= fOut || !wekisFocus && wek_fFloat >= fTarget + 6.0f)
             {
                 isFocus = false;
             }
@@ -160,7 +160,7 @@ namespace SoliGameController
             happyDiff = wek_sFloat - wek_hFloat;
             sadDiff = wek_hFloat - wek_sFloat;
 
-            if (happyDiff >= hTarget && wek_hFloat <= 5.0f && happyCountdown <= 0.0f)
+            if (happyDiff >= hTarget && wek_hFloat <= 5.0f && happyCountdown <= 0.0f && wek_mood >= 2)
             {
                 isSad = false;
                 isHappy = true;
@@ -197,7 +197,7 @@ namespace SoliGameController
 
 
             //SAD
-            if (sadDiff >= sTarget && wek_sFloat <= 5.0f && sadCountdown <= 0.0f)
+            if (sadDiff >= sTarget && wek_sFloat <= 5.0f && sadCountdown <= 0.0f && wek_mood >= 2)
             {
                 isHappy = false;
                 isSad = true;

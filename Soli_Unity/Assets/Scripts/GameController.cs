@@ -14,8 +14,9 @@ namespace SoliGameController
         [Header("Wekinator Run Dispatcher")]
         public GameObject WekMeditateDTW_Run, WekFocusDTW_Run, WekEmotionDTW_Run, wekEmotionSVM_Run;
         public GameObject MuseMonitor;
+        public GameObject HomeButton;
         [Header("Mode")]
-        public bool isWekRun, f_trainSW, m_trainSW;
+        public bool isWekRun, f_trainSW, m_trainSW, homebtn;
         public int HeadsetOn;
         [Header("Meters")]
         public GameObject MeditateMeter, FocusMeter, EmotionMeter;
@@ -102,6 +103,17 @@ namespace SoliGameController
                 ResetGame();
             }
 
+            if (Input.anyKey && !homebtn)
+            {
+                homebtn = true;
+                HomeButton.GetComponent<ActivateObjects>().SetActive(homebtn);
+            }
+            else if (!Input.anyKey && homebtn && HeadsetOn == 1)
+            {
+                homebtn = false;
+                HomeButton.GetComponent<ActivateObjects>().SetDeactive(true);
+            }
+
         }
 
         public void ResetGame()
@@ -160,7 +172,7 @@ namespace SoliGameController
                 {
                     noGestureCountdown = sixtysecCounter;
                     HappinessTested = true;
-                    if (SadnessTested) state++;
+
                     Debug.Log("HappyPassed");
                 }
                 else
@@ -194,6 +206,7 @@ namespace SoliGameController
                 {
                     noGestureCountdown = sixtysecCounter;
                     SadnessTested = true;
+                    if (HappinessTested) state++;
                     Debug.Log("SadPassed");
                 }
                 else
@@ -323,27 +336,27 @@ namespace SoliGameController
                 if (mean_Focus >= 7.51f)
                 {
                     gest_c.fTarget = 8.0f;
-                    gest_c.fOut = 8.5f;
+                    gest_c.fOut = 8.8f;
                 }
                 else if (mean_Focus >= 6.51f && mean_Focus <= 7.5f)
                 {
                     gest_c.fTarget = 7.0f;
-                    gest_c.fOut = 7.5f;
+                    gest_c.fOut = 7.8f;
                 }
                 else if (mean_Focus >= 5.51f && mean_Focus <= 6.5f)
                 {
                     gest_c.fTarget = 6.0f;
-                    gest_c.fOut = 6.5f;
+                    gest_c.fOut = 6.8f;
                 }
                 else if (mean_Focus >= 4.51f && mean_Focus <= 5.5f)
                 {
                     gest_c.fTarget = 5.0f;
-                    gest_c.fOut = 5.5f;
+                    gest_c.fOut = 5.8f;
                 }
                 else if (mean_Focus >= 3.5f && mean_Focus <= 4.5f)
                 {
                     gest_c.fTarget = 4.0f;
-                    gest_c.fOut = 4.5f;
+                    gest_c.fOut = 4.8f;
                 }
                 FocusMeter.GetComponent<PieMeter>().MinValuec1 = gest_c.fOut;
                 FocusMeter.GetComponent<PieMeter>().MinValuec2 = gest_c.fOut;

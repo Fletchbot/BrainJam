@@ -24,7 +24,7 @@ namespace SoliSoundScape
         public int currChord;
 
         [Header("Level Picker")]
-        public bool Run;
+        public bool Run, reset;
 
         // Use this for initialization
         void Start()
@@ -45,6 +45,17 @@ namespace SoliSoundScape
                 DroneSynth.AllNotesOff();
                 DroneSeq.Clear();
                 DroneEnable();
+            }
+
+            if(game_c.HeadsetOn == 0 && !reset)
+            {
+                DroneSynth.AllNotesOff();
+                DroneSeq.Clear();
+                reset = true;
+            }
+            else if (game_c.HeadsetOn == 1 && reset)
+            {
+                reset = false;
             }
         }
 
