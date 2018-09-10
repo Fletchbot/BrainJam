@@ -189,7 +189,7 @@ public class CalibrationStateManager : MonoBehaviour
                 {
                     narrator = 4;
                     state++;
-                    counter = 32.0f;
+                    counter = 10.0f;
                     statechange = true;
                     mFin = true;
                 }
@@ -197,7 +197,7 @@ public class CalibrationStateManager : MonoBehaviour
                 {
                     narrator = 4;
                     state++;
-                    counter = 52.0f;
+                    counter = 10.0f;
                     statechange = true;
                 }
             }

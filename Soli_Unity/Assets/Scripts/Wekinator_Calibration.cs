@@ -206,7 +206,7 @@ public class Wekinator_Calibration : MonoBehaviour
                 else if (_F || _FE)
                 {
                     CalAudio[1].GetComponent<AudioSource>().Play();
-                    CalAudio[17].GetComponent<AudioSource>().Play();
+                    CalAudio[16].GetComponent<AudioSource>().Play();
                     epochStart = 0;
 
                     NarratorIconsSW();
@@ -223,7 +223,7 @@ public class Wekinator_Calibration : MonoBehaviour
                 }
                 else if (_F || _FE)
                 {
-                    CalAudio[17].GetComponent<AudioSource>().Pause();
+                    CalAudio[16].GetComponent<AudioSource>().Pause();
                     pauseIconSW();
                 }
 
@@ -237,7 +237,7 @@ public class Wekinator_Calibration : MonoBehaviour
                 }
                 else if (_F || _FE)
                 {
-                    CalAudio[17].GetComponent<AudioSource>().Play();
+                    CalAudio[16].GetComponent<AudioSource>().Play();
                     resumeIconSW();
                 }
             }

@@ -8,8 +8,10 @@ namespace SoliSoundScape
     public class ChordProgressions : MonoBehaviour
     {
         DiatonicScales diatonicScales;
+        SoliSoundscapeLvl2 lvl2;
         public GameController game_c;
         public GestureController gesture_c;
+        public GameObject[] synthPatches;
 
         [Header("Synth Section")]
         public AudioHelm.HelmController DroneSynth;
@@ -21,15 +23,19 @@ namespace SoliSoundScape
         [Header("Key,Scale & Chord Picker")]
         public string Key, KeyType, ChordVoicing, ChordType;
         public bool[] chords = new bool[8];
-        public int currChord;
+        public int currChord, currPatch;
 
         [Header("Level Picker")]
-        public bool Run, reset;
+        public bool Run, reset, changePatch, patch_sw;
 
         // Use this for initialization
         void Start()
         {
             diatonicScales = this.GetComponent<DiatonicScales>();
+            lvl2 = this.GetComponent<SoliSoundscapeLvl2>();
+
+
+
         }
 
         // Update is called once per frame
@@ -38,6 +44,7 @@ namespace SoliSoundScape
             droneSeqPos = (int)DroneSeq.GetSequencerPosition();
             diatonicScales.MajorScales(Key);
             diatonicScales.NatMinorScales(Key);
+            changePatch = lvl2.changeInstrument;
 
             if (chords[1] || chords[2] || chords[3] || chords[4] || chords[5] || chords[6] || chords[7])
             {
@@ -56,6 +63,31 @@ namespace SoliSoundScape
             else if (game_c.HeadsetOn == 1 && reset)
             {
                 reset = false;
+            }
+
+            if(currPatch == 0)
+            {
+                currPatch = 1;
+                DroneSynth.LoadPatch(synthPatches[0].GetComponent<AudioHelm.HelmPatch>());
+            }
+
+            if (changePatch && !patch_sw)
+            {
+                if (currPatch == 1)
+                {
+                    DroneSynth.LoadPatch(synthPatches[1].GetComponent<AudioHelm.HelmPatch>());
+                    currPatch = 2;
+                }
+                else if (currPatch == 2)
+                {
+                    DroneSynth.LoadPatch(synthPatches[0].GetComponent<AudioHelm.HelmPatch>());
+                    currPatch = 1;
+                }
+                patch_sw = true;
+            }
+            else if (!changePatch && patch_sw)
+            {
+                patch_sw = false;
             }
         }
 

@@ -12,9 +12,9 @@ namespace SoliSoundScape
         public GameController gc;
         public AudioHelm.Sampler TrumpetSoft, TrumpetHard;
         public AudioHelm.Sampler SaxophoneSoft, SaxophoneHard;
-        public int prevChord,currChord, trumpetNote, saxNote, trumpetRange, saxophoneRange, prevTpt_Range;
+        public int prevChord,currChord, trumpetNote, saxNote, trumpetRange, saxophoneRange, prevTpt_Range, fsusMin, fsusMax, v_softThreshold;
         public bool isFocus, f_sw;
-        public float fVelocity, noteVelocity;
+        public float fVelocity, noteVelocity, f_time;
 
         private int[] MajDomnoteSelector = new int[6];
         private int[] MinnoteSelector = new int[6];
@@ -26,6 +26,10 @@ namespace SoliSoundScape
         {
             cp = this.GetComponent<ChordProgressions>();
             diatonicScales = this.GetComponent<DiatonicScales>();
+            fsusMin = 1;
+            fsusMax = 11;
+            v_softThreshold = 6;
+            f_time = Random.Range(fsusMin, fsusMax);
         }
 
         // Update is called once per frame
@@ -50,13 +54,13 @@ namespace SoliSoundScape
                 {
                     HornsEnable();
 
-                    if (fVelocity >= 4.01f)
+                    if (fVelocity >= v_softThreshold)
                     {
-                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, 3, 6), 3, 8, 0, 1);
+                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, 3, 9), 3, 9, 0, 1);
                     }
-                    else if (fVelocity <= 4.0f)
+                    else if (fVelocity <= v_softThreshold)
                     {
-                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, -2, 4), -2, 4, 0, 1);
+                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, -2, 7), -1, 7, 0, 1);
                     }
                 }
             }
@@ -2288,11 +2292,29 @@ namespace SoliSoundScape
 
                 if (currChord == prevChord)
                 {
-                    f_sw = true;
+                    if (f_time <= 0.0f)
+                    {
+                        f_time = Random.Range(fsusMin, fsusMax);
+                        f_sw = false;
+                        TrumpetSoft.AllNotesOff();
+                        TrumpetHard.AllNotesOff();
+                        SaxophoneSoft.AllNotesOff();
+                        SaxophoneHard.AllNotesOff();
+                    }
+                    else if (f_time >= 0.0f)
+                    {
+                        f_time -= Time.deltaTime;
+                        if (!f_sw) f_sw = true;
+                    }
                 }
                 else
                 {
                     f_sw = false;
+
+                    if(f_time <= 1.0f)
+                    {
+                        f_time = Random.Range(fsusMin, fsusMax);
+                    }
                     TrumpetSoft.AllNotesOff();
                     TrumpetHard.AllNotesOff();
                     SaxophoneSoft.AllNotesOff();
@@ -2303,6 +2325,10 @@ namespace SoliSoundScape
             {
                 if (f_sw) f_sw = false;
 
+                if (f_time <= 1.0f)
+                {
+                    f_time = Random.Range(fsusMin, fsusMax);
+                }
                 TrumpetSoft.AllNotesOff();
                 TrumpetHard.AllNotesOff();
                 SaxophoneSoft.AllNotesOff();
@@ -2314,7 +2340,7 @@ namespace SoliSoundScape
         {
             if (prevTpt_Range == 0)
             {
-                trumpetRange = Random.Range(1, 5);
+                trumpetRange = Random.Range(fsusMin, fsusMax);
             }
             else if (prevTpt_Range == 1)
             {
@@ -2337,19 +2363,19 @@ namespace SoliSoundScape
         {
             if (trumpetRange == 1)
             {
-                saxophoneRange = 1;
+                saxophoneRange = Random.Range(1, 3);
             }
             else if (trumpetRange == 2)
             {
-                saxophoneRange = 1;
+                saxophoneRange = Random.Range(1, 4);
             }
             else if (trumpetRange == 3)
             {
-                saxophoneRange = 2;
+                saxophoneRange = Random.Range(2, 5);
             }
             else if (trumpetRange == 4)
             {
-                saxophoneRange = 3;
+                saxophoneRange = Random.Range(3, 5);
             }
 
         }

@@ -23,14 +23,9 @@ namespace Artngame.SKYMASTER
             grown = new Vector3(28, 300, grow);
             ungrown = new Vector3(28, 300, ungrow);
             ungrowSpeed = 60.0f;
-            if (gc.state == -1)
-            {
-                growSpeed = 12.0f;
-            }
-            else
-            {
-                growSpeed = 4.0f;
-            }
+
+            growSpeed = 12.0f;
+
             transform.position = ungrown;
         }
 

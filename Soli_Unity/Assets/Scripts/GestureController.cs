@@ -131,25 +131,27 @@ namespace SoliGameController
                 focusCountdown -= Time.deltaTime;
             }
 
+            fVelocity = fprevFloat - fcurrFloat;
+
             //isFocus
-            if (wek_fFloat <= fTarget || wekisFocus)
+            if (wek_fFloat <= fTarget)
             {
                     if (!isFocus)
                     {
                         isFocus = true;
                     }
              }
-             else if (wekisFocus && wek_fFloat <= fTarget + 5.0f)
+             else if (wekisFocus && wek_fFloat <= (fTarget + 5.0f))
              {
                     isFocus = true;
 
             }
-            else if (wek_fFloat >= fOut || !wekisFocus && wek_fFloat >= fTarget + 6.0f)
+            else if (wek_fFloat >= fOut || !wekisFocus && wek_fFloat >= (fTarget + 6.0f))
             {
                 isFocus = false;
             }
 
-            fVelocity = fprevFloat - fcurrFloat;
+
 
 
         }
