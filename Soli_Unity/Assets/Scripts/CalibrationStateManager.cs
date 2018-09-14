@@ -157,7 +157,8 @@ public class CalibrationStateManager : MonoBehaviour
                 mDTW = true;
                 fDTW = false;
                 eDTW = false;
-                eSVM = true;
+               // eSVM = true;
+                eSVM = false;
 
                 state++;
                 counter = thirtySecTimer;
@@ -209,7 +210,8 @@ public class CalibrationStateManager : MonoBehaviour
                 mDTW = false;
                 fDTW = true;
                 eDTW = false;
-                eSVM = true;    
+                // eSVM = true; 
+                eSVM = false;   
 
                 state++;
                 counter = fifteenSecTimer;
