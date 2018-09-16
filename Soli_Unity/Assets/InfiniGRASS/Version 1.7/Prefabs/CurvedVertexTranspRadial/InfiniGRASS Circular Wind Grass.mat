@@ -100,7 +100,7 @@ Material:
     - _InteractAmpFreqRad: {r: -6.15, g: 5, b: 0.3, a: 1}
     - _InteractPos: {r: 28, g: 300, b: -400, a: 0}
     - _InteractPos1: {r: 152.87, g: 1.4, b: -36, a: 0}
-    - _InteractSpeed: {r: 3e-45, g: -3e-45, b: 3e-45, a: 0}
+    - _InteractSpeed: {r: 3e-45, g: -3e-45, b: 0.000032145654, a: 0}
     - _OceanCenter: {r: 0, g: 0, b: 0, a: 0}
     - _Params1: {r: 11.86, g: 24.5, b: 19.6, a: 0}
     - _Params2: {r: 9.72, g: 18.71, b: 9.89, a: 0}
