@@ -13,7 +13,7 @@ namespace SoliGameController
 
         public float gestureCountdown, f_sustainRestDiff;
         public int focusNotesPlayed;
-        public bool gestureOn, h_On, s_On, train_sw, happy, sad, reset;
+        public bool gestureOn, h_On, s_On, train_sw, happy, sad, reset, m_On, f_On;
 
         // Use this for initialization
         public void OnEnable()
@@ -59,6 +59,14 @@ namespace SoliGameController
                     gc.TrainingMeterManager();
                     train_sw = true;
                 }
+
+                if(au.N_Intro <= 2)
+                {
+                    if (gestureController.isMeditate && !m_On)
+                    {
+                        m_On = true;
+                    }
+                }
                 //after Narrator and meditate lasts 2 secs go to emotions training
                 if (au.N_Intro == 2 && gestureCountdown <= 0.0f)
                 {
@@ -83,7 +91,7 @@ namespace SoliGameController
                     gestureCountdown = gc.twosecCounter;
                 }
 
-                if (au.N_Intro == 2)
+                if (au.N_Intro == 2 && !m_On)
                 {
                     Invoke("invokeGestureDifficultyUpdate", 2.0f);
                 }
@@ -142,6 +150,13 @@ namespace SoliGameController
                     train_sw = true;
                 }
 
+                if (au.N_Intro >= 7)
+                {
+                    if (gestureController.isFocus && !f_On)
+                    {
+                        f_On = true;
+                    }
+                }
                 // after Narrator and focus plays 3 notes go to game
                 if (au.N_Intro == 8 && focusNotesPlayed == 3)
                 {
@@ -167,7 +182,7 @@ namespace SoliGameController
                     }
                 }
 
-                if (au.N_Intro == 8)
+                if (au.N_Intro == 8 && !f_On)
                 {
                     Invoke("invokeGestureDifficultyUpdate", 1.0f);
                 }

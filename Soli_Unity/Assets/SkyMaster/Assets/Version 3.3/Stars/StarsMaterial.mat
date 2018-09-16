@@ -209,7 +209,7 @@ Material:
     - _BumpDirection: {r: 1, g: 1, b: -1, a: 1}
     - _BumpTiling: {r: 1, g: 1, b: -2, a: 3}
     - _CloudSpeed: {r: 0.005, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.9, g: 0.9, b: 0.9, a: 0.49994728}
+    - _Color: {r: 0.9, g: 0.9, b: 0.9, a: 0.5}
     - _Control: {r: 1, g: 1, b: 1, a: 1}
     - _DepthCameraPos: {r: 240, g: 100, b: 250, a: 3}
     - _Direction: {r: 0, g: 1, b: 0, a: 1}
