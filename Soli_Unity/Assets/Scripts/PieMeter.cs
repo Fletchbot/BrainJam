@@ -9,9 +9,9 @@ public class PieMeter : MonoBehaviour {
     [SerializeField]
     private float speed = 5.0f; //Speed multiplier for lerping
     [SerializeField]
-    private Image fillersemiC1; //Image of the object used for filling
+    public Image fillersemiC1; //Image of the object used for filling
     [SerializeField]
-    private Image fillersemiC2;
+    public Image fillersemiC2;
     [SerializeField]
     private Text text;          //Text object if you choose to use text on your bar
 

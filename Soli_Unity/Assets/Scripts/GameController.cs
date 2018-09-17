@@ -23,8 +23,12 @@ namespace SoliGameController
         public float prevT_Focus, currT_Focus, mean_Focus, prevT_Meditate, currT_Meditate, mean_Meditate;
         private Vector3 focusGamePos, meditateGamePos, emotionsGamePos;
         private Vector2 middleAnchorMin, middleAnchorMax, topRightAnchorMin, topRightAnchorMax;
+        private Color meditateTransColor, meditateActiveColor, meditateDeactiveColor, lerpedMCol, focusTransColor, focusActiveColor, focusDeactiveColor, lerpedFCol;
+        private Color sadTransColor, sadActiveColor, sadDeactiveColor, lerpedSCol, happyTransColor, happyActiveColor, happyDeactiveColor, lerpedHCol;
+        private bool fCol_SW, fTrans_SW, fLerp_SW, fDeactiveCol_SW;
+        private bool sCol_SW, sTrans_SW, sLerp_SW, emoDeactiveCol_SW, hCol_SW, hTrans_SW, hLerp_SW;
         [Header("GameStates")]
-        public bool NoGesture, Meditate, Focus, Happy, Sad, Unsure;
+        public bool NoGesture, Meditate, Happy, Sad, Unsure;
         public bool MeditationTested, HappinessTested, SadnessTested, FocusTested;
         private bool M_sw, H_sw, S_sw, U_sw, F_sw;
         [Header("HeldStates")]
@@ -385,9 +389,90 @@ namespace SoliGameController
             FocusMeter.GetComponent<PieMeter>().Valuec1 = gest_c.wek_fFloat;
             FocusMeter.GetComponent<PieMeter>().Valuec2 = gest_c.wek_fFloat;
 
-            //Find a way to have unsure...
             EmotionMeter.GetComponent<PieMeter>().Valuec1 = gest_c.h_guiVal;
             EmotionMeter.GetComponent<PieMeter>().Valuec2 = gest_c.s_guiVal;
+
+            //MEDITATE COLOUR CHANGES
+            if (gest_c.isMeditate)
+            {
+                MeditateMeter.GetComponent<PieMeter>().fillersemiC1.color = meditateActiveColor;
+                MeditateMeter.GetComponent<PieMeter>().fillersemiC2.color = meditateActiveColor;
+            }
+            else if(gest_c.wek_mFloat <= gest_c.mTarget)
+            {
+                lerpedMCol = Color.Lerp(meditateTransColor, meditateActiveColor, Mathf.PingPong(Time.time, 0.5f));
+                MeditateMeter.GetComponent<PieMeter>().fillersemiC1.color = lerpedMCol;
+                MeditateMeter.GetComponent<PieMeter>().fillersemiC2.color = lerpedMCol;
+            }
+            else if (gest_c.wek_mFloat >= gest_c.mOut)
+            {
+                MeditateMeter.GetComponent<PieMeter>().fillersemiC1.color = meditateDeactiveColor;
+                MeditateMeter.GetComponent<PieMeter>().fillersemiC2.color = meditateDeactiveColor;
+            }
+            else if (gest_c.wek_mFloat <= gest_c.mOut && gest_c.wek_mFloat >= gest_c.mTarget)
+            {
+                lerpedMCol = Color.Lerp(meditateDeactiveColor, meditateTransColor, Mathf.PingPong(Time.time, 0.5f));
+                MeditateMeter.GetComponent<PieMeter>().fillersemiC1.color = lerpedMCol;
+                MeditateMeter.GetComponent<PieMeter>().fillersemiC2.color = lerpedMCol;
+            }
+
+            //EMOTION COLOUR CHANGES
+            if (gest_c.isHappy)
+            {
+                EmotionMeter.GetComponent<PieMeter>().fillersemiC1.color = happyActiveColor;
+            }
+            else if (!gest_c.isHappy)
+            {
+                if (gest_c.happyDiff >= gest_c.hTarget && !gest_c.isSad)
+                {
+                    lerpedHCol = Color.Lerp(happyTransColor, happyActiveColor, Mathf.PingPong(Time.time, 0.5f));
+                    EmotionMeter.GetComponent<PieMeter>().fillersemiC1.color = lerpedHCol;
+                } else
+                {
+                    EmotionMeter.GetComponent<PieMeter>().fillersemiC1.color = happyDeactiveColor;
+                }
+            }
+            else if (gest_c.isSad)
+            {
+                EmotionMeter.GetComponent<PieMeter>().fillersemiC2.color = sadActiveColor;
+            }
+            else if (!gest_c.isSad)
+            {
+                if (gest_c.sadDiff >= gest_c.sTarget && !gest_c.isHappy)
+                {
+                    lerpedSCol = Color.Lerp(sadTransColor, sadActiveColor, Mathf.PingPong(Time.time, 0.5f));
+                    EmotionMeter.GetComponent<PieMeter>().fillersemiC2.color = lerpedSCol;
+                }
+                else
+                {
+                    EmotionMeter.GetComponent<PieMeter>().fillersemiC1.color = happyDeactiveColor;
+                }
+            }
+            else if (gest_c.isUnsure)
+            {
+                EmotionMeter.GetComponent<PieMeter>().fillersemiC1.color = happyDeactiveColor;
+                EmotionMeter.GetComponent<PieMeter>().fillersemiC2.color = sadDeactiveColor;
+            }
+
+
+            //FOCUS COLOUR CHANGES
+            if (gest_c.isFocus)
+            {
+                FocusMeter.GetComponent<PieMeter>().fillersemiC1.color = focusActiveColor;
+                FocusMeter.GetComponent<PieMeter>().fillersemiC2.color = focusActiveColor;
+            }
+            else if (gest_c.wek_fFloat >= gest_c.fOut)
+            {
+                FocusMeter.GetComponent<PieMeter>().fillersemiC1.color = focusDeactiveColor;
+                FocusMeter.GetComponent<PieMeter>().fillersemiC2.color = focusDeactiveColor;
+            }
+            else if (gest_c.wek_fFloat <= gest_c.fOut && gest_c.wek_fFloat >= gest_c.fTarget)
+            {
+                lerpedFCol = Color.Lerp(focusDeactiveColor, focusTransColor, Mathf.PingPong(Time.time, 1));
+                FocusMeter.GetComponent<PieMeter>().fillersemiC1.color = lerpedFCol;
+                FocusMeter.GetComponent<PieMeter>().fillersemiC2.color = lerpedFCol;
+            }
+
         }
 
         public void HeldState()
@@ -596,7 +681,23 @@ namespace SoliGameController
             mindStateTimeOut = false;
 
             state = 0;
-    }
+
+            meditateTransColor = new Color32(20, 200, 210, 100);
+            meditateActiveColor = new Color32(20, 100, 210, 200);
+            meditateDeactiveColor = new Color32(20, 200, 210, 0);
+
+            focusTransColor = new Color32(70, 200, 20, 100);
+            focusActiveColor = new Color32(70, 220, 20, 200);
+            focusDeactiveColor = new Color32(70, 200, 20, 0);
+
+            happyTransColor = new Color32(220, 160, 30, 100);
+            happyActiveColor = new Color32(220, 220, 30, 200);
+            happyDeactiveColor = new Color32(220, 220, 30, 0);
+
+            sadTransColor = new Color32(220, 80, 30, 100);
+            sadActiveColor = new Color32(220, 40, 30, 200);
+            sadDeactiveColor = new Color32(220, 40, 30, 0);
+        }
         private void MetersOnEnable()
         {
             EmotionMeter.GetComponent<PieMeter>().MinValuec1 = 0.0f;

@@ -26,9 +26,9 @@ namespace SoliSoundScape
         {
             cp = this.GetComponent<ChordProgressions>();
             diatonicScales = this.GetComponent<DiatonicScales>();
-            fsusMin = 1;
+            fsusMin = 2;
             fsusMax = 11;
-            v_softThreshold = 6;
+            v_softThreshold = 4;
             f_time = Random.Range(fsusMin, fsusMax);
         }
 
@@ -60,7 +60,7 @@ namespace SoliSoundScape
                     }
                     else if (fVelocity <= v_softThreshold)
                     {
-                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, -2, 7), -1, 7, 0, 1);
+                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, -2, 6), -2, 6, 0, 1);
                     }
                 }
             }
@@ -104,11 +104,11 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1) // TRUMPET
                                 {
-                                    if(fVelocity >= 4.01f)
+                                    if(fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                     }
@@ -116,11 +116,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                     }
@@ -128,11 +128,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                     }
@@ -140,11 +140,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                     }
@@ -153,44 +153,44 @@ namespace SoliSoundScape
 
                                 if (saxophoneRange == 1) //SAXOPHONE
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                     }
@@ -208,11 +208,11 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1) //TRUMPET
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
                                     }
@@ -220,11 +220,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
                                     }
@@ -232,11 +232,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
                                     }
@@ -244,11 +244,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
                                     }
@@ -257,44 +257,44 @@ namespace SoliSoundScape
 
                                 if (saxophoneRange == 1) // SAXOPHONE
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
                                     }
@@ -329,22 +329,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 4) //II7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             TrumpetHard.NoteOn((diatonicScales.Major_Scale1[trumpetNote] + 1), noteVelocity); //3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {  
                                             TrumpetSoft.NoteOn((diatonicScales.Major_Scale1[trumpetNote] + 1), noteVelocity); //3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {  
                                             TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                         }
@@ -355,22 +355,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 4) //II7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.Major_Scale2[trumpetNote] + 1), noteVelocity); //3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             TrumpetSoft.NoteOn((diatonicScales.Major_Scale2[trumpetNote] + 1), noteVelocity); //3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                         }
@@ -381,22 +381,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 4) //II7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {  
                                             TrumpetHard.NoteOn((diatonicScales.Major_Scale3[trumpetNote] + 1), noteVelocity); //3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn((diatonicScales.Major_Scale3[trumpetNote] + 1), noteVelocity); //3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                         }
@@ -407,22 +407,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 4) //II7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn((diatonicScales.Major_Scale4[trumpetNote] + 1), noteVelocity); //3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn((diatonicScales.Major_Scale4[trumpetNote] + 1), noteVelocity); //3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                         }
@@ -434,22 +434,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 4) //II7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.Major_Scale1[saxNote] + 1), noteVelocity); //3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.Major_Scale1[saxNote] + 1), noteVelocity); //3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                         }
@@ -459,22 +459,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 4) //II7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.Major_Scale2[saxNote] + 1), noteVelocity); //3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.Major_Scale2[saxNote] + 1), noteVelocity); //3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                         }
@@ -484,22 +484,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 4) //II7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.Major_Scale3[saxNote] + 1), noteVelocity); //3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.Major_Scale3[saxNote] + 1), noteVelocity); //3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                         }
@@ -509,22 +509,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 4) //II7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.Major_Scale4[saxNote] + 1), noteVelocity); //3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.Major_Scale4[saxNote] + 1), noteVelocity); //3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                         }
@@ -543,11 +543,11 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1) //TRUMPET
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
                                     }
@@ -555,11 +555,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
                                     }
@@ -567,11 +567,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
                                     }
@@ -579,11 +579,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
                                     }
@@ -592,44 +592,44 @@ namespace SoliSoundScape
 
                                 if (saxophoneRange == 1) //SAXOPHONE
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
                                     }
@@ -653,11 +653,11 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1) //TRUMPET
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                     }
@@ -665,11 +665,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                     }
@@ -677,11 +677,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                     }
@@ -689,11 +689,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                     }
@@ -702,44 +702,44 @@ namespace SoliSoundScape
 
                                 if (saxophoneRange == 1) //SAXOPHONE
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                     }
@@ -759,22 +759,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {  
                                             TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {  
                                             TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity); //7
                                         }
@@ -786,22 +786,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity); //7
                                         }
@@ -812,22 +812,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity); //7
                                         }
@@ -838,22 +838,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale4[trumpetNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale4[trumpetNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity); //7
                                         }
@@ -865,22 +865,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity); //7
                                         }
@@ -891,22 +891,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity); //7
                                         }
@@ -916,22 +916,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity); //7
                                         }
@@ -941,22 +941,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale4[saxNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale4[saxNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity); //7
                                         }
@@ -981,11 +981,11 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1) //TRUMPET
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                     }
@@ -993,11 +993,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                     }
@@ -1005,11 +1005,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                     }
@@ -1017,11 +1017,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                     }
@@ -1030,44 +1030,44 @@ namespace SoliSoundScape
 
                                 if (saxophoneRange == 1) //SAXOPHONE
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                     }
@@ -1085,11 +1085,11 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1) //TRUMPET
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
                                     }
@@ -1097,11 +1097,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
                                     }
@@ -1109,11 +1109,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
                                     }
@@ -1121,11 +1121,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
                                     }
@@ -1134,44 +1134,44 @@ namespace SoliSoundScape
 
                                 if (saxophoneRange == 1) //SAXOPHONE
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
                                     }
@@ -1197,22 +1197,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2 || cp.ChordType == "NonDiatonic" && trumpetNote == 6) //alt7 
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.Major_Scale1[trumpetNote] - 1), noteVelocity); //b5, b9
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn((diatonicScales.Major_Scale1[trumpetNote] - 1), noteVelocity); //b5, b9
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                         }
@@ -1223,22 +1223,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2 || cp.ChordType == "NonDiatonic" && trumpetNote == 6) //alt7 
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn((diatonicScales.Major_Scale2[trumpetNote] - 1), noteVelocity); //b5, b9
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn((diatonicScales.Major_Scale2[trumpetNote] - 1), noteVelocity); //b5, b9
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                         }
@@ -1249,22 +1249,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2 || cp.ChordType == "NonDiatonic" && trumpetNote == 6) //alt7 
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {  
                                             TrumpetHard.NoteOn((diatonicScales.Major_Scale3[trumpetNote] - 1), noteVelocity); //b5, b9
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn((diatonicScales.Major_Scale3[trumpetNote] - 1), noteVelocity); //b5, b9
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                         }
@@ -1275,22 +1275,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2 || cp.ChordType == "NonDiatonic" && trumpetNote == 6) //alt7 
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.Major_Scale4[trumpetNote] - 1), noteVelocity); //b5, b9
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn((diatonicScales.Major_Scale4[trumpetNote] - 1), noteVelocity); //b5, b9
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                         }
@@ -1302,22 +1302,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2 || cp.ChordType == "NonDiatonic" && saxNote == 6) //alt7 
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.Major_Scale1[saxNote] - 1), noteVelocity); //b5, b9
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.Major_Scale1[saxNote] - 1), noteVelocity); //b5, b9
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                         }
@@ -1327,22 +1327,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2 || cp.ChordType == "NonDiatonic" && saxNote == 6) //alt7 
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.Major_Scale2[saxNote] - 1), noteVelocity); //b5, b9
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.Major_Scale2[saxNote] - 1), noteVelocity); //b5, b9
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                         }
@@ -1352,22 +1352,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2 || cp.ChordType == "NonDiatonic" && saxNote == 6) //alt7 
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.Major_Scale3[saxNote] - 1), noteVelocity); //b5, b9
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.Major_Scale3[saxNote] - 1), noteVelocity); //b5, b9
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                         }
@@ -1377,22 +1377,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2 || cp.ChordType == "NonDiatonic" && saxNote == 6) //alt7 
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.Major_Scale4[saxNote] - 1), noteVelocity); //b5, b9
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.Major_Scale4[saxNote] - 1), noteVelocity); //b5, b9
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                         }
@@ -1411,11 +1411,11 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1) //TRUMPET
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
                                     }
@@ -1423,11 +1423,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
                                     }
@@ -1435,11 +1435,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
                                     }
@@ -1447,11 +1447,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
                                     }
@@ -1460,44 +1460,44 @@ namespace SoliSoundScape
 
                                 if (saxophoneRange == 1) //SAXOPHONE
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
                                     }
@@ -1522,11 +1522,11 @@ namespace SoliSoundScape
 
                                 if (trumpetRange == 1) //TRUMPET
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                     }
@@ -1534,11 +1534,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                     }
@@ -1546,11 +1546,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                     }
@@ -1558,11 +1558,11 @@ namespace SoliSoundScape
                                 }
                                 else if (trumpetRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         TrumpetHard.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                     }
@@ -1571,44 +1571,44 @@ namespace SoliSoundScape
 
                                 if (saxophoneRange == 1) //SAXOPHONE
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 2)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 3)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                     }
                                 }
                                 else if (saxophoneRange == 4)
                                 {
-                                    if (fVelocity >= 4.01f)
+                                    if (fVelocity >= v_softThreshold)
                                     {
                                         SaxophoneHard.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                     }
-                                    else if (fVelocity <= 4.0f)
+                                    else if (fVelocity <= v_softThreshold)
                                     {
                                         SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                     }
@@ -1637,22 +1637,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 5) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity); //7
                                         }
@@ -1663,22 +1663,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 5) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {  
                                             TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity); //7
                                         }
@@ -1689,22 +1689,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 5) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity); //7
                                         }
@@ -1715,22 +1715,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 5) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale4[trumpetNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale4[trumpetNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity); //7
                                         }
@@ -1742,22 +1742,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 5) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity); //7
                                         }
@@ -1767,22 +1767,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 5) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity); //7
                                         }
@@ -1792,22 +1792,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 5) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity); //7
                                         }
@@ -1817,22 +1817,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 5) //7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale4[saxNote] - 1), noteVelocity); //b7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale4[saxNote] - 1), noteVelocity); //b7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity); //7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity); //7
                                         }
@@ -1859,22 +1859,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 6) //VIIO
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn((diatonicScales.Major_Scale1[trumpetNote] - 1), noteVelocity); //bb7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn((diatonicScales.Major_Scale1[trumpetNote] - 1), noteVelocity); //bb7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn(diatonicScales.Major_Scale1[trumpetNote], noteVelocity);
                                         }
@@ -1885,22 +1885,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 6)
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.Major_Scale2[trumpetNote] - 1), noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {  
                                             TrumpetSoft.NoteOn((diatonicScales.Major_Scale2[trumpetNote] - 1), noteVelocity);
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {  
                                             TrumpetSoft.NoteOn(diatonicScales.Major_Scale2[trumpetNote], noteVelocity);
                                         }
@@ -1911,22 +1911,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 6)
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn((diatonicScales.Major_Scale3[trumpetNote] - 1), noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn((diatonicScales.Major_Scale3[trumpetNote] - 1), noteVelocity);
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn(diatonicScales.Major_Scale3[trumpetNote], noteVelocity);
                                         }
@@ -1937,22 +1937,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 6)
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {  
                                             TrumpetHard.NoteOn((diatonicScales.Major_Scale4[trumpetNote] - 1), noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn((diatonicScales.Major_Scale4[trumpetNote] - 1), noteVelocity);
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {  
                                             TrumpetSoft.NoteOn(diatonicScales.Major_Scale4[trumpetNote], noteVelocity);
                                         }
@@ -1964,22 +1964,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 6) //VIIO
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.Major_Scale1[saxNote] - 1), noteVelocity); //bb7
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.Major_Scale1[saxNote] - 1), noteVelocity); //bb7
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.Major_Scale1[saxNote], noteVelocity);
                                         }
@@ -1989,22 +1989,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 6)
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.Major_Scale2[saxNote] - 1), noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.Major_Scale2[saxNote] - 1), noteVelocity);
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.Major_Scale2[saxNote], noteVelocity);
                                         }
@@ -2014,22 +2014,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 6)
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.Major_Scale3[saxNote] - 1), noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.Major_Scale3[saxNote] - 1), noteVelocity);
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.Major_Scale3[saxNote], noteVelocity);
                                         }
@@ -2039,22 +2039,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 6)
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.Major_Scale4[saxNote] - 1), noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.Major_Scale4[saxNote] - 1), noteVelocity);
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.Major_Scale4[saxNote], noteVelocity);
                                         }
@@ -2084,22 +2084,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //min7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), noteVelocity); //b3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {  
                                             TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale1[trumpetNote] - 1), noteVelocity); //b3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale1[trumpetNote], noteVelocity);
                                         }
@@ -2110,22 +2110,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //min7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), noteVelocity); //b3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale2[trumpetNote] - 1), noteVelocity); //b3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {    
                                             TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale2[trumpetNote], noteVelocity);
                                         }
@@ -2136,22 +2136,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //min7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), noteVelocity); //b3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale3[trumpetNote] - 1), noteVelocity); //b3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {  
                                             TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale3[trumpetNote], noteVelocity);
                                         }
@@ -2162,22 +2162,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && trumpetNote == 2) //min7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {   
                                             TrumpetHard.NoteOn((diatonicScales.NatMinor_Scale4[trumpetNote] - 1), noteVelocity); //b3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {   
                                             TrumpetSoft.NoteOn((diatonicScales.NatMinor_Scale4[trumpetNote] - 1), noteVelocity); //b3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {    
                                             TrumpetHard.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             TrumpetSoft.NoteOn(diatonicScales.NatMinor_Scale4[trumpetNote], noteVelocity);
                                         }
@@ -2189,22 +2189,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //min7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), noteVelocity); //b3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale1[saxNote] - 1), noteVelocity); //b3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale1[saxNote], noteVelocity);
                                         }
@@ -2214,22 +2214,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //min7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), noteVelocity); //b3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale2[saxNote] - 1), noteVelocity); //b3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale2[saxNote], noteVelocity);
                                         }
@@ -2239,22 +2239,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //min7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), noteVelocity); //b3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale3[saxNote] - 1), noteVelocity); //b3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale3[saxNote], noteVelocity);
                                         }
@@ -2264,22 +2264,22 @@ namespace SoliSoundScape
                                 {
                                     if (cp.ChordType == "NonDiatonic" && saxNote == 2) //min7
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn((diatonicScales.NatMinor_Scale4[saxNote] - 1), noteVelocity); //b3
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn((diatonicScales.NatMinor_Scale4[saxNote] - 1), noteVelocity); //b3
                                         }
                                     }
                                     else
                                     {
-                                        if (fVelocity >= 4.01f)
+                                        if (fVelocity >= v_softThreshold)
                                         {
                                             SaxophoneHard.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
                                         }
-                                        else if (fVelocity <= 4.0f)
+                                        else if (fVelocity <= v_softThreshold)
                                         {
                                             SaxophoneSoft.NoteOn(diatonicScales.NatMinor_Scale4[saxNote], noteVelocity);
                                         }
