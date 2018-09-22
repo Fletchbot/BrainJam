@@ -188,7 +188,7 @@ namespace SoliGameController
                     }
                 }
 
-                if (au.N_Intro == 8 && f_count <= 1)
+                if (au.N_Intro == 8 && f_count <= 2)
                 {
                     Invoke("invokeGestureDifficultyUpdate", 0.5f);
                 }

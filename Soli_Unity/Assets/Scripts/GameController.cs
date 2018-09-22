@@ -153,7 +153,7 @@ namespace SoliGameController
                 }
                 else
                 {
-                    noGestureCountdown =  tensecCounter;
+                    noGestureCountdown =  (tensecCounter*2);
                 }
 
                 M_Enable();
@@ -181,7 +181,7 @@ namespace SoliGameController
                 }
                 else
                 {
-                    noGestureCountdown =  tensecCounter;
+                    noGestureCountdown =  (tensecCounter*2);
                 }
 
                 H_Enable();
@@ -215,7 +215,7 @@ namespace SoliGameController
                 }
                 else
                 {
-                    noGestureCountdown =  tensecCounter;
+                    noGestureCountdown =  (tensecCounter*2);
                 }
 
                 S_Enable();
