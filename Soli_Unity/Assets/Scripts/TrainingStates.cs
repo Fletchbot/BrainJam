@@ -93,7 +93,7 @@ namespace SoliGameController
 
                 if (au.N_Intro == 2 && m_count <= 2.5f && !m_On)
                 {
-                    Invoke("invokeGestureDifficultyUpdate", 2.0f);
+                    Invoke("invokeGestureDifficultyUpdate", 0.5f);
                     m_On = true;
                 }
             }
@@ -190,7 +190,7 @@ namespace SoliGameController
 
                 if (au.N_Intro == 8 && f_count <= 1)
                 {
-                    Invoke("invokeGestureDifficultyUpdate", 1.0f);
+                    Invoke("invokeGestureDifficultyUpdate", 0.5f);
                 }
             }
             else if (gc.state == 5)

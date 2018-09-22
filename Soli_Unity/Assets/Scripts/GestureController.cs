@@ -71,7 +71,7 @@ namespace SoliGameController
             fTarget = 2.0f;
             fOut = 2.7f;
             hTarget = 0.8f;
-            sTarget = 1.0f;
+            sTarget = 1.5f;
         }
 
         public void UpdateMuseHeadset()
@@ -161,7 +161,7 @@ namespace SoliGameController
             happyDiff = wek_sFloat - wek_hFloat;
             sadDiff = wek_hFloat - wek_sFloat;
 
-            if (wek_mood == 2 && wek_facialExpression == 2)
+            if (wek_mood == 2 && wek_facialExpression == 2 && happyDiff >= (hTarget - 0.3f))
             {
                 isSad = false;
                 isHappy = true;
@@ -205,7 +205,7 @@ namespace SoliGameController
 
 
             //SAD
-            if (wek_mood == 3 && wek_facialExpression == 3)
+            if (wek_mood == 3 && wek_facialExpression == 3 && sadDiff >= (sTarget - 1.0f))
             {
                 isHappy = false;
                 isSad = true;
