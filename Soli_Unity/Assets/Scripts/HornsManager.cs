@@ -2649,7 +2649,7 @@ namespace SoliSoundScape
             if (noteSelector == 3) trumpetNote = MajDomnoteSelector[3];
             if (noteSelector == 4 && cp.ChordVoicing == "Extended") trumpetNote = MajDomnoteSelector[4];
             if (noteSelector == 5 || noteSelector == 4 && cp.ChordVoicing == "") trumpetNote = MajDomnoteSelector[5];
-            Debug.Log("TRUMPETNOTE " + trumpetNote);
+         
         }
         private void Min_TNoteSelector() //234571
         {
@@ -2660,7 +2660,7 @@ namespace SoliSoundScape
             if (noteSelector == 3) trumpetNote = MinnoteSelector[3];
             if (noteSelector == 4 && cp.ChordVoicing == "Extended") trumpetNote = MinnoteSelector[4];
             if (noteSelector == 5 || noteSelector == 4 && cp.ChordVoicing == "") trumpetNote = MinnoteSelector[5];
-            Debug.Log("TRUMPETNOTE " + trumpetNote);
+
         }
         private void Locrian_TNoteSelector() //345671
         {
@@ -2671,7 +2671,7 @@ namespace SoliSoundScape
             if (noteSelector == 3) trumpetNote = LocriannoteSelector[3];
             if (noteSelector == 4 && cp.ChordVoicing == "Extended") trumpetNote = LocriannoteSelector[4];
             if (noteSelector == 5 || noteSelector == 4 && cp.ChordVoicing == "") trumpetNote = LocriannoteSelector[5];
-            Debug.Log("TRUMPETNOTE " + trumpetNote);
+
         }
         private void Phygian_TNoteSelector() //34571
         {
@@ -2681,7 +2681,7 @@ namespace SoliSoundScape
             if (noteSelector == 2) trumpetNote = PhygiannoteSelector[2];
             if (noteSelector == 3 && cp.ChordVoicing == "Extended") trumpetNote = PhygiannoteSelector[3];
             if (noteSelector == 4 || noteSelector == 3 && cp.ChordVoicing == "") trumpetNote = PhygiannoteSelector[4];
-            Debug.Log("TRUMPETNOTE " + trumpetNote);
+
         }
         private void Lydian_TNoteSelector() //2345671
         {
@@ -2693,7 +2693,7 @@ namespace SoliSoundScape
             if (noteSelector == 4 ) trumpetNote = LydiannoteSelector[4];
             if (noteSelector == 5 && cp.ChordVoicing == "Extended") trumpetNote = LydiannoteSelector[5];
             if (noteSelector == 6 || noteSelector == 2 && cp.ChordVoicing == "") trumpetNote = LydiannoteSelector[6];
-            Debug.Log("TRUMPETNOTE " + trumpetNote);
+
         }
 
         private void MajDom_SNoteSelector() //235671
@@ -2732,7 +2732,7 @@ namespace SoliSoundScape
             {
                 saxNote = MajDomnoteSelector[5]; //1
             }
-            Debug.Log("SAXNOTE " + saxNote);
+
         }
         private void Min_SNoteSelector() //234571
         {
@@ -2780,7 +2780,7 @@ namespace SoliSoundScape
                 saxNote = MinnoteSelector[5];//1
             }
 
-            Debug.Log("SAXNOTE " + saxNote);
+
         }
         private void Locrian_SNoteSelector() //345671
         {
@@ -2827,7 +2827,6 @@ namespace SoliSoundScape
                 saxNote = LocriannoteSelector[5];//1
             }
 
-            Debug.Log("SAXNOTE " + saxNote);
         }
         private void Phygian_SNoteSelector() //34571
         {
@@ -2870,7 +2869,7 @@ namespace SoliSoundScape
                 saxNote = PhygiannoteSelector[4];//1
             }
 
-            Debug.Log("SAXNOTE " + saxNote);
+
         }
         private void Lydian_SNoteSelector() //2345671
         {
@@ -2935,7 +2934,6 @@ namespace SoliSoundScape
             {
                 saxNote = LydiannoteSelector[6]; //1
             }
-            Debug.Log("SAXNOTE " + saxNote);
         }
 
         //Will return a value between 0.0f and 1.0f, which will then be used to set the focusVelocity amount.

@@ -64,7 +64,7 @@ namespace SoliSoundScape
                 lvl1State = 0;
                 lvl2State = -1;
                 lvl2.lvl2State = lvl2State;
-                lvl2.changeInstrument = false;
+
             }
         }
 
@@ -121,6 +121,8 @@ namespace SoliSoundScape
 
                 if (lvl1State == 0) // START LEVEL 1 MAJOR OR MINOR
                 {
+                    lvl2.changeInstrument = false;
+
                     if (Happy && !curisHappy)
                     {
                         cp.KeyType = "Major";
@@ -503,6 +505,7 @@ namespace SoliSoundScape
                 }
                 else if (lvl1State == 4) //LVL 1.4
                 {
+
                     if (cp.KeyType == "Major")
                     {
                         //Return back to LEVEL1
@@ -529,6 +532,7 @@ namespace SoliSoundScape
                         {
                             lvl1State = -1;
                         }
+                        Debug.Log("LEVEL1COMPLETE");
                     }
                     else if (cp.KeyType == "NaturalMinor")
                     {
@@ -560,6 +564,8 @@ namespace SoliSoundScape
                         {
                             lvl1State = -1;
                         }
+
+                        Debug.Log("LEVEL1COMPLETE");
                     }
                 }
             }

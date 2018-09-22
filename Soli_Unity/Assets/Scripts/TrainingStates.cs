@@ -11,9 +11,9 @@ namespace SoliGameController
         GestureController gestureController;
         AudioPlaytestManager au;
 
-        public float gestureCountdown, f_sustainRestDiff;
-        public int focusNotesPlayed;
-        public bool gestureOn, h_On, s_On, train_sw, happy, sad, reset, m_On, f_On;
+        public float gestureCountdown, f_sustainRestDiff, m_count;
+        public int focusNotesPlayed, f_count;
+        public bool gestureOn, h_On, s_On, train_sw, happy, sad, reset, f_On, m_On;
 
         // Use this for initialization
         public void OnEnable()
@@ -62,9 +62,9 @@ namespace SoliGameController
 
                 if(au.N_Intro <= 2)
                 {
-                    if (gestureController.isMeditate && !m_On)
+                    if (gestureController.isMeditate)
                     {
-                        m_On = true;
+                        m_count += Time.deltaTime;
                     }
                 }
                 //after Narrator and meditate lasts 2 secs go to emotions training
@@ -91,9 +91,10 @@ namespace SoliGameController
                     gestureCountdown = gc.twosecCounter;
                 }
 
-                if (au.N_Intro == 2 && !m_On)
+                if (au.N_Intro == 2 && m_count <= 2.5f && !m_On)
                 {
                     Invoke("invokeGestureDifficultyUpdate", 2.0f);
+                    m_On = true;
                 }
             }
         }
@@ -154,7 +155,12 @@ namespace SoliGameController
                 {
                     if (gestureController.isFocus && !f_On)
                     {
+                        f_count++;
                         f_On = true;
+                    }
+                    else if (!gestureController.isFocus && f_On)
+                    {
+                        f_On = false;
                     }
                 }
                 // after Narrator and focus plays 3 notes go to game
@@ -182,7 +188,7 @@ namespace SoliGameController
                     }
                 }
 
-                if (au.N_Intro == 8 && !f_On)
+                if (au.N_Intro == 8 && f_count <= 1)
                 {
                     Invoke("invokeGestureDifficultyUpdate", 1.0f);
                 }
@@ -228,10 +234,15 @@ namespace SoliGameController
 
             train_sw = false;
             gestureOn = false;
+            f_On = false;
+            m_On = false;
             h_On = false;
             s_On = false;
             happy = false;
             sad = false;
+            m_count = 0;
+            f_count = 0;
+
         }
     }
 }

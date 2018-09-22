@@ -574,6 +574,7 @@ namespace SoliSoundScape
                     cp.chords[1] = true;
                     lvl2State = -1;
                     changeInstrument = true;
+                    Debug.Log("LEVEL2COMPLETE");
                 }
             }
         }

@@ -153,7 +153,7 @@ namespace SoliGameController
                 }
                 else
                 {
-                    noGestureCountdown = thirtysecCounter;
+                    noGestureCountdown =  tensecCounter;
                 }
 
                 M_Enable();
@@ -181,7 +181,7 @@ namespace SoliGameController
                 }
                 else
                 {
-                    noGestureCountdown = thirtysecCounter;
+                    noGestureCountdown =  tensecCounter;
                 }
 
                 H_Enable();
@@ -215,7 +215,7 @@ namespace SoliGameController
                 }
                 else
                 {
-                    noGestureCountdown = thirtysecCounter;
+                    noGestureCountdown =  tensecCounter;
                 }
 
                 S_Enable();
@@ -288,29 +288,34 @@ namespace SoliGameController
                 currT_Meditate = gest_c.wek_mFloat;
                 mean_Meditate = (prevT_Meditate + currT_Meditate) / 2;
 
-                if (mean_Meditate >= 9.01f)
+                if (mean_Meditate >= 10.0f)
+                {
+                    gest_c.mTarget = 10.0f;
+                    gest_c.mOut = 12.0f;
+                }
+                else if (mean_Meditate >= 9.0f && mean_Meditate <= 10.0f)
+                {
+                    gest_c.mTarget = 9.0f;
+                    gest_c.mOut = 11.0f;
+                }
+                else if (mean_Meditate >= 8.0f && mean_Meditate <= 9.0f)
                 {
                     gest_c.mTarget = 8.0f;
+                    gest_c.mOut = 10.0f;
+                }
+                else if (mean_Meditate >= 7.0f && mean_Meditate <= 8.0f)
+                {
+                    gest_c.mTarget = 7.0f;
                     gest_c.mOut = 9.0f;
                 }
-                else if (mean_Meditate >= 8.01f && mean_Meditate <= 9.0f)
-                {
-                    gest_c.mTarget = 7.5f;
-                    gest_c.mOut = 9.0f;
-                }
-                else if (mean_Meditate >= 7.01f && mean_Meditate <= 8.0f)
-                {
-                    gest_c.mTarget = 6.5f;
-                    gest_c.mOut = 8.5f;
-                }
-                else if (mean_Meditate >= 6.01f && mean_Meditate <= 7.0f)
+                else if (mean_Meditate >= 6.0f && mean_Meditate <= 7.0f)
                 {
                     gest_c.mTarget = 6.0f;
-                    gest_c.mOut = 7.5f;
+                    gest_c.mOut = 8.0f;
                 }
                 else if (mean_Meditate >= 5.0f && mean_Meditate <= 6.0f)
                 {
-                    gest_c.mTarget = 5.5f;
+                    gest_c.mTarget = 5.0f;
                     gest_c.mOut = 7.0f;
                 }
 
@@ -337,7 +342,12 @@ namespace SoliGameController
                 currT_Focus = gest_c.wek_fFloat;
                 mean_Focus = (prevT_Focus + currT_Focus) / 2;
 
-                if (mean_Focus >= 7.51f)
+                if (mean_Focus >= 8.51f)
+                {
+                    gest_c.fTarget = 9.0f;
+                    gest_c.fOut = 9.8f;
+                }
+                else if (mean_Focus >= 7.51f && mean_Focus <= 8.5f)
                 {
                     gest_c.fTarget = 8.0f;
                     gest_c.fOut = 8.8f;
@@ -686,9 +696,9 @@ namespace SoliGameController
             meditateActiveColor = new Color32(20, 100, 210, 200);
             meditateDeactiveColor = new Color32(20, 200, 210, 0);
 
-            focusTransColor = new Color32(70, 200, 20, 100);
-            focusActiveColor = new Color32(70, 220, 20, 200);
-            focusDeactiveColor = new Color32(70, 200, 20, 0);
+            focusTransColor = new Color32(120, 200, 100, 100);
+            focusActiveColor = new Color32(80, 200, 50, 200);
+            focusDeactiveColor = new Color32(120, 200, 100, 0);
 
             happyTransColor = new Color32(220, 160, 30, 100);
             happyActiveColor = new Color32(220, 220, 30, 200);
