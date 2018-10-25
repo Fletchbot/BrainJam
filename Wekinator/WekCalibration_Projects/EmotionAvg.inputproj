@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <WekiInputHelperFileData>
   <oscReceivePort>6452</oscReceivePort>
-  <oscSendPort>6453</oscSendPort>
+  <oscSendPort>6449</oscSendPort>
   <sendHostname>localhost</sendHostname>
   <sendOscMessage>/eeg</sendOscMessage>
   <inputs>

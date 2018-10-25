@@ -8,101 +8,82 @@ namespace SoliGameController
 {
     public class GameController : MonoBehaviour
     {
-        GestureController gest_c;
-        TrainingStates ts;
+        MeditateState ms;
+        FocusState fs;
+        EmotionState es;
 
-        [Header("Wekinator Run Dispatcher")]
+        //   [Header("Wekinator Run Dispatcher")]
         public GameObject WekMeditateDTW_Run, WekFocusDTW_Run, WekEmotionDTW_Run, wekEmotionSVM_Run;
         public GameObject MuseMonitor;
         public GameObject HomeButton;
-        [Header("Mode")]
-        public bool isWekRun, f_trainSW, m_trainSW, homebtn;
+        //       [Header("Wekinator")]
+        public GameObject WekOSC_Receiver;
+        public float wek_mFloat, wek_fFloat, wek_hFloat, wek_sFloat, wek_mood, wek_facialExpression;
+        public bool wek_isM, wek_isF;
+        //   [Header("Mode")]
+        public bool isRunning, homebtn;
         public int HeadsetOn;
-        [Header("Meters")]
-        public GameObject MeditateMeter, FocusMeter, EmotionMeter;
-        public float prevT_Focus, currT_Focus, mean_Focus, prevT_Meditate, currT_Meditate, mean_Meditate;
-        private Vector3 focusGamePos, meditateGamePos, emotionsGamePos;
-        private Vector2 middleAnchorMin, middleAnchorMax, topRightAnchorMin, topRightAnchorMax;
-        private Color meditateTransColor, meditateActiveColor, meditateDeactiveColor, lerpedMCol, focusTransColor, focusActiveColor, focusDeactiveColor, lerpedFCol;
-        private Color sadTransColor, sadActiveColor, sadDeactiveColor, lerpedSCol, happyTransColor, happyActiveColor, happyDeactiveColor, lerpedHCol;
-        private bool fCol_SW, fTrans_SW, fLerp_SW, fDeactiveCol_SW;
-        private bool sCol_SW, sTrans_SW, sLerp_SW, emoDeactiveCol_SW, hCol_SW, hTrans_SW, hLerp_SW;
-        [Header("GameStates")]
+    //    [Header("GameStates")]
         public bool NoGesture, Meditate, Happy, Sad, Unsure;
         public bool MeditationTested, HappinessTested, SadnessTested, FocusTested;
         private bool M_sw, H_sw, S_sw, U_sw, F_sw;
-        [Header("HeldStates")]
+   //     [Header("HeldStates")]
         public bool mindStateTimeOut, heldTimeout, noGHeld_Reached, mHeld_Reached, hHeld_Reached, sHeld_Reached, uHeld_Reached;
         public float  m_HeldScore, h_HeldScore, s_HeldScore, u_HeldScore, noG_HeldScore;
         private float m_Held, h_Held, s_Held, noG_Held, u_Held, HeldPercentage;
-        [Header("Timer Section")]
-        public float noGestureCountdown, heldCountdown, gestureThresholdTimer;
+   //     [Header("Timer Section")]
+        public float noGestureCountdown, heldCountdown;
         public int state;
-        public float sixtysecCounter, thirtysecCounter, tensecCounter, fivesecCounter, foursecCounter, threesecCounter, twosecCounter, secCounter;
+        public float noGSixtyCounter, noGCounter, heldCounter;
 
         // Use this for initialization
         public void OnEnable()
         {
-            ts = this.GetComponent<TrainingStates>();
-            gest_c = this.GetComponent<GestureController>();
+            ms = this.GetComponent<MeditateState>();
+            fs = this.GetComponent<FocusState>();
+            es = this.GetComponent<EmotionState>();
 
-            focusGamePos = new Vector3(-60, -60, 0);
-            meditateGamePos = new Vector3(-240, -60, 0);
-            emotionsGamePos = new Vector3(-150, -60, 0);
-
-            middleAnchorMin = new Vector2(0.5f, 0.5f);
-            middleAnchorMax = new Vector2(0.5f, 0.5f);
-
-            topRightAnchorMin = new Vector2(1f, 1f);
-            topRightAnchorMax = new Vector2(1f, 1f);
-
-            sixtysecCounter = 60.0f;
-            thirtysecCounter = 30.0f;
-            tensecCounter = 10.0f;
-            fivesecCounter = 5.0f;
-            foursecCounter = 4.0f;
-            threesecCounter = 3.0f;
-            twosecCounter = 2.0f;
-            secCounter = 1.0f;
+            noGSixtyCounter = 60.0f;
+            noGCounter = 10.0f;
+            heldCounter = 3.0f;
 
             HeadsetOn = MuseMonitor.GetComponent<UniOSCMuseMonitor>().touchingforehead;
 
             ResetValues();
-            MetersOnEnable();
 
             NoG_Enable();
 
-            if (HeadsetOn == 1)
-            {
-                isWekRun = true;
-            }
+            if (HeadsetOn == 1) isRunning = true;
 
         }
         // Update is called once per frame
+        public void UpdateMuseHeadset()
+        {
+            wek_mFloat = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().meditateFloat;
+            wek_isM = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isMeditate;
+
+            wek_fFloat = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().focusFloat;
+            wek_isF = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().isFocus;
+
+            wek_hFloat = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().happyFloat;
+            wek_sFloat = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().sadFloat;
+            wek_mood = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().mood;
+            wek_facialExpression = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().facialExpression;
+        }
         public void Update()
         {
             HeadsetOn = MuseMonitor.GetComponent<UniOSCMuseMonitor>().touchingforehead;
 
-            //Training
-            if (state >= 0 && HeadsetOn == 1)
-            {
-                ts.MeditateTraining();
-                ts.EmotionsTraining();
-                ts.FocusTraining();
-            }
-
             if(HeadsetOn == 1)
             {
-                if (!isWekRun) isWekRun = true;
-                //Game
+                if (!isRunning) isRunning = true;
+
+                UpdateMuseHeadset();
                 WekRun();
                 GestureStates();
-
-                //Meters/HoldGesture
-                MetersUpdate();
-                HeldState();
+                HeldState();  
             } 
-            else if (HeadsetOn == 0 && isWekRun)
+            else if (HeadsetOn == 0 && isRunning)
             {
                 ResetGame();
             }
@@ -123,17 +104,12 @@ namespace SoliGameController
         public void ResetGame()
         {
             ResetValues();
-            MetersOnEnable();
-
-            MeditateMeter.GetComponent<ActivateObjects>().SetDeactive(true);
-            EmotionMeter.GetComponent<ActivateObjects>().SetDeactive(true);
-            FocusMeter.GetComponent<ActivateObjects>().SetDeactive(true);
-
+           // gm.MetersReset();
             NoG_Enable();
 
-            if (isWekRun)
+            if (isRunning)
             {
-                isWekRun = false;
+                isRunning = false;
                 WekRun();
             }
 
@@ -141,19 +117,18 @@ namespace SoliGameController
 
         public void GestureStates() //state 0 = narratorMTraining, state 1 = meditatetraining complete, state 2 = NarratoremoTraining state 3 = Happy/Sad training complete, state 4 = NarratorfTraining state 5 = focustraining complete
         {
-
-            if (state == 1 && gest_c.isMeditate && !MeditationTested || state == -1 && gest_c.isMeditate && !M_sw && !heldTimeout)
+            if (state == 1 && ms.isMeditate && !MeditationTested || state == -1 && ms.isMeditate && !M_sw && !heldTimeout)
             {
                 if (!MeditationTested)
                 {
-                    noGestureCountdown = sixtysecCounter;
+                    noGestureCountdown = noGSixtyCounter;
                     MeditationTested = true;
                     state++;
                     Debug.Log("MeditatePassed");
                 }
                 else
                 {
-                    noGestureCountdown =  (tensecCounter*2);
+                     noGestureCountdown =  noGCounter;
                 }
 
                 M_Enable();
@@ -170,23 +145,23 @@ namespace SoliGameController
             }
                        
             //Happy
-             if (state == 2 && !HappinessTested && gest_c.isHappy && !heldTimeout && ts.happy|| state == -1 && gest_c.isHappy && !H_sw && !heldTimeout)
+             if (state == 2 && !HappinessTested && es.isHappy && !heldTimeout && es.happy|| state == -1 && es.isHappy && !H_sw && !heldTimeout)
             {
                 if (!HappinessTested)
                 {
-                    noGestureCountdown = sixtysecCounter;
+                    noGestureCountdown = noGSixtyCounter;
                     HappinessTested = true;
 
                     Debug.Log("HappyPassed");
                 }
                 else
                 {
-                    noGestureCountdown =  (tensecCounter*2);
+                     noGestureCountdown =  noGCounter;
                 }
 
                 H_Enable();
 
-                heldCountdown = foursecCounter;
+                heldCountdown = heldCounter;
                 h_Held = HeldPercentage;
                 mindStateTimeOut = true;
                 heldTimeout = true;
@@ -199,28 +174,28 @@ namespace SoliGameController
                 U_sw = false;
 
                 noGHeld_Reached = false;
-              if(!gest_c.isMeditate)  mHeld_Reached = false;
+              if(!ms.isMeditate)  mHeld_Reached = false;
                 sHeld_Reached = false;
                 uHeld_Reached = false;
             }
             //Sad
-            if (state == 3 && !SadnessTested && gest_c.isSad && !heldTimeout && !heldTimeout || state == -1 && gest_c.isSad && !S_sw && !heldTimeout)
+            if (state == 3 && !SadnessTested && es.isSad && !heldTimeout && !heldTimeout || state == -1 && es.isSad && !S_sw && !heldTimeout)
             {
                 if (!SadnessTested)
                 {
-                    noGestureCountdown = sixtysecCounter;
+                    noGestureCountdown = noGSixtyCounter;
                     SadnessTested = true;
                     if (HappinessTested) state++;
                     Debug.Log("SadPassed");
                 }
                 else
                 {
-                    noGestureCountdown =  (tensecCounter*2);
+                     noGestureCountdown =  noGCounter;
                 }
 
                 S_Enable();
 
-                heldCountdown = threesecCounter;
+                heldCountdown = heldCounter;
                 s_Held = HeldPercentage;
                 mindStateTimeOut = true;
                 heldTimeout = true;
@@ -233,17 +208,17 @@ namespace SoliGameController
                 U_sw = false;
 
                 noGHeld_Reached = false;
-                if (!gest_c.isMeditate) mHeld_Reached = false;
+                if (!ms.isMeditate) mHeld_Reached = false;
                 hHeld_Reached = false;
                 uHeld_Reached = false;
             }
 
             //Unsure
-            if (state == -1 && gest_c.isUnsure && !U_sw && !heldTimeout)
+            if (state == -1 && es.isUnsure && !U_sw && !heldTimeout)
             {
                 U_Enable();
 
-                heldCountdown = threesecCounter;
+                heldCountdown = heldCounter;
                 u_Held = HeldPercentage;
                 mindStateTimeOut = true;
                 heldTimeout = true;
@@ -256,7 +231,7 @@ namespace SoliGameController
                 U_sw = true;
 
                 noGHeld_Reached = false;
-                if (!gest_c.isMeditate) mHeld_Reached = false;
+                if (!ms.isMeditate) mHeld_Reached = false;
                 hHeld_Reached = false;
                 sHeld_Reached = false;
             }
@@ -271,218 +246,13 @@ namespace SoliGameController
                 {
                     NoG_Enable();
 
-                    heldCountdown = threesecCounter;
+                    heldCountdown = heldCounter;
                     noG_Held = HeldPercentage;
                     heldTimeout = true;
 
                     mindStateTimeOut = false;
                 }
             }
-        }
-
-        public void GestureDifficultyUpdate()
-        {
-            // Meditate calibrate difficulty
-            if (state == 0 && gestureThresholdTimer <= 0.0f && !m_trainSW)
-            {
-                currT_Meditate = gest_c.wek_mFloat;
-                mean_Meditate = (prevT_Meditate + currT_Meditate) / 2;
-
-                if (mean_Meditate >= 10.0f)
-                {
-                    gest_c.mTarget = 10.0f;
-                    gest_c.mOut = 12.0f;
-                }
-                else if (mean_Meditate >= 9.0f && mean_Meditate <= 10.0f)
-                {
-                    gest_c.mTarget = 9.0f;
-                    gest_c.mOut = 11.0f;
-                }
-                else if (mean_Meditate >= 8.0f && mean_Meditate <= 9.0f)
-                {
-                    gest_c.mTarget = 8.0f;
-                    gest_c.mOut = 10.0f;
-                }
-                else if (mean_Meditate >= 7.0f && mean_Meditate <= 8.0f)
-                {
-                    gest_c.mTarget = 7.0f;
-                    gest_c.mOut = 9.0f;
-                }
-                else if (mean_Meditate >= 6.0f && mean_Meditate <= 7.0f)
-                {
-                    gest_c.mTarget = 6.0f;
-                    gest_c.mOut = 8.0f;
-                }
-                else if (mean_Meditate >= 5.0f && mean_Meditate <= 6.0f)
-                {
-                    gest_c.mTarget = 5.0f;
-                    gest_c.mOut = 7.0f;
-                }
-
-                MeditateMeter.GetComponent<PieMeter>().MinValuec1 = gest_c.mOut+2.0f;
-                MeditateMeter.GetComponent<PieMeter>().MinValuec2 = gest_c.mOut+2.0f;
-                MeditateMeter.GetComponent<PieMeter>().MaxValuec1 = gest_c.mTarget-2.0f;
-                MeditateMeter.GetComponent<PieMeter>().MaxValuec2 = gest_c.mTarget-2.0f;
-
-                gestureThresholdTimer = threesecCounter;
-                m_trainSW = true;
-            }
-            else if (state == 0 && !m_trainSW)
-            {
-                if (gestureThresholdTimer == threesecCounter)
-                {
-                    prevT_Meditate = gest_c.wek_mFloat;
-                }
-
-                gestureThresholdTimer -= Time.deltaTime;
-            }
-            //Focus calibrate difficulty
-            if (state == 4 && gestureThresholdTimer <= 0.0f && !f_trainSW)
-            {
-                currT_Focus = gest_c.wek_fFloat;
-                mean_Focus = (prevT_Focus + currT_Focus) / 2;
-
-                if (mean_Focus >= 8.51f)
-                {
-                    gest_c.fTarget = 9.0f;
-                    gest_c.fOut = 9.8f;
-                }
-                else if (mean_Focus >= 7.51f && mean_Focus <= 8.5f)
-                {
-                    gest_c.fTarget = 8.0f;
-                    gest_c.fOut = 8.8f;
-                }
-                else if (mean_Focus >= 6.51f && mean_Focus <= 7.5f)
-                {
-                    gest_c.fTarget = 7.0f;
-                    gest_c.fOut = 7.8f;
-                }
-                else if (mean_Focus >= 5.51f && mean_Focus <= 6.5f)
-                {
-                    gest_c.fTarget = 6.0f;
-                    gest_c.fOut = 6.8f;
-                }
-                else if (mean_Focus >= 4.51f && mean_Focus <= 5.5f)
-                {
-                    gest_c.fTarget = 5.0f;
-                    gest_c.fOut = 5.8f;
-                }
-                else if (mean_Focus >= 3.5f && mean_Focus <= 4.5f)
-                {
-                    gest_c.fTarget = 4.0f;
-                    gest_c.fOut = 4.8f;
-                }
-                FocusMeter.GetComponent<PieMeter>().MinValuec1 = gest_c.fOut;
-                FocusMeter.GetComponent<PieMeter>().MinValuec2 = gest_c.fOut;
-                FocusMeter.GetComponent<PieMeter>().MaxValuec1 = gest_c.fTarget;
-                FocusMeter.GetComponent<PieMeter>().MaxValuec2 = gest_c.fTarget;
-
-                gestureThresholdTimer = threesecCounter;
-                f_trainSW = true;
-            }
-            else if (state == 4)
-            {
-                if (gestureThresholdTimer == threesecCounter)
-                {
-                    prevT_Focus = gest_c.wek_fFloat;
-                    gestureThresholdTimer = secCounter;
-                }
-                gestureThresholdTimer -= Time.deltaTime;
-            }
-        }
-
-        private void MetersUpdate()
-        {
-            MeditateMeter.GetComponent<PieMeter>().Valuec1 = gest_c.wek_mFloat;
-            MeditateMeter.GetComponent<PieMeter>().Valuec2 = gest_c.wek_mFloat;
-
-            FocusMeter.GetComponent<PieMeter>().Valuec1 = gest_c.wek_fFloat;
-            FocusMeter.GetComponent<PieMeter>().Valuec2 = gest_c.wek_fFloat;
-
-            EmotionMeter.GetComponent<PieMeter>().Valuec1 = gest_c.h_guiVal;
-            EmotionMeter.GetComponent<PieMeter>().Valuec2 = gest_c.s_guiVal;
-
-            //MEDITATE COLOUR CHANGES
-            if (gest_c.isMeditate)
-            {
-                MeditateMeter.GetComponent<PieMeter>().fillersemiC1.color = meditateActiveColor;
-                MeditateMeter.GetComponent<PieMeter>().fillersemiC2.color = meditateActiveColor;
-            }
-            else if(gest_c.wek_mFloat <= gest_c.mTarget)
-            {
-                lerpedMCol = Color.Lerp(meditateTransColor, meditateActiveColor, Mathf.PingPong(Time.time, 0.5f));
-                MeditateMeter.GetComponent<PieMeter>().fillersemiC1.color = lerpedMCol;
-                MeditateMeter.GetComponent<PieMeter>().fillersemiC2.color = lerpedMCol;
-            }
-            else if (gest_c.wek_mFloat >= gest_c.mOut)
-            {
-                MeditateMeter.GetComponent<PieMeter>().fillersemiC1.color = meditateDeactiveColor;
-                MeditateMeter.GetComponent<PieMeter>().fillersemiC2.color = meditateDeactiveColor;
-            }
-            else if (gest_c.wek_mFloat <= gest_c.mOut && gest_c.wek_mFloat >= gest_c.mTarget)
-            {
-                lerpedMCol = Color.Lerp(meditateDeactiveColor, meditateTransColor, Mathf.PingPong(Time.time, 0.5f));
-                MeditateMeter.GetComponent<PieMeter>().fillersemiC1.color = lerpedMCol;
-                MeditateMeter.GetComponent<PieMeter>().fillersemiC2.color = lerpedMCol;
-            }
-
-            //EMOTION COLOUR CHANGES
-            if (gest_c.isHappy)
-            {
-                EmotionMeter.GetComponent<PieMeter>().fillersemiC1.color = happyActiveColor;
-            }
-            else if (!gest_c.isHappy)
-            {
-                if (gest_c.happyDiff >= gest_c.hTarget && !gest_c.isSad)
-                {
-                    lerpedHCol = Color.Lerp(happyTransColor, happyActiveColor, Mathf.PingPong(Time.time, 0.5f));
-                    EmotionMeter.GetComponent<PieMeter>().fillersemiC1.color = lerpedHCol;
-                } else
-                {
-                    EmotionMeter.GetComponent<PieMeter>().fillersemiC1.color = happyDeactiveColor;
-                }
-            }
-            else if (gest_c.isSad)
-            {
-                EmotionMeter.GetComponent<PieMeter>().fillersemiC2.color = sadActiveColor;
-            }
-            else if (!gest_c.isSad)
-            {
-                if (gest_c.sadDiff >= gest_c.sTarget && !gest_c.isHappy)
-                {
-                    lerpedSCol = Color.Lerp(sadTransColor, sadActiveColor, Mathf.PingPong(Time.time, 0.5f));
-                    EmotionMeter.GetComponent<PieMeter>().fillersemiC2.color = lerpedSCol;
-                }
-                else
-                {
-                    EmotionMeter.GetComponent<PieMeter>().fillersemiC1.color = happyDeactiveColor;
-                }
-            }
-            else if (gest_c.isUnsure)
-            {
-                EmotionMeter.GetComponent<PieMeter>().fillersemiC1.color = happyDeactiveColor;
-                EmotionMeter.GetComponent<PieMeter>().fillersemiC2.color = sadDeactiveColor;
-            }
-
-
-            //FOCUS COLOUR CHANGES
-            if (gest_c.isFocus)
-            {
-                FocusMeter.GetComponent<PieMeter>().fillersemiC1.color = focusActiveColor;
-                FocusMeter.GetComponent<PieMeter>().fillersemiC2.color = focusActiveColor;
-            }
-            else if (gest_c.wek_fFloat >= gest_c.fOut)
-            {
-                FocusMeter.GetComponent<PieMeter>().fillersemiC1.color = focusDeactiveColor;
-                FocusMeter.GetComponent<PieMeter>().fillersemiC2.color = focusDeactiveColor;
-            }
-            else if (gest_c.wek_fFloat <= gest_c.fOut && gest_c.wek_fFloat >= gest_c.fTarget)
-            {
-                lerpedFCol = Color.Lerp(focusDeactiveColor, focusTransColor, Mathf.PingPong(Time.time, 1));
-                FocusMeter.GetComponent<PieMeter>().fillersemiC1.color = lerpedFCol;
-                FocusMeter.GetComponent<PieMeter>().fillersemiC2.color = lerpedFCol;
-            }
-
         }
 
         public void HeldState()
@@ -529,32 +299,32 @@ namespace SoliGameController
                         heldTimeout = false;
                     }
 
-                    heldCountdown = threesecCounter;
+                    heldCountdown = heldCounter;
                 }
                 else
                 {
-                    if (NoGesture && !gest_c.isMeditate && !gest_c.isHappy && !gest_c.isSad)
+                    if (NoGesture && !ms.isMeditate && !es.isHappy && !es.isSad)
                     {
                         noG_Held -= Time.deltaTime;
                         noG_HeldScore += Time.deltaTime;
                     }
-                    else if (Meditate && gest_c.isMeditate)
+                    else if (Meditate && ms.isMeditate)
                     {
                         m_Held -= Time.deltaTime;
                         m_HeldScore += Time.deltaTime;
                     }
 
-                    if (Happy && gest_c.isHappy)
+                    if (Happy && es.isHappy)
                     {
                         h_Held -= Time.deltaTime;
                         h_HeldScore += Time.deltaTime;
                     }
-                    else if (Sad && gest_c.isSad)
+                    else if (Sad && es.isSad)
                     {
                         s_Held -= Time.deltaTime;
                         s_HeldScore += Time.deltaTime;
                     }
-                    else if (Unsure && gest_c.isUnsure)
+                    else if (Unsure && es.isUnsure)
                     {
                         u_Held -= Time.deltaTime;
                         u_HeldScore += Time.deltaTime;
@@ -581,7 +351,7 @@ namespace SoliGameController
         public void H_Enable()
         {
             NoGesture = false;
-            if (!gest_c.isMeditate) Meditate = false;
+            if (!ms.isMeditate) Meditate = false;
             Happy = true;
             Sad = false;
             Unsure = false;
@@ -589,7 +359,7 @@ namespace SoliGameController
         public void S_Enable()
         {
             NoGesture = false;
-            if (!gest_c.isMeditate) Meditate = false;
+            if (!ms.isMeditate) Meditate = false;
             Happy = false;
             Sad = true;
             Unsure = false;
@@ -597,63 +367,10 @@ namespace SoliGameController
         public void U_Enable()
         {
             NoGesture = false;
-            if (!gest_c.isMeditate) Meditate = false;
+            if (!ms.isMeditate) Meditate = false;
             Happy = false;
             Sad = false;
             Unsure = true;
-        }
-
-        public void TrainingMeterManager()
-        {
-            if(state == 0) //meditatemeter to middle & scale up
-            {
-                MeditateMeter.GetComponent<ActivateObjects>().SetActive(true);
-
-                MeditateMeter.transform.localScale = new Vector3 (2,2,2);
-                MeditateMeter.GetComponent<RectTransform>().anchorMin = new Vector2(middleAnchorMin.x, middleAnchorMin.y);
-                MeditateMeter.GetComponent<RectTransform>().anchorMax = new Vector2(middleAnchorMax.x, middleAnchorMax.y);
-                MeditateMeter.GetComponent<RectTransform>().localPosition = new Vector3 (0, 0, 0);
-            }
-            else if (state == 2)
-            {
-                EmotionMeter.GetComponent<ActivateObjects>().SetActive(true);
-                //place meditatemeter to game pos & scale down
-                MeditateMeter.transform.localScale = new Vector3(1, 1, 1);
-                MeditateMeter.GetComponent<RectTransform>().localPosition = new Vector3(meditateGamePos.x, meditateGamePos.y, 0);
-                MeditateMeter.GetComponent<RectTransform>().anchorMin = new Vector2(topRightAnchorMin.x, topRightAnchorMin.y);
-                MeditateMeter.GetComponent<RectTransform>().anchorMax = new Vector2(topRightAnchorMax.x, topRightAnchorMax.y);
-
-
-                //place emotionmeter to middle & scale up
-                EmotionMeter.transform.localScale = new Vector3(2, 2, 2);
-                EmotionMeter.GetComponent<RectTransform>().anchorMin = new Vector2(middleAnchorMin.x, middleAnchorMin.y);
-                EmotionMeter.GetComponent<RectTransform>().anchorMax = new Vector2(middleAnchorMax.x, middleAnchorMax.y);
-                EmotionMeter.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
-            }
-            else if (state == 4)
-            {
-                FocusMeter.GetComponent<ActivateObjects>().SetActive(true);
-                //place emotionmeter to game pos & scale down
-                EmotionMeter.transform.localScale = new Vector3(1, 1, 1);
-                EmotionMeter.GetComponent<RectTransform>().localPosition = new Vector3(emotionsGamePos.x, emotionsGamePos.y, 0);
-                EmotionMeter.GetComponent<RectTransform>().anchorMin = new Vector2(topRightAnchorMin.x, topRightAnchorMin.y);
-                EmotionMeter.GetComponent<RectTransform>().anchorMax = new Vector2(topRightAnchorMax.x, topRightAnchorMax.y);
-
-
-                //place focusmeter to middle & scale up
-                FocusMeter.transform.localScale = new Vector3(2, 2, 2);
-                FocusMeter.GetComponent<RectTransform>().anchorMin = new Vector2(middleAnchorMin.x, middleAnchorMin.y);
-                FocusMeter.GetComponent<RectTransform>().anchorMax = new Vector2(middleAnchorMax.x, middleAnchorMax.y);
-                FocusMeter.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
-            }
-            else if (state == 5)
-            {
-                //place focusmeter to game pos & scale down
-                FocusMeter.transform.localScale = new Vector3(1, 1, 1);
-                FocusMeter.GetComponent<RectTransform>().localPosition = new Vector3(focusGamePos.x, focusGamePos.y, 0);
-                FocusMeter.GetComponent<RectTransform>().anchorMin = new Vector2(topRightAnchorMin.x, topRightAnchorMin.y);
-                FocusMeter.GetComponent<RectTransform>().anchorMax = new Vector2(topRightAnchorMax.x, topRightAnchorMax.y);
-            }
         }
 
         private void ResetValues()
@@ -665,7 +382,7 @@ namespace SoliGameController
             sHeld_Reached = false;
             uHeld_Reached = false;
 
-            heldCountdown = threesecCounter;
+            heldCountdown = heldCounter;
             HeldPercentage = 1.7f;
             noG_Held = HeldPercentage;
             m_Held = HeldPercentage;
@@ -678,11 +395,6 @@ namespace SoliGameController
             s_HeldScore = 0;
             h_HeldScore = 0;
 
-            gestureThresholdTimer = threesecCounter;
-
-            f_trainSW = false;
-            m_trainSW = false;
-
             MeditationTested = false;
             HappinessTested = false;
             SadnessTested = false;
@@ -691,46 +403,14 @@ namespace SoliGameController
             mindStateTimeOut = false;
 
             state = 0;
-
-            meditateTransColor = new Color32(20, 200, 210, 100);
-            meditateActiveColor = new Color32(20, 100, 210, 200);
-            meditateDeactiveColor = new Color32(20, 200, 210, 0);
-
-            focusTransColor = new Color32(120, 200, 100, 100);
-            focusActiveColor = new Color32(80, 200, 50, 200);
-            focusDeactiveColor = new Color32(120, 200, 100, 0);
-
-            happyTransColor = new Color32(220, 160, 30, 100);
-            happyActiveColor = new Color32(220, 220, 30, 200);
-            happyDeactiveColor = new Color32(220, 220, 30, 0);
-
-            sadTransColor = new Color32(220, 80, 30, 100);
-            sadActiveColor = new Color32(220, 40, 30, 200);
-            sadDeactiveColor = new Color32(220, 40, 30, 0);
         }
-        private void MetersOnEnable()
-        {
-            EmotionMeter.GetComponent<PieMeter>().MinValuec1 = 0.0f;
-            EmotionMeter.GetComponent<PieMeter>().MinValuec2 = 0.0f;
-            EmotionMeter.GetComponent<PieMeter>().MaxValuec1 = 2.5f;
-            EmotionMeter.GetComponent<PieMeter>().MaxValuec2 = 2.5f;
 
-            MeditateMeter.GetComponent<PieMeter>().MinValuec1 = gest_c.mOut+2.0f;
-            MeditateMeter.GetComponent<PieMeter>().MinValuec2 = gest_c.mOut+2.0f;
-            MeditateMeter.GetComponent<PieMeter>().MaxValuec1 = gest_c.mTarget-2.0f;
-            MeditateMeter.GetComponent<PieMeter>().MaxValuec2 = gest_c.mTarget-2.0f;
-
-            FocusMeter.GetComponent<PieMeter>().MinValuec1 = gest_c.fOut;
-            FocusMeter.GetComponent<PieMeter>().MinValuec2 = gest_c.fOut;
-            FocusMeter.GetComponent<PieMeter>().MaxValuec1 = gest_c.fTarget;
-            FocusMeter.GetComponent<PieMeter>().MaxValuec2 = gest_c.fTarget;
-        }
         private void WekRun()
         {
-            WekMeditateDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-            WekFocusDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-            WekEmotionDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
-            wekEmotionSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isWekRun);
+            WekMeditateDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isRunning);
+            WekFocusDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isRunning);
+            WekEmotionDTW_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isRunning);
+            wekEmotionSVM_Run.GetComponent<WekEventDispatcherButton>().ButtonClick(isRunning);
         }
 
     }

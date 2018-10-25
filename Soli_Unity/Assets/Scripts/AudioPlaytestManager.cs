@@ -8,7 +8,7 @@ namespace SoliGameController
     public class AudioPlaytestManager : MonoBehaviour
     {
         GameController gameController;
-        TrainingStates ts;
+        EmotionState es;
         [Header("NarratorAudio")]
         public AudioSource[] NarratorClips;
         public int N_Intro;
@@ -26,7 +26,7 @@ namespace SoliGameController
         void Start()
         {
             gameController = this.GetComponent<GameController>();
-            ts = this.GetComponent<TrainingStates>();
+            es = this.GetComponent<EmotionState>();
 
             resetValues();
         }
@@ -111,7 +111,7 @@ namespace SoliGameController
                     N_Intro = 4;
                 }
 
-                if (ts.happy && N_Intro == 4)
+                if (es.happy && N_Intro == 4)
                 {
                     NarratorClips[2].GetComponent<AudioSource>().Play();
                     N_Intro = 5;

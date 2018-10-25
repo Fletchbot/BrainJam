@@ -9,7 +9,7 @@ public class ProjectileEmitter : MonoBehaviour
     public GameObject projectile1, projectile2;
     public GameObject emitterForce;
     public GameController gc;
-    public GestureController gestC;
+    public FocusState fs;
 
     private GameObject Temp_Projectile_Handler;
 
@@ -173,7 +173,7 @@ public class ProjectileEmitter : MonoBehaviour
     {
       //  if (Input.GetButton("Vertical"))
     //    {
-            if (gestC.isFocus)
+            if (fs.isFocus)
         {
 
             if(emitTimer <= 0.0f)

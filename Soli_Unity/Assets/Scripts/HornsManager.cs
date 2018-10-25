@@ -37,17 +37,17 @@ namespace SoliSoundScape
         {     
             if (gc.HeadsetOn == 1)
             {
-                if (cp.gesture_c.isFocus)
+                if (cp.fs.isFocus)
                 {
                     isFocus = true;
                 }
-                else if (!cp.gesture_c.isFocus && prevChord == currChord)
+                else if (!cp.fs.isFocus && prevChord == currChord)
                 {
                     isFocus = false;
                 }
 
                 currChord = cp.currChord;
-                fVelocity = cp.gesture_c.fVelocity;
+                fVelocity = cp.fs.fVelocity;
 
 
                 if (gc.state == -1 || gc.state >= 4)

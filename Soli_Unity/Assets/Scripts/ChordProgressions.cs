@@ -10,7 +10,7 @@ namespace SoliSoundScape
         DiatonicScales diatonicScales;
         SoliSoundscapeLvl2 lvl2;
         public GameController game_c;
-        public GestureController gesture_c;
+        public FocusState fs;
 
         [Header("Synth Section")]
         public AudioHelm.HelmController DroneSynth;
