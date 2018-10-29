@@ -28,7 +28,7 @@ namespace SoliGameController
             happyCountdown = counter;
             sadCountdown = counter;
             unsureCountdown = counter;
-            thresholdCounter = 2.0f;
+            thresholdCounter = 3.0f;
             emotionThresholdTimer = thresholdCounter;
 
             hTarget = 1.0f;
@@ -43,7 +43,7 @@ namespace SoliGameController
             h_trainSW = false;
             s_trainSW = false;
 
-            trainCounter = 2.5f;
+            trainCounter = 4.0f;
             trainCountdown = trainCounter;
             train_sw = false;
             happy = false;
@@ -307,6 +307,7 @@ namespace SoliGameController
 
             }
         }
+
         public void HappyDifficultyLevel()
         {
             if(emotionThresholdTimer == thresholdCounter)

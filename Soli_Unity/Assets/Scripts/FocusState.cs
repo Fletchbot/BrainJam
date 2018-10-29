@@ -28,7 +28,7 @@ namespace SoliGameController
         {
             counter = 1.0f;
             focusCountdown = counter;
-            thresholdCounter = 2.5f;
+            thresholdCounter = 3.0f;
             focusThresholdTimer = thresholdCounter;
 
             fTarget = 2.5f;
@@ -47,7 +47,7 @@ namespace SoliGameController
             f_trainSW = false;
             f_meterSW = false;
 
-            trainCounter = 3.5f;
+            trainCounter = 4.0f;
             trainCountdown = trainCounter;
             train_sw = false;
             train_on = false;
@@ -241,39 +241,39 @@ namespace SoliGameController
 
                 if (mean_Focus >= 8.51f)
                 {
-                    fTarget = 9.0f;
-                    fOut = 10.0f;
-                    Debug.Log("fTrain: 9.0-10.0");
+                    fTarget = 8.5f;
+                    fOut = 9.5f;
+                    Debug.Log("fTrain: 8.5-9.5");
                 }
                 else if (mean_Focus >= 7.51f && mean_Focus <= 8.5f)
                 {
-                    fTarget = 8.0f;
-                    fOut = 9.0f;
-                    Debug.Log("fTrain: 8.0-9.0");
+                    fTarget = 7.5f;
+                    fOut = 8.5f;
+                    Debug.Log("fTrain: 7.5-8.5");
                 }
                 else if (mean_Focus >= 6.51f && mean_Focus <= 7.5f)
                 {
-                    fTarget = 7.0f;
-                    fOut = 8.0f;
-                    Debug.Log("fTrain: 7.0-8.0");
+                    fTarget = 6.5f;
+                    fOut = 7.5f;
+                    Debug.Log("fTrain: 6.5-7.5");
                 }
                 else if (mean_Focus >= 5.51f && mean_Focus <= 6.5f)
                 {
-                    fTarget = 6.0f;
-                    fOut = 7.0f;
-                    Debug.Log("fTrain: 6.0-7.0");
+                    fTarget = 5.5f;
+                    fOut = 6.5f;
+                    Debug.Log("fTrain: 5.5-6.5");
                 }
                 else if (mean_Focus >= 4.51f && mean_Focus <= 5.5f)
                 {
-                    fTarget = 5.0f;
-                    fOut = 6.0f;
-                    Debug.Log("fTrain: 5.0-6.0");
+                    fTarget = 4.5f;
+                    fOut = 5.5f;
+                    Debug.Log("fTrain: 4.5-5.5");
                 }
                 else if (mean_Focus >= 3.51f && mean_Focus <= 4.5f)
                 {
-                    fTarget = 4.0f;
-                    fOut = 5.0f;
-                    Debug.Log("fTrain: 4.0-5.0");
+                    fTarget = 3.5f;
+                    fOut = 4.5f;
+                    Debug.Log("fTrain: 3.5-4.5");
                 }
 
                 FocusMeter.GetComponent<PieMeter>().MinValuec1 = fOut;

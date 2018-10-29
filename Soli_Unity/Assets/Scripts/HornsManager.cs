@@ -35,7 +35,7 @@ namespace SoliSoundScape
         // Update is called once per frame
         void Update()
         {     
-            if (gc.HeadsetOn == 1)
+            if (gc.isRunning)
             {
                 if (cp.fs.isFocus)
                 {
@@ -64,7 +64,7 @@ namespace SoliSoundScape
                     }
                 }
             }
-            else if (gc.HeadsetOn == 0 && prevTpt_Range > 0)
+            else if (!gc.isRunning && prevTpt_Range > 0)
             {
                 prevTpt_Range = 0;
                 f_sw = false;

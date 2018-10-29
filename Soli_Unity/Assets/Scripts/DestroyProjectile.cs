@@ -8,7 +8,7 @@ public class DestroyProjectile : MonoBehaviour {
 
     //public GameObject exposion;
 
-    public int damage = 4;
+    public int damage = 6;
     private bool focusShot, noGC;
 
 

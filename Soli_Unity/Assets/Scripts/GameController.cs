@@ -13,6 +13,7 @@ namespace SoliGameController
         EmotionState es;
 
         //   [Header("Wekinator Run Dispatcher")]
+        public GameObject HDGrp, HS0, HS1, HS2, HS3;
         public GameObject WekMeditateDTW_Run, WekFocusDTW_Run, WekEmotionDTW_Run, wekEmotionSVM_Run;
         public GameObject MuseMonitor;
         public GameObject HomeButton;
@@ -21,9 +22,12 @@ namespace SoliGameController
         public float wek_mFloat, wek_fFloat, wek_hFloat, wek_sFloat, wek_mood, wek_facialExpression;
         public bool wek_isM, wek_isF;
         //   [Header("Mode")]
-        public bool isRunning, homebtn;
+        public bool isRunning, homebtn, HDGrpOn;
         public int HeadsetOn;
-    //    [Header("GameStates")]
+        public float batt, hs0, hs1, hs2, hs3;
+        public Color HS_ActiveCol, HS_DeactiveCol, HS_LerpedCol;
+   //     private bool HS_Col_SW, HS_Trans_SW, HS_Lerp_SW, HS_DeactiveCol_SW;
+        //    [Header("GameStates")]
         public bool NoGesture, Meditate, Happy, Sad, Unsure;
         public bool MeditationTested, HappinessTested, SadnessTested, FocusTested;
         private bool M_sw, H_sw, S_sw, U_sw, F_sw;
@@ -37,11 +41,46 @@ namespace SoliGameController
         public float noGSixtyCounter, noGCounter, heldCounter;
 
         // Use this for initialization
+        private void ResetValues()
+        {
+            heldTimeout = false;
+            noGHeld_Reached = false;
+            mHeld_Reached = false;
+            hHeld_Reached = false;
+            sHeld_Reached = false;
+            uHeld_Reached = false;
+
+            heldCountdown = heldCounter;
+            HeldPercentage = 1.7f;
+            noG_Held = HeldPercentage;
+            m_Held = HeldPercentage;
+            h_Held = HeldPercentage;
+            s_Held = HeldPercentage;
+            u_Held = HeldPercentage;
+            m_HeldScore = 0;
+            noG_HeldScore = 0;
+            u_HeldScore = 0;
+            s_HeldScore = 0;
+            h_HeldScore = 0;
+
+            MeditationTested = false;
+            HappinessTested = false;
+            SadnessTested = false;
+            FocusTested = false;
+
+            mindStateTimeOut = false;
+
+            state = 0;
+        }
+
         public void OnEnable()
         {
             ms = this.GetComponent<MeditateState>();
             fs = this.GetComponent<FocusState>();
             es = this.GetComponent<EmotionState>();
+
+            HS_ActiveCol = new Color32(80, 160, 80, 255);
+            HS_DeactiveCol = new Color32(80, 160, 80, 0);
 
             noGSixtyCounter = 60.0f;
             noGCounter = 10.0f;
@@ -52,11 +91,82 @@ namespace SoliGameController
             ResetValues();
 
             NoG_Enable();
-
-            if (HeadsetOn == 1) isRunning = true;
-
         }
         // Update is called once per frame
+        public void HeadsetIndicators()
+        {
+            HS_LerpedCol = Color.Lerp(HS_DeactiveCol, HS_ActiveCol, Mathf.PingPong(Time.time, 0.3f));
+
+            if (!HDGrpOn)
+            {
+                HDGrp.GetComponent<ActivateObjects>().SetActive(true);
+                HDGrpOn = true;
+            }
+
+            if (hs0 == 1)
+            {
+                HS0.GetComponent<MuseHSIMeter>().fillersemiC1.color = HS_ActiveCol;
+                HS0.GetComponent<MuseHSIMeter>().fillersemiC2.color = HS_ActiveCol;
+            }
+            else if (hs0 == 2)
+            {
+                HS0.GetComponent<MuseHSIMeter>().fillersemiC1.color = HS_LerpedCol;
+                HS0.GetComponent<MuseHSIMeter>().fillersemiC2.color = HS_LerpedCol;
+            }
+            else if (hs0 == 4)
+            {
+                HS0.GetComponent<MuseHSIMeter>().fillersemiC1.color = HS_DeactiveCol;
+                HS0.GetComponent<MuseHSIMeter>().fillersemiC2.color = HS_DeactiveCol;
+            }
+
+            if (hs1 == 1)
+            {
+                HS1.GetComponent<MuseHSIMeter>().fillersemiC1.color = HS_ActiveCol;
+                HS1.GetComponent<MuseHSIMeter>().fillersemiC2.color = HS_ActiveCol;
+            }
+            else if (hs1 == 2)
+            {
+                HS1.GetComponent<MuseHSIMeter>().fillersemiC1.color = HS_LerpedCol;
+                HS1.GetComponent<MuseHSIMeter>().fillersemiC2.color = HS_LerpedCol;
+            }
+            else if (hs1 == 4)
+            {
+                HS1.GetComponent<MuseHSIMeter>().fillersemiC1.color = HS_DeactiveCol;
+                HS1.GetComponent<MuseHSIMeter>().fillersemiC2.color = HS_DeactiveCol;
+            }
+
+            if (hs2 == 1)
+            {
+                HS2.GetComponent<MuseHSIMeter>().fillersemiC1.color = HS_ActiveCol;
+                HS2.GetComponent<MuseHSIMeter>().fillersemiC2.color = HS_ActiveCol;
+            }
+            else if (hs2 == 2)
+            {
+                HS2.GetComponent<MuseHSIMeter>().fillersemiC1.color = HS_LerpedCol;
+                HS2.GetComponent<MuseHSIMeter>().fillersemiC2.color = HS_LerpedCol;
+            }
+            else if (hs2 == 4)
+            {
+                HS2.GetComponent<MuseHSIMeter>().fillersemiC1.color = HS_DeactiveCol;
+                HS2.GetComponent<MuseHSIMeter>().fillersemiC2.color = HS_DeactiveCol;
+            }
+
+            if (hs3 == 1)
+            {
+                HS3.GetComponent<MuseHSIMeter>().fillersemiC1.color = HS_ActiveCol;
+                HS3.GetComponent<MuseHSIMeter>().fillersemiC2.color = HS_ActiveCol;
+            }
+            else if (hs3 == 2)
+            {
+                HS3.GetComponent<MuseHSIMeter>().fillersemiC1.color = HS_LerpedCol;
+                HS3.GetComponent<MuseHSIMeter>().fillersemiC2.color = HS_LerpedCol;
+            }
+            else if (hs3 == 4)
+            {
+                HS3.GetComponent<MuseHSIMeter>().fillersemiC1.color = HS_DeactiveCol;
+                HS3.GetComponent<MuseHSIMeter>().fillersemiC2.color = HS_DeactiveCol;
+            }
+        }
         public void UpdateMuseHeadset()
         {
             wek_mFloat = WekOSC_Receiver.GetComponent<UniOSCWekOutputReceiver>().meditateFloat;
@@ -73,20 +183,37 @@ namespace SoliGameController
         public void Update()
         {
             HeadsetOn = MuseMonitor.GetComponent<UniOSCMuseMonitor>().touchingforehead;
+            batt = MuseMonitor.GetComponent<UniOSCMuseMonitor>().batt;
+            hs0 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().hs0;
+            hs1 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().hs1;
+            hs2 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().hs2;
+            hs3 = MuseMonitor.GetComponent<UniOSCMuseMonitor>().hs3;
 
-            if(HeadsetOn == 1)
+            if (HeadsetOn == 1 && hs0 == 1 && hs1 == 1 && hs2 == 1 && hs3 == 1 && !isRunning)
             {
-                if (!isRunning) isRunning = true;
+                HDGrpOn = false;
+                HDGrp.GetComponent<ActivateObjects>().SetDeactive(true);
+                isRunning = true;
+            }
+            else if (HeadsetOn == 1 && hs0 >= 2 && !isRunning || HeadsetOn == 1 && hs1 >= 2 && !isRunning || HeadsetOn == 1 && hs2 >= 2 && !isRunning || HeadsetOn == 1 && hs3 >= 2 && !isRunning)
+            {
+                HeadsetIndicators();
+            }
+            else if (HeadsetOn == 0 && isRunning)
+            {
+                ResetValues();
+                NoG_Enable();
+                WekRun();
+                isRunning = false;
+            }
 
+            if (isRunning)
+            {
                 UpdateMuseHeadset();
                 WekRun();
                 GestureStates();
-                HeldState();  
+                HeldState();
             } 
-            else if (HeadsetOn == 0 && isRunning)
-            {
-                ResetGame();
-            }
 
             if (Input.anyKey && !homebtn)
             {
@@ -97,20 +224,6 @@ namespace SoliGameController
             {
                 homebtn = false;
                 HomeButton.GetComponent<ActivateObjects>().SetDeactive(true);
-            }
-
-        }
-
-        public void ResetGame()
-        {
-            ResetValues();
-           // gm.MetersReset();
-            NoG_Enable();
-
-            if (isRunning)
-            {
-                isRunning = false;
-                WekRun();
             }
 
         }
@@ -371,38 +484,6 @@ namespace SoliGameController
             Happy = false;
             Sad = false;
             Unsure = true;
-        }
-
-        private void ResetValues()
-        {
-            heldTimeout = false;
-            noGHeld_Reached = false;
-            mHeld_Reached = false;
-            hHeld_Reached = false;
-            sHeld_Reached = false;
-            uHeld_Reached = false;
-
-            heldCountdown = heldCounter;
-            HeldPercentage = 1.7f;
-            noG_Held = HeldPercentage;
-            m_Held = HeldPercentage;
-            h_Held = HeldPercentage;
-            s_Held = HeldPercentage;
-            u_Held = HeldPercentage;
-            m_HeldScore = 0;
-            noG_HeldScore = 0;
-            u_HeldScore = 0;
-            s_HeldScore = 0;
-            h_HeldScore = 0;
-
-            MeditationTested = false;
-            HappinessTested = false;
-            SadnessTested = false;
-            FocusTested = false;
-
-            mindStateTimeOut = false;
-
-            state = 0;
         }
 
         private void WekRun()

@@ -49,7 +49,7 @@ public class ProjectileEmitter : MonoBehaviour
 
         forceY = Random.Range(-forceRotVelocity, forceRotVelocity);
         forceZ = Random.Range(-forceRotVelocity, forceRotVelocity);
-        emitTimer = 1.0f;
+        emitTimer = 2.0f;
 
         p1_sw = false;
         p2_sw = true;
@@ -67,12 +67,12 @@ public class ProjectileEmitter : MonoBehaviour
             forceRotate();
         }
 
-        if(gc.HeadsetOn == 0 && !reset)
+        if(!gc.isRunning && !reset)
         {
             resetValues();
             reset = true;
         }
-        else if (gc.HeadsetOn == 1 && reset)
+        else if (gc.isRunning && reset)
         {
             reset = false;
         }
@@ -189,9 +189,9 @@ public class ProjectileEmitter : MonoBehaviour
                     Temp_Projectile_Handler = Instantiate(projectile2, projectileEmitter.transform.position, projectileEmitter.transform.rotation) as GameObject;
                 }
 
-                emitTimer = 1.0f;
+                emitTimer = 2.0f;
             }
-            else if (emitTimer == 1.0f)
+            else if (emitTimer == 2.0f)
             {
                 if (emitHeld == 0)
                 {
@@ -234,8 +234,8 @@ public class ProjectileEmitter : MonoBehaviour
         else
         {
             emitHeld = 0;
-            emitTimer = 1.0f;
+            emitTimer = 2.0f;
         }
-            Destroy(Temp_Projectile_Handler, 7.0f);
+            Destroy(Temp_Projectile_Handler, 10.0f);
     }
 }

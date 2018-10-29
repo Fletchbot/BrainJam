@@ -56,13 +56,13 @@ namespace SoliSoundScape
                 DroneEnable();
             }
 
-            if(game_c.HeadsetOn == 0 && !reset)
+            if(!game_c.isRunning && !reset)
             {
                 DroneSynth.AllNotesOff();
                 DroneSeq.Clear();
                 reset = true;
             }
-            else if (game_c.HeadsetOn == 1 && reset)
+            else if (game_c.isRunning && reset)
             {
                 Invoke("resetPatch", 1.0f);
                 reset = false;

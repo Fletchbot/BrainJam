@@ -17,9 +17,8 @@ namespace SoliGameController
         [Header("AudioMixer Section")]
         public AudioMixer synthMixer;
 
-        private bool eruptAu;
+        private bool isRunning, eruptAu;
         private float sfxlvl;
-        private int headsetOn;
         private bool sfxPlaying, sfxFadedown, sfxFadeup, reset;
 
         // Use this for initialization
@@ -34,17 +33,17 @@ namespace SoliGameController
         // Update is called once per frame
         void Update()
         {
-            headsetOn = gameController.HeadsetOn;
+            isRunning = gameController.isRunning;
 
             PlayEruption();
 
-            if (headsetOn == 1)
+            if (isRunning)
             {
                 SetSFXLvl();
                 TrainingAudio();
                 if (reset) reset = false;
             }
-            else if (headsetOn == 0 && !reset)
+            else if (!isRunning && !reset)
             {
                 resetValues();
                 reset = true;
