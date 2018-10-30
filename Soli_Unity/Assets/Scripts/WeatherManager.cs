@@ -95,7 +95,7 @@ namespace Artngame.SKYMASTER
             }
             else if (Sad && state == -1 && !sHeld_Reached) //Rain (both !meditate/meditate)
             {
-                weatherChoice = 1;
+              //  weatherChoice = 1;
             }
             else if (Sad && state == -1 && sHeld_Reached) //Heavy Rain (both !meditate/meditate)
             {
