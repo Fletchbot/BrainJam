@@ -26,9 +26,9 @@ namespace SoliSoundScape
         {
             cp = this.GetComponent<ChordProgressions>();
             diatonicScales = this.GetComponent<DiatonicScales>();
-            fsusMin = 2;
+            fsusMin = 4;
             fsusMax = 11;
-            v_softThreshold = 4;
+            v_softThreshold = 3;
             f_time = Random.Range(fsusMin, fsusMax);
         }
 
@@ -37,6 +37,9 @@ namespace SoliSoundScape
         {     
             if (gc.isRunning)
             {
+                currChord = cp.currChord;
+                fVelocity = cp.fs.fVelocity;
+
                 if (cp.fs.isFocus)
                 {
                     isFocus = true;
@@ -46,32 +49,28 @@ namespace SoliSoundScape
                     isFocus = false;
                 }
 
-                currChord = cp.currChord;
-                fVelocity = cp.fs.fVelocity;
-
-
                 if (gc.state == -1 || gc.state >= 4)
                 {
-                    HornsEnable();
-
                     if (fVelocity >= v_softThreshold)
                     {
-                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, 3, 9), 3, 9, 0, 1);
+                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, 1, 7), 1, 7, 0, 1);
                     }
-                    else if (fVelocity <= v_softThreshold)
+                    if (fVelocity <= v_softThreshold)
                     {
-                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, -2, 6), -2, 6, 0, 1);
+                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, -4, 3), -4, 4, 0, 1);
                     }
+
+                    HornsEnable();
                 }
             }
-            else if (!gc.isRunning && prevTpt_Range > 0)
+            else if (!gc.isRunning && prevTpt_Range >= 0)
             {
-                prevTpt_Range = 0;
-                f_sw = false;
                 TrumpetSoft.AllNotesOff();
                 TrumpetHard.AllNotesOff();
                 SaxophoneSoft.AllNotesOff();
                 SaxophoneHard.AllNotesOff();
+                prevTpt_Range = 0;
+                f_sw = false;
             }       
         }
 
@@ -79,9 +78,6 @@ namespace SoliSoundScape
         {
             if (isFocus)
             {
-                //       if (Input.GetButton("Vertical"))
-                //    {
-
                 if (!f_sw)
                 {
                     prevChord = currChord;

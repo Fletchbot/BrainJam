@@ -33,8 +33,8 @@ namespace Artngame.SKYMASTER
             normSpeed = 1.0f;
             maxAcc = 64.0f;
             acc = normSpeed;
-            highAcc = 6.0f;
-            lowAcc = 3.0f;
+            highAcc = 10.0f;
+            lowAcc = 5.0f;
             percentMax = 30.0f;
             percentMin = 15.0f;
 

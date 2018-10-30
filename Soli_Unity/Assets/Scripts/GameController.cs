@@ -267,10 +267,6 @@ namespace SoliGameController
 
                     Debug.Log("HappyPassed");
                 }
-                else
-                {
-                     noGestureCountdown =  noGCounter;
-                }
 
                 H_Enable();
 
@@ -300,10 +296,6 @@ namespace SoliGameController
                     SadnessTested = true;
                     if (HappinessTested) state++;
                     Debug.Log("SadPassed");
-                }
-                else
-                {
-                     noGestureCountdown =  noGCounter;
                 }
 
                 S_Enable();
@@ -390,13 +382,13 @@ namespace SoliGameController
                     {
                         hHeld_Reached = true;
                         h_Held = HeldPercentage;
-                        mindStateTimeOut = false;
+                       // mindStateTimeOut = false;
                     }
                     else if (s_Held <= 0.0f)
                     {
                         sHeld_Reached = true;
                         s_Held = HeldPercentage;
-                        mindStateTimeOut = false;
+                      //  mindStateTimeOut = false;
                     }
                     else if (u_Held <= 0.0f)
                     {
@@ -405,10 +397,10 @@ namespace SoliGameController
                     }
                     else
                     {
-                        if (NoGesture)
-                        {
-                            NoGesture = false;
-                        }
+                     //   if (NoGesture)
+                     //   {
+                     //       NoGesture = false;
+                     //   }
                         heldTimeout = false;
                     }
 
@@ -416,7 +408,7 @@ namespace SoliGameController
                 }
                 else
                 {
-                    if (NoGesture && !ms.isMeditate && !es.isHappy && !es.isSad)
+                    if (NoGesture && !ms.isMeditate)
                     {
                         noG_Held -= Time.deltaTime;
                         noG_HeldScore += Time.deltaTime;
@@ -463,7 +455,7 @@ namespace SoliGameController
         }
         public void H_Enable()
         {
-            NoGesture = false;
+           // NoGesture = false;
             if (!ms.isMeditate) Meditate = false;
             Happy = true;
             Sad = false;
@@ -471,7 +463,7 @@ namespace SoliGameController
         }
         public void S_Enable()
         {
-            NoGesture = false;
+          //  NoGesture = false;
             if (!ms.isMeditate) Meditate = false;
             Happy = false;
             Sad = true;
@@ -479,7 +471,7 @@ namespace SoliGameController
         }
         public void U_Enable()
         {
-            NoGesture = false;
+         //   NoGesture = false;
             if (!ms.isMeditate) Meditate = false;
             Happy = false;
             Sad = false;

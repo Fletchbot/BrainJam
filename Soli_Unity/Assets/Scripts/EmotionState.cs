@@ -101,6 +101,7 @@ namespace SoliGameController
             else if (!enableState && !reset)
             {
                 resetValues();
+                e_MeterReset();
                 reset = true;
             }
         }

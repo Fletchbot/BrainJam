@@ -16,14 +16,13 @@ namespace SoliGameController
         private Vector3 meditateGamePos;
         private Vector2 middleAnchorMin, middleAnchorMax, topRightAnchorMin, topRightAnchorMax;
 
-        public float trainCountdown, trainCounter;
         public bool train_on, train_sw;
 
         public void resetValues()
         {
             counter = 2.0f;
             meditateCountdown = counter;
-            thresholdCounter = 2.5f;
+            thresholdCounter = 3.0f;
             meditateThresholdTimer = thresholdCounter;
 
             mTarget = 4.5f;
@@ -37,8 +36,6 @@ namespace SoliGameController
             m_trainSW = false;
             m_meterSW = false;
 
-            trainCounter = 4.0f;
-            trainCountdown = trainCounter;
             train_sw = false;
             train_on = false;
         }
@@ -82,6 +79,7 @@ namespace SoliGameController
             else if (!enableState && !reset)
             {
                 resetValues();
+                m_MeterReset();
                 reset = true;
             }
         }
@@ -183,33 +181,20 @@ namespace SoliGameController
                     train_sw = true;
                 }
 
-                if (au.N_Intro == 1 && isMeditate)
-                {
-                    if (isMeditate)
-                    {
-                        trainCountdown -= Time.deltaTime;
-                    }
-
-                    if (trainCountdown <= 0.0f)
-                    {
-                        train_on = true;
-                    }
-                }
                 //after Narrator and meditate lasts 2 secs go to emotions training
                 if (au.N_Intro == 2 && train_on)
                 {
-                    trainCountdown = trainCounter;
                     train_sw = false;
                     gc.state++;
                 }
-                else if (au.N_Intro == 2 && !train_on && !m_trainSW)
+                else if (au.N_Intro == 2 && !train_on)
                 {
+                    if(m_trainSW && isMeditate)
+                    {
+                        train_on = true;
+                        m_trainSW = false;
+                    }
                     MeditateDifficultyLevel();
-                }
-                else if (au.N_Intro == 2 && !train_on && m_trainSW && isMeditate)
-                {
-                    train_on = true;
-                    m_trainSW = false;
                 }
             }
         }

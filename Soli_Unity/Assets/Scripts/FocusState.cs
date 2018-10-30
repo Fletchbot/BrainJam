@@ -26,13 +26,13 @@ namespace SoliGameController
 
         public void resetValues()
         {
-            counter = 1.0f;
+            counter = 2.0f;
             focusCountdown = counter;
             thresholdCounter = 3.0f;
             focusThresholdTimer = thresholdCounter;
 
-            fTarget = 2.5f;
-            fOut = 3.5f;
+            fTarget = 1.5f;
+            fOut = 2.5f;
             targetOffset = 2.0f;
 
             fcurrFloat = 0.0f;
@@ -92,6 +92,7 @@ namespace SoliGameController
             else if (!enableState && !reset)
             {
                 resetValues();
+                f_MeterReset();
                 reset = true;
             }
         }
@@ -142,11 +143,11 @@ namespace SoliGameController
         public void FocusStates()
         {
             //velocity
-            if (focusCountdown == (counter/2))
+            if (focusCountdown >= 0.9f && focusCountdown <= 1.0f)
             {
                 fcurrFloat = wek_fFloat;
             }
-            else if (focusCountdown < 0.0f)
+            else if (focusCountdown <= 0.0f)
             {
                 fprevFloat = wek_fFloat;
                 focusCountdown = counter;
@@ -274,6 +275,12 @@ namespace SoliGameController
                     fTarget = 3.5f;
                     fOut = 4.5f;
                     Debug.Log("fTrain: 3.5-4.5");
+                }
+                else if (mean_Focus >= 1.51f && mean_Focus <= 3.5f)
+                {
+                    fTarget = 2.5f;
+                    fOut = 3.5f;
+                    Debug.Log("fTrain: 2.5-3.5");
                 }
 
                 FocusMeter.GetComponent<PieMeter>().MinValuec1 = fOut;
