@@ -182,7 +182,7 @@ Prefab:
     - target: {fileID: 114889151899839092, guid: 0a8e9350d5449d846b3743f847a4c13a,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0a8e9350d5449d846b3743f847a4c13a, type: 2}
@@ -285,7 +285,7 @@ Prefab:
     - target: {fileID: 114433024030130764, guid: 75a40a6382c771041ad73d7e64dfa8af,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     - target: {fileID: 114433024030130764, guid: 75a40a6382c771041ad73d7e64dfa8af,
         type: 2}
@@ -320,33 +320,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1179774283216270, guid: 8bd2d423646ae604ba5b6453243ecf66,
     type: 2}
   m_PrefabInternal: {fileID: 251781216}
---- !u!83 &242641558
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1001 &251781216
 Prefab:
   m_ObjectHideFlags: 0
@@ -722,7 +695,7 @@ Prefab:
     - target: {fileID: 114568761337509368, guid: 08d01b2196e99b54fa7364cfb00a5d27,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 08d01b2196e99b54fa7364cfb00a5d27, type: 2}
@@ -875,7 +848,7 @@ Prefab:
     - target: {fileID: 114784082794955134, guid: 47404d45ac15dac4d9be3272abf6639b,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47404d45ac15dac4d9be3272abf6639b, type: 2}
@@ -946,7 +919,7 @@ Prefab:
     - target: {fileID: 114307878455145912, guid: a92c7be10f9579844887dd530c51cf78,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a92c7be10f9579844887dd530c51cf78, type: 2}
@@ -1008,7 +981,7 @@ Prefab:
     - target: {fileID: 114128750594562946, guid: c90d896c848dd9447a0a0e38450d9ae7,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c90d896c848dd9447a0a0e38450d9ae7, type: 2}
@@ -1058,6 +1031,33 @@ GameObject:
   m_PrefabParentObject: {fileID: 1541451557927264, guid: 8bd2d423646ae604ba5b6453243ecf66,
     type: 2}
   m_PrefabInternal: {fileID: 251781216}
+--- !u!83 &840168704
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &849786206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,33 +1245,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!83 &1144017840
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!4 &1184951279 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4099203177901100, guid: dd55e55cdb089334e9ea49ccc1b3fda6,
@@ -1356,7 +1329,7 @@ Prefab:
     - target: {fileID: 114338870672482494, guid: de701ed5793258e43b81271f73a2052e,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     - target: {fileID: 114338870672482494, guid: de701ed5793258e43b81271f73a2052e,
         type: 2}
@@ -1423,7 +1396,7 @@ Prefab:
     - target: {fileID: 114871946986808946, guid: 12832ddccf1598d4c96c0ed5d616ca12,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     - target: {fileID: 114871946986808946, guid: 12832ddccf1598d4c96c0ed5d616ca12,
         type: 2}
@@ -1505,7 +1478,7 @@ Prefab:
     - target: {fileID: 114921547207166114, guid: 1e6019b514d65f14db4028320bab58c8,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e6019b514d65f14db4028320bab58c8, type: 2}
@@ -1552,7 +1525,7 @@ Prefab:
     - target: {fileID: 114866040937819452, guid: dd55e55cdb089334e9ea49ccc1b3fda6,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dd55e55cdb089334e9ea49ccc1b3fda6, type: 2}
@@ -1746,7 +1719,7 @@ Prefab:
     - target: {fileID: 114901555563133190, guid: 02e906b22ba251b469bb7937a98e9df7,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 02e906b22ba251b469bb7937a98e9df7, type: 2}
@@ -1808,7 +1781,7 @@ Prefab:
     - target: {fileID: 114603180018592574, guid: 1c5e87fcce4482f4f9330d9f856f439c,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c5e87fcce4482f4f9330d9f856f439c, type: 2}
@@ -1926,17 +1899,17 @@ Prefab:
     - target: {fileID: 114171824301920036, guid: 217b3869288a4334c89f1c60376e6cd0,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     - target: {fileID: 114872705113728946, guid: 217b3869288a4334c89f1c60376e6cd0,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     - target: {fileID: 114265757359875736, guid: 217b3869288a4334c89f1c60376e6cd0,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 217b3869288a4334c89f1c60376e6cd0, type: 2}
@@ -1959,7 +1932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sendInterval: 100
   _oscOutAddress: /eeg
-  _oscOutIPAddress: 192.168.0.7
+  _oscOutIPAddress: 192.168.0.167
   _oscOutPort: 6454
   _useExplicitConnection: 1
   _explicitConnection: {fileID: 2017227828}
@@ -1967,6 +1940,33 @@ MonoBehaviour:
   _myOSCConnections:
   - {fileID: 2017227828}
   MuseMonitor: {fileID: 1920433013}
+--- !u!83 &1944143628
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &1963738003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2131,7 +2131,7 @@ Prefab:
     - target: {fileID: 114290574013253752, guid: 76a1f19485140474a9c31c0f47873c3d,
         type: 2}
       propertyPath: _oscOutIPAddress
-      value: 192.168.0.7
+      value: 192.168.0.167
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76a1f19485140474a9c31c0f47873c3d, type: 2}

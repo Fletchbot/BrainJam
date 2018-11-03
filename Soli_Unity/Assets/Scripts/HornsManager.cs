@@ -12,9 +12,9 @@ namespace SoliSoundScape
         public GameController gc;
         public AudioHelm.Sampler TrumpetSoft, TrumpetHard;
         public AudioHelm.Sampler SaxophoneSoft, SaxophoneHard;
-        public int prevChord,currChord, trumpetNote, saxNote, trumpetRange, saxophoneRange, prevTpt_Range, fsusMin, fsusMax, v_softThreshold;
-        public bool isFocus, f_sw;
-        public float fVelocity, noteVelocity, f_time;
+        public int prevChord,currChord, trumpetNote, saxNote, trumpetRange, saxophoneRange, prevTpt_Range, fsusMin, fsusMax, gamestate;
+        public bool isFocus, f_sw, isRunning, gameFocus;
+        public float v_softThreshold, fVelocity, noteVelocity, f_time;
 
         private int[] MajDomnoteSelector = new int[6];
         private int[] MinnoteSelector = new int[6];
@@ -26,44 +26,47 @@ namespace SoliSoundScape
         {
             cp = this.GetComponent<ChordProgressions>();
             diatonicScales = this.GetComponent<DiatonicScales>();
-            fsusMin = 4;
+            fsusMin = 3;
             fsusMax = 11;
-            v_softThreshold = 3;
+            v_softThreshold = 3.00f;
             f_time = Random.Range(fsusMin, fsusMax);
         }
 
         // Update is called once per frame
         void Update()
-        {     
-            if (gc.isRunning)
-            {
-                currChord = cp.currChord;
-                fVelocity = cp.fs.fVelocity;
+        {
+            isRunning = gc.isRunning;
+            currChord = cp.currChord;
+            fVelocity = cp.fs.fVelocity;
+            gameFocus = cp.fs.isFocus;
+            gamestate = gc.state;
 
-                if (cp.fs.isFocus)
+            if (isRunning)
+            {
+                if (gameFocus)
                 {
                     isFocus = true;
                 }
-                else if (!cp.fs.isFocus && prevChord == currChord)
+                else if (!gameFocus && prevChord == currChord)
                 {
                     isFocus = false;
                 }
 
-                if (gc.state == -1 || gc.state >= 4)
+                if (gamestate == -1 || gamestate >= 4)
                 {
-                    if (fVelocity >= v_softThreshold)
-                    {
-                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, 1, 7), 1, 7, 0, 1);
-                    }
                     if (fVelocity <= v_softThreshold)
                     {
-                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, -4, 3), -4, 4, 0, 1);
+                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, -4, 4), -4, 4, 0, 1);
+                        HornsEnable();
                     }
-
-                    HornsEnable();
+                    else if (fVelocity >= 3.01f)
+                    {
+                        noteVelocity = CalculateVelocity(Mathf.Clamp(fVelocity, 1, 8), 1, 8, 0, 1);
+                        HornsEnable();
+                    }
                 }
             }
-            else if (!gc.isRunning && prevTpt_Range >= 0)
+            else if (!isRunning && prevTpt_Range >= 0)
             {
                 TrumpetSoft.AllNotesOff();
                 TrumpetHard.AllNotesOff();

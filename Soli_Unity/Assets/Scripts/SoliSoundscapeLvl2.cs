@@ -39,7 +39,7 @@ namespace SoliSoundScape
                 lvl1State = -1;
             }
 
-            if (lvl1.headsetOn == 1)
+            if (lvl1.isRunning)
             {
                 e_states();
                 Lvl2ChordStates();

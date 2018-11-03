@@ -36,7 +36,7 @@ namespace SoliGameController
         public float  m_HeldScore, h_HeldScore, s_HeldScore, u_HeldScore, noG_HeldScore;
         private float m_Held, h_Held, s_Held, noG_Held, u_Held, HeldPercentage;
    //     [Header("Timer Section")]
-        public float noGestureCountdown, heldCountdown;
+        public float noGestureCountdown, heldCountdown, runCountdown;
         public int state;
         public float noGSixtyCounter, noGCounter, heldCounter;
 
@@ -85,6 +85,7 @@ namespace SoliGameController
             noGSixtyCounter = 60.0f;
             noGCounter = 10.0f;
             heldCounter = 3.0f;
+            runCountdown = 3.0f;
 
             HeadsetOn = MuseMonitor.GetComponent<UniOSCMuseMonitor>().touchingforehead;
 
@@ -191,9 +192,18 @@ namespace SoliGameController
 
             if (HeadsetOn == 1 && hs0 == 1 && hs1 == 1 && hs2 == 1 && hs3 == 1 && !isRunning)
             {
-                HDGrpOn = false;
-                HDGrp.GetComponent<ActivateObjects>().SetDeactive(true);
-                isRunning = true;
+                if (runCountdown <= 0.0f)
+                {
+                    HDGrpOn = false;
+                    HDGrp.GetComponent<ActivateObjects>().SetDeactive(true);
+                    runCountdown = 3.0f;
+                    isRunning = true;
+                }
+                else if (runCountdown >= 0.0f)
+                {
+                    runCountdown -= Time.deltaTime;
+                }
+
             }
             else if (HeadsetOn == 1 && hs0 >= 2 && !isRunning || HeadsetOn == 1 && hs1 >= 2 && !isRunning || HeadsetOn == 1 && hs2 >= 2 && !isRunning || HeadsetOn == 1 && hs3 >= 2 && !isRunning)
             {
@@ -203,8 +213,9 @@ namespace SoliGameController
             {
                 ResetValues();
                 NoG_Enable();
-                WekRun();
                 isRunning = false;
+                WekRun();
+
             }
 
             if (isRunning)

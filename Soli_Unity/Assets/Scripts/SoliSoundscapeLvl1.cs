@@ -17,8 +17,8 @@ namespace SoliSoundScape
         public bool Happy, Sad, Unsure, prevH, curisHappy, prevS, curisSad, prevU, curisUnsure, h_trainSW, s_trainSW;
         public bool h_sw, s_sw, u_sw;
         public string[] lvl1Array = new string[3];
-        public bool isHappy, isSad, isUnsure, pickKey;
-        public int startKey, gameState, headsetOn;
+        public bool isHappy, isSad, isUnsure, pickKey, isRunning;
+        public int startKey, gameState;
         // Use this for initialization
         void Start()
         {
@@ -37,26 +37,24 @@ namespace SoliSoundScape
             isUnsure = game_c.uHeld_Reached;
             gameState = game_c.state;
             lvl2State = lvl2.lvl2State;
-            headsetOn = game_c.HeadsetOn;
+            isRunning = game_c.isRunning;
 
-            if (headsetOn == 1)
+            if (isRunning)
             {
                 randomKey();
-
                 e_states();
                 Lvl1ChordStates();
                 e_off();
                 e_sw();
             }
-            else if (headsetOn == 0 && pickKey)
+            else if (!isRunning && pickKey)
             {
                 h_trainSW = false;
                 s_trainSW = false;
-                pickKey = false;
-
                 lvl1State = 0;
                 lvl2State = -1;
                 lvl2.lvl2State = lvl2State;
+                pickKey = false;
             }
 
             if (lvl2State == -1 && lvl2.changeInstrument)
@@ -64,7 +62,6 @@ namespace SoliSoundScape
                 lvl1State = 0;
                 lvl2State = -1;
                 lvl2.lvl2State = lvl2State;
-
             }
         }
 
@@ -474,7 +471,6 @@ namespace SoliSoundScape
                         {
                             cp.chords[1] = true;
                         }
-
 
                         curisUnsure = true;
                         prevU = true;

@@ -185,7 +185,7 @@ namespace SoliGameController
                 happyCountdown -= Time.deltaTime;
                 h_guiVal += Time.deltaTime;
             }
-            else if (happyDiff <= 0.0f && happyCountdown <= 0.0f || wek_hFloat >= 6.0f)
+            else if (happyDiff <= 0.0f && happyCountdown <= 0.0f || wek_hFloat >= 5.0f)
             {
                 happyCountdown = counter;
                 isHappy = false;
@@ -204,7 +204,7 @@ namespace SoliGameController
 
         public void SadState()
         {
-            if (wek_mood == 1 && wek_facialExpression == 1 && sadDiff >= sTarget && sadCountdown <= 0.0f || wek_mood == 1 && wek_facialExpression == 3 && sadDiff >= sTarget && sadCountdown <= 0.0f || wek_mood == 3 && wek_facialExpression == 1 && sadDiff >= 0.0f && sadCountdown <= 0.0f || wek_mood == 3 && wek_facialExpression == 3 && sadDiff >= 0.0f && sadCountdown <= 0.0f)
+            if (wek_mood == 1 && wek_facialExpression == 1 && sadDiff >= (sTarget + 0.5f) && sadCountdown <= 0.0f || wek_mood == 1 && wek_facialExpression == 3 && sadDiff >= sTarget && sadCountdown <= 0.0f || wek_mood == 2 && wek_facialExpression == 3 && sadDiff >= sTarget && sadCountdown <= 0.0f || wek_mood == 3 && wek_facialExpression == 1 && sadDiff >= 0.2f && sadCountdown <= 0.0f || wek_mood == 3 && wek_facialExpression == 3 && sadDiff >= 0.2f && sadCountdown <= 0.0f)
             {
                 isSad = true;
                 isHappy = false;
@@ -212,12 +212,12 @@ namespace SoliGameController
                 s_guiVal = 2.5f;
                 h_guiVal = 0.0f;
             }
-            else if (wek_mood == 1 && wek_facialExpression == 1 && sadDiff >= sTarget && sadCountdown >= 0.0f || wek_mood == 1 && wek_facialExpression == 3 && sadDiff >= sTarget && sadCountdown >= 0.0f || wek_mood == 3 && wek_facialExpression == 1 && sadDiff >= 0.0f && sadCountdown >= 0.0f || wek_mood == 3 && wek_facialExpression == 3 && sadDiff >= 0.0f && sadCountdown >= 0.0f)
+            else if (wek_mood == 1 && wek_facialExpression == 1 && sadDiff >= (sTarget + 0.5f) && sadCountdown >= 0.0f || wek_mood == 1 && wek_facialExpression == 3 && sadDiff >= sTarget && sadCountdown >= 0.0f || wek_mood == 2 && wek_facialExpression == 3 && sadDiff >= sTarget && sadCountdown >= 0.0f || wek_mood == 3 && wek_facialExpression == 1 && sadDiff >= 0.2f && sadCountdown >= 0.0f || wek_mood == 3 && wek_facialExpression == 3 && sadDiff >= 0.2f && sadCountdown >= 0.0f)
             {
                 sadCountdown -= Time.deltaTime;
                 s_guiVal += Time.deltaTime;
             }
-            else if (sadDiff <= 0.0f && sadCountdown <= 0.0f || wek_sFloat >= 6.0f)
+            else if (sadDiff <= 0.0f && sadCountdown <= 0.0f || wek_sFloat >= 5.0f)
             {
                 sadCountdown = counter;
                 isSad = false;
